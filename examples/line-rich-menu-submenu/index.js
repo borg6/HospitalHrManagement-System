@@ -6,4 +6,6 @@ module.exports = async function App(context) {
   } else if (context.event.text === 'Back') {
     await context.linkRichMenu(process.env.MAIN_RICH_MENU_ID);
   } else {
-    await context.sendText(`User have clic
+    await context.sendText(`User have clicked ${context.event.text}`);
+  }
+};

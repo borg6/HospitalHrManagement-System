@@ -1,12 +1,13 @@
-# LINE LIFF V1
+
+# LINE LIFF V2
 
 ## Install and Run
 
 Download this example or clone [bottender](https://github.com/Yoctol/bottender).
 
 ```sh
-curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/line-liff-v1
-cd line-liff-v1
+curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/line-liff-v2
+cd line-liff-v2
 ```
 
 Install dependencies:
@@ -42,4 +43,4 @@ To set the webhook, go to [LINE developers console](https://developers.line.me/c
 ## Related Examples
 
 - [custom-server-express](../custom-server-express)
-- [line-liff-v2](../line-liff-v2)
+- [line-liff-v1](../line-liff-v1)

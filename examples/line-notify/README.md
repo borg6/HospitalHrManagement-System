@@ -1,12 +1,13 @@
-# LINE LIFF V1
+
+# LINE Notify
 
 ## Install and Run
 
 Download this example or clone [bottender](https://github.com/Yoctol/bottender).
 
 ```sh
-curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/line-liff-v1
-cd line-liff-v1
+curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/line-notify
+cd line-notify
 ```
 
 Install dependencies:
@@ -15,7 +16,13 @@ Install dependencies:
 npm install
 ```
 
-You must fill `LINE_ACCESS_TOKEN`, `LINE_CHANNEL_SECRET`, and `LINE_LIFF_ID` in your `.env` file.
+You must fill the following variables in your `.env` file:
+
+- `LINE_ACCESS_TOKEN`
+- `LINE_CHANNEL_SECRET`
+- `LINE_NOTIFY_CLIENT_ID`
+- `LINE_NOTIFY_CLIENT_SECRET`
+- `ROOT_PATH`
 
 If you are not familiar with LINE Bot, you may refer to Bottender's doc, [LINE Setup](https://bottender.js.org/docs/channel-line-setup) to find detailed instructions.
 
@@ -42,4 +49,3 @@ To set the webhook, go to [LINE developers console](https://developers.line.me/c
 ## Related Examples
 
 - [custom-server-express](../custom-server-express)
-- [line-liff-v2](../line-liff-v2)

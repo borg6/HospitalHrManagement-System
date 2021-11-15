@@ -24,4 +24,18 @@ app.prepare().then(() => {
   const router = new Router();
 
   router.get('/api', (ctx) => {
-    ctx.response.body = { ok: true
+    ctx.response.body = { ok: true };
+  });
+
+  router.all('*', async (ctx) => {
+    await handle(ctx.req, ctx.res);
+    ctx.respond = false;
+  });
+
+  server.use(router.routes());
+
+  server.listen(port, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+});

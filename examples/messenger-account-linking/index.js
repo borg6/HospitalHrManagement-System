@@ -53,4 +53,23 @@ async function SendWelcomeMessages(context) {
       `You’re still logged in as ${userProfile.username}.`,
       [signOutButton]
     );
+  } else {
+    await context.sendText(
+      'Hi! 👋 Welcome to Jasper’s Market!' +
+        ' (Messenger Platform Account Linking demo)'
+    );
+    await context.sendButtonTemplate(
+      'Ready to do this? You’ll need to log in to your Jasper’s account so I can access your past orders.',
+      [signInButton]
+    );
   }
+}
+
+module.exports = async function App() {
+  return router([
+    text('*', SendWelcomeMessages),
+    payload('GET_STARTED', SendWelcomeMessages),
+    messenger.accountLinking.linked(HandleAccountLinkingLinked),
+    messenger.accountLinking.unlinked(HandleAccountLinkingUnlinked),
+  ]);
+};

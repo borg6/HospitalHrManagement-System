@@ -21,4 +21,34 @@ app.prepare().then(() => {
 
   /* ----------  Views  ---------- */
 
-  server.set('views', path.join(__dirname, 'views
+  server.set('views', path.join(__dirname, 'views'));
+  server.set('view engine', 'jade');
+
+  /* ----------  Static Assets  ---------- */
+
+  server.use(favicon(path.join(__dirname, '/public/favicon.ico')));
+  server.use(express.static(path.join(__dirname, 'public')));
+
+  server.use(
+    bodyParser.json({
+      verify: (req, _, buf) => {
+        req.rawBody = buf.toString();
+      },
+    })
+  );
+  server.use(bodyParser.urlencoded({ extended: false }));
+
+  /* ----------  Primary / Happy Path  ---------- */
+
+  server.use('/', index);
+  server.use('/users', users);
+
+  server.all('*', (req, res) => {
+    return handle(req, res);
+  });
+
+  server.listen(port, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+});

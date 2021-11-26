@@ -1,12 +1,12 @@
-# Messenger Built-in NLP
+# Messenger Handover
 
 ## Install and Run
 
 Download this example or clone [bottender](https://github.com/Yoctol/bottender).
 
 ```sh
-curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/messenger-built-in-nlp
-cd messenger-built-in-nlp
+curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/messenger-handover
+cd messenger-handover
 ```
 
 Install dependencies:
@@ -19,7 +19,9 @@ You must fill `MESSENGER_APP_ID`, `MESSENGER_APP_SECRET`, `MESSENGER_PAGE_ID`, `
 
 If you are not familiar with Messenger Bot, you may refer to Bottender's doc, [Messenger Setup](https://bottender.js.org/docs/channel-messenger-setup), to find detailed instructions.
 
-Also, to enable built-in NLP, you should setup related settings following the official docs [Messenger Built-in NLP](https://developers.facebook.com/docs/messenger-platform/built-in-nlp/).
+To make this example works, you may found that we enabled a few necessary `Page Subscriptions Fields` in `bottender.config.js`, e.g., `message_echoes`, `standby`, and `messaging_handovers`.
+
+`Messenger Subscriptions` take effect when you run the below `Set Webhook` script.
 
 After that, you can run the bot with this npm script:
 
@@ -27,9 +29,9 @@ After that, you can run the bot with this npm script:
 npm run dev
 ```
 
-This command starts a server listening at `http://localhost:5000` for bot development.
+This command starts server for bot developing at `http://localhost:5000`.
 
-If you successfully start the server, you get a webhook URL in the format of `https://xxxxxxxx.ngrok.io/webhooks/messenger` from your terminal.
+If you successfully start the server, you can get a webhook URL like `https://xxxxxxxx.ngrok.io/webhooks/messenger` from command line.
 
 ## Set Webhook
 
@@ -43,8 +45,8 @@ npx bottender messenger webhook set
 
 ## Idea of This Example
 
-This example is a bot running on [Messenger](https://www.messenger.com/) with `built-in NLP` enabled.
-For more information, check the official docs [Messenger Built-in NLP](https://developers.facebook.com/docs/messenger-platform/built-in-nlp/).
+This example shows how to use [Messenger Handover Protocol](https://developers.facebook.com/docs/messenger-platform/handover-protocol) in Bottender bots.
+For more information, check our [Messenger Handover Protocol](https://bottender.js.org/docs/channel-messenger-handover-protocol) guides.
 
 ## Related Examples
 

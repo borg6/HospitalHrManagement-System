@@ -5,4 +5,10 @@ module.exports = async function App(context) {
     await context.sendText('World');
   } else {
     await context.sendText('Hello', {
-   
+      personaId: process.env.PERSONA_2,
+    });
+    await context.sendText('World', {
+      personaId: process.env.PERSONA_2,
+    });
+  }
+};

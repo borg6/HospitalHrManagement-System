@@ -49,4 +49,38 @@ async function ShowModal(context) {
   });
 }
 
-as
+async function PushModal(context) {
+  const { triggerId } = context.event.rawEvent;
+  counter += 1;
+  await context.views.push({
+    triggerId,
+    view: getModalView(),
+  });
+}
+
+async function OnBlockActions(context) {
+  if (context.event.action.value === 'show modal') {
+    return ShowModal;
+  }
+  if (context.event.action.value === 'push modal') {
+    return PushModal;
+  }
+}
+
+async function OnViewClosed(context) {
+  console.log(context.event.rawEvent);
+}
+
+async function Default(context) {
+  await context.chat.postMessage({
+    blocks: getBlocks('message', 'show modal'),
+  });
+}
+
+module.exports = async function App(context) {
+  return router([
+    slack.event('block_actions', OnBlockActions),
+    slack.event('view_closed', OnViewClosed),
+    route('*', Default),
+  ]);
+};

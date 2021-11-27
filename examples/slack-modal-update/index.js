@@ -61,4 +61,19 @@ async function OnBlockActions(context) {
     return ShowModal;
   }
   if (context.event.action.value === 'update modal') {
- 
+    return UpdateModal;
+  }
+}
+
+async function Default(context) {
+  await context.chat.postMessage({
+    blocks: getBlocks('message', 'show modal'),
+  });
+}
+
+module.exports = async function App(context) {
+  return router([
+    slack.event('block_actions', OnBlockActions),
+    route('*', Default),
+  ]);
+};

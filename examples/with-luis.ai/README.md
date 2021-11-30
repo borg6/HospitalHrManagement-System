@@ -18,4 +18,4 @@ npm run dev -- --console
 
 ## Idea of This Example
 
-Th
+This example shows how to combine your bot with **semantic analysis tool**. In this case, we take [LUIS.ai](https://www.luis.ai/) as an example.

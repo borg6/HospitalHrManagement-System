@@ -1,12 +1,12 @@
-# Telegram Inline Query
+# Telegram Reply Keyboard
 
 ## Install and Run
 
 Download this example or clone [bottender](https://github.com/Yoctol/bottender).
 
 ```sh
-curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/telegram-inline-query
-cd telegram-inline-query
+curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/telegram-reply-keyboard
+cd telegram-reply-keyboard
 ```
 
 Install dependencies:
@@ -41,12 +41,11 @@ npx bottender telegram webhook set
 
 ## Idea of This Example
 
-This example is a bot about inline query running on [Telegram](https://telegram.org/).
+This example is a bot about reply keyboard running on [Telegram](https://telegram.org/).
 
 This example contains the following topics:
 
-- receive the inline query from the user
-- answer the inline query with results
-- collect the result chosen by the user
+- show the custom keyboard to the user
+- remove the custom keyboard
 
-You must enable `inline` and `inlinefeedback` by following [Telegram Inline Bot](https://core.telegram.org/bots/inline) and [Telegram Inline Bot#Collecting Feedback](https://core.telegram.org/bots/inline#collecting-feedback)
+For more information, check [Telegram Bots#Keyboards](https://core.telegram.org/bots#keyboards)

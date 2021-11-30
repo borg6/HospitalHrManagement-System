@@ -1,12 +1,13 @@
-# Telegram Inline Query
+
+# Telegram Poll
 
 ## Install and Run
 
 Download this example or clone [bottender](https://github.com/Yoctol/bottender).
 
 ```sh
-curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/telegram-inline-query
-cd telegram-inline-query
+curl https://codeload.github.com/Yoctol/bottender/tar.gz/master | tar -xz --strip=2 bottender-master/examples/telegram-poll
+cd telegram-poll
 ```
 
 Install dependencies:
@@ -31,7 +32,7 @@ If you successfully start the server, you get a webhook URL in the format of `ht
 
 ## Set Webhook
 
-While the server is running, you can run the following command with `bottender` to set up the webhook with the webhook URL you got from running `npm run dev`:
+While the server running, you can run following command with `bottender` to set up the webhook with the webhook URL you get from running `npm run dev`:
 
 ```sh
 npx bottender telegram webhook set
@@ -41,12 +42,9 @@ npx bottender telegram webhook set
 
 ## Idea of This Example
 
-This example is a bot about inline query running on [Telegram](https://telegram.org/).
+This example is a simple bot running on [Telegram](https://telegram.org/).
+For more information, check our [Telegram guides](https://bottender.js.org/docs/channel-telegram-setup).
 
-This example contains the following topics:
+## Related Examples
 
-- receive the inline query from the user
-- answer the inline query with results
-- collect the result chosen by the user
-
-You must enable `inline` and `inlinefeedback` by following [Telegram Inline Bot](https://core.telegram.org/bots/inline) and [Telegram Inline Bot#Collecting Feedback](https://core.telegram.org/bots/inline#collecting-feedback)
+- [telegram-hello-world](../telegram-hello-world)

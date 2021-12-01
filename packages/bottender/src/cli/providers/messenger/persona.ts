@@ -43,3 +43,163 @@ const help = () => {
 
     ${chalk.cyan('$ bottender messenger persona delete --id <PERSONA_ID>')}
 `);
+};
+
+export async function createPersona(ctx: CliContext): Promise<void> {
+  const argv = getSubArgs(ctx.argv, {
+    '--name': String,
+    '--pic': String,
+  });
+
+  const personaName = argv['--name'];
+  const personaUrl = argv['--pic'];
+
+  try {
+    const config = getChannelConfig(Channel.Messenger);
+
+    const { accessToken } = config;
+
+    invariant(
+      accessToken,
+      '`accessToken` is not found in the `bottender.config.js` file'
+    );
+
+    invariant(
+      personaName,
+      '`name` is required but not found. Use --name <name> to specify persona name'
+    );
+    invariant(
+      personaUrl,
+      '`pic` is required but not found. Use --pic <URL> to specify persona profile picture URL'
+    );
+
+    const client = new MessengerClient({
+      accessToken,
+    });
+
+    const persona = {
+      name: personaName as string,
+      profilePictureUrl: personaUrl as string,
+    };
+
+    const personaID = await client.createPersona(persona);
+
+    print(`Successfully create ${bold('persona')} ${bold(personaID.id)}`);
+  } catch (err) {
+    error(`Failed to create ${bold('persona')}`);
+
+    if (err.response) {
+      error(`status: ${bold(err.response.status)}`);
+      if (err.response.data) {
+        error(`data: ${bold(JSON.stringify(err.response.data, null, 2))}`);
+      }
+    } else {
+      error(err.message);
+    }
+
+    return process.exit(1);
+  }
+}
+
+export async function listPersona(_: CliContext): Promise<void> {
+  try {
+    const config = getChannelConfig(Channel.Messenger);
+
+    const { accessToken } = config;
+
+    invariant(
+      accessToken,
+      '`accessToken` is not found in the `bottender.config.js` file'
+    );
+
+    const client = new MessengerClient({
+      accessToken,
+    });
+
+    const personas = await client.getAllPersonas();
+
+    if (personas.length !== 0) {
+      print('Personas');
+      const table = new Table({
+        head: ['id', 'name', 'image URL'],
+        colWidths: [30, 30, 30],
+      });
+      personas.forEach((item) => {
+        table.push([item.id, item.name, item.profilePictureUrl] as any);
+      });
+      console.log(table.toString()); // eslint-disable-line no-console
+    } else {
+      print('No personas are found.');
+    }
+  } catch (err) {
+    error(`Failed to list ${bold('personas')}`);
+    if (err.response) {
+      error(`status: ${bold(err.response.status)}`);
+      if (err.response.data) {
+        error(`data: ${bold(JSON.stringify(err.response.data, null, 2))}`);
+      }
+    } else {
+      error(err.message);
+    }
+    return process.exit(1);
+  }
+}
+
+export async function getPersona(ctx: CliContext): Promise<void> {
+  const argv = getSubArgs(ctx.argv, {
+    '--id': String,
+  });
+
+  const personaId = argv['--id'];
+
+  try {
+    const config = getChannelConfig(Channel.Messenger);
+
+    const { accessToken } = config;
+
+    invariant(
+      accessToken,
+      '`accessToken` is not found in the `bottender.config.js` file'
+    );
+    invariant(
+      personaId,
+      '`id` is required but not found. Use --id <id> to specify persona id'
+    );
+
+    const client = new MessengerClient({
+      accessToken,
+    });
+
+    const persona = await client.getPersona(personaId as string);
+
+    if (persona !== undefined) {
+      print(`Information of persona ${bold(personaId as string)}:`);
+      print(`Name: ${bold(persona.name)}`);
+      print(`Profile picture: ${bold(persona.profilePictureUrl)}`);
+    } else {
+      print(`Cannot get persona of ID ${bold(personaId as string)}`);
+    }
+  } catch (err) {
+    error(
+      `Failed to get ${bold('persona')} of ID ${bold(personaId as string)}`
+    );
+
+    if (err.response) {
+      error(`status: ${bold(err.response.status)}`);
+      if (err.response.data) {
+        error(`data: ${bold(JSON.stringify(err.response.data, null, 2))}`);
+      }
+    } else {
+      error(err.message);
+    }
+
+    return process.exit(1);
+  }
+}
+
+export async function deletePersona(ctx: CliContext): Promise<void> {
+  const argv = getSubArgs(ctx.argv, {
+    '--id': String,
+  });
+
+  const personaId = argv['--i

@@ -247,4 +247,116 @@ export default class Bot<
               ['telegram', 'slack', 'viber', 'whatsapp'].includes(
                 this._connector.platform
               )
-                ?
+                ? body
+                : event
+            );
+          }
+
+          return this._connector.createContext({
+            event,
+            session,
+            initialState: this._initialState,
+            requestContext,
+            emitter: this._emitter,
+          });
+        },
+        {
+          concurrency: 5,
+        }
+      );
+
+      // Call all of extension functions before passing to handler.
+      await Promise.all(
+        contexts.map(async (context) =>
+          Promise.all(this._plugins.map((ext) => ext(context)))
+        )
+      );
+
+      if (this._handler == null) {
+        throw new Error(
+          'Bot: Missing event handler function. You should assign it using onEvent(...)'
+        );
+      }
+      const handler: Action<Ctx, any> = this._handler;
+      const errorHandler: Action<Ctx, any> | null = this._errorHandler;
+
+      // TODO: only run concurrently for different session id
+      const promises = Promise.all(
+        contexts.map((context: Ctx) =>
+          Promise.resolve()
+            .then(() => run(handler)(context, {}))
+            .then(() => {
+              if (context.handlerDidEnd) {
+                return context.handlerDidEnd();
+              }
+            })
+            .catch((err) => {
+              if (errorHandler) {
+                return run(errorHandler)(context, { error: err });
+              }
+              throw err;
+            })
+            .catch((err) => {
+              context.emitError(err);
+              throw err;
+            })
+        )
+      );
+
+      if (this._sync) {
+        try {
+          await promises;
+
+          await Promise.all(
+            contexts.map(async (context) => {
+              context.isSessionWritten = true;
+
+              const { session } = context;
+
+              if (session) {
+                session.lastActivity = Date.now();
+
+                debugSessionWrite(`Write session: ${session.id}`);
+                debugSessionWrite(JSON.stringify(session, null, 2));
+
+                // eslint-disable-next-line no-await-in-loop
+                await this._sessions.write(session.id, session);
+              }
+            })
+          );
+        } catch (err) {
+          console.error(err);
+        }
+
+        // TODO: Any chances to merge multiple responses from context?
+        const response = contexts[0].response;
+        if (response && typeof response === 'object') {
+          debugResponse('Outgoing response:');
+          debugResponse(JSON.stringify(response, null, 2));
+        }
+        return response;
+      }
+      promises
+        .then(async (): Promise<any> => {
+          await Promise.all(
+            contexts.map(async (context) => {
+              context.isSessionWritten = true;
+
+              const { session } = context;
+
+              if (session) {
+                session.lastActivity = Date.now();
+
+                debugSessionWrite(`Write session: ${session.id}`);
+                debugSessionWrite(JSON.stringify(session, null, 2));
+
+                // eslint-disable-next-line no-await-in-loop
+                await this._sessions.write(session.id, session);
+              }
+            })
+          );
+        })
+        .catch(console.error);
+    };
+  }
+}

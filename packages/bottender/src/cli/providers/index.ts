@@ -7,4 +7,7 @@ import viber from './viber';
 export default {
   sh,
   messenger,
-  teleg
+  telegram,
+  line,
+  viber,
+};

@@ -1,8 +1,9 @@
+
 import { MessengerClient } from 'messaging-api-messenger';
 import { mocked } from 'ts-jest/utils';
 
 import getChannelConfig from '../../../../shared/getChannelConfig';
-import { getPersona } from '../persona';
+import { listPersona } from '../persona';
 import * as log from '../../../../shared/log';
 
 jest.mock('messaging-api-messenger');
@@ -20,6 +21,7 @@ const MOCK_FILE_WITH_PLATFORM = {
 
 beforeEach(() => {
   process.exit = jest.fn();
+  console.log = jest.fn();
 
   mocked(getChannelConfig).mockReturnValue(
     MOCK_FILE_WITH_PLATFORM.channels.messenger
@@ -27,29 +29,24 @@ beforeEach(() => {
 });
 
 describe('resolved', () => {
-  it('call getPersona', async () => {
+  it('call listPersona', async () => {
     const ctx = {
       config: null,
       argv: {
         _: [],
-        '--id': '54321',
       },
     };
 
-    mocked(MessengerClient.prototype.getPersona).mockResolvedValue({
-      id: 'PERSONA_ID',
-      name: 'PERSONA_NAME',
-      profilePictureUrl: 'PERSONA_PROFILE_PICTURE_URL',
-    });
+    mocked(MessengerClient.prototype.getAllPersonas).mockResolvedValue({});
 
-    await getPersona(ctx);
+    await listPersona(ctx);
 
     const client = mocked(MessengerClient).mock.instances[0];
 
     expect(MessengerClient).toBeCalledWith({
       accessToken: '__FAKE_TOKEN__',
     });
-    expect(client.getPersona).toBeCalledWith('54321');
+    expect(client.getAllPersonas).toBeCalled();
   });
 
   it('error when no config setting', async () => {
@@ -61,24 +58,9 @@ describe('resolved', () => {
       },
     };
 
-    mocked(MessengerClient.prototype.getPersona).mockResolvedValue(null);
+    mocked(MessengerClient.prototype.getAllPersonas).mockResolvedValue(null);
 
-    await getPersona(ctx);
-
-    expect(log.error).toBeCalled();
-  });
-
-  it('error when no persona id', async () => {
-    const ctx = {
-      config: null,
-      argv: {
-        _: [],
-      },
-    };
-
-    mocked(MessengerClient.prototype.getPersona).mockResolvedValue(null);
-
-    await getPersona(ctx);
+    await listPersona(ctx);
 
     expect(log.error).toBeCalled();
   });
@@ -98,9 +80,9 @@ describe('reject', () => {
         status: 400,
       },
     };
-    mocked(MessengerClient.prototype.getPersona).mockRejectedValue(error);
+    mocked(MessengerClient.prototype.getAllPersonas).mockRejectedValue(error);
 
-    await getPersona(ctx);
+    await listPersona(ctx);
 
     expect(log.error).toBeCalled();
     expect(process.exit).toBeCalled();
@@ -128,9 +110,9 @@ describe('reject', () => {
         },
       },
     };
-    mocked(MessengerClient.prototype.getPersona).mockRejectedValue(error);
+    mocked(MessengerClient.prototype.getAllPersonas).mockRejectedValue(error);
 
-    await getPersona(ctx);
+    await listPersona(ctx);
 
     expect(log.error).toBeCalled();
     expect(mocked(log.error).mock.calls[2][0]).not.toMatch(/\[object Object\]/);
@@ -145,11 +127,11 @@ describe('reject', () => {
         '--id': '54321',
       },
     };
-    mocked(MessengerClient.prototype.getPersona).mockRejectedValue(
+    mocked(MessengerClient.prototype.getAllPersonas).mockRejectedValue(
       new Error('something wrong happened')
     );
 
-    await getPersona(ctx);
+    await listPersona(ctx);
 
     expect(log.error).toBeCalled();
     expect(process.exit).toBeCalled();

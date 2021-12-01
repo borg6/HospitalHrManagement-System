@@ -30,4 +30,6 @@ module.exports = {
     },
   },
   setupFiles: ['./test/setupJest.js'],
-  reporters: ['default', 'jest
+  reporters: ['default', 'jest-junit'],
+  resetModules: true,
+};

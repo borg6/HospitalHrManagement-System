@@ -101,4 +101,150 @@ export default class Bot<
     onRequest,
   }: {
     connector: Connector<B, C>;
-    sessionStore?
+    sessionStore?: SessionStore;
+    sync?: boolean;
+    onRequest?: OnRequest;
+  }) {
+    this._sessions = sessionStore;
+    this._initialized = false;
+    this._connector = connector;
+    this._handler = null;
+    this._errorHandler = null;
+    this._sync = sync;
+    this._emitter = new EventEmitter();
+    this._onRequest = onRequest;
+  }
+
+  get connector(): Connector<B, C> {
+    return this._connector;
+  }
+
+  get sessions(): SessionStore {
+    return this._sessions;
+  }
+
+  get handler(): Action<Ctx, any> | null {
+    return this._handler;
+  }
+
+  get emitter(): EventEmitter {
+    return this._emitter;
+  }
+
+  onEvent(handler: Action<Ctx, any> | Builder<Ctx>): Bot<B, C, E, Ctx> {
+    invariant(
+      handler,
+      'onEvent: Can not pass `undefined`, `null` or any falsy value as handler'
+    );
+    this._handler = 'build' in handler ? handler.build() : handler;
+    return this;
+  }
+
+  onError(handler: Action<Ctx, any> | Builder<Ctx>): Bot<B, C, E, Ctx> {
+    invariant(
+      handler,
+      'onError: Can not pass `undefined`, `null` or any falsy value as error handler'
+    );
+    this._errorHandler = 'build' in handler ? handler.build() : handler;
+    return this;
+  }
+
+  setInitialState(initialState: JsonObject): Bot<B, C, E, Ctx> {
+    this._initialState = initialState;
+    return this;
+  }
+
+  use(plugin: Plugin<Ctx>): Bot<B, C, E, Ctx> {
+    this._plugins.push(plugin);
+    return this;
+  }
+
+  async initSessionStore(): Promise<void> {
+    if (!this._initialized) {
+      await this._sessions.init();
+      this._initialized = true;
+    }
+  }
+
+  createRequestHandler(): RequestHandler<B> {
+    if (this._handler == null) {
+      throw new Error(
+        'Bot: Missing event handler function. You should assign it using onEvent(...)'
+      );
+    }
+
+    if (!this._emitter.listenerCount('error')) {
+      this._emitter.on('error', console.error);
+    }
+
+    return async (
+      inputBody: B,
+      requestContext?: RequestContext
+    ): Promise<any> => {
+      if (!inputBody) {
+        throw new Error('Bot.createRequestHandler: Missing argument.');
+      }
+
+      debugRequest('Incoming request body:');
+      debugRequest(JSON.stringify(inputBody, null, 2));
+
+      await this.initSessionStore();
+
+      const body = camelcaseKeysDeep(inputBody) as B;
+
+      if (this._onRequest) {
+        this._onRequest(body, requestContext);
+      }
+
+      const events = this._connector.mapRequestToEvents(body);
+
+      const contexts = await pMap(
+        events,
+        async (event) => {
+          const { platform } = this._connector;
+          const sessionKey = this._connector.getUniqueSessionKey(
+            // TODO: deprecating passing request body in those connectors
+            ['telegram', 'slack', 'viber', 'whatsapp'].includes(
+              this._connector.platform
+            )
+              ? body
+              : event,
+            requestContext
+          );
+
+          // Create or retrieve session if possible
+          let sessionId: string | undefined;
+          let session: Session | undefined;
+          if (sessionKey) {
+            sessionId = `${platform}:${sessionKey}`;
+
+            session =
+              (await this._sessions.read(sessionId)) ||
+              (Object.create(null) as Session);
+
+            debugSessionRead(`Read session: ${sessionId}`);
+            debugSessionRead(JSON.stringify(session, null, 2));
+
+            Object.defineProperty(session, 'id', {
+              configurable: false,
+              enumerable: true,
+              writable: false,
+              value: session.id || sessionId,
+            });
+
+            if (!session.platform) session.platform = platform;
+
+            Object.defineProperty(session, 'platform', {
+              configurable: false,
+              enumerable: true,
+              writable: false,
+              value: session.platform,
+            });
+
+            await this._connector.updateSession(
+              session,
+              // TODO: deprecating passing request body in those connectors
+              ['telegram', 'slack', 'viber', 'whatsapp'].includes(
+                this._connector.platform
+              )
+                ?

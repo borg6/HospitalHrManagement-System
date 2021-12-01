@@ -57,4 +57,26 @@ describe('core', () => {
   });
 
   it('export extensions', () => {
-    expect(co
+    expect(core.withTyping).toBeDefined();
+  });
+
+  it('export createServer', () => {
+    expect(core.createServer).toBeDefined();
+  });
+
+  it('export getSessionStore', () => {
+    expect(core.getSessionStore).toBeDefined();
+  });
+
+  it('export getClient', () => {
+    expect(core.getClient).toBeDefined();
+  });
+
+  it('export chain', () => {
+    expect(core.chain).toBeDefined();
+  });
+
+  it('export withProps', () => {
+    expect(core.withProps).toBeDefined();
+  });
+});

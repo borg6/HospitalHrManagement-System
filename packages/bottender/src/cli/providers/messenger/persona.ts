@@ -202,4 +202,66 @@ export async function deletePersona(ctx: CliContext): Promise<void> {
     '--id': String,
   });
 
-  const personaId = argv['--i
+  const personaId = argv['--id'];
+
+  try {
+    const config = getChannelConfig(Channel.Messenger);
+
+    const { accessToken } = config;
+
+    invariant(
+      accessToken,
+      '`accessToken` is not found in the `bottender.config.js` file'
+    );
+    invariant(
+      personaId,
+      '`id` is required but not found. Use --id <id> to specify persona id'
+    );
+
+    const client = new MessengerClient({
+      accessToken,
+    });
+
+    const res = await client.deletePersona(personaId as string);
+
+    if (res.success === true || res.success === 'true') {
+      print(`Sucessfully delete persona of ID ${bold(personaId as string)}`);
+    } else {
+      print(`Cannot get persona of ID ${bold(personaId as string)}`);
+    }
+  } catch (err) {
+    error(
+      `Failed to delete ${bold('persona')} of ID ${bold(personaId as string)}`
+    );
+
+    if (err.response) {
+      error(`status: ${bold(err.response.status)}`);
+      if (err.response.data) {
+        error(`data: ${bold(JSON.stringify(err.response.data, null, 2))}`);
+      }
+    } else {
+      error(err.message);
+    }
+
+    return process.exit(1);
+  }
+}
+
+export default async function main(ctx: CliContext) {
+  const subcommand = ctx.argv._[2];
+
+  switch (subcommand) {
+    case 'create':
+      return createPersona(ctx);
+    case 'list':
+      return listPersona(ctx);
+    case 'get':
+      return getPersona(ctx);
+    case 'delete':
+    case 'del':
+      return deletePersona(ctx);
+    default:
+      error(`Please specify a valid subcommand: create, list, get, delete`);
+      help();
+  }
+}

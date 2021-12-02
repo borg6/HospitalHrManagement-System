@@ -39,4 +39,45 @@ const dev = async (ctx: CliContext): Promise<void> => {
   nodemon(
     [
       inspectionUrl ? `--inspect=${inspectionUrl} -- ` : '',
-      isTypescript ? '--ext js,mjs,js
+      isTypescript ? '--ext js,mjs,json,ts --ignore dist/ ' : '',
+      '--exec "',
+      isTypescript ? 'tsc && ' : '',
+      'bottender start',
+      isConsole ? ' --console' : '',
+      ` --port ${port}"`,
+    ].join('')
+  )
+    // TODO: improve messages
+    .on('start', () => {
+      console.log('App has started');
+    })
+    .on('quit', () => {
+      console.log('App has quit');
+      process.exit();
+    })
+    .on('restart', (files: string[]) => {
+      console.log('App restarted due to: ', files);
+    });
+
+  if (!isConsole) {
+    let url = '';
+    try {
+      url = await ngrok.connect(port);
+    } catch (err) {
+      if (!(err instanceof Error) && err.msg) {
+        throw new Error(`ngrok - ${err.msg}`);
+      }
+      throw err;
+    }
+
+    Object.entries(channels || {})
+      .filter(([, { enabled }]) => enabled)
+      .forEach(([channel, { path: webhookPath }]) => {
+        const routePath = webhookPath || `/webhooks/${channel}`;
+
+        console.log(`${channel} webhook URL: ${url}${routePath}`);
+      });
+  }
+};
+
+export default dev;

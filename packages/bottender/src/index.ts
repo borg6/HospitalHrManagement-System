@@ -78,4 +78,27 @@ export { SlackTypes };
 export { default as TelegramBot } from './telegram/TelegramBot';
 export { default as TelegramConnector } from './telegram/TelegramConnector';
 export { default as TelegramContext } from './telegram/TelegramContext';
-export { default as TelegramEvent } from './te
+export { default as TelegramEvent } from './telegram/TelegramEvent';
+export { TelegramClient } from 'messaging-api-telegram';
+export { TelegramTypes };
+
+/* Viber */
+export { default as ViberBot } from './viber/ViberBot';
+export { default as ViberConnector } from './viber/ViberConnector';
+export { default as ViberContext } from './viber/ViberContext';
+export { default as ViberEvent } from './viber/ViberEvent';
+export { ViberClient } from 'messaging-api-viber';
+export { ViberTypes };
+
+/* Types */
+export * from './types';
+
+/**
+ * Private Exports (unstable)
+ */
+
+/* Plugins */
+export { default as withTyping } from './plugins/withTyping';
+
+export { createServer } from '@bottender/express';
+export { default as initializeServer } from './initializeServer';

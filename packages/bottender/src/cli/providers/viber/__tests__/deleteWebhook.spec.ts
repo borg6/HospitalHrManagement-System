@@ -47,4 +47,35 @@ describe('resolve', () => {
 });
 
 describe('reject', () => {
-  it('reject when Vi
+  it('reject when Viber return not success', () => {
+    setup();
+
+    const ctx = {
+      config: null,
+      argv: {
+        _: [],
+      },
+    };
+
+    mocked(ViberClient.prototype.removeWebhook).mockRejectedValueOnce(
+      new Error('removeWebhook failed')
+    );
+
+    expect(deleteWebhook(ctx).then).toThrow();
+  });
+
+  it('reject when `accessToken` is not found in the `bottender.config.js` file', () => {
+    setup();
+
+    mocked(getChannelConfig).mockReturnValueOnce(null);
+
+    const ctx = {
+      config: null,
+      argv: {
+        _: [],
+      },
+    };
+
+    expect(deleteWebhook(ctx).then).toThrow();
+  });
+});

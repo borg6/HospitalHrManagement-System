@@ -144,4 +144,103 @@ export default abstract class Context<
     }
     warning(
       false,
-      'state: is not accessible in context wit
+      'state: is not accessible in context without session. Falling back to an empty object.'
+    );
+    return {};
+  }
+
+  /**
+   * Shallow merge changes to the state.
+   *
+   */
+  setState(state: JsonObject): void {
+    if (this._session) {
+      const sess = this._session;
+
+      warning(
+        !this._isSessionWritten,
+        'Calling `context.setState` after session has been written. Some changes to state will not be saved.\nDid you forget to await any async function?'
+      );
+      sess._state = {
+        ...sess._state,
+        ...state,
+      };
+    } else {
+      warning(
+        false,
+        'setState: should not be called in context without session'
+      );
+    }
+  }
+
+  /**
+   * Reset the state to the initial state.
+   *
+   */
+  resetState(): void {
+    if (this._session) {
+      const sess = this._session;
+
+      warning(
+        !this._isSessionWritten,
+        'Calling `context.resetState` after session has been written. Some changes to state will not be saved.\nDid you forget to await any async function?'
+      );
+      sess._state = cloneDeep(this._initialState);
+    } else {
+      warning(
+        false,
+        'resetState: should not be called in context without session'
+      );
+    }
+  }
+
+  /**
+   * Delay and show indicators for milliseconds.
+   *
+   */
+  async typing(milliseconds: number): Promise<void> {
+    if (milliseconds > 0) {
+      await delay(milliseconds);
+    }
+  }
+
+  /**
+   * The intent of the conversation context.
+   *
+   */
+  get intent(): string | null {
+    return this._intent;
+  }
+
+  /**
+   * Set intent to the conversation context.
+   *
+   */
+  setIntent(intent: string): void {
+    this._intent = intent;
+  }
+
+  /**
+   * Set the conversation context as handled or not handled by boolean.
+   *
+   */
+  setAsHandled(handled = true) {
+    this._isHandled = handled;
+  }
+
+  /**
+   * Set the conversation context as not handled.
+   *
+   */
+  setAsNotHandled() {
+    this.setAsHandled(false);
+  }
+
+  emitError(err: Error): void {
+    if (this._emitter) {
+      this._emitter.emit('error', err, this);
+    }
+  }
+
+  handlerDidEnd(): any {}
+}

@@ -106,4 +106,37 @@ export async function deleteWebhook(_: CliContext): Promise<void> {
       sender,
     });
 
-  
+    await client.removeWebhook();
+
+    print('Successfully delete Viber webhook');
+  } catch (err) {
+    error('Failed to delete Viber webhook');
+    if (err.response) {
+      error(`status: ${bold(err.response.status)}`);
+      if (err.response.data) {
+        error(`data: ${bold(JSON.stringify(err.response.data, null, 2))}`);
+      }
+    } else {
+      error(err.message);
+    }
+
+    return process.exit(1);
+  }
+}
+
+export default async function main(ctx: CliContext): Promise<void> {
+  const subcommand = ctx.argv._[2];
+
+  switch (subcommand) {
+    case 'set':
+      await setWebhook(ctx);
+      break;
+    case 'delete':
+    case 'del':
+      await deleteWebhook(ctx);
+      break;
+    default:
+      error(`Please specify a valid subcommand: set, delete`);
+      help();
+  }
+}

@@ -244,4 +244,158 @@ export default class LineConnector
         // FIXME: handle no memberIds
         // only LINE@ Approved accounts or official accounts can use this API
         // https://developers.line.me/en/docs/messaging-api/reference/#get-group-member-user-ids
-    
+      }
+
+      session.group = {
+        id: source.groupId,
+        members: memberIds.map((id) => ({ id })),
+        _updatedAt: new Date().toISOString(),
+      };
+    } else if (source.type === 'room') {
+      let user = null;
+
+      if (source.userId) {
+        user =
+          this._skipLegacyProfile || !this._client
+            ? {
+                id: source.userId,
+                _updatedAt: new Date().toISOString(),
+              }
+            : {
+                id: source.userId,
+                _updatedAt: new Date().toISOString(),
+                ...(await this._client.getRoomMemberProfile(
+                  source.roomId,
+                  source.userId
+                )),
+              };
+      }
+
+      session.user = user;
+
+      let memberIds: string[] = [];
+
+      try {
+        if (this._client) {
+          memberIds = await this._client.getAllRoomMemberIds(source.roomId);
+        }
+      } catch (err) {
+        // FIXME: handle no memberIds
+        // only LINE@ Approved accounts or official accounts can use this API
+        // https://developers.line.me/en/docs/messaging-api/reference/#get-room-member-user-ids
+      }
+
+      session.room = {
+        id: source.roomId,
+        members: memberIds.map((id) => ({ id })),
+        _updatedAt: new Date().toISOString(),
+      };
+    } else if (source.type === 'user') {
+      if (!session.user) {
+        const user =
+          this._skipLegacyProfile || !this._client
+            ? {}
+            : await this._client.getUserProfile(source.userId);
+
+        session.user = {
+          id: source.userId,
+          _updatedAt: new Date().toISOString(),
+          ...user,
+        };
+      }
+    }
+
+    if (session.group) {
+      Object.freeze(session.group);
+    }
+    Object.defineProperty(session, 'group', {
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.group,
+    });
+
+    if (session.room) {
+      Object.freeze(session.room);
+    }
+    Object.defineProperty(session, 'room', {
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.room,
+    });
+
+    if (session.user) {
+      Object.freeze(session.user);
+    }
+    Object.defineProperty(session, 'user', {
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.user,
+    });
+  }
+
+  mapRequestToEvents(body: LineRequestBody): LineEvent[] {
+    const { destination } = body;
+
+    return body.events
+      .filter((event) => !this._isWebhookVerifyEvent(event))
+      .map((event) => new LineEvent(event, { destination }));
+  }
+
+  async createContext(params: {
+    event: LineEvent;
+    session?: Session | null;
+    initialState?: JsonObject | null;
+    requestContext?: LineRequestContext;
+    emitter?: EventEmitter | null;
+  }): Promise<LineContext> {
+    const { requestContext } = params;
+
+    let client: LineClient;
+    if (this._getConfig) {
+      invariant(
+        requestContext,
+        'getConfig: `requestContext` is required to execute the function.'
+      );
+
+      const config = await this._getConfig({
+        params: requestContext.params,
+      });
+
+      invariant(
+        config.accessToken,
+        'getConfig: `accessToken` is missing in the resolved value.'
+      );
+
+      invariant(
+        config.channelSecret,
+        'getConfig: `accessToken` is missing in the resolved value.'
+      );
+
+      client = new LineClient({
+        accessToken: config.accessToken,
+        channelSecret: config.channelSecret,
+        origin: this._origin,
+      });
+    } else {
+      client = this._client as LineClient;
+    }
+
+    return new LineContext({
+      ...params,
+      client,
+      shouldBatch: this._shouldBatch,
+      sendMethod: this._sendMethod,
+    });
+  }
+
+  verifySignature(
+    rawBody: string,
+    signature: string,
+    { channelSecret }: { channelSecret: string }
+  ): boolean {
+    const hashBufferFromBody = crypto
+      .createHmac('sha256', channelSecret)
+      .update(rawBo

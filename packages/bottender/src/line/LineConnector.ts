@@ -398,4 +398,84 @@ export default class LineConnector
   ): boolean {
     const hashBufferFromBody = crypto
       .createHmac('sha256', channelSecret)
-      .update(rawBo
+      .update(rawBody, 'utf8')
+      .digest();
+
+    const bufferFromSignature = Buffer.from(signature, 'base64');
+
+    // return early here if buffer lengths are not equal since timingSafeEqual
+    // will throw if buffer lengths are not equal
+    if (bufferFromSignature.length !== hashBufferFromBody.length) {
+      return false;
+    }
+
+    return crypto.timingSafeEqual(bufferFromSignature, hashBufferFromBody);
+  }
+
+  async preprocess({
+    method,
+    headers,
+    rawBody,
+    body,
+    params,
+  }: LineRequestContext) {
+    if (method.toLowerCase() !== 'post') {
+      return {
+        shouldNext: true,
+      };
+    }
+
+    let channelSecret: string;
+    if (this._getConfig) {
+      const config = await this._getConfig({ params });
+
+      invariant(
+        config.channelSecret,
+        'getConfig: `accessToken` is missing in the resolved value.'
+      );
+
+      channelSecret = config.channelSecret;
+    } else {
+      channelSecret = this._channelSecret as string;
+    }
+
+    if (
+      !headers['x-line-signature'] ||
+      !this.verifySignature(rawBody, headers['x-line-signature'], {
+        channelSecret,
+      })
+    ) {
+      const error = {
+        message: 'LINE Signature Validation Failed!',
+        request: {
+          rawBody,
+          headers: {
+            'x-line-signature': headers['x-line-signature'],
+          },
+        },
+      };
+
+      return {
+        shouldNext: false,
+        response: {
+          status: 400,
+          body: { error },
+        },
+      };
+    }
+
+    if (this.isWebhookVerifyRequest(body)) {
+      return {
+        shouldNext: false,
+        response: {
+          status: 200,
+          body: 'OK',
+        },
+      };
+    }
+
+    return {
+      shouldNext: true,
+    };
+  }
+}

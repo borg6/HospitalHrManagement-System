@@ -464,4 +464,147 @@ describe('#updateSession', () => {
         members: [
           { id: 'Uxxxxxxxxxxxxxx...1' },
           { id: 'Uxxxxxxxxxxxxxx...2' },
-          { id:
+          { id: 'Uxxxxxxxxxxxxxx...3' },
+        ],
+        _updatedAt: expect.any(String),
+      },
+      user,
+    });
+    expect(Object.isFrozen(session.group)).toBe(true);
+    expect(Object.getOwnPropertyDescriptor(session, 'group')).toEqual({
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.group,
+    });
+  });
+
+  it('update session with room type message', async () => {
+    const { connector, client } = setup({
+      skipLegacyProfile: false,
+    });
+    const body: LineRequestBody = {
+      destination: 'Uea8667adaf43586706170ff25ff47ae6',
+      events: [
+        {
+          replyToken: 'nHuyWiB7yP5Zw52FIkcQobQuGDXCTA',
+          type: 'message',
+          mode: 'active',
+          timestamp: 1462629479859,
+          source: {
+            type: 'room',
+            roomId: 'Ra8dbf4673c4c812cd491258042226c99',
+            userId: 'U206d25c2ea6bd87c17655609a1c37cb8',
+          },
+          message: {
+            id: '325708',
+            type: 'text',
+            text: 'Hello, world',
+          },
+        },
+      ],
+    };
+    const user = {
+      id: body.events[0].source.userId,
+      displayName: 'LINE taro',
+      userId: body.events[0].source.userId,
+      pictureUrl: 'http://obs.line-apps.com/...',
+      statusMessage: 'Hello, LINE!',
+      _updatedAt: expect.any(String),
+    };
+    const memberIds = [
+      'Uxxxxxxxxxxxxxx...1',
+      'Uxxxxxxxxxxxxxx...2',
+      'Uxxxxxxxxxxxxxx...3',
+    ];
+
+    mocked(client).getRoomMemberProfile.mockResolvedValue(user);
+    mocked(client).getAllRoomMemberIds.mockResolvedValue(memberIds);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const session: any = {};
+
+    await connector.updateSession(session, body);
+
+    expect(client.getRoomMemberProfile).toBeCalledWith(
+      'Ra8dbf4673c4c812cd491258042226c99',
+      'U206d25c2ea6bd87c17655609a1c37cb8'
+    );
+    expect(client.getAllRoomMemberIds).toBeCalledWith(
+      'Ra8dbf4673c4c812cd491258042226c99'
+    );
+
+    expect(session).toEqual({
+      type: 'room',
+      room: {
+        id: 'Ra8dbf4673c4c812cd491258042226c99',
+        members: [
+          { id: 'Uxxxxxxxxxxxxxx...1' },
+          { id: 'Uxxxxxxxxxxxxxx...2' },
+          { id: 'Uxxxxxxxxxxxxxx...3' },
+        ],
+        _updatedAt: expect.any(String),
+      },
+      user,
+    });
+    expect(Object.isFrozen(session.room)).toBe(true);
+    expect(Object.getOwnPropertyDescriptor(session, 'room')).toEqual({
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.room,
+    });
+  });
+
+  it('update session with room type event without userId', async () => {
+    const { connector, client } = setup({
+      skipLegacyProfile: false,
+    });
+    const body: LineRequestBody = {
+      destination: 'Uea8667adaf43586706170ff25ff47ae6',
+      events: [
+        {
+          replyToken: 'nHuyWiB7yP5Zw52FIkcQobQuGDXCTA',
+          type: 'join',
+          mode: 'active',
+          timestamp: 1462629479859,
+          source: {
+            type: 'room',
+            roomId: 'Ra8dbf4673c4c812cd491258042226c99',
+          },
+        },
+      ],
+    };
+    const user = null;
+    const memberIds = [
+      'Uxxxxxxxxxxxxxx...1',
+      'Uxxxxxxxxxxxxxx...2',
+      'Uxxxxxxxxxxxxxx...3',
+    ];
+
+    mocked(client).getAllRoomMemberIds.mockResolvedValue(memberIds);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const session: any = {};
+
+    await connector.updateSession(session, body);
+
+    expect(client.getRoomMemberProfile).not.toBeCalled();
+    expect(client.getAllRoomMemberIds).toBeCalledWith(
+      'Ra8dbf4673c4c812cd491258042226c99'
+    );
+
+    expect(session).toEqual({
+      type: 'room',
+      room: {
+        id: 'Ra8dbf4673c4c812cd491258042226c99',
+        members: [
+          { id: 'Uxxxxxxxxxxxxxx...1' },
+          { id: 'Uxxxxxxxxxxxxxx...2' },
+          { id: 'Uxxxxxxxxxxxxxx...3' },
+        ],
+        _updatedAt: expect.any(String),
+      },
+      user,
+    });
+    ex

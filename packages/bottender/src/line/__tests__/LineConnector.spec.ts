@@ -324,4 +324,144 @@ describe('#updateSession', () => {
       _updatedAt: expect.any(String),
     };
 
-    const session = { type: 'user', use
+    const session = { type: 'user', user };
+
+    await connector.updateSession(session, requestBody);
+
+    expect(client.getUserProfile).not.toBeCalled();
+    expect(session).toEqual({
+      type: 'user',
+      user,
+    });
+    expect(Object.isFrozen(session.user)).toBe(true);
+    expect(Object.getOwnPropertyDescriptor(session, 'user')).toEqual({
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.user,
+    });
+  });
+
+  it('update session with group type message', async () => {
+    const { connector, client } = setup({
+      skipLegacyProfile: false,
+    });
+    const body: LineRequestBody = {
+      destination: 'Uea8667adaf43586706170ff25ff47ae6',
+      events: [
+        {
+          replyToken: 'nHuyWiB7yP5Zw52FIkcQobQuGDXCTA',
+          type: 'message',
+          mode: 'active',
+          timestamp: 1462629479859,
+          source: {
+            type: 'group',
+            groupId: 'Ca56f94637cc4347f90a25382909b24b9',
+            userId: 'U206d25c2ea6bd87c17655609a1c37cb8',
+          },
+          message: {
+            id: '325708',
+            type: 'text',
+            text: 'Hello, world',
+          },
+        },
+      ],
+    };
+    const user = {
+      id: body.events[0].source.userId,
+      displayName: 'LINE taro',
+      userId: body.events[0].source.userId,
+      pictureUrl: 'http://obs.line-apps.com/...',
+      statusMessage: 'Hello, LINE!',
+      _updatedAt: expect.any(String),
+    };
+    const memberIds = [
+      'Uxxxxxxxxxxxxxx...1',
+      'Uxxxxxxxxxxxxxx...2',
+      'Uxxxxxxxxxxxxxx...3',
+    ];
+
+    mocked(client).getGroupMemberProfile.mockResolvedValue(user);
+    mocked(client).getAllGroupMemberIds.mockResolvedValue(memberIds);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const session: any = {};
+
+    await connector.updateSession(session, body);
+
+    expect(client.getGroupMemberProfile).toBeCalledWith(
+      'Ca56f94637cc4347f90a25382909b24b9',
+      'U206d25c2ea6bd87c17655609a1c37cb8'
+    );
+    expect(client.getAllGroupMemberIds).toBeCalledWith(
+      'Ca56f94637cc4347f90a25382909b24b9'
+    );
+
+    expect(session).toEqual({
+      type: 'group',
+      group: {
+        id: 'Ca56f94637cc4347f90a25382909b24b9',
+        members: [
+          { id: 'Uxxxxxxxxxxxxxx...1' },
+          { id: 'Uxxxxxxxxxxxxxx...2' },
+          { id: 'Uxxxxxxxxxxxxxx...3' },
+        ],
+        _updatedAt: expect.any(String),
+      },
+      user,
+    });
+    expect(Object.isFrozen(session.group)).toBe(true);
+    expect(Object.getOwnPropertyDescriptor(session, 'group')).toEqual({
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.group,
+    });
+  });
+
+  it('update session with group type event without userId', async () => {
+    const { connector, client } = setup({
+      skipLegacyProfile: false,
+    });
+    const body: LineRequestBody = {
+      destination: 'Uea8667adaf43586706170ff25ff47ae6',
+      events: [
+        {
+          replyToken: 'nHuyWiB7yP5Zw52FIkcQobQuGDXCTA',
+          type: 'join',
+          mode: 'active',
+          timestamp: 1462629479859,
+          source: {
+            type: 'group',
+            groupId: 'Ca56f94637cc4347f90a25382909b24b9',
+          },
+        },
+      ],
+    };
+    const user = null;
+    const memberIds = [
+      'Uxxxxxxxxxxxxxx...1',
+      'Uxxxxxxxxxxxxxx...2',
+      'Uxxxxxxxxxxxxxx...3',
+    ];
+
+    mocked(client).getAllGroupMemberIds.mockResolvedValue(memberIds);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const session: any = {};
+
+    await connector.updateSession(session, body);
+
+    expect(client.getGroupMemberProfile).not.toBeCalled();
+    expect(client.getAllGroupMemberIds).toBeCalledWith(
+      'Ca56f94637cc4347f90a25382909b24b9'
+    );
+
+    expect(session).toEqual({
+      type: 'group',
+      group: {
+        id: 'Ca56f94637cc4347f90a25382909b24b9',
+        members: [
+          { id: 'Uxxxxxxxxxxxxxx...1' },
+          { id: 'Uxxxxxxxxxxxxxx...2' },
+          { id:

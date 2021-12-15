@@ -607,4 +607,148 @@ describe('#updateSession', () => {
       },
       user,
     });
-    ex
+    expect(Object.isFrozen(session.room)).toBe(true);
+    expect(Object.getOwnPropertyDescriptor(session, 'room')).toEqual({
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.room,
+    });
+  });
+
+  it('update userId without calling any api while skipLegacyProfile set to true', async () => {
+    const { connector, client } = setup();
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const session: any = {};
+
+    await connector.updateSession(session, requestBody);
+
+    expect(client.getUserProfile).not.toBeCalled();
+
+    expect(session).toEqual({
+      type: 'user',
+      user: {
+        id: 'U206d25c2ea6bd87c17655609a1c37cb8',
+        _updatedAt: expect.any(String),
+      },
+    });
+    expect(Object.isFrozen(session.user)).toBe(true);
+    expect(Object.getOwnPropertyDescriptor(session, 'user')).toEqual({
+      configurable: false,
+      enumerable: true,
+      writable: false,
+      value: session.user,
+    });
+  });
+});
+
+describe('#mapRequestToEvents', () => {
+  it('should map the HTTP body to the LineEvents', () => {
+    const { connector } = setup();
+    const events = connector.mapRequestToEvents(requestBody);
+
+    expect(events).toHaveLength(2);
+    expect(events[0]).toBeInstanceOf(LineEvent);
+    expect(events[1]).toBeInstanceOf(LineEvent);
+    expect(events[0].destination).toBe('Uea8667adaf43586706170ff25ff47ae6');
+    expect(events[1].destination).toBe('Uea8667adaf43586706170ff25ff47ae6');
+  });
+});
+
+describe('#createContext', () => {
+  it('should create a LineContext', async () => {
+    const { connector } = setup();
+
+    const event = new LineEvent({
+      replyToken: 'nHuyWiB7yP5Zw52FIkcQobQuGDXCTA',
+      type: 'message',
+      mode: 'active',
+      timestamp: 1462629479859,
+      source: {
+        type: 'user',
+        userId: 'U206d25c2ea6bd87c17655609a1c37cb8',
+      },
+      message: {
+        id: '325708',
+        type: 'text',
+        text: 'Hello, world',
+      },
+    });
+    const session = {};
+
+    const context = await connector.createContext({
+      event,
+      session,
+    });
+
+    expect(context).toBeDefined();
+    expect(context).toBeInstanceOf(LineContext);
+  });
+
+  it('should create a LineContext using the config from getConfig', async () => {
+    const getConfig = jest.fn();
+
+    getConfig.mockResolvedValue({
+      accessToken: ACCESS_TOKEN,
+      channelSecret: CHANNEL_SECRET,
+    });
+
+    const connector = new LineConnector({
+      getConfig,
+    });
+
+    const event = new LineEvent({
+      replyToken: 'nHuyWiB7yP5Zw52FIkcQobQuGDXCTA',
+      type: 'message',
+      mode: 'active',
+      timestamp: 1462629479859,
+      source: {
+        type: 'user',
+        userId: 'U206d25c2ea6bd87c17655609a1c37cb8',
+      },
+      message: {
+        id: '325708',
+        type: 'text',
+        text: 'Hello, world',
+      },
+    });
+    const session = {};
+
+    await connector.createContext({
+      event,
+      session,
+      requestContext: {
+        path: '/webhooks/line/11111111111',
+        params: {
+          channelId: '11111111111',
+        },
+        url: `https://www.example.com/webhooks/line/11111111111`,
+        method: 'post',
+        headers: {
+          'x-line-signature': '5+SUnXZ8+G1ErXUewxeZ0T9j4yD6cmwYn5XCO4tBFic',
+        },
+        query: {},
+        rawBody: JSON.stringify(requestBody),
+        body: requestBody,
+      },
+    });
+
+    expect(getConfig).toBeCalledWith({ params: { channelId: '11111111111' } });
+    expect(LineClient).toBeCalledWith({
+      accessToken: ACCESS_TOKEN,
+      channelSecret: CHANNEL_SECRET,
+      origin: undefined,
+    });
+  });
+});
+
+describe('#verifySignature', () => {
+  it('should return true if signature is equal app secret after crypto', () => {
+    const { connector } = setup();
+
+    const result = connector.verifySignature(
+      'rawBody',
+      'XtFE4w+/e5cw8ys6BSALGj3ZCYgRtBdCBxyEfrkgLPc=',
+      { channelSecret: CHANNEL_SECRET }
+   

@@ -375,4 +375,132 @@ describe('#line', () => {
   });
 
   describe('#line.unfollow', () => {
-    it('should
+    it('should call action when it receives a line unfollow event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.unfollow(Action),
+        event: lineEventUnfollow,
+      });
+    });
+
+    it('should not call action when it receives a non-unfollow event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.unfollow(Action),
+        event: lineEventFollow,
+      });
+    });
+  });
+
+  describe('#line.join', () => {
+    it('should call action when it receives a line join event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.join(Action),
+        event: lineEventJoin,
+      });
+    });
+
+    it('should not call action when it receives a non-join event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.join(Action),
+        event: lineEventLeave,
+      });
+    });
+  });
+
+  describe('#line.leave', () => {
+    it('should call action when it receives a line leave event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.leave(Action),
+        event: lineEventLeave,
+      });
+    });
+
+    it('should not call action when it receives a non-leave event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.leave(Action),
+        event: lineEventJoin,
+      });
+    });
+  });
+
+  describe('#line.memberJoined', () => {
+    it('should call action when it receives a line memberJoined event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.memberJoined(Action),
+        event: lineEventMemberJoined,
+      });
+    });
+
+    it('should not call action when it receives a non-memberJoined event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.memberJoined(Action),
+        event: lineEventMemberLeft,
+      });
+    });
+  });
+
+  describe('#line.memberLeft', () => {
+    it('should call action when it receives a line memberLeft event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.memberLeft(Action),
+        event: lineEventMemberLeft,
+      });
+    });
+
+    it('should not call action when it receives a non-memberLeft event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.memberLeft(Action),
+        event: lineEventMemberJoined,
+      });
+    });
+  });
+
+  describe('#line.postback', () => {
+    it('should call action when it receives a line postback event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.postback(Action),
+        event: lineEventPostback,
+      });
+    });
+
+    it('should not call action when it receives a non-postback event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.postback(Action),
+        event: lineEventTextMessage,
+      });
+    });
+  });
+
+  describe('#line.beacon', () => {
+    it('should call action when it receives a line beacon event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.beacon.enter(Action),
+        event: lineEventBeaconEnter,
+      });
+    });
+
+    it('should not call action when it receives a non-beacon event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.beacon(Action),
+        event: lineEventTextMessage,
+      });
+    });
+
+    describe('#line.beacon.enter', () => {
+      it('should call action when it receives a line beacon enter event', async () => {
+        await expectRouteMatchLineEvent({
+          route: line.beacon.enter(Action),
+          event: lineEventBeaconEnter,
+        });
+      });
+
+      it('should not call action when it receives a non-beacon.enter event', async () => {
+        await expectRouteNotMatchLineEvent({
+          route: line.beacon.enter(Action),
+          event: lineEventBeaconBanner,
+        });
+      });
+    });
+
+    describe('#line.beacon.banner', () => {
+      it('should call action when it receives a line beacon banner event', async () => {
+  

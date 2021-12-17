@@ -907,3 +907,257 @@ it('#datetime', () => {
 });
 
 it('#isBeacon', () => {
+  expect(new LineEvent(textMessage).isBeacon).toEqual(false);
+  expect(new LineEvent(follow).isBeacon).toEqual(false);
+  expect(new LineEvent(unfollow).isBeacon).toEqual(false);
+  expect(new LineEvent(join).isBeacon).toEqual(false);
+  expect(new LineEvent(leave).isBeacon).toEqual(false);
+  expect(new LineEvent(postback).isBeacon).toEqual(false);
+  expect(new LineEvent(beacon).isBeacon).toEqual(true);
+  expect(new LineEvent(accountLink).isBeacon).toEqual(false);
+  expect(new LineEvent(memberJoined).isBeacon).toEqual(false);
+  expect(new LineEvent(memberLeft).isBeacon).toEqual(false);
+  expect(new LineEvent(thingsLink).isBeacon).toEqual(false);
+  expect(new LineEvent(thingsUnlink).isBeacon).toEqual(false);
+  expect(new LineEvent(thingsScenarioResult).isBeacon).toEqual(false);
+});
+
+it('#beacon', () => {
+  expect(new LineEvent(textMessage).beacon).toEqual(null);
+  expect(new LineEvent(follow).beacon).toEqual(null);
+  expect(new LineEvent(unfollow).beacon).toEqual(null);
+  expect(new LineEvent(join).beacon).toEqual(null);
+  expect(new LineEvent(leave).beacon).toEqual(null);
+  expect(new LineEvent(postback).beacon).toEqual(null);
+  expect(new LineEvent(beacon).beacon).toEqual({
+    hwid: 'd41d8cd98f',
+    type: 'enter',
+  });
+  expect(new LineEvent(accountLink).beacon).toEqual(null);
+  expect(new LineEvent(memberJoined).beacon).toEqual(null);
+  expect(new LineEvent(memberLeft).beacon).toEqual(null);
+  expect(new LineEvent(thingsLink).beacon).toEqual(null);
+  expect(new LineEvent(thingsUnlink).beacon).toEqual(null);
+  expect(new LineEvent(thingsScenarioResult).beacon).toEqual(null);
+});
+
+it('#isAccountLink', () => {
+  expect(new LineEvent(textMessage).isAccountLink).toEqual(false);
+  expect(new LineEvent(follow).isAccountLink).toEqual(false);
+  expect(new LineEvent(unfollow).isAccountLink).toEqual(false);
+  expect(new LineEvent(join).isAccountLink).toEqual(false);
+  expect(new LineEvent(leave).isAccountLink).toEqual(false);
+  expect(new LineEvent(postback).isAccountLink).toEqual(false);
+  expect(new LineEvent(beacon).isAccountLink).toEqual(false);
+  expect(new LineEvent(accountLink).isAccountLink).toEqual(true);
+  expect(new LineEvent(memberJoined).isAccountLink).toEqual(false);
+  expect(new LineEvent(memberLeft).isAccountLink).toEqual(false);
+  expect(new LineEvent(thingsLink).isAccountLink).toEqual(false);
+  expect(new LineEvent(thingsUnlink).isAccountLink).toEqual(false);
+  expect(new LineEvent(thingsScenarioResult).isAccountLink).toEqual(false);
+});
+
+it('#accountLink', () => {
+  expect(new LineEvent(textMessage).accountLink).toEqual(null);
+  expect(new LineEvent(follow).accountLink).toEqual(null);
+  expect(new LineEvent(unfollow).accountLink).toEqual(null);
+  expect(new LineEvent(join).accountLink).toEqual(null);
+  expect(new LineEvent(leave).accountLink).toEqual(null);
+  expect(new LineEvent(postback).accountLink).toEqual(null);
+  expect(new LineEvent(beacon).accountLink).toEqual(null);
+  expect(new LineEvent(accountLink).accountLink).toEqual({
+    result: 'ok',
+    nonce: 'xxxxxxxxxxxxxxx',
+  });
+  expect(new LineEvent(memberJoined).accountLink).toEqual(null);
+  expect(new LineEvent(memberLeft).accountLink).toEqual(null);
+  expect(new LineEvent(thingsLink).accountLink).toEqual(null);
+  expect(new LineEvent(thingsUnlink).accountLink).toEqual(null);
+  expect(new LineEvent(thingsScenarioResult).accountLink).toEqual(null);
+});
+
+it('#isMemberJoined', () => {
+  expect(new LineEvent(textMessage).isMemberJoined).toEqual(false);
+  expect(new LineEvent(follow).isMemberJoined).toEqual(false);
+  expect(new LineEvent(unfollow).isMemberJoined).toEqual(false);
+  expect(new LineEvent(join).isMemberJoined).toEqual(false);
+  expect(new LineEvent(leave).isMemberJoined).toEqual(false);
+  expect(new LineEvent(postback).isMemberJoined).toEqual(false);
+  expect(new LineEvent(beacon).isMemberJoined).toEqual(false);
+  expect(new LineEvent(accountLink).isMemberJoined).toEqual(false);
+  expect(new LineEvent(memberJoined).isMemberJoined).toEqual(true);
+  expect(new LineEvent(memberLeft).isMemberJoined).toEqual(false);
+  expect(new LineEvent(thingsLink).isMemberJoined).toEqual(false);
+  expect(new LineEvent(thingsUnlink).isMemberJoined).toEqual(false);
+  expect(new LineEvent(thingsScenarioResult).isMemberJoined).toEqual(false);
+});
+
+it('#memberJoined', () => {
+  expect(new LineEvent(textMessage).memberJoined).toEqual(null);
+  expect(new LineEvent(follow).memberJoined).toEqual(null);
+  expect(new LineEvent(unfollow).memberJoined).toEqual(null);
+  expect(new LineEvent(join).memberJoined).toEqual(null);
+  expect(new LineEvent(leave).memberJoined).toEqual(null);
+  expect(new LineEvent(postback).memberJoined).toEqual(null);
+  expect(new LineEvent(beacon).memberJoined).toEqual(null);
+  expect(new LineEvent(memberJoined).memberJoined).toEqual({
+    members: [
+      {
+        type: 'user',
+        userId: 'U4af4980629...',
+      },
+      {
+        type: 'user',
+        userId: 'U91eeaf62d9...',
+      },
+    ],
+  });
+  expect(new LineEvent(memberLeft).memberJoined).toEqual(null);
+  expect(new LineEvent(thingsLink).memberJoined).toEqual(null);
+  expect(new LineEvent(thingsUnlink).memberJoined).toEqual(null);
+  expect(new LineEvent(thingsScenarioResult).memberJoined).toEqual(null);
+});
+
+it('#isMemberLeft', () => {
+  expect(new LineEvent(textMessage).isMemberLeft).toEqual(false);
+  expect(new LineEvent(follow).isMemberLeft).toEqual(false);
+  expect(new LineEvent(unfollow).isMemberLeft).toEqual(false);
+  expect(new LineEvent(join).isMemberLeft).toEqual(false);
+  expect(new LineEvent(leave).isMemberLeft).toEqual(false);
+  expect(new LineEvent(postback).isMemberLeft).toEqual(false);
+  expect(new LineEvent(beacon).isMemberLeft).toEqual(false);
+  expect(new LineEvent(accountLink).isMemberLeft).toEqual(false);
+  expect(new LineEvent(memberJoined).isMemberLeft).toEqual(false);
+  expect(new LineEvent(memberLeft).isMemberLeft).toEqual(true);
+  expect(new LineEvent(thingsLink).isMemberLeft).toEqual(false);
+  expect(new LineEvent(thingsUnlink).isMemberLeft).toEqual(false);
+  expect(new LineEvent(thingsScenarioResult).isMemberLeft).toEqual(false);
+});
+
+it('#memberLeft', () => {
+  expect(new LineEvent(textMessage).memberLeft).toEqual(null);
+  expect(new LineEvent(follow).memberLeft).toEqual(null);
+  expect(new LineEvent(unfollow).memberLeft).toEqual(null);
+  expect(new LineEvent(join).memberLeft).toEqual(null);
+  expect(new LineEvent(leave).memberLeft).toEqual(null);
+  expect(new LineEvent(postback).memberLeft).toEqual(null);
+  expect(new LineEvent(beacon).memberLeft).toEqual(null);
+  expect(new LineEvent(memberJoined).memberLeft).toEqual(null);
+  expect(new LineEvent(memberLeft).memberLeft).toEqual({
+    members: [
+      {
+        type: 'user',
+        userId: 'U4af4980629...',
+      },
+      {
+        type: 'user',
+        userId: 'U91eeaf62d9...',
+      },
+    ],
+  });
+  expect(new LineEvent(thingsLink).memberLeft).toEqual(null);
+  expect(new LineEvent(thingsUnlink).memberLeft).toEqual(null);
+  expect(new LineEvent(thingsScenarioResult).memberLeft).toEqual(null);
+});
+
+it('#isThingsLink', () => {
+  expect(new LineEvent(textMessage).isThingsLink).toEqual(false);
+  expect(new LineEvent(follow).isThingsLink).toEqual(false);
+  expect(new LineEvent(unfollow).isThingsLink).toEqual(false);
+  expect(new LineEvent(join).isThingsLink).toEqual(false);
+  expect(new LineEvent(leave).isThingsLink).toEqual(false);
+  expect(new LineEvent(postback).isThingsLink).toEqual(false);
+  expect(new LineEvent(beacon).isThingsLink).toEqual(false);
+  expect(new LineEvent(accountLink).isThingsLink).toEqual(false);
+  expect(new LineEvent(memberJoined).isThingsLink).toEqual(false);
+  expect(new LineEvent(memberLeft).isThingsLink).toEqual(false);
+  expect(new LineEvent(thingsLink).isThingsLink).toEqual(true);
+  expect(new LineEvent(thingsUnlink).isThingsLink).toEqual(false);
+  expect(new LineEvent(thingsScenarioResult).isThingsLink).toEqual(false);
+});
+
+it('#isThingsUnlink', () => {
+  expect(new LineEvent(textMessage).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(follow).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(unfollow).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(join).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(leave).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(postback).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(beacon).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(accountLink).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(memberJoined).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(memberLeft).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(thingsLink).isThingsUnlink).toEqual(false);
+  expect(new LineEvent(thingsUnlink).isThingsUnlink).toEqual(true);
+  expect(new LineEvent(thingsScenarioResult).isThingsUnlink).toEqual(false);
+});
+
+it('#isDeviceLink', () => {
+  expect(new LineEvent(textMessage).isDeviceLink).toEqual(false);
+  expect(new LineEvent(follow).isDeviceLink).toEqual(false);
+  expect(new LineEvent(unfollow).isDeviceLink).toEqual(false);
+  expect(new LineEvent(join).isDeviceLink).toEqual(false);
+  expect(new LineEvent(leave).isDeviceLink).toEqual(false);
+  expect(new LineEvent(postback).isDeviceLink).toEqual(false);
+  expect(new LineEvent(beacon).isDeviceLink).toEqual(false);
+  expect(new LineEvent(accountLink).isDeviceLink).toEqual(false);
+  expect(new LineEvent(memberJoined).isDeviceLink).toEqual(false);
+  expect(new LineEvent(memberLeft).isDeviceLink).toEqual(false);
+  expect(new LineEvent(thingsLink).isDeviceLink).toEqual(true);
+  expect(new LineEvent(thingsUnlink).isDeviceLink).toEqual(false);
+  expect(new LineEvent(thingsScenarioResult).isDeviceLink).toEqual(false);
+});
+
+it('#isDeviceUnlink', () => {
+  expect(new LineEvent(textMessage).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(follow).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(unfollow).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(join).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(leave).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(postback).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(beacon).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(accountLink).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(memberJoined).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(memberLeft).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(thingsLink).isDeviceUnlink).toEqual(false);
+  expect(new LineEvent(thingsUnlink).isDeviceUnlink).toEqual(true);
+  expect(new LineEvent(thingsScenarioResult).isDeviceUnlink).toEqual(false);
+});
+
+it('#things', () => {
+  expect(new LineEvent(textMessage).things).toEqual(null);
+  expect(new LineEvent(follow).things).toEqual(null);
+  expect(new LineEvent(unfollow).things).toEqual(null);
+  expect(new LineEvent(join).things).toEqual(null);
+  expect(new LineEvent(leave).things).toEqual(null);
+  expect(new LineEvent(postback).things).toEqual(null);
+  expect(new LineEvent(beacon).things).toEqual(null);
+  expect(new LineEvent(memberJoined).things).toEqual(null);
+  expect(new LineEvent(memberLeft).things).toEqual(null);
+  expect(new LineEvent(thingsLink).things).toEqual({
+    deviceId: 't2c449c9d1...',
+    type: 'link',
+  });
+  expect(new LineEvent(thingsUnlink).things).toEqual({
+    deviceId: 't2c449c9d1...',
+    type: 'unlink',
+  });
+  expect(new LineEvent(thingsScenarioResult).things).toEqual({
+    deviceId: 'tXXX',
+    type: 'scenarioResult',
+    result: {
+      actionResults: [
+        {
+          data: '/w==',
+          type: 'binary',
+        },
+      ],
+      bleNotificationPayload: 'AQ==',
+      endTime: 1547817845952,
+      resultCode: 'success',
+      revision: 2,
+      scenarioId: 'XXX',
+      startTime: 1547817845950,
+    },
+  });
+});

@@ -503,4 +503,114 @@ describe('#line', () => {
 
     describe('#line.beacon.banner', () => {
       it('should call action when it receives a line beacon banner event', async () => {
-  
+        await expectRouteMatchLineEvent({
+          route: line.beacon.banner(Action),
+          event: lineEventBeaconBanner,
+        });
+      });
+
+      it('should not call action when it receives a non-beacon.banner event', async () => {
+        await expectRouteNotMatchLineEvent({
+          route: line.beacon.banner(Action),
+          event: lineEventBeaconStay,
+        });
+      });
+    });
+
+    describe('#line.beacon.stay', () => {
+      it('should call action when it receives a line beacon stay event', async () => {
+        await expectRouteMatchLineEvent({
+          route: line.beacon.stay(Action),
+          event: lineEventBeaconStay,
+        });
+      });
+
+      it('should not call action when it receives a non-beacon.stay event', async () => {
+        await expectRouteNotMatchLineEvent({
+          route: line.beacon.stay(Action),
+          event: lineEventBeaconEnter,
+        });
+      });
+    });
+  });
+
+  describe('#line.accountLink', () => {
+    it('should call action when it receives a line accountLink event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.accountLink(Action),
+        event: lineEventAccountLink,
+      });
+    });
+
+    it('should not call action when it receives a non-accountLink event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.accountLink(Action),
+        event: lineEventTextMessage,
+      });
+    });
+  });
+
+  describe('#line.things', () => {
+    it('should call action when it receives a line things event', async () => {
+      await expectRouteMatchLineEvent({
+        route: line.things.link(Action),
+        event: lineEventThingsLink,
+      });
+    });
+
+    it('should not call action when it receives a non-things event', async () => {
+      await expectRouteNotMatchLineEvent({
+        route: line.things(Action),
+        event: lineEventTextMessage,
+      });
+    });
+
+    describe('#line.things.link', () => {
+      it('should call action when it receives a line things link event', async () => {
+        await expectRouteMatchLineEvent({
+          route: line.things.link(Action),
+          event: lineEventThingsLink,
+        });
+      });
+
+      it('should not call action when it receives a non-things.link event', async () => {
+        await expectRouteNotMatchLineEvent({
+          route: line.things.link(Action),
+          event: lineEventThingsUnlink,
+        });
+      });
+    });
+
+    describe('#line.things.unlink', () => {
+      it('should call action when it receives a line things unlink event', async () => {
+        await expectRouteMatchLineEvent({
+          route: line.things.unlink(Action),
+          event: lineEventThingsUnlink,
+        });
+      });
+
+      it('should not call action when it receives a non-things.unlink event', async () => {
+        await expectRouteNotMatchLineEvent({
+          route: line.things.unlink(Action),
+          event: lineEventThingsLink,
+        });
+      });
+    });
+
+    describe('#line.things.scenarioResult', () => {
+      it('should call action when it receives a line things scenarioResult event', async () => {
+        await expectRouteMatchLineEvent({
+          route: line.things.scenarioResult(Action),
+          event: lineEventThingsScenarioResult,
+        });
+      });
+
+      it('should not call action when it receives a non-things.scenarioResult event', async () => {
+        await expectRouteNotMatchLineEvent({
+          route: line.things.scenarioResult(Action),
+          event: lineEventThingsLink,
+        });
+      });
+    });
+  });
+});

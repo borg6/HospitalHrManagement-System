@@ -905,4 +905,62 @@ describe('#preprocess', () => {
             message: 'LINE Signature Validation Failed!',
             request: {
               headers: {
-                
+                'x-line-signature':
+                  'XtFE4w+/e5cw8ys6BSALGj3ZCYgRtBdCBxyEfrkgLPc=',
+              },
+              rawBody: JSON.stringify(requestBody),
+            },
+          },
+        },
+      },
+    });
+  });
+
+  it('should return shouldNext: false and the error if the signature does not match (using getConfig)', async () => {
+    const getConfig = jest.fn();
+
+    getConfig.mockResolvedValue({
+      accessToken: ACCESS_TOKEN,
+      channelSecret: CHANNEL_SECRET,
+    });
+
+    const connector = new LineConnector({
+      getConfig,
+    });
+
+    expect(
+      await connector.preprocess({
+        path: '/webhooks/line/11111111111',
+        params: {
+          channelId: '11111111111',
+        },
+        url: `https://www.example.com/webhooks/line/11111111111`,
+        method: 'post',
+        headers: {
+          'x-line-signature': 'XtFE4w+/e5cw8ys6BSALGj3ZCYgRtBdCBxyEfrkgLPc=',
+        },
+        query: {},
+        rawBody: JSON.stringify(requestBody),
+        body: requestBody,
+      })
+    ).toEqual({
+      shouldNext: false,
+      response: {
+        status: 400,
+        body: {
+          error: {
+            message: 'LINE Signature Validation Failed!',
+            request: {
+              headers: {
+                'x-line-signature':
+                  'XtFE4w+/e5cw8ys6BSALGj3ZCYgRtBdCBxyEfrkgLPc=',
+              },
+              rawBody: JSON.stringify(requestBody),
+            },
+          },
+        },
+      },
+    });
+    expect(getConfig).toBeCalledWith({ params: { channelId: '11111111111' } });
+  });
+});

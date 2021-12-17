@@ -751,4 +751,158 @@ describe('#verifySignature', () => {
       'rawBody',
       'XtFE4w+/e5cw8ys6BSALGj3ZCYgRtBdCBxyEfrkgLPc=',
       { channelSecret: CHANNEL_SECRET }
-   
+    );
+
+    expect(result).toBe(true);
+  });
+});
+
+it('should warning if sendMethod is not one of `reply`, `push`', () => {
+  setup({ sendMethod: 'xxx' });
+
+  expect(warning).toBeCalledWith(false, expect.any(String));
+});
+
+describe('#isWebhookVerifyRequest', () => {
+  it('check if the HTTP body is for webhook verification', async () => {
+    const { connector } = setup();
+
+    expect(connector.isWebhookVerifyRequest(webhookVerifyRequestBody)).toEqual(
+      true
+    );
+    expect(
+      connector.isWebhookVerifyRequest({
+        destination: 'Uea8667adaf43586706170ff25ff47ae6',
+        events: [],
+      })
+    ).toEqual(false);
+  });
+});
+
+describe('#preprocess', () => {
+  it('should return shouldNext: true if the method is get', async () => {
+    const { connector } = setup();
+
+    expect(
+      await connector.preprocess({
+        path: '/webhooks/line',
+        params: {},
+        url: `https://www.example.com/webhooks/line`,
+        method: 'get',
+        headers: {
+          'x-line-signature': 'abc',
+        },
+        query: {},
+        rawBody: JSON.stringify(requestBody),
+        body: requestBody,
+      })
+    ).toEqual({
+      shouldNext: true,
+    });
+  });
+
+  it('should return shouldNext: true if the signature match', async () => {
+    const { connector } = setup();
+
+    expect(
+      await connector.preprocess({
+        path: '/webhooks/line',
+        params: {},
+        url: `https://www.example.com/webhooks/line`,
+        method: 'post',
+        headers: {
+          'x-line-signature': '5+SUnXZ8+G1ErXUewxeZ0T9j4yD6cmwYn5XCO4tBFic',
+        },
+        query: {},
+        rawBody: JSON.stringify(requestBody),
+        body: requestBody,
+      })
+    ).toEqual({
+      shouldNext: true,
+    });
+  });
+
+  it('should return shouldNext: true if the signature match (using getConfig)', async () => {
+    const getConfig = jest.fn();
+
+    getConfig.mockResolvedValue({
+      accessToken: ACCESS_TOKEN,
+      channelSecret: CHANNEL_SECRET,
+    });
+
+    const connector = new LineConnector({
+      getConfig,
+    });
+
+    expect(
+      await connector.preprocess({
+        path: '/webhooks/line/11111111111',
+        params: {
+          channelId: '11111111111',
+        },
+        url: `https://www.example.com/webhooks/line/11111111111`,
+        method: 'post',
+        headers: {
+          'x-line-signature': '5+SUnXZ8+G1ErXUewxeZ0T9j4yD6cmwYn5XCO4tBFic',
+        },
+        query: {},
+        rawBody: JSON.stringify(requestBody),
+        body: requestBody,
+      })
+    ).toEqual({
+      shouldNext: true,
+    });
+    expect(getConfig).toBeCalledWith({ params: { channelId: '11111111111' } });
+  });
+
+  it('should return shouldNext: false and 200 OK if the HTTP body is for webhook verification', async () => {
+    const { connector } = setup();
+
+    expect(
+      await connector.preprocess({
+        path: '/webhooks/line',
+        params: {},
+        url: `https://www.example.com/webhooks/line`,
+        method: 'post',
+        headers: {
+          'x-line-signature': 'VYLhgSyybnkWRb9qqCreJSTQTkbS6KtXVuw55BcAS7o',
+        },
+        query: {},
+        rawBody: JSON.stringify(webhookVerifyRequestBody),
+        body: webhookVerifyRequestBody,
+      })
+    ).toEqual({
+      shouldNext: false,
+      response: {
+        status: 200,
+        body: 'OK',
+      },
+    });
+  });
+
+  it('should return shouldNext: false and the error if the signature does not match', async () => {
+    const { connector } = setup();
+
+    expect(
+      await connector.preprocess({
+        path: '/webhooks/line',
+        params: {},
+        url: `https://www.example.com/webhooks/line`,
+        method: 'post',
+        headers: {
+          'x-line-signature': 'XtFE4w+/e5cw8ys6BSALGj3ZCYgRtBdCBxyEfrkgLPc=',
+        },
+        query: {},
+        rawBody: JSON.stringify(requestBody),
+        body: requestBody,
+      })
+    ).toEqual({
+      shouldNext: false,
+      response: {
+        status: 400,
+        body: {
+          error: {
+            message: 'LINE Signature Validation Failed!',
+            request: {
+              headers: {
+                

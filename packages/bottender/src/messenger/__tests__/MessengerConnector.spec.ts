@@ -572,3 +572,160 @@ describe('#createContext', () => {
     const session = {};
 
     const context = await connector.createContext({
+      event,
+      session,
+    });
+
+    expect(context).toBeDefined();
+    expect(context.accessToken).toBe('anyToken');
+  });
+
+  it('should call warning if it could not find pageId', async () => {
+    const mapPageToAccessToken = jest.fn().mockResolvedValue('anyToken');
+    const { connector } = setup({ mapPageToAccessToken });
+    const event = {
+      rawEvent: {},
+    };
+    const session = {};
+
+    await connector.createContext({
+      event,
+      session,
+    });
+
+    expect(warning).toBeCalledWith(
+      false,
+      'Could not find pageId from request body.'
+    );
+  });
+});
+
+describe('#verifySignature', () => {
+  it('should return true if signature is equal app secret after crypto', () => {
+    const { connector } = setup();
+
+    const result = connector.verifySignature(
+      'rawBody',
+      'sha1=0d814d436b45c33ef664a317ff4b8dc2d3d8fe2a'
+    );
+
+    expect(result).toBe(true);
+  });
+
+  it('should return false if signature is undefined', () => {
+    const { connector } = setup();
+
+    const result = connector.verifySignature('rawBody', undefined);
+
+    expect(result).toBe(false);
+  });
+
+  it('should return false if signature dont have a sha1= prefix', () => {
+    const { connector } = setup();
+
+    const result = connector.verifySignature('rawBody', 'sha256!!!');
+
+    expect(result).toBe(false);
+  });
+});
+
+describe('#preprocess', () => {
+  it('should return correct challenge if request method is get and verify_token match', () => {
+    const { connector } = setup();
+
+    expect(
+      connector.preprocess({
+        method: 'get',
+        headers: {},
+        query: {
+          'hub.mode': 'subscribe',
+          'hub.verify_token': '1qaz2wsx',
+          'hub.challenge': 'abc',
+        },
+        rawBody: '',
+        body: {},
+      })
+    ).toEqual({
+      shouldNext: false,
+      response: {
+        status: 200,
+        body: 'abc',
+      },
+    });
+  });
+
+  it('should return 403 Forbidden if request method is get and verify_token does not match', () => {
+    const { connector } = setup();
+
+    expect(
+      connector.preprocess({
+        method: 'get',
+        headers: {},
+        query: {
+          'hub.mode': 'subscribe',
+          'hub.verify_token': '3edc4rfv',
+          'hub.challenge': 'abc',
+        },
+        rawBody: '',
+        body: {},
+      })
+    ).toEqual({
+      shouldNext: false,
+      response: {
+        status: 403,
+        body: 'Forbidden',
+      },
+    });
+  });
+
+  it('should return shouldNext: true if signature match', () => {
+    const { connector } = setup();
+
+    expect(
+      connector.preprocess({
+        method: 'post',
+        headers: {
+          'x-hub-signature': 'sha1=1c99183cb7c44ea27fb834746086b65b89800db8',
+        },
+        query: {},
+        rawBody: '{}',
+        body: {},
+      })
+    ).toEqual({
+      shouldNext: true,
+    });
+  });
+
+  it('should return shouldNext: false and error if signature does not match', () => {
+    const { connector } = setup();
+
+    expect(
+      connector.preprocess({
+        method: 'post',
+        headers: {
+          'x-hub-signature': 'sha1=0d814d436b45c33ef664a317ff4b8dc2d3d8fe2a',
+        },
+        query: {},
+        rawBody: '{}',
+        body: {},
+      })
+    ).toEqual({
+      shouldNext: false,
+      response: {
+        status: 400,
+        body: {
+          error: {
+            message: 'Facebook Signature Validation Failed!',
+            request: {
+              headers: {
+                'x-hub-signature':
+                  'sha1=0d814d436b45c33ef664a317ff4b8dc2d3d8fe2a',
+              },
+              rawBody: '{}',
+            },
+          },
+        },
+      },
+    });
+  });
+});

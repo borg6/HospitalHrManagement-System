@@ -368,4 +368,210 @@ const payment = {
       currency: 'USD',
       amount: '29.62',
     },
-    shippi
+    shippingOptionId: '123',
+  },
+};
+
+const checkoutUpdate = {
+  recipient: {
+    id: 'PAGE_ID',
+  },
+  timestamp: 1473204787206,
+  sender: {
+    id: 'USER_ID',
+  },
+  checkoutUpdate: {
+    payload: 'DEVELOPER_DEFINED_PAYLOAD',
+    shippingAddress: {
+      id: 10105655000959552,
+      country: 'US',
+      city: 'MENLO PARK',
+      street1: '1 Hacker Way',
+      street2: '',
+      state: 'CA',
+      postalCode: '94025',
+    },
+  },
+};
+
+const preCheckout = {
+  recipient: {
+    id: 'PAGE_ID',
+  },
+  timestamp: 1473204787206,
+  sender: {
+    id: 'USER_ID',
+  },
+  preCheckout: {
+    payload: 'xyz',
+    requestedUserInfo: {
+      shippingAddress: {
+        name: 'Tao Jiang',
+        street1: '600 Edgewater Blvd',
+        street2: '',
+        city: 'Foster City',
+        state: 'CA',
+        country: 'US',
+        postalCode: '94404',
+      },
+      contactName: 'Tao Jiang',
+    },
+    amount: {
+      currency: 'USD',
+      amount: '2.70',
+    },
+  },
+};
+
+const policyEnforcement = {
+  recipient: {
+    id: '404217156637689',
+  },
+  timestamp: 1458692752478,
+  'policy-enforcement': {
+    action: 'block',
+    reason:
+      'The bot violated our Platform Policies (https://developers.facebook.com/policy/#messengerplatform). Common violations include sending out excessive spammy messages or being non-functional.',
+  },
+};
+
+const appRoles = {
+  recipient: {
+    id: '404217156637689',
+  },
+  timestamp: 1458692752478,
+  appRoles: {
+    '123456789': ['automation'],
+  },
+};
+
+const passThreadControl = {
+  sender: {
+    id: '404217156637689',
+  },
+  recipient: {
+    id: '1423587017700273',
+  },
+  timestamp: 1458692752478,
+  passThreadControl: {
+    newOwnerAppId: '123456789',
+    metadata: 'additional content that the caller wants to set',
+  },
+};
+
+const takeThreadControl = {
+  sender: {
+    id: '404217156637689',
+  },
+  recipient: {
+    id: '1423587017700273',
+  },
+  timestamp: 1458692752478,
+  takeThreadControl: {
+    previousOwnerAppId: '123456789',
+    metadata: 'additional content that the caller wants to set',
+  },
+};
+
+const requestThreadControl = {
+  sender: {
+    id: '404217156637689',
+  },
+  recipient: {
+    id: '1423587017700273',
+  },
+  timestamp: 1458692752478,
+  requestThreadControl: {
+    requestedOwnerAppId: 123456789,
+    metadata: 'additional content that the caller wants to set',
+  },
+};
+
+const requestThreadControlFromInbox = {
+  sender: {
+    id: '404217156637689',
+  },
+  recipient: {
+    id: '1423587017700273',
+  },
+  timestamp: 1458692752478,
+  requestThreadControl: {
+    requestedOwnerAppId: 263902037430900,
+    metadata: 'additional content that the caller wants to set',
+  },
+};
+
+const textMessageFromCustomerChatPlugin = {
+  sender: { id: '1423587017700273' },
+  recipient: { id: '404217156637689' },
+  timestamp: 1491796363181,
+  message: {
+    mid: 'mid.$cAAE1UUyiiwthh0NPrVbVf4HFNDGl',
+    seq: 348847,
+    text: 'Sharp tools make good work.',
+    tags: [
+      {
+        source: 'customer_chat_plugin',
+      },
+    ],
+  },
+};
+
+const linkReferral = {
+  recipient: {
+    id: '701111199441168',
+  },
+  timestamp: 1511111143921,
+  sender: {
+    id: '1476077111119289',
+  },
+  referral: {
+    ref: 'aaaa',
+    source: 'SHORTLINK',
+    type: 'OPEN_THREAD',
+  },
+};
+
+const postbackReferral = {
+  recipient: {
+    id: '707356222221168',
+  },
+  timestamp: 1522222894827,
+  sender: {
+    id: '1476077422222289',
+  },
+  postback: {
+    payload: '__GET_STARTED__',
+    referral: {
+      source: 'SHORTLINK',
+      type: 'OPEN_THREAD',
+      ref: 'aaaa',
+    },
+    title: 'Get Started',
+  },
+};
+
+const customerChatPluginReferral = {
+  recipient: { id: '693344444818699' },
+  timestamp: 1512552044444,
+  sender: { id: '1242684444404904' },
+  referral: {
+    ref: 'bbbb',
+    source: 'CUSTOMER_CHAT_PLUGIN',
+    type: 'OPEN_THREAD',
+    originDomain: 'https://test.domain.tw/',
+  },
+};
+
+const pageId = '137542570280111';
+
+const brandedCamera = {
+  sender: {
+    id: '1476077422222289',
+  },
+  recipient: {
+    id: '707356222221168',
+  },
+  timestamp: 1469111400000,
+  brandedCamera: {
+    contentIds: ['<CAMERA-EFFECT-ID>', '<

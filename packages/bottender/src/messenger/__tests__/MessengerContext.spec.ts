@@ -247,4 +247,144 @@ describe('Persistent Menu', () => {
     it('should call client deleteUserPersistentMenu', async () => {
       const { context, client, session } = setup();
 
-      const result = await context
+      const result = await context.deleteUserPersistentMenu();
+
+      expect(client.deleteUserPersistentMenu).toBeCalledWith(session.user.id);
+
+      expect(result).toBeUndefined();
+    });
+
+    it('should call warning and not to send if dont have session', async () => {
+      const { context, client } = setup({ session: false });
+
+      await context.deleteUserPersistentMenu();
+
+      expect(warning).toBeCalledWith(
+        false,
+        'deleteUserPersistentMenu: should not be called in context without session'
+      );
+      expect(client.deleteUserPersistentMenu).not.toBeCalled();
+    });
+  });
+});
+
+describe('#passThreadControl', () => {
+  it('should call to pass user thread control to other app', async () => {
+    const { context, client, session } = setup();
+
+    await context.passThreadControl(263902037430900, 'metadata');
+
+    expect(client.passThreadControl).toBeCalledWith(
+      session.user.id,
+      263902037430900,
+      'metadata'
+    );
+  });
+
+  it('should call warning if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.passThreadControl(263902037430900);
+
+    expect(warning).toBeCalledWith(
+      false,
+      'passThreadControl: should not be called in context without session'
+    );
+    expect(client.passThreadControl).not.toBeCalled();
+  });
+});
+
+describe('#passThreadControlToPageInbox', () => {
+  it('should call to pass user thread control to page inbox', async () => {
+    const { context, client, session } = setup();
+
+    await context.passThreadControlToPageInbox('metadata');
+
+    expect(client.passThreadControlToPageInbox).toBeCalledWith(
+      session.user.id,
+      'metadata'
+    );
+  });
+
+  it('should call warning if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.passThreadControlToPageInbox();
+
+    expect(warning).toBeCalledWith(
+      false,
+      'passThreadControlToPageInbox: should not be called in context without session'
+    );
+    expect(client.passThreadControlToPageInbox).not.toBeCalled();
+  });
+});
+
+describe('#takeThreadControl', () => {
+  it('should call to take user thread control back', async () => {
+    const { context, client, session } = setup();
+
+    await context.takeThreadControl('metadata');
+
+    expect(client.takeThreadControl).toBeCalledWith(
+      session.user.id,
+      'metadata'
+    );
+  });
+
+  it('should call warning if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.takeThreadControl();
+
+    expect(warning).toBeCalledWith(
+      false,
+      'takeThreadControl: should not be called in context without session'
+    );
+    expect(client.takeThreadControl).not.toBeCalled();
+  });
+});
+
+describe('#requestThreadControl', () => {
+  it('should call to request user thread control', async () => {
+    const { context, client, session } = setup();
+
+    await context.requestThreadControl('metadata');
+
+    expect(client.requestThreadControl).toBeCalledWith(
+      session.user.id,
+      'metadata'
+    );
+  });
+
+  it('should call warning if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.requestThreadControl();
+
+    expect(warning).toBeCalledWith(
+      false,
+      'requestThreadControl: should not be called in context without session'
+    );
+    expect(client.requestThreadControl).not.toBeCalled();
+  });
+});
+
+describe('#getThreadOwner', () => {
+  it('should call to get thread owner', async () => {
+    const { context, client, session } = setup();
+
+    await context.getThreadOwner();
+
+    expect(client.getThreadOwner).toBeCalledWith(session.user.id);
+  });
+
+  it('should call warning if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.getThreadOwner();
+
+    expect(warning).toBeCalledWith(
+      false,
+      'getThreadOwner: should not be called in context without session'
+    );
+    expect(client.getThreadOwner).not.toBeCalled();

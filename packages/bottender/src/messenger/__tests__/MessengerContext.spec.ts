@@ -388,3 +388,143 @@ describe('#getThreadOwner', () => {
       'getThreadOwner: should not be called in context without session'
     );
     expect(client.getThreadOwner).not.toBeCalled();
+  });
+});
+
+describe('#isThreadOwner', () => {
+  it('should return true when bot is not the thread owner', async () => {
+    const { context, client } = setup();
+
+    client.getThreadOwner.mockResolvedValue({ appId: APP_ID });
+
+    expect(await context.isThreadOwner()).toBe(true);
+  });
+
+  it('should return false when bot is not the thread owner', async () => {
+    const { context, client } = setup();
+
+    client.getThreadOwner.mockResolvedValue({ appId: '54367890123' });
+
+    expect(await context.isThreadOwner()).toBe(false);
+  });
+});
+
+describe('#associateLabel', () => {
+  it('should call api to associate label to the user', async () => {
+    const { context, client, session } = setup();
+
+    await context.associateLabel(1712444532121303);
+
+    expect(client.associateLabel).toBeCalledWith(
+      session.user.id,
+      1712444532121303
+    );
+  });
+
+  it('should call warning if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.associateLabel(1712444532121303);
+
+    expect(warning).toBeCalledWith(
+      false,
+      'associateLabel: should not be called in context without session'
+    );
+    expect(client.associateLabel).not.toBeCalled();
+  });
+});
+
+describe('#dissociateLabel', () => {
+  it('should call api to dissociate label from the user', async () => {
+    const { context, client, session } = setup();
+
+    await context.dissociateLabel(1712444532121303);
+
+    expect(client.dissociateLabel).toBeCalledWith(
+      session.user.id,
+      1712444532121303
+    );
+  });
+
+  it('should call warning if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.dissociateLabel(1712444532121303);
+
+    expect(warning).toBeCalledWith(
+      false,
+      'dissociateLabel: should not be called in context without session'
+    );
+    expect(client.dissociateLabel).not.toBeCalled();
+  });
+});
+
+describe('#getAssociatedLabels', () => {
+  it('should call api to dissociate label from the user', async () => {
+    const { context, client, session } = setup();
+
+    client.getAssociatedLabels.mockReturnValue({
+      data: [
+        {
+          name: 'myLabel',
+          id: '1001200005003',
+        },
+        {
+          name: 'myOtherLabel',
+          id: '1001200005002',
+        },
+      ],
+      paging: {
+        cursors: {
+          before:
+            'QVFIUmx1WTBpMGpJWXprYzVYaVhabW55dVpycko4U2xURGE5ODNtNFZAPal94a1hTUnNVMUtoMVVoTzlzSDktUkMtQkUzWEFLSXlMS3ZALYUw3TURLelZAPOGVR',
+          after:
+            'QVFIUmItNkpTbjVzakxFWGRydzdaVUFNNnNPaUl0SmwzVHN5ZAWZAEQ3lZANDAzTXFIM0NHbHdYSkQ5OG1GaEozdjkzRmxpUFhxTDl4ZAlBibnE4LWt1eGlTa3Bn',
+        },
+      },
+    });
+
+    await context.getAssociatedLabels();
+
+    expect(client.getAssociatedLabels).toBeCalledWith(session.user.id);
+  });
+
+  it('should call warning if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.getAssociatedLabels();
+
+    expect(warning).toBeCalledWith(
+      false,
+      'getAssociatedLabels: should not be called in context without session'
+    );
+    expect(client.getAssociatedLabels).not.toBeCalled();
+  });
+});
+
+describe('persona', () => {
+  describe('#uesPersona', () => {
+    it('should call API with personaId', async () => {
+      const { context, client, session } = setup();
+
+      context.usePersona(PERSONA_ID);
+      await context.typingOn();
+      await context.typingOff();
+      await context.sendText('hi');
+
+      expect(client.typingOn).toBeCalledWith(
+        session.user.id,
+        expect.objectContaining({
+          personaId: PERSONA_ID,
+        })
+      );
+      expect(client.typingOff).toBeCalledWith(
+        session.user.id,
+        expect.objectContaining({
+          personaId: PERSONA_ID,
+        })
+      );
+      expect(client.sendText).toBeCalledWith(
+        session.user.id,
+        'hi',
+        expect.objectContaining

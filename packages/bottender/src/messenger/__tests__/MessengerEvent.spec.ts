@@ -162,4 +162,210 @@ const likeStickerMessage = {
       {
         type: 'image',
         payload: {
-          url: 'https://scontent.xx.fbcdn.net
+          url: 'https://scontent.xx.fbcdn.net/v/t39.1997-6/851557_369239266556155_759568595_n.png?_nc_ad=z-m&oh=547beb90237e24a9682810a5144c9fba&oe=5988CFDC',
+          stickerId: 369239263222822,
+        },
+      },
+    ],
+  },
+};
+
+const largeLikeStickerMessage = {
+  sender: {
+    id: '1423587017700273',
+  },
+  recipient: {
+    id: '404217156637689',
+  },
+  timestamp: 1491797086506,
+  message: {
+    mid: 'mid.$cAAE1UUyiiwthh05ZKlbVgkOobi32',
+    seq: 348853,
+    stickerId: 369239343222814,
+    attachments: [
+      {
+        type: 'image',
+        payload: {
+          url: 'https://scontent.xx.fbcdn.net/v/t39.1997-6/p100x100/851587_369239346556147_162929011_n.png?_nc_ad=z-m&oh=2008c832edbd2376b09a1008358b8fd9&oe=598FC1B0',
+          stickerId: 369239343222814,
+        },
+      },
+    ],
+  },
+};
+
+const hugeLikeStickerMessage = {
+  sender: {
+    id: '1423587017700273',
+  },
+  recipient: {
+    id: '404217156637689',
+  },
+  timestamp: 1491797086506,
+  message: {
+    mid: 'mid.$cAAE1UUyiiwthh05ZKlbVgkOobi32',
+    seq: 348853,
+    stickerId: 369239383222810,
+    attachments: [
+      {
+        type: 'image',
+        payload: {
+          url: 'https://scontent.xx.fbcdn.net/v/t39.1997-6/p100x100/851587_369239346556147_162929011_n.png?_nc_ad=z-m&oh=2008c832edbd2376b09a1008358b8fd9&oe=598FC1B0',
+          stickerId: 369239383222810,
+        },
+      },
+    ],
+  },
+};
+
+const quickReplyMessage = {
+  sender: {
+    id: '1423587017700273',
+  },
+  recipient: {
+    id: '404217156637689',
+  },
+  timestamp: 1491798262319,
+  message: {
+    quickReply: {
+      payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED',
+    },
+    mid: 'mid.$cAAE1UUyiiwthh2BKL1bVhsBhVxvm',
+    seq: 348865,
+    text: 'Red',
+  },
+};
+
+export const delivery = {
+  sender: {
+    id: '404217156637689',
+  },
+  recipient: {
+    id: '1423587017700273',
+  },
+  delivery: {
+    mids: ['mid.1458668856218:ed81099e15d3f4f233'],
+    watermark: 1458668856253,
+    seq: 37,
+  },
+};
+
+export const read = {
+  sender: {
+    id: '404217156637689',
+  },
+  recipient: {
+    id: '1423587017700273',
+  },
+  timestamp: 1458668856463,
+  read: {
+    watermark: 1458668856253,
+    seq: 38,
+  },
+};
+
+export const echoMessage = {
+  sender: {
+    id: '404217156637689',
+  },
+  recipient: {
+    id: '1423587017700273',
+  },
+  timestamp: 1491798024994,
+  message: {
+    isEcho: true,
+    appId: 205552219930699,
+    mid: 'mid.$cAAE1UUyiiwthh1yrIlbVhdisQW8M',
+    seq: 348859,
+    text: 'Difficult the first time, easy the second.',
+  },
+};
+
+const postback = {
+  recipient: {
+    id: '404217156637689',
+  },
+  timestamp: 1491798782090,
+  sender: {
+    id: '1423587017700273',
+  },
+  postback: {
+    payload: 'USER_DEFINED_PAYLOAD',
+  },
+};
+
+const gamePlay = {
+  sender: {
+    id: 'USER_ID',
+  },
+  recipient: {
+    id: 'PAGE_ID',
+  },
+  timestamp: 1469111400000,
+  gamePlay: {
+    gameId: 'GAME_ID',
+    playerId: 'PLAYER_ID',
+    contextType: 'SOLO',
+    contextId: 'CONTEXT_ID',
+    score: 99,
+    payload: '{"some_key":"SOME_VALUE"}',
+  },
+};
+
+const gamePlayWithNonValidPayload = {
+  sender: {
+    id: 'USER_ID',
+  },
+  recipient: {
+    id: 'PAGE_ID',
+  },
+  timestamp: 1469111400000,
+  gamePlay: {
+    gameId: 'GAME_ID',
+    playerId: 'PLAYER_ID',
+    contextType: 'SOLO',
+    contextId: 'CONTEXT_ID',
+    score: 99,
+    payload: 'SOME_STRING',
+  },
+};
+
+const optin = {
+  sender: {
+    id: 'USER_ID',
+  },
+  recipient: {
+    id: 'PAGE_ID',
+  },
+  timestamp: 1234567890,
+  optin: {
+    ref: 'PASS_THROUGH_PARAM',
+  },
+};
+
+const payment = {
+  recipient: {
+    id: 'PAGE_ID',
+  },
+  timestamp: 1473208792799,
+  sender: {
+    id: 'USER_ID',
+  },
+  payment: {
+    payload: 'DEVELOPER_DEFINED_PAYLOAD',
+    requestedUserInfo: {
+      shippingAddress: {},
+      contactName: 'Peter Chang',
+      contactEmail: 'peter@anemail.com',
+      contactPhone: '+15105551234',
+    },
+    paymentCredential: {
+      providerType: 'paypal',
+      chargeId: 'ch_18tmdBEoNIH3FPJHa60ep123',
+      fbPaymentId: '123456789',
+    },
+    amount: {
+      currency: 'USD',
+      amount: '29.62',
+    },
+    shippi

@@ -527,4 +527,40 @@ describe('persona', () => {
       expect(client.sendText).toBeCalledWith(
         session.user.id,
         'hi',
-        expect.objectContaining
+        expect.objectContaining({
+          personaId: PERSONA_ID,
+        })
+      );
+    });
+  });
+
+  describe('personaId', () => {
+    it('should call API with personaId', async () => {
+      const { context, client, session } = setup();
+
+      await context.typingOn({ personaId: PERSONA_ID });
+      await context.typingOff({ personaId: PERSONA_ID });
+      await context.sendText('hi', { personaId: PERSONA_ID });
+
+      expect(client.typingOn).toBeCalledWith(
+        session.user.id,
+        expect.objectContaining({
+          personaId: PERSONA_ID,
+        })
+      );
+      expect(client.typingOff).toBeCalledWith(
+        session.user.id,
+        expect.objectContaining({
+          personaId: PERSONA_ID,
+        })
+      );
+      expect(client.sendText).toBeCalledWith(
+        session.user.id,
+        'hi',
+        expect.objectContaining({
+          personaId: PERSONA_ID,
+        })
+      );
+    });
+  });
+});

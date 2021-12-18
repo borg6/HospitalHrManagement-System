@@ -99,4 +99,152 @@ describe('#getUserProfile', () => {
 
     const user = {
       id: session.user.id,
-    
+      name: 'Kevin Durant',
+      firstName: 'Kevin',
+      lastName: 'Durant',
+      profilePic: 'https://example.com/pic.png',
+      locale: 'en_US',
+      timezone: 8,
+      gender: 'male',
+    };
+
+    mocked(client.getUserProfile).mockResolvedValue(user);
+
+    const result = await context.getUserProfile({
+      fields: [
+        'id',
+        'name',
+        'first_name',
+        'last_name',
+        'profile_pic',
+        'locale',
+        'timezone',
+        'gender',
+      ],
+    });
+
+    expect(client.getUserProfile).toBeCalledWith(session.user.id, {
+      fields: [
+        'id',
+        'name',
+        'first_name',
+        'last_name',
+        'profile_pic',
+        'locale',
+        'timezone',
+        'gender',
+      ],
+    });
+    expect(result).toEqual(user);
+  });
+
+  it('should call warning and not to send if dont have session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.getUserProfile();
+
+    expect(warning).toBeCalledWith(
+      false,
+      'getUserProfile: should not be called in context without session'
+    );
+    expect(client.getUserProfile).not.toBeCalled();
+  });
+});
+
+describe('Persistent Menu', () => {
+  describe('#getUserPersistentMenu', () => {
+    it('should call client getUserPersistentMenu', async () => {
+      const { context, client, session } = setup();
+
+      const persistentMenu = [
+        {
+          locale: 'default',
+          composer_input_disabled: false,
+          call_to_actions: [
+            {
+              type: 'postback',
+              title: 'Restart Conversation',
+              payload: 'RESTART',
+            },
+            {
+              type: 'web_url',
+              title: 'Powered by ALOHA.AI, Yoctol',
+              url: 'https://www.yoctol.com/',
+            },
+          ],
+        },
+      ];
+
+      client.getUserPersistentMenu.mockResolvedValue(persistentMenu);
+
+      const result = await context.getUserPersistentMenu();
+
+      expect(client.getUserPersistentMenu).toBeCalledWith(session.user.id);
+      expect(result).toEqual(persistentMenu);
+    });
+
+    it('should call warning and not to send if dont have session', async () => {
+      const { context, client } = setup({ session: false });
+
+      await context.getUserPersistentMenu();
+
+      expect(warning).toBeCalledWith(
+        false,
+        'getUserPersistentMenu: should not be called in context without session'
+      );
+      expect(client.getUserPersistentMenu).not.toBeCalled();
+    });
+  });
+
+  describe('#setUserPersistentMenu', () => {
+    it('should call client setUserPersistentMenu', async () => {
+      const { context, client, session } = setup();
+
+      const persistentMenu = [
+        {
+          locale: 'default',
+          composer_input_disabled: false,
+          call_to_actions: [
+            {
+              type: 'postback',
+              title: 'Restart Conversation',
+              payload: 'RESTART',
+            },
+            {
+              type: 'web_url',
+              title: 'Powered by ALOHA.AI, Yoctol',
+              url: 'https://www.yoctol.com/',
+            },
+          ],
+        },
+      ];
+
+      const result = await context.setUserPersistentMenu(persistentMenu);
+
+      expect(client.setUserPersistentMenu).toBeCalledWith(
+        session.user.id,
+        persistentMenu,
+        {}
+      );
+
+      expect(result).toBeUndefined();
+    });
+
+    it('should call warning and not to send if dont have session', async () => {
+      const { context, client } = setup({ session: false });
+
+      await context.setUserPersistentMenu();
+
+      expect(warning).toBeCalledWith(
+        false,
+        'setUserPersistentMenu: should not be called in context without session'
+      );
+      expect(client.setPersistentMenu).not.toBeCalled();
+    });
+  });
+
+  describe('#deleteUserPersistentMenu', () => {
+    it('should call client deleteUserPersistentMenu', async () => {
+      const { context, client, session } = setup();
+
+      const result = await context

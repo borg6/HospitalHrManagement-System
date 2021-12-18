@@ -574,4 +574,136 @@ const brandedCamera = {
   },
   timestamp: 1469111400000,
   brandedCamera: {
-    contentIds: ['<CAMERA-EFFECT-ID>', '<
+    contentIds: ['<CAMERA-EFFECT-ID>', '<CAMERA-EFFECT-ID>'],
+    event: 'dismiss',
+  },
+};
+
+const accountLinkingLinked = {
+  sender: {
+    id: '1476077422222289',
+  },
+  recipient: {
+    id: '707356222221168',
+  },
+  timestamp: 1469111400000,
+  accountLinking: {
+    status: 'linked',
+    authorizationCode: 'PASS_THROUGH_AUTHORIZATION_CODE',
+  },
+};
+
+const accountLinkingUnlinked = {
+  sender: {
+    id: '1476077422222289',
+  },
+  recipient: {
+    id: '707356222221168',
+  },
+  timestamp: 1469111400000,
+  accountLinking: {
+    status: 'unlinked',
+  },
+};
+
+const reactionReact = {
+  sender: {
+    id: '1476077422222289',
+  },
+  recipient: {
+    id: '707356222221168',
+  },
+  timestamp: 1469111400000,
+  reaction: {
+    reaction: 'smile',
+    emoji: '\u{2764}\u{FE0F}',
+    action: 'react',
+    mid: 'mid.$cAAE1UUyiiwthh0NPrVbVf4HFNDGl',
+  },
+};
+
+const reactionUnreact = {
+  sender: {
+    id: '1476077422222289',
+  },
+  recipient: {
+    id: '707356222221168',
+  },
+  timestamp: 1469111400000,
+  reaction: {
+    reaction: 'smile',
+    emoji: '\u{2764}\u{FE0F}',
+    action: 'unreact',
+    mid: 'mid.$cAAE1UUyiiwthh0NPrVbVf4HFNDGl',
+  },
+};
+
+it('#rawEvent', () => {
+  expect(new MessengerEvent(textMessage).rawEvent).toEqual(textMessage);
+  expect(new MessengerEvent(imageMessage).rawEvent).toEqual(imageMessage);
+  expect(new MessengerEvent(likeStickerMessage).rawEvent).toEqual(
+    likeStickerMessage
+  );
+  expect(new MessengerEvent(quickReplyMessage).rawEvent).toEqual(
+    quickReplyMessage
+  );
+  expect(new MessengerEvent(echoMessage).rawEvent).toEqual(echoMessage);
+  expect(new MessengerEvent(postback).rawEvent).toEqual(postback);
+  expect(new MessengerEvent(payment).rawEvent).toEqual(payment);
+  expect(new MessengerEvent(accountLinkingLinked).rawEvent).toEqual(
+    accountLinkingLinked
+  );
+  expect(new MessengerEvent(accountLinkingUnlinked).rawEvent).toEqual(
+    accountLinkingUnlinked
+  );
+});
+
+it('#timestamp', () => {
+  expect(new MessengerEvent(textMessage).timestamp).toEqual(1491796363181);
+  expect(new MessengerEvent(imageMessage).timestamp).toEqual(1491797604411);
+  expect(new MessengerEvent(likeStickerMessage).timestamp).toEqual(
+    1491797086506
+  );
+  expect(new MessengerEvent(quickReplyMessage).timestamp).toEqual(
+    1491798262319
+  );
+  expect(new MessengerEvent(echoMessage).timestamp).toEqual(1491798024994);
+  expect(new MessengerEvent(postback).timestamp).toEqual(1491798782090);
+  expect(new MessengerEvent(payment).timestamp).toEqual(1473208792799);
+  expect(new MessengerEvent(accountLinkingLinked).timestamp).toEqual(
+    1469111400000
+  );
+  expect(new MessengerEvent(accountLinkingUnlinked).timestamp).toEqual(
+    1469111400000
+  );
+});
+
+it('#isMessage', () => {
+  expect(new MessengerEvent(textMessage).isMessage).toEqual(true);
+  expect(new MessengerEvent(imageMessage).isMessage).toEqual(true);
+  expect(new MessengerEvent(likeStickerMessage).isMessage).toEqual(true);
+  expect(new MessengerEvent(quickReplyMessage).isMessage).toEqual(true);
+  expect(
+    new MessengerEvent(textMessageFromCustomerChatPlugin).isMessage
+  ).toEqual(true);
+  expect(new MessengerEvent(echoMessage).isMessage).toEqual(true);
+  expect(new MessengerEvent(postback).isMessage).toEqual(false);
+  expect(new MessengerEvent(payment).isMessage).toEqual(false);
+  expect(new MessengerEvent(accountLinkingLinked).isMessage).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isMessage).toEqual(false);
+});
+
+it('#message', () => {
+  expect(new MessengerEvent(textMessage).message).toEqual({
+    mid: 'mid.$cAAE1UUyiiwthh0NPrVbVf4HFNDGl',
+    seq: 348847,
+    text: 'Sharp tools make good work.',
+  });
+  expect(new MessengerEvent(imageMessage).message).toEqual({
+    mid: 'mid.$cAAE1UUyiiwthh1ZAO1bVhDxGk2N0',
+    seq: 348855,
+    attachments: [
+      {
+        type: 'image',
+        payload: {
+          url: 'https://scontent.xx.fbcdn.net/v/t35.0-12/17887258_1429713783754592_1626047672_o

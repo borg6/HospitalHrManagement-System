@@ -706,4 +706,101 @@ it('#message', () => {
       {
         type: 'image',
         payload: {
-          url: 'https://scontent.xx.fbcdn.net/v/t35.0-12/17887258_1429713783754592_1626047672_o
+          url: 'https://scontent.xx.fbcdn.net/v/t35.0-12/17887258_1429713783754592_1626047672_o.jpg?_nc_ad=z-m&oh=e44af5a4c973541ef56333202f160720&oe=58ECF78B',
+        },
+      },
+    ],
+  });
+  expect(new MessengerEvent(likeStickerMessage).message).toEqual({
+    mid: 'mid.$cAAE1UUyiiwthh05ZKlbVgkOobi32',
+    seq: 348853,
+    stickerId: 369239263222822,
+    attachments: [
+      {
+        type: 'image',
+        payload: {
+          url: 'https://scontent.xx.fbcdn.net/v/t39.1997-6/851557_369239266556155_759568595_n.png?_nc_ad=z-m&oh=547beb90237e24a9682810a5144c9fba&oe=5988CFDC',
+          stickerId: 369239263222822,
+        },
+      },
+    ],
+  });
+});
+
+it('#isText', () => {
+  expect(new MessengerEvent(textMessage).isText).toEqual(true);
+  expect(new MessengerEvent(imageMessage).isText).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isText).toEqual(false);
+});
+
+it('#text', () => {
+  expect(new MessengerEvent(textMessage).text).toEqual(
+    'Sharp tools make good work.'
+  );
+  expect(new MessengerEvent(imageMessage).text).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).text).toEqual(null);
+});
+
+it('#hasAttachment', () => {
+  expect(new MessengerEvent(textMessage).hasAttachment).toEqual(false);
+  expect(new MessengerEvent(imageMessage).hasAttachment).toEqual(true);
+  expect(new MessengerEvent(likeStickerMessage).hasAttachment).toEqual(true);
+});
+
+it('#attachments', () => {
+  expect(new MessengerEvent(imageMessage).attachments).toEqual([
+    {
+      type: 'image',
+      payload: {
+        url: 'https://scontent.xx.fbcdn.net/v/t35.0-12/17887258_1429713783754592_1626047672_o.jpg?_nc_ad=z-m&oh=e44af5a4c973541ef56333202f160720&oe=58ECF78B',
+      },
+    },
+  ]);
+  expect(new MessengerEvent(likeStickerMessage).attachments).toEqual([
+    {
+      type: 'image',
+      payload: {
+        url: 'https://scontent.xx.fbcdn.net/v/t39.1997-6/851557_369239266556155_759568595_n.png?_nc_ad=z-m&oh=547beb90237e24a9682810a5144c9fba&oe=5988CFDC',
+        stickerId: 369239263222822,
+      },
+    },
+  ]);
+  expect(new MessengerEvent(postback).attachments).toEqual(null);
+});
+
+it('#isImage', () => {
+  expect(new MessengerEvent(textMessage).isImage).toEqual(false);
+  expect(new MessengerEvent(locationMessage).isImage).toEqual(false);
+  expect(new MessengerEvent(videoMessage).isImage).toEqual(false);
+  expect(new MessengerEvent(audioMessage).isImage).toEqual(false);
+  expect(new MessengerEvent(fileMessage).isImage).toEqual(false);
+  expect(new MessengerEvent(fallbackMessage).isImage).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isImage).toEqual(true);
+  expect(new MessengerEvent(likeStickerMessage).isImage).toEqual(true);
+});
+
+it('#image', () => {
+  expect(new MessengerEvent(textMessage).image).toEqual(null);
+  expect(new MessengerEvent(locationMessage).image).toEqual(null);
+  expect(new MessengerEvent(videoMessage).image).toEqual(null);
+  expect(new MessengerEvent(audioMessage).image).toEqual(null);
+  expect(new MessengerEvent(fileMessage).image).toEqual(null);
+  expect(new MessengerEvent(fallbackMessage).image).toEqual(null);
+  expect(new MessengerEvent(imageMessage).image).toEqual({
+    url: 'https://scontent.xx.fbcdn.net/v/t35.0-12/17887258_1429713783754592_1626047672_o.jpg?_nc_ad=z-m&oh=e44af5a4c973541ef56333202f160720&oe=58ECF78B',
+  });
+  expect(new MessengerEvent(likeStickerMessage).image).toEqual({
+    stickerId: 369239263222822,
+    url: 'https://scontent.xx.fbcdn.net/v/t39.1997-6/851557_369239266556155_759568595_n.png?_nc_ad=z-m&oh=547beb90237e24a9682810a5144c9fba&oe=5988CFDC',
+  });
+});
+
+it('#isAudio', () => {
+  expect(new MessengerEvent(textMessage).isAudio).toEqual(false);
+  expect(new MessengerEvent(locationMessage).isAudio).toEqual(false);
+  expect(new MessengerEvent(videoMessage).isAudio).toEqual(false);
+  expect(new MessengerEvent(audioMessage).isAudio).toEqual(true);
+  expect(new MessengerEvent(fileMessage).isAudio).toEqual(false);
+  expect(new MessengerEvent(fallbackMessage).isAudio).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isAudio).toEqual(false);
+  expect(new MessengerEvent(

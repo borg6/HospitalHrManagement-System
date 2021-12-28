@@ -886,4 +886,98 @@ it('#file', () => {
   expect(new MessengerEvent(fileMessage).file).toEqual({
     url: 'https://example.com/bot/files/file.doc',
   });
-  expect(new Me
+  expect(new MessengerEvent(fallbackMessage).file).toEqual(null);
+  expect(new MessengerEvent(imageMessage).file).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).file).toEqual(null);
+});
+
+it('#isFallback', () => {
+  expect(new MessengerEvent(textMessage).isFallback).toEqual(false);
+  expect(new MessengerEvent(locationMessage).isFallback).toEqual(false);
+  expect(new MessengerEvent(videoMessage).isFallback).toEqual(false);
+  expect(new MessengerEvent(audioMessage).isFallback).toEqual(false);
+  expect(new MessengerEvent(fileMessage).isFallback).toEqual(false);
+  expect(new MessengerEvent(fallbackMessage).isFallback).toEqual(true);
+  expect(new MessengerEvent(imageMessage).isFallback).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isFallback).toEqual(false);
+});
+
+it('#fallback', () => {
+  expect(new MessengerEvent(textMessage).fallback).toEqual(null);
+  expect(new MessengerEvent(locationMessage).fallback).toEqual(null);
+  expect(new MessengerEvent(videoMessage).fallback).toEqual(null);
+  expect(new MessengerEvent(audioMessage).fallback).toEqual(null);
+  expect(new MessengerEvent(fileMessage).fallback).toEqual(null);
+  expect(new MessengerEvent(fallbackMessage).fallback).toEqual({
+    URL: 'URL_OF_THE_ATTACHMENT',
+    payload: null,
+    title: 'TITLE_OF_THE_URL_ATTACHMENT',
+    type: 'fallback',
+  });
+  expect(new MessengerEvent(imageMessage).fallback).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).fallback).toEqual(null);
+});
+
+it('#isSticker', () => {
+  expect(new MessengerEvent(textMessage).isSticker).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isSticker).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isSticker).toEqual(true);
+  expect(new MessengerEvent(largeLikeStickerMessage).isSticker).toEqual(true);
+  expect(new MessengerEvent(hugeLikeStickerMessage).isSticker).toEqual(true);
+});
+
+it('#sticker', () => {
+  expect(new MessengerEvent(textMessage).sticker).toEqual(null);
+  expect(new MessengerEvent(imageMessage).sticker).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).sticker).toEqual(
+    369239263222822
+  );
+  expect(new MessengerEvent(largeLikeStickerMessage).sticker).toEqual(
+    369239343222814
+  );
+  expect(new MessengerEvent(hugeLikeStickerMessage).sticker).toEqual(
+    369239383222810
+  );
+});
+
+it('#isLikeSticker', () => {
+  expect(new MessengerEvent(textMessage).isLikeSticker).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isLikeSticker).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isLikeSticker).toEqual(true);
+  expect(new MessengerEvent(largeLikeStickerMessage).isLikeSticker).toEqual(
+    true
+  );
+  expect(new MessengerEvent(hugeLikeStickerMessage).isLikeSticker).toEqual(
+    true
+  );
+});
+
+it('#isQuickReply', () => {
+  expect(new MessengerEvent(textMessage).isQuickReply).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isQuickReply).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isQuickReply).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isQuickReply).toEqual(true);
+  expect(new MessengerEvent(echoMessage).isQuickReply).toEqual(false);
+});
+
+it('#quickReply', () => {
+  expect(new MessengerEvent(quickReplyMessage).quickReply).toEqual({
+    payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED',
+  });
+  expect(new MessengerEvent(postback).quickReply).toEqual(null);
+});
+
+it('#isDelivery', () => {
+  expect(new MessengerEvent(textMessage).isDelivery).toEqual(false);
+  expect(new MessengerEvent(delivery).isDelivery).toEqual(true);
+  expect(new MessengerEvent(read).isDelivery).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isDelivery).toEqual(false);
+  expect(new MessengerEvent(postback).isDelivery).toEqual(false);
+  expect(new MessengerEvent(payment).isDelivery).toEqual(false);
+  expect(new MessengerEvent(accountLinkingLinked).isDelivery).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isDelivery).toEqual(false);
+});
+
+it('#delivery', () => {
+  expect(new MessengerEvent(textMessage).delivery).toEqual(null);
+ 

@@ -803,4 +803,87 @@ it('#isAudio', () => {
   expect(new MessengerEvent(fileMessage).isAudio).toEqual(false);
   expect(new MessengerEvent(fallbackMessage).isAudio).toEqual(false);
   expect(new MessengerEvent(imageMessage).isAudio).toEqual(false);
-  expect(new MessengerEvent(
+  expect(new MessengerEvent(likeStickerMessage).isAudio).toEqual(false);
+});
+
+it('#audio', () => {
+  expect(new MessengerEvent(textMessage).audio).toEqual(null);
+  expect(new MessengerEvent(locationMessage).audio).toEqual(null);
+  expect(new MessengerEvent(videoMessage).audio).toEqual(null);
+  expect(new MessengerEvent(audioMessage).audio).toEqual({
+    url: 'https://example.com/bot/audios/audio.mp3',
+  });
+  expect(new MessengerEvent(fileMessage).audio).toEqual(null);
+  expect(new MessengerEvent(fallbackMessage).audio).toEqual(null);
+  expect(new MessengerEvent(imageMessage).audio).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).audio).toEqual(null);
+});
+
+it('#isVideo', () => {
+  expect(new MessengerEvent(textMessage).isVideo).toEqual(false);
+  expect(new MessengerEvent(locationMessage).isVideo).toEqual(false);
+  expect(new MessengerEvent(videoMessage).isVideo).toEqual(true);
+  expect(new MessengerEvent(audioMessage).isVideo).toEqual(false);
+  expect(new MessengerEvent(fileMessage).isVideo).toEqual(false);
+  expect(new MessengerEvent(fallbackMessage).isVideo).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isVideo).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isVideo).toEqual(false);
+});
+
+it('#video', () => {
+  expect(new MessengerEvent(textMessage).video).toEqual(null);
+  expect(new MessengerEvent(locationMessage).video).toEqual(null);
+  expect(new MessengerEvent(videoMessage).video).toEqual({
+    url: 'https://example.com/bot/videos/video.mp4',
+  });
+  expect(new MessengerEvent(audioMessage).video).toEqual(null);
+  expect(new MessengerEvent(fileMessage).video).toEqual(null);
+  expect(new MessengerEvent(fallbackMessage).video).toEqual(null);
+  expect(new MessengerEvent(imageMessage).video).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).video).toEqual(null);
+});
+
+it('#isLocation', () => {
+  expect(new MessengerEvent(textMessage).isLocation).toEqual(false);
+  expect(new MessengerEvent(locationMessage).isLocation).toEqual(true);
+  expect(new MessengerEvent(videoMessage).isLocation).toEqual(false);
+  expect(new MessengerEvent(audioMessage).isLocation).toEqual(false);
+  expect(new MessengerEvent(fileMessage).isLocation).toEqual(false);
+  expect(new MessengerEvent(fallbackMessage).isLocation).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isLocation).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isLocation).toEqual(false);
+});
+
+it('#location', () => {
+  expect(new MessengerEvent(textMessage).location).toEqual(null);
+  expect(new MessengerEvent(locationMessage).location).toEqual({
+    coordinates: { lat: 0, long: 0 },
+  });
+  expect(new MessengerEvent(videoMessage).location).toEqual(null);
+  expect(new MessengerEvent(audioMessage).location).toEqual(null);
+  expect(new MessengerEvent(fileMessage).location).toEqual(null);
+  expect(new MessengerEvent(fallbackMessage).location).toEqual(null);
+  expect(new MessengerEvent(imageMessage).location).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).location).toEqual(null);
+});
+
+it('#isFile', () => {
+  expect(new MessengerEvent(textMessage).isFile).toEqual(false);
+  expect(new MessengerEvent(locationMessage).isFile).toEqual(false);
+  expect(new MessengerEvent(videoMessage).isFile).toEqual(false);
+  expect(new MessengerEvent(audioMessage).isFile).toEqual(false);
+  expect(new MessengerEvent(fileMessage).isFile).toEqual(true);
+  expect(new MessengerEvent(fallbackMessage).isFile).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isFile).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isFile).toEqual(false);
+});
+
+it('#file', () => {
+  expect(new MessengerEvent(textMessage).file).toEqual(null);
+  expect(new MessengerEvent(locationMessage).file).toEqual(null);
+  expect(new MessengerEvent(videoMessage).file).toEqual(null);
+  expect(new MessengerEvent(audioMessage).file).toEqual(null);
+  expect(new MessengerEvent(fileMessage).file).toEqual({
+    url: 'https://example.com/bot/files/file.doc',
+  });
+  expect(new Me

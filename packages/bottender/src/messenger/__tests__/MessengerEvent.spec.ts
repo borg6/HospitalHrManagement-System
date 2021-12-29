@@ -1269,4 +1269,119 @@ it('#policyEnforcement', () => {
   expect(new MessengerEvent(policyEnforcement).policyEnforcement).toEqual({
     action: 'block',
     reason:
-      'The bot violated our 
+      'The bot violated our Platform Policies (https://developers.facebook.com/policy/#messengerplatform). Common violations include sending out excessive spammy messages or being non-functional.',
+  });
+});
+
+it('#isAppRoles', () => {
+  expect(new MessengerEvent(textMessage).isAppRoles).toEqual(false);
+  expect(new MessengerEvent(postback).isAppRoles).toEqual(false);
+  expect(new MessengerEvent(appRoles).isAppRoles).toEqual(true);
+});
+
+it('#appRoles', () => {
+  expect(new MessengerEvent(textMessage).appRoles).toEqual(null);
+  expect(new MessengerEvent(postback).appRoles).toEqual(null);
+  expect(new MessengerEvent(appRoles).appRoles).toEqual({
+    '123456789': ['automation'],
+  });
+});
+
+it('#isStandby', () => {
+  expect(new MessengerEvent(textMessage).isStandby).toEqual(false);
+  expect(
+    new MessengerEvent(textMessage, { isStandby: false }).isStandby
+  ).toEqual(false);
+  expect(
+    new MessengerEvent(textMessage, { isStandby: true }).isStandby
+  ).toEqual(true);
+});
+
+it('#isPassThreadControl', () => {
+  expect(new MessengerEvent(textMessage).isPassThreadControl).toEqual(false);
+  expect(new MessengerEvent(postback).isPassThreadControl).toEqual(false);
+  expect(new MessengerEvent(passThreadControl).isPassThreadControl).toEqual(
+    true
+  );
+});
+
+it('#passThreadControl', () => {
+  expect(new MessengerEvent(textMessage).passThreadControl).toEqual(null);
+  expect(new MessengerEvent(postback).passThreadControl).toEqual(null);
+  expect(new MessengerEvent(passThreadControl).passThreadControl).toEqual({
+    metadata: 'additional content that the caller wants to set',
+    newOwnerAppId: '123456789',
+  });
+});
+
+it('#isTakeThreadControl', () => {
+  expect(new MessengerEvent(textMessage).isTakeThreadControl).toEqual(false);
+  expect(new MessengerEvent(postback).isTakeThreadControl).toEqual(false);
+  expect(new MessengerEvent(takeThreadControl).isTakeThreadControl).toEqual(
+    true
+  );
+});
+
+it('#takeThreadControl', () => {
+  expect(new MessengerEvent(textMessage).takeThreadControl).toEqual(null);
+  expect(new MessengerEvent(postback).takeThreadControl).toEqual(null);
+  expect(new MessengerEvent(takeThreadControl).takeThreadControl).toEqual({
+    metadata: 'additional content that the caller wants to set',
+    previousOwnerAppId: '123456789',
+  });
+});
+
+it('#isTakeThreadControl', () => {
+  expect(new MessengerEvent(textMessage).isTakeThreadControl).toEqual(false);
+  expect(new MessengerEvent(postback).isTakeThreadControl).toEqual(false);
+  expect(new MessengerEvent(takeThreadControl).isTakeThreadControl).toEqual(
+    true
+  );
+});
+
+it('#isRequestThreadControl', () => {
+  expect(new MessengerEvent(textMessage).isRequestThreadControl).toEqual(false);
+  expect(new MessengerEvent(postback).isRequestThreadControl).toEqual(false);
+  expect(
+    new MessengerEvent(requestThreadControl).isRequestThreadControl
+  ).toEqual(true);
+});
+
+it('#isRequestThreadControlFromPageInbox', () => {
+  expect(
+    new MessengerEvent(textMessage).isRequestThreadControlFromPageInbox
+  ).toEqual(false);
+  expect(
+    new MessengerEvent(postback).isRequestThreadControlFromPageInbox
+  ).toEqual(false);
+  expect(
+    new MessengerEvent(requestThreadControlFromInbox).isRequestThreadControl
+  ).toEqual(true);
+  expect(
+    new MessengerEvent(requestThreadControlFromInbox)
+      .isRequestThreadControlFromPageInbox
+  ).toEqual(true);
+});
+
+it('#requestThreadControl', () => {
+  expect(new MessengerEvent(textMessage).requestThreadControl).toEqual(null);
+  expect(new MessengerEvent(postback).requestThreadControl).toEqual(null);
+  expect(new MessengerEvent(requestThreadControl).requestThreadControl).toEqual(
+    {
+      metadata: 'additional content that the caller wants to set',
+      requestedOwnerAppId: 123456789,
+    }
+  );
+});
+
+it('#isFromCustomerChatPlugin', () => {
+  expect(new MessengerEvent(textMessage).isFromCustomerChatPlugin).toEqual(
+    false
+  );
+  expect(new MessengerEvent(postback).isFromCustomerChatPlugin).toEqual(false);
+  expect(
+    new MessengerEvent(textMessageFromCustomerChatPlugin)
+      .isFromCustomerChatPlugin
+  ).toEqual(true);
+  expect(
+    new MessengerEvent(customerChatPluginRefer

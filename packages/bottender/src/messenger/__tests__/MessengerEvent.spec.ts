@@ -1384,4 +1384,110 @@ it('#isFromCustomerChatPlugin', () => {
       .isFromCustomerChatPlugin
   ).toEqual(true);
   expect(
-    new MessengerEvent(customerChatPluginRefer
+    new MessengerEvent(customerChatPluginReferral).isFromCustomerChatPlugin
+  ).toEqual(true);
+});
+
+it('#isReferral', () => {
+  expect(new MessengerEvent(linkReferral).isReferral).toEqual(true);
+  expect(new MessengerEvent(postbackReferral).isReferral).toEqual(true);
+  expect(new MessengerEvent(customerChatPluginReferral).isReferral).toEqual(
+    true
+  );
+  expect(new MessengerEvent(postback).isReferral).toEqual(false);
+  expect(new MessengerEvent(textMessage).isReferral).toEqual(false);
+});
+
+it('#referral', () => {
+  expect(new MessengerEvent(linkReferral).referral).toEqual({
+    ref: 'aaaa',
+    source: 'SHORTLINK',
+    type: 'OPEN_THREAD',
+  });
+  expect(new MessengerEvent(postbackReferral).referral).toEqual({
+    ref: 'aaaa',
+    source: 'SHORTLINK',
+    type: 'OPEN_THREAD',
+  });
+  expect(new MessengerEvent(customerChatPluginReferral).referral).toEqual({
+    ref: 'bbbb',
+    source: 'CUSTOMER_CHAT_PLUGIN',
+    type: 'OPEN_THREAD',
+    originDomain: 'https://test.domain.tw/',
+  });
+  expect(new MessengerEvent(postback).referral).toEqual(null);
+  expect(new MessengerEvent(textMessage).referral).toEqual(null);
+});
+
+it('#ref', () => {
+  expect(new MessengerEvent(linkReferral).ref).toEqual('aaaa');
+  expect(new MessengerEvent(postbackReferral).ref).toEqual('aaaa');
+  expect(new MessengerEvent(customerChatPluginReferral).ref).toEqual('bbbb');
+  expect(new MessengerEvent(postback).ref).toEqual(null);
+  expect(new MessengerEvent(textMessage).ref).toEqual(null);
+});
+
+it('#pageId', () => {
+  expect(new MessengerEvent(linkReferral, { pageId }).pageId).toEqual(
+    '137542570280111'
+  );
+  expect(new MessengerEvent(postbackReferral, { pageId }).pageId).toEqual(
+    '137542570280111'
+  );
+  expect(
+    new MessengerEvent(customerChatPluginReferral, { pageId }).pageId
+  ).toEqual('137542570280111');
+  expect(new MessengerEvent(postback, { pageId }).pageId).toEqual(
+    '137542570280111'
+  );
+  expect(new MessengerEvent(textMessage, { pageId }).pageId).toEqual(
+    '137542570280111'
+  );
+  expect(new MessengerEvent(textMessage).pageId).toEqual(null);
+});
+
+it('#isBrandedCamera', () => {
+  expect(new MessengerEvent(textMessage).isBrandedCamera).toEqual(false);
+  expect(new MessengerEvent(postback).isBrandedCamera).toEqual(false);
+  expect(
+    new MessengerEvent(customerChatPluginReferral).isBrandedCamera
+  ).toEqual(false);
+  expect(new MessengerEvent(brandedCamera).isBrandedCamera).toEqual(true);
+});
+
+it('#brandedCamera', () => {
+  expect(new MessengerEvent(textMessage).brandedCamera).toEqual(null);
+  expect(new MessengerEvent(postback).brandedCamera).toEqual(null);
+  expect(new MessengerEvent(customerChatPluginReferral).brandedCamera).toEqual(
+    null
+  );
+  expect(new MessengerEvent(brandedCamera).brandedCamera).toEqual({
+    contentIds: ['<CAMERA-EFFECT-ID>', '<CAMERA-EFFECT-ID>'],
+    event: 'dismiss',
+  });
+});
+
+it('#isAccountLinking', () => {
+  expect(new MessengerEvent(textMessage).isAccountLinking).toEqual(false);
+  expect(new MessengerEvent(delivery).isAccountLinking).toEqual(false);
+  expect(new MessengerEvent(read).isAccountLinking).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isAccountLinking).toEqual(false);
+  expect(new MessengerEvent(postback).isAccountLinking).toEqual(false);
+  expect(new MessengerEvent(payment).isAccountLinking).toEqual(false);
+  expect(new MessengerEvent(accountLinkingLinked).isAccountLinking).toEqual(
+    true
+  );
+  expect(new MessengerEvent(accountLinkingUnlinked).isAccountLinking).toEqual(
+    true
+  );
+});
+
+it('#accountLinking', () => {
+  expect(new MessengerEvent(textMessage).accountLinking).toEqual(null);
+  expect(new MessengerEvent(delivery).accountLinking).toEqual(null);
+  expect(new MessengerEvent(read).accountLinking).toEqual(null);
+  expect(new MessengerEvent(echoMessage).accountLinking).toEqual(null);
+  expect(new MessengerEvent(postback).accountLinking).toEqual(null);
+  expect(new MessengerEvent(payment).accountLinking).toEqual(null);
+  expect(new MessengerEvent(accountLinkingLinked).accountLinking).toEqual({
+    authorizationCode:

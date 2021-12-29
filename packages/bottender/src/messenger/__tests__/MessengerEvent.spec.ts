@@ -980,4 +980,93 @@ it('#isDelivery', () => {
 
 it('#delivery', () => {
   expect(new MessengerEvent(textMessage).delivery).toEqual(null);
- 
+  expect(new MessengerEvent(delivery).delivery).toEqual({
+    mids: ['mid.1458668856218:ed81099e15d3f4f233'],
+    seq: 37,
+    watermark: 1458668856253,
+  });
+  expect(new MessengerEvent(read).delivery).toEqual(null);
+  expect(new MessengerEvent(echoMessage).delivery).toEqual(null);
+  expect(new MessengerEvent(postback).delivery).toEqual(null);
+  expect(new MessengerEvent(payment).delivery).toEqual(null);
+  expect(new MessengerEvent(accountLinkingLinked).delivery).toEqual(null);
+  expect(new MessengerEvent(accountLinkingUnlinked).delivery).toEqual(null);
+});
+
+it('#isRead', () => {
+  expect(new MessengerEvent(textMessage).isRead).toEqual(false);
+  expect(new MessengerEvent(delivery).isRead).toEqual(false);
+  expect(new MessengerEvent(read).isRead).toEqual(true);
+  expect(new MessengerEvent(echoMessage).isRead).toEqual(false);
+  expect(new MessengerEvent(postback).isRead).toEqual(false);
+  expect(new MessengerEvent(payment).isRead).toEqual(false);
+  expect(new MessengerEvent(accountLinkingLinked).isRead).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isRead).toEqual(false);
+});
+
+it('#read', () => {
+  expect(new MessengerEvent(textMessage).read).toEqual(null);
+  expect(new MessengerEvent(delivery).read).toEqual(null);
+  expect(new MessengerEvent(read).read).toEqual({
+    seq: 38,
+    watermark: 1458668856253,
+  });
+  expect(new MessengerEvent(echoMessage).read).toEqual(null);
+  expect(new MessengerEvent(postback).read).toEqual(null);
+  expect(new MessengerEvent(payment).read).toEqual(null);
+  expect(new MessengerEvent(accountLinkingLinked).read).toEqual(null);
+  expect(new MessengerEvent(accountLinkingUnlinked).read).toEqual(null);
+});
+
+it('#isEcho', () => {
+  expect(new MessengerEvent(textMessage).isEcho).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isEcho).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isEcho).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isEcho).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isEcho).toEqual(true);
+});
+
+it('#isPostback', () => {
+  expect(new MessengerEvent(textMessage).isPostback).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isPostback).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isPostback).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isPostback).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isPostback).toEqual(false);
+  expect(new MessengerEvent(postback).isPostback).toEqual(true);
+  expect(new MessengerEvent(payment).isPostback).toEqual(false);
+  expect(new MessengerEvent(accountLinkingLinked).isPostback).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isPostback).toEqual(false);
+});
+
+it('#postback', () => {
+  expect(new MessengerEvent(postback).postback).toEqual({
+    payload: 'USER_DEFINED_PAYLOAD',
+  });
+});
+
+it('#isPayload', () => {
+  expect(new MessengerEvent(textMessage).isPayload).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isPayload).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isPayload).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isPayload).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isPayload).toEqual(true);
+  expect(new MessengerEvent(postback).isPayload).toEqual(true);
+  expect(new MessengerEvent(accountLinkingLinked).isPayload).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isPayload).toEqual(false);
+});
+
+it('#postback', () => {
+  expect(new MessengerEvent(postback).payload).toEqual('USER_DEFINED_PAYLOAD');
+  expect(new MessengerEvent(quickReplyMessage).payload).toEqual(
+    'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED'
+  );
+  expect(new MessengerEvent(textMessage).payload).toEqual(null);
+});
+
+it('#isGamePlay', () => {
+  expect(new MessengerEvent(textMessage).isGamePlay).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isGamePlay).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isGamePlay).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isGamePlay).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isGamePlay).toEqual(false);
+  expect(new

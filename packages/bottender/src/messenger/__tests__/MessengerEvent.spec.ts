@@ -1169,4 +1169,104 @@ it('#payment', () => {
 });
 
 it('#isCheckoutUpdate', () => {
-  expect(new MessengerEvent(textMessag
+  expect(new MessengerEvent(textMessage).isCheckoutUpdate).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isCheckoutUpdate).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isCheckoutUpdate).toEqual(
+    false
+  );
+  expect(new MessengerEvent(echoMessage).isCheckoutUpdate).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isCheckoutUpdate).toEqual(false);
+  expect(new MessengerEvent(postback).isCheckoutUpdate).toEqual(false);
+  expect(new MessengerEvent(checkoutUpdate).isCheckoutUpdate).toEqual(true);
+  expect(new MessengerEvent(accountLinkingLinked).isCheckoutUpdate).toEqual(
+    false
+  );
+  expect(new MessengerEvent(accountLinkingUnlinked).isCheckoutUpdate).toEqual(
+    false
+  );
+});
+
+it('#checkoutUpdate', () => {
+  expect(new MessengerEvent(textMessage).checkoutUpdate).toEqual(null);
+  expect(new MessengerEvent(imageMessage).checkoutUpdate).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).checkoutUpdate).toEqual(null);
+  expect(new MessengerEvent(echoMessage).checkoutUpdate).toEqual(null);
+  expect(new MessengerEvent(quickReplyMessage).checkoutUpdate).toEqual(null);
+  expect(new MessengerEvent(postback).checkoutUpdate).toEqual(null);
+  expect(new MessengerEvent(checkoutUpdate).checkoutUpdate).toEqual({
+    payload: 'DEVELOPER_DEFINED_PAYLOAD',
+    shippingAddress: {
+      id: 10105655000959552,
+      country: 'US',
+      city: 'MENLO PARK',
+      street1: '1 Hacker Way',
+      street2: '',
+      state: 'CA',
+      postalCode: '94025',
+    },
+  });
+  expect(new MessengerEvent(accountLinkingLinked).checkoutUpdate).toEqual(null);
+  expect(new MessengerEvent(accountLinkingUnlinked).checkoutUpdate).toEqual(
+    null
+  );
+});
+
+it('#isPreCheckout', () => {
+  expect(new MessengerEvent(textMessage).isPreCheckout).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isPreCheckout).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isPreCheckout).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isPreCheckout).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isPreCheckout).toEqual(false);
+  expect(new MessengerEvent(postback).isPreCheckout).toEqual(false);
+  expect(new MessengerEvent(preCheckout).isPreCheckout).toEqual(true);
+  expect(new MessengerEvent(accountLinkingLinked).isPreCheckout).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isPreCheckout).toEqual(
+    false
+  );
+});
+
+it('#preCheckout', () => {
+  expect(new MessengerEvent(textMessage).preCheckout).toEqual(null);
+  expect(new MessengerEvent(imageMessage).preCheckout).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).preCheckout).toEqual(null);
+  expect(new MessengerEvent(echoMessage).preCheckout).toEqual(null);
+  expect(new MessengerEvent(quickReplyMessage).preCheckout).toEqual(null);
+  expect(new MessengerEvent(postback).preCheckout).toEqual(null);
+  expect(new MessengerEvent(preCheckout).preCheckout).toEqual({
+    payload: 'xyz',
+    requestedUserInfo: {
+      shippingAddress: {
+        name: 'Tao Jiang',
+        street1: '600 Edgewater Blvd',
+        street2: '',
+        city: 'Foster City',
+        state: 'CA',
+        country: 'US',
+        postalCode: '94404',
+      },
+      contactName: 'Tao Jiang',
+    },
+    amount: {
+      currency: 'USD',
+      amount: '2.70',
+    },
+  });
+  expect(new MessengerEvent(accountLinkingLinked).preCheckout).toEqual(null);
+  expect(new MessengerEvent(accountLinkingUnlinked).preCheckout).toEqual(null);
+});
+
+it('#isPolicyEnforcement', () => {
+  expect(new MessengerEvent(textMessage).isPolicyEnforcement).toEqual(false);
+  expect(new MessengerEvent(postback).isPolicyEnforcement).toEqual(false);
+  expect(new MessengerEvent(policyEnforcement).isPolicyEnforcement).toEqual(
+    true
+  );
+});
+
+it('#policyEnforcement', () => {
+  expect(new MessengerEvent(textMessage).policyEnforcement).toEqual(null);
+  expect(new MessengerEvent(postback).policyEnforcement).toEqual(null);
+  expect(new MessengerEvent(policyEnforcement).policyEnforcement).toEqual({
+    action: 'block',
+    reason:
+      'The bot violated our 

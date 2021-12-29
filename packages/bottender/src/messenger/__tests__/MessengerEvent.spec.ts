@@ -1069,4 +1069,104 @@ it('#isGamePlay', () => {
   expect(new MessengerEvent(likeStickerMessage).isGamePlay).toEqual(false);
   expect(new MessengerEvent(echoMessage).isGamePlay).toEqual(false);
   expect(new MessengerEvent(quickReplyMessage).isGamePlay).toEqual(false);
-  expect(new
+  expect(new MessengerEvent(postback).isGamePlay).toEqual(false);
+  expect(new MessengerEvent(gamePlay).isGamePlay).toEqual(true);
+  expect(new MessengerEvent(gamePlayWithNonValidPayload).isGamePlay).toEqual(
+    true
+  );
+  expect(new MessengerEvent(accountLinkingLinked).isGamePlay).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isGamePlay).toEqual(false);
+});
+
+it('#gamePlay', () => {
+  expect(new MessengerEvent(textMessage).gamePlay).toEqual(null);
+  expect(new MessengerEvent(imageMessage).gamePlay).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).gamePlay).toEqual(null);
+  expect(new MessengerEvent(echoMessage).gamePlay).toEqual(null);
+  expect(new MessengerEvent(quickReplyMessage).gamePlay).toEqual(null);
+  expect(new MessengerEvent(postback).gamePlay).toEqual(null);
+  expect(new MessengerEvent(gamePlay).gamePlay).toEqual({
+    gameId: 'GAME_ID',
+    playerId: 'PLAYER_ID',
+    contextType: 'SOLO',
+    contextId: 'CONTEXT_ID',
+    score: 99,
+    payload: {
+      someKey: 'SOME_VALUE',
+    },
+  });
+  expect(new MessengerEvent(gamePlayWithNonValidPayload).gamePlay).toEqual({
+    gameId: 'GAME_ID',
+    playerId: 'PLAYER_ID',
+    contextType: 'SOLO',
+    contextId: 'CONTEXT_ID',
+    score: 99,
+    payload: 'SOME_STRING',
+  });
+  expect(new MessengerEvent(accountLinkingLinked).gamePlay).toEqual(null);
+  expect(new MessengerEvent(accountLinkingUnlinked).gamePlay).toEqual(null);
+});
+
+it('#isOptin', () => {
+  expect(new MessengerEvent(textMessage).isOptin).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isOptin).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isOptin).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isOptin).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isOptin).toEqual(false);
+  expect(new MessengerEvent(postback).isOptin).toEqual(false);
+  expect(new MessengerEvent(optin).isOptin).toEqual(true);
+  expect(new MessengerEvent(accountLinkingLinked).isOptin).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isOptin).toEqual(false);
+});
+
+it('#optin', () => {
+  expect(new MessengerEvent(textMessage).optin).toEqual(null);
+  expect(new MessengerEvent(imageMessage).optin).toEqual(null);
+  expect(new MessengerEvent(likeStickerMessage).optin).toEqual(null);
+  expect(new MessengerEvent(echoMessage).optin).toEqual(null);
+  expect(new MessengerEvent(quickReplyMessage).optin).toEqual(null);
+  expect(new MessengerEvent(postback).optin).toEqual(null);
+  expect(new MessengerEvent(optin).optin).toEqual({
+    ref: 'PASS_THROUGH_PARAM',
+  });
+  expect(new MessengerEvent(accountLinkingLinked).optin).toEqual(null);
+  expect(new MessengerEvent(accountLinkingUnlinked).optin).toEqual(null);
+});
+
+it('#isPayment', () => {
+  expect(new MessengerEvent(textMessage).isPayment).toEqual(false);
+  expect(new MessengerEvent(imageMessage).isPayment).toEqual(false);
+  expect(new MessengerEvent(likeStickerMessage).isPayment).toEqual(false);
+  expect(new MessengerEvent(echoMessage).isPayment).toEqual(false);
+  expect(new MessengerEvent(quickReplyMessage).isPayment).toEqual(false);
+  expect(new MessengerEvent(postback).isPayment).toEqual(false);
+  expect(new MessengerEvent(payment).isPayment).toEqual(true);
+  expect(new MessengerEvent(accountLinkingLinked).isPayment).toEqual(false);
+  expect(new MessengerEvent(accountLinkingUnlinked).isPayment).toEqual(false);
+});
+
+it('#payment', () => {
+  expect(new MessengerEvent(textMessage).payment).toEqual(null);
+  expect(new MessengerEvent(payment).payment).toEqual({
+    payload: 'DEVELOPER_DEFINED_PAYLOAD',
+    requestedUserInfo: {
+      shippingAddress: {},
+      contactName: 'Peter Chang',
+      contactEmail: 'peter@anemail.com',
+      contactPhone: '+15105551234',
+    },
+    paymentCredential: {
+      providerType: 'paypal',
+      chargeId: 'ch_18tmdBEoNIH3FPJHa60ep123',
+      fbPaymentId: '123456789',
+    },
+    amount: {
+      currency: 'USD',
+      amount: '29.62',
+    },
+    shippingOptionId: '123',
+  });
+});
+
+it('#isCheckoutUpdate', () => {
+  expect(new MessengerEvent(textMessag

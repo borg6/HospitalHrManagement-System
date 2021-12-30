@@ -605,4 +605,125 @@ describe('#messenger', () => {
     });
 
     it('should not call action when it receives a non-takeThreadControl event', async () => {
-      await expec
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.takeThreadControl(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.requestThreadControl', () => {
+    it('should call action when it receives a messenger requestThreadControl event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.requestThreadControl(Action),
+        event: messengerEventRequestThreadControl,
+      });
+    });
+
+    it('should not call action when it receives a non-requestThreadControl event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.requestThreadControl(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.appRoles', () => {
+    it('should call action when it receives a messenger appRoles event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.appRoles(Action),
+        event: messengerEventAppRoles,
+      });
+    });
+
+    it('should not call action when it receives a non-appRoles event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.appRoles(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.optin', () => {
+    it('should call action when it receives a messenger optin event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.optin(Action),
+        event: messengerEventOptin,
+      });
+    });
+
+    it('should not call action when it receives a non-optin event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.optin(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.payment', () => {
+    it('should call action when it receives a messenger payment event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.payment(Action),
+        event: messengerEventPayment,
+      });
+    });
+
+    it('should not call action when it receives a non-payment event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.payment(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.policyEnforcement', () => {
+    it('should call action when it receives a messenger policyEnforcement event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.policyEnforcement(Action),
+        event: messengerEventPolicyEnforcement,
+      });
+    });
+
+    it('should not call action when it receives a non-policyEnforcement event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.policyEnforcement(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.postback', () => {
+    it('should call action when it receives a messenger postback event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.postback(Action),
+        event: messengerEventPostback,
+      });
+    });
+
+    it('should not call action when it receives a non-postback event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.postback(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.preCheckout', () => {
+    it('should call action when it receives a messenger preCheckout event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.preCheckout(Action),
+        event: messengerEventPreCheckout,
+      });
+    });
+
+    it('should not call action when it receives a non-preCheckout event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.preCheckout(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.read', () => {
+    it('should call action when it receives a messenger read event', async () => {
+      aw

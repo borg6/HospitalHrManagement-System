@@ -1490,4 +1490,34 @@ it('#accountLinking', () => {
   expect(new MessengerEvent(postback).accountLinking).toEqual(null);
   expect(new MessengerEvent(payment).accountLinking).toEqual(null);
   expect(new MessengerEvent(accountLinkingLinked).accountLinking).toEqual({
-    authorizationCode:
+    authorizationCode: 'PASS_THROUGH_AUTHORIZATION_CODE',
+    status: 'linked',
+  });
+  expect(new MessengerEvent(accountLinkingUnlinked).accountLinking).toEqual({
+    status: 'unlinked',
+  });
+});
+
+it('#isReaction', () => {
+  expect(new MessengerEvent(textMessage).isReaction).toEqual(false);
+  expect(new MessengerEvent(postback).isReaction).toEqual(false);
+  expect(new MessengerEvent(reactionReact).isReaction).toEqual(true);
+  expect(new MessengerEvent(reactionUnreact).isReaction).toEqual(true);
+});
+
+it('#reaction', () => {
+  expect(new MessengerEvent(textMessage).reaction).toEqual(null);
+  expect(new MessengerEvent(postback).reaction).toEqual(null);
+  expect(new MessengerEvent(reactionReact).reaction).toEqual({
+    reaction: 'smile',
+    emoji: '\u{2764}\u{FE0F}',
+    action: 'react',
+    mid: 'mid.$cAAE1UUyiiwthh0NPrVbVf4HFNDGl',
+  });
+  expect(new MessengerEvent(reactionUnreact).reaction).toEqual({
+    reaction: 'smile',
+    emoji: '\u{2764}\u{FE0F}',
+    action: 'unreact',
+    mid: 'mid.$cAAE1UUyiiwthh0NPrVbVf4HFNDGl',
+  });
+});

@@ -491,4 +491,118 @@ describe('#messenger', () => {
         });
       });
 
-      it('should not call action when it receives a n
+      it('should not call action when it receives a non-accountLinking.linked event', async () => {
+        await expectRouteNotMatchMessengerEvent({
+          route: messenger.accountLinking.linked(Action),
+          event: messengerEventAccountLinkingUnlinked,
+        });
+      });
+    });
+
+    describe('#messenger.accountLinking.unlinked', () => {
+      it('should call action when it receives a messenger accountLinking.unlinked event', async () => {
+        await expectRouteMatchMessengerEvent({
+          route: messenger.accountLinking.unlinked(Action),
+          event: messengerEventAccountLinkingUnlinked,
+        });
+      });
+
+      it('should not call action when it receives a non-accountLinking.unlinked event', async () => {
+        await expectRouteNotMatchMessengerEvent({
+          route: messenger.accountLinking.unlinked(Action),
+          event: messengerEventAccountLinkingLinked,
+        });
+      });
+    });
+  });
+
+  describe('#messenger.checkoutUpdate', () => {
+    it('should call action when it receives a messenger checkoutUpdate event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.checkoutUpdate(Action),
+        event: messengerEventCheckoutUpdate,
+      });
+    });
+
+    it('should not call action when it receives a non-checkoutUpdate event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.checkoutUpdate(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.delivery', () => {
+    it('should call action when it receives a messenger delivery event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.delivery(Action),
+        event: messengerEventDelivery,
+      });
+    });
+
+    it('should not call action when it receives a non-delivery event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.delivery(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.echo', () => {
+    it('should call action when it receives a messenger echo event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.echo(Action),
+        event: messengerEventEcho,
+      });
+    });
+
+    it('should not call action when it receives a non-echo event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.echo(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.gamePlay', () => {
+    it('should call action when it receives a messenger gamePlay event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.gamePlay(Action),
+        event: messengerEventGamePlay,
+      });
+    });
+
+    it('should not call action when it receives a non-gamePlay event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.gamePlay(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.passThreadControl', () => {
+    it('should call action when it receives a messenger passThreadControl event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.passThreadControl(Action),
+        event: messengerEventPassThreadControl,
+      });
+    });
+
+    it('should not call action when it receives a non-passThreadControl event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.passThreadControl(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.takeThreadControl', () => {
+    it('should call action when it receives a messenger takeThreadControl event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.takeThreadControl(Action),
+        event: messengerEventTakeThreadControl,
+      });
+    });
+
+    it('should not call action when it receives a non-takeThreadControl event', async () => {
+      await expec

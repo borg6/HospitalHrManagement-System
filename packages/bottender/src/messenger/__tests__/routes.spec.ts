@@ -334,3 +334,161 @@ const messengerEventReactionReact = new MessengerEvent({
     reaction: 'smile',
     emoji: '\u{2764}\u{FE0F}',
     action: 'react',
+    mid: 'mid.$cAAE1UUyiiwthh0NPrVbVf4HFNDGl',
+  },
+});
+
+const messengerEventReactionUnreact = new MessengerEvent({
+  sender: {
+    id: '1476077422222289',
+  },
+  recipient: {
+    id: '707356222221168',
+  },
+  timestamp: 1469111400000,
+  reaction: {
+    reaction: 'smile',
+    emoji: '\u{2764}\u{FE0F}',
+    action: 'unreact',
+    mid: 'mid.$cAAE1UUyiiwthh0NPrVbVf4HFNDGl',
+  },
+});
+
+async function Action(context) {
+  await context.sendText('hello');
+}
+
+async function expectRouteMatchContext({ route, context }) {
+  const Router = router([route]);
+
+  const app = run(Router);
+
+  context.sendText = jest.fn();
+
+  await app(context);
+
+  expect(context.sendText).toBeCalledWith('hello');
+}
+
+async function expectRouteMatchMessengerEvent({ route, event }) {
+  const context = new MessengerContext({
+    client: {} as any,
+    event,
+  });
+
+  await expectRouteMatchContext({
+    route,
+    context,
+  });
+}
+
+async function expectRouteNotMatchContext({ route, context }) {
+  const Router = router([route]);
+
+  const app = run(Router);
+
+  context.sendText = jest.fn();
+
+  await app(context);
+
+  expect(context.sendText).not.toBeCalledWith('hello');
+}
+
+async function expectRouteNotMatchMessengerEvent({ route, event }) {
+  const context = new MessengerContext({
+    client: {} as any,
+    event,
+  });
+
+  await expectRouteNotMatchContext({
+    route,
+    context,
+  });
+}
+
+class TestContext extends Context {
+  get platform() {
+    return 'test';
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  sendText() {}
+}
+
+describe('#messenger', () => {
+  it('should call action when it receives a messenger event', async () => {
+    await expectRouteMatchMessengerEvent({
+      route: messenger(Action),
+      event: messengerEventTextMessage,
+    });
+  });
+
+  it('should not call action when it receives a non-messenger event', async () => {
+    await expectRouteNotMatchContext({
+      route: messenger(Action),
+      context: new TestContext({
+        client: {} as any,
+        event: {},
+      }),
+    });
+  });
+
+  describe('#messenger.any', () => {
+    it('should call action when it receives a messenger event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.any(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+
+    it('should not call action when it receives a non-messenger event', async () => {
+      await expectRouteNotMatchContext({
+        route: messenger.any(Action),
+        context: new TestContext({
+          client: {} as any,
+          event: {},
+        }),
+      });
+    });
+  });
+
+  describe('#messenger.message', () => {
+    it('should call action when it receives a messenger message event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.message(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+
+    it('should not call action when it receives a non-message event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.message(Action),
+        event: messengerEventPostback,
+      });
+    });
+  });
+
+  describe('#messenger.accountLinking', () => {
+    it('should call action when it receives a messenger accountLinking event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.accountLinking(Action),
+        event: messengerEventAccountLinkingLinked,
+      });
+    });
+
+    it('should not call action when it receives a non-accountLinking event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.accountLinking(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+
+    describe('#messenger.accountLinking.linked', () => {
+      it('should call action when it receives a messenger accountLinking.linked event', async () => {
+        await expectRouteMatchMessengerEvent({
+          route: messenger.accountLinking.linked(Action),
+          event: messengerEventAccountLinkingLinked,
+        });
+      });
+
+      it('should not call action when it receives a n

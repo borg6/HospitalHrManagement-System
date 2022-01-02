@@ -726,4 +726,97 @@ describe('#messenger', () => {
 
   describe('#messenger.read', () => {
     it('should call action when it receives a messenger read event', async () => {
-      aw
+      await expectRouteMatchMessengerEvent({
+        route: messenger.read(Action),
+        event: messengerEventRead,
+      });
+    });
+
+    it('should not call action when it receives a non-read event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.read(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.referral', () => {
+    it('should call action when it receives a messenger referral event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.referral(Action),
+        event: messengerEventReferral,
+      });
+    });
+
+    it('should not call action when it receives a non-referral event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.referral(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.standby', () => {
+    it('should call action when it receives a messenger standby event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.standby(Action),
+        event: messengerEventStandby,
+      });
+    });
+
+    it('should not call action when it receives a non-standby event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.standby(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+  });
+
+  describe('#messenger.reaction', () => {
+    it('should call action when it receives a messenger reaction event', async () => {
+      await expectRouteMatchMessengerEvent({
+        route: messenger.reaction(Action),
+        event: messengerEventReactionReact,
+      });
+    });
+
+    it('should not call action when it receives a non-reaction event', async () => {
+      await expectRouteNotMatchMessengerEvent({
+        route: messenger.reaction(Action),
+        event: messengerEventTextMessage,
+      });
+    });
+
+    describe('#messenger.reaction.react', () => {
+      it('should call action when it receives a messenger reaction.react event', async () => {
+        await expectRouteMatchMessengerEvent({
+          route: messenger.reaction.react(Action),
+          event: messengerEventReactionReact,
+        });
+      });
+
+      it('should not call action when it receives a non-reaction.react event', async () => {
+        await expectRouteNotMatchMessengerEvent({
+          route: messenger.reaction.react(Action),
+          event: messengerEventReactionUnreact,
+        });
+      });
+    });
+
+    describe('#messenger.reaction.unreact', () => {
+      it('should call action when it receives a messenger reaction.unreact event', async () => {
+        await expectRouteMatchMessengerEvent({
+          route: messenger.reaction.unreact(Action),
+          event: messengerEventReactionUnreact,
+        });
+      });
+
+      it('should not call action when it receives a non-reaction.unreact event', async () => {
+        await expectRouteNotMatchMessengerEvent({
+          route: messenger.reaction.unreact(Action),
+          event: messengerEventReactionReact,
+        });
+      });
+    });
+  });
+});

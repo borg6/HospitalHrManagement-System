@@ -54,4 +54,25 @@ describe('#all', () => {
 });
 
 describe('#write', () => {
-  it('should call cache put w
+  it('should call cache put with key, value, and expiresIn', async () => {
+    const { store, cache } = setup();
+    await store.init();
+
+    const sess = { x: 1 };
+
+    await store.write('yoctol:1', sess, expiresIn);
+
+    expect(cache.put).toBeCalledWith('yoctol:1', sess, expiresIn);
+  });
+});
+
+describe('#destroy', () => {
+  it('should call cache forget with key', async () => {
+    const { store, cache } = setup();
+    await store.init();
+
+    await store.destroy('yoctol:1');
+
+    expect(cache.forget).toBeCalledWith('yoctol:1');
+  });
+});

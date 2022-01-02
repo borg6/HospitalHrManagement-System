@@ -8,4 +8,4 @@ class DevServer extends Server {
   }
 }
 
-export defau
+export default DevServer;

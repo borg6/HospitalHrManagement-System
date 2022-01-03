@@ -120,4 +120,100 @@ describe('#read', () => {
 });
 
 describe('#all', () => {
-  i
+  it('should return all values in mongo session', async () => {
+    const { store, sessions } = setup();
+    const sess = [
+      { id: 1, lastActivity: Date.now() },
+      { id: 2, lastActivity: Date.now() },
+    ];
+    sessions.find = jest.fn(() => ({ toArray: () => sess }));
+
+    await store.init();
+
+    expect(await store.all()).toBe(sess);
+  });
+});
+
+describe('#write', () => {
+  it('should call updateOne with platform, id and session using upsert', async () => {
+    const { store, sessions } = setup();
+    const sess = {};
+    sessions.updateOne.mockResolvedValue();
+
+    await store.init();
+    await store.write('messenger:1', sess);
+
+    expect(sessions.updateOne).toBeCalledWith(
+      {
+        id: 'messenger:1',
+      },
+      {
+        $set: sess,
+      },
+      { upsert: true }
+    );
+  });
+
+  it('should log Error when call write before init', async () => {
+    console.error = jest.fn();
+    const { store, sessions } = setup();
+    const sess = {};
+    sessions.updateOne.mockResolvedValue();
+
+    await store.write('messenger:1', sess);
+
+    expect(console.error).toBeCalledWith(
+      Error('MongoSessionStore: must call `init` before any operation.')
+    );
+  });
+});
+
+describe('#destroy', () => {
+  it('should call remove with platform and id', async () => {
+    const { store, sessions } = setup();
+    sessions.remove.mockResolvedValue();
+
+    await store.init();
+    await store.destroy('messenger:1');
+
+    expect(sessions.remove).toBeCalledWith({
+      id: 'messenger:1',
+    });
+  });
+
+  it('should log Error when call destroy before init', async () => {
+    console.error = jest.fn();
+    const { store, sessions } = setup();
+    sessions.remove.mockResolvedValue();
+
+    await store.destroy('messenger:1');
+
+    expect(console.error).toBeCalledWith(
+      Error('MongoSessionStore: must call `init` before any operation.')
+    );
+  });
+});
+
+describe('collection name', () => {
+  it('should use sessions as default collection name', async () => {
+    const { store, sessions, connection } = setup();
+    sessions.findOne.mockResolvedValue(null);
+
+    await store.init();
+    await store.read('messenger:1');
+
+    expect(connection.collection).toBeCalledWith('sessions');
+  });
+
+  it('should allow custom collection name', async () => {
+    const { store, sessions, connection } = setup({
+      collectionName: 'my.sessions',
+    });
+    sessions.findOne.mockResolvedValue(null);
+
+    await store.init();
+    await store.read('messenger:1');
+
+    expect(connection.collection).toBeCalledWith('my.sessions');
+  });
+});

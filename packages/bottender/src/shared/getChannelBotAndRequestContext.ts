@@ -27,3 +27,28 @@ function getChannelBotAndRequestContext(req: IncomingMessage):
 
   const channelBots = getChannelBots();
   for (let i = 0; i < channelBots.length; i++) {
+    const channelBot = channelBots[i];
+    const matchPath = match<Record<string, string>>(channelBot.webhookPath);
+    const matchResult = matchPath(pathname);
+
+    if (matchResult) {
+      return {
+        requestContext: {
+          id: (req as any).id,
+          method: req.method as string,
+          path: pathname,
+          query,
+          headers: req.headers,
+          rawBody: (req as any).rawBody,
+          body: (req as any).body,
+          params: matchResult.params,
+          url: requestUrl,
+        },
+        channelBot,
+      };
+    }
+  }
+  return undefined;
+}
+
+export default getChannelBotAndRequestContext;

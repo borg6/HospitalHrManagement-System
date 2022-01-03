@@ -31,4 +31,30 @@ afterEach(() => {
 });
 
 it('be defined', () => {
-  expect(getChannelBot
+  expect(getChannelBots).toBeDefined();
+});
+
+it('should be empty array', () => {
+  mocked(getBottenderConfig).mockReturnValue({});
+  expect(getChannelBots()).toEqual([]);
+});
+
+it('should create channelBots', () => {
+  mocked(getBottenderConfig).mockReturnValue({
+    channels: {
+      messenger: {
+        enabled: true,
+        path: '/webhooks/messenger',
+        sync: true,
+        accessToken: 'ACCESS_TOKEN',
+        appId: 'APP_ID',
+        appSecret: 'APP_SECRET',
+      },
+    },
+  });
+  const channelBots = getChannelBots();
+  expect(channelBots.length).toEqual(1);
+
+  const webhookPaths = channelBots.map((c) => c.webhookPath);
+  expect(webhookPaths[0]).toEqual('/webhooks/messenger');
+});

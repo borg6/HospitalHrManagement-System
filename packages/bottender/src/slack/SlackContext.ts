@@ -308,3 +308,80 @@ export default class SlackContext extends Context<
   }
 
   /**
+   * Deletes a pending scheduled message from the queue.
+   *
+   * https://api.slack.com/methods/chat.deleteScheduledMessage
+   */
+  _deleteScheduledMessage(
+    options: Omit<SlackTypes.DeleteScheduledMessageOptions, 'channel'>
+  ): Promise<any> {
+    const channel = this._getChannelIdFromSession(
+      'chat.deleteScheduledMessage'
+    );
+
+    if (!channel) {
+      return Promise.resolve();
+    }
+
+    return this._client.chat.deleteScheduledMessage({
+      channel,
+      ...options,
+    });
+  }
+
+  /**
+   * Returns a list of scheduled messages.
+   *
+   * https://api.slack.com/methods/chat.scheduledMessages.list
+   */
+  _getScheduledMessages(
+    options: SlackTypes.GetScheduledMessagesOptions
+  ): Promise<any> {
+    return this._client.chat.scheduledMessages.list(options);
+  }
+
+  /**
+   * Open a view for a user.
+   *
+   * https://api.slack.com/methods/views.open
+   */
+  _openView(options: SlackTypes.OpenViewOptions): Promise<any> {
+    return this._client.views.open({
+      ...options,
+      view: {
+        ...options.view,
+        privateMetadata: JSON.stringify({
+          original: options.view.privateMetadata,
+          channelId: (this._event.rawEvent as UIEvent).channel?.id,
+        }),
+      },
+    });
+  }
+
+  /**
+   * Publish a static view for a User.
+   *
+   * https://api.slack.com/methods/views.publish
+   */
+  _publishView(options: SlackTypes.PublishViewOptions): Promise<any> {
+    return this._client.views.publish(options);
+  }
+
+  /**
+   * Update an existing view.
+   *
+   * https://api.slack.com/methods/views.update
+   */
+  _updateView(options: SlackTypes.UpdateViewOptions): Promise<any> {
+    return this._client.views.update(options);
+  }
+
+  /**
+   * Push a view onto the stack of a root view.
+   *
+   * https://api.slack.com/methods/views.push
+   */
+  _pushView(options: SlackTypes.PushViewOptions): Promise<any> {
+    return this._client.views.push(options);
+  }
+}

@@ -255,4 +255,169 @@ describe('#chat.postMessage', () => {
     await context.chat.postMessage({
       asUser: false,
       attachments: [],
-      cha
+      channel: 'C6A9RJJ3F',
+      text: 'hello',
+    });
+
+    expect(client.chat.postMessage).toBeCalledWith({
+      asUser: false,
+      attachments: [],
+      channel: 'C6A9RJJ3F',
+      text: 'hello',
+    });
+  });
+
+  it('should call warning and not to send if dont have channelId', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.postMessage({ text: 'hello' });
+
+    expect(warning).toBeCalled();
+    expect(client.chat.postMessage).not.toBeCalled();
+  });
+
+  it('should get channel id', async () => {
+    const id = '123';
+    const { context, client } = setup({ session: { channel: { id } } });
+
+    await context.postMessage({ text: 'hello' });
+
+    expect(client.chat.postMessage).toBeCalledWith({
+      channel: '123',
+      text: 'hello',
+    });
+  });
+
+  it('should get null channelId and call warning if no session', async () => {
+    const { context, client } = setup({ session: false });
+
+    await context.postMessage({ text: 'hello' });
+
+    expect(warning).toBeCalled();
+    expect(client.chat.postMessage).not.toBeCalled();
+  });
+
+  it('should get null channelId and call warning if session is wrong', async () => {
+    const { context, client } = setup({ session: { channel: '123' } });
+
+    await context.postMessage({ text: 'hello' });
+
+    expect(warning).toBeCalled();
+    expect(client.chat.postMessage).not.toBeCalled();
+  });
+});
+
+describe('#postEphemeral', () => {
+  it('should call client.chat.postEphemeral', async () => {
+    const { context, client } = setup();
+
+    await context.postEphemeral('hello');
+
+    expect(client.chat.postEphemeral).toBeCalledWith({
+      channel: 'C6A9RJJ3F',
+      text: 'hello',
+      user: 'fakeUserId',
+    });
+  });
+});
+
+describe('#chat.postEphemeral', () => {
+  it('should call client.chat.postEphemeral', async () => {
+    const { context, client } = setup();
+
+    await context.chat.postEphemeral({
+      text: 'hello',
+    });
+
+    expect(client.chat.postEphemeral).toBeCalledWith({
+      channel: 'C6A9RJJ3F',
+      text: 'hello',
+      user: 'fakeUserId',
+    });
+  });
+});
+
+describe('#chat.update', () => {
+  it('should call client.chat.update', async () => {
+    const { context, client } = setup();
+
+    await context.chat.update({
+      ts: '1405894322.002768',
+      text: 'hello',
+    });
+
+    expect(client.chat.update).toBeCalledWith({
+      ts: '1405894322.002768',
+      text: 'hello',
+    });
+  });
+});
+
+describe('#chat.delete', () => {
+  it('should call client.chat.delete', async () => {
+    const { context, client } = setup();
+
+    await context.chat.delete({
+      ts: '1405894322.002768',
+    });
+
+    expect(client.chat.delete).toBeCalledWith({
+      channel: 'C6A9RJJ3F',
+      ts: '1405894322.002768',
+    });
+  });
+});
+
+describe('#chat.meMessage', () => {
+  it('should call client.chat.meMessage', async () => {
+    const { context, client } = setup();
+
+    await context.chat.meMessage({
+      text: 'hello',
+    });
+
+    expect(client.chat.meMessage).toBeCalledWith({
+      channel: 'C6A9RJJ3F',
+      text: 'hello',
+    });
+  });
+});
+
+describe('#chat.getPermalink', () => {
+  it('should call client.chat.getPermalink', async () => {
+    const { context, client } = setup();
+
+    await context.chat.getPermalink({
+      messageTs: '1234567890.123456',
+    });
+
+    expect(client.chat.getPermalink).toBeCalledWith({
+      channel: 'C6A9RJJ3F',
+      messageTs: '1234567890.123456',
+    });
+  });
+});
+
+describe('#chat.scheduleMessage', () => {
+  it('should call client.chat.scheduleMessage', async () => {
+    const { context, client } = setup();
+
+    await context.chat.scheduleMessage({
+      postAt: '299876400',
+      text: 'hello',
+    });
+
+    expect(client.chat.scheduleMessage).toBeCalledWith({
+      channel: 'C6A9RJJ3F',
+      postAt: '299876400',
+      text: 'hello',
+    });
+  });
+});
+
+describe('#chat.deleteScheduledMessage', () => {
+  it('should call client.chat.deleteScheduledMessage', async () => {
+    const { context, client } = setup();
+
+    await context.chat.deleteScheduledMessage({
+      scheduledMessageId: 'Q1234ABCD

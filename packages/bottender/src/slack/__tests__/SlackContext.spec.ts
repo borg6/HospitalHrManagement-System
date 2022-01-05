@@ -420,4 +420,89 @@ describe('#chat.deleteScheduledMessage', () => {
     const { context, client } = setup();
 
     await context.chat.deleteScheduledMessage({
-      scheduledMessageId: 'Q1234ABCD
+      scheduledMessageId: 'Q1234ABCD',
+    });
+
+    expect(client.chat.deleteScheduledMessage).toBeCalledWith({
+      channel: 'C6A9RJJ3F',
+      scheduledMessageId: 'Q1234ABCD',
+    });
+  });
+});
+
+describe('#chat.scheduledMessages.list', () => {
+  it('should call client.chat.scheduledMessages.list', async () => {
+    const { context, client } = setup();
+
+    await context.chat.scheduledMessages.list({});
+
+    expect(client.chat.scheduledMessages.list).toBeCalledWith({});
+  });
+});
+
+describe('#views.open', () => {
+  it('should call client.views.open', async () => {
+    const { context, client } = setup();
+
+    await context.views.open({
+      triggerId: '12345.98765.abcd2358fdea',
+      view: VIEW_PAYLOAD,
+    });
+
+    expect(client.views.open).toBeCalledWith({
+      triggerId: '12345.98765.abcd2358fdea',
+      view: {
+        ...VIEW_PAYLOAD,
+        privateMetadata: '{"original":"Shh it is a secret"}',
+      },
+    });
+  });
+});
+
+describe('#views.publish', () => {
+  it('should call client.views.publish', async () => {
+    const { context, client } = setup();
+
+    await context.views.publish({
+      userId: 'U0BPQUNTA',
+      view: VIEW_PAYLOAD,
+    });
+
+    expect(client.views.publish).toBeCalledWith({
+      userId: 'U0BPQUNTA',
+      view: VIEW_PAYLOAD,
+    });
+  });
+});
+
+describe('#views.push', () => {
+  it('should call client.views.push', async () => {
+    const { context, client } = setup();
+
+    await context.views.push({
+      triggerId: '12345.98765.abcd2358fdea',
+      view: VIEW_PAYLOAD,
+    });
+
+    expect(client.views.push).toBeCalledWith({
+      triggerId: '12345.98765.abcd2358fdea',
+      view: VIEW_PAYLOAD,
+    });
+  });
+});
+
+describe('#views.update', () => {
+  it('should call client.views.update', async () => {
+    const { context, client } = setup();
+
+    await context.views.update({
+      externalId: 'bmarley_view2',
+      view: VIEW_PAYLOAD,
+    });
+
+    expect(client.views.update).toBeCalledWith({
+      externalId: 'bmarley_view2',
+      view: VIEW_PAYLOAD,
+    });
+  });
+});

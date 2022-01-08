@@ -910,3 +910,465 @@ it('#sticker', () => {
   });
   expect(new TelegramEvent(replyToTextMessage).sticker).toEqual(null);
 });
+
+it('#isVideo', () => {
+  expect(new TelegramEvent(callbackQuery).isVideo).toEqual(false);
+  expect(new TelegramEvent(textMessage).isVideo).toEqual(false);
+  expect(new TelegramEvent(videoMessage).isVideo).toEqual(true);
+  expect(new TelegramEvent(replyToTextMessage).isVideo).toEqual(false);
+});
+
+it('#video', () => {
+  expect(new TelegramEvent(callbackQuery).video).toEqual(null);
+  expect(new TelegramEvent(textMessage).video).toEqual(null);
+  expect(new TelegramEvent(videoMessage).video).toEqual({
+    fileId: '321',
+    width: 100,
+    height: 100,
+    duration: 199,
+  });
+  expect(new TelegramEvent(replyToTextMessage).video).toEqual(null);
+});
+
+it('#isVoice', () => {
+  expect(new TelegramEvent(callbackQuery).isVoice).toEqual(false);
+  expect(new TelegramEvent(textMessage).isVoice).toEqual(false);
+  expect(new TelegramEvent(voiceMessage).isVoice).toEqual(true);
+  expect(new TelegramEvent(replyToTextMessage).isVoice).toEqual(false);
+});
+
+it('#voice', () => {
+  expect(new TelegramEvent(callbackQuery).voice).toEqual(null);
+  expect(new TelegramEvent(textMessage).voice).toEqual(null);
+  expect(new TelegramEvent(voiceMessage).voice).toEqual({
+    fileId: '543',
+    duration: 299,
+  });
+  expect(new TelegramEvent(replyToTextMessage).voice).toEqual(null);
+});
+
+it('#isVideoNote', () => {
+  expect(new TelegramEvent(callbackQuery).isVideoNote).toEqual(false);
+  expect(new TelegramEvent(textMessage).isVideoNote).toEqual(false);
+  expect(new TelegramEvent(videoNoteMessage).isVideoNote).toEqual(true);
+  expect(new TelegramEvent(replyToTextMessage).isVideoNote).toEqual(false);
+});
+
+it('#videoNote', () => {
+  expect(new TelegramEvent(callbackQuery).videoNote).toEqual(null);
+  expect(new TelegramEvent(textMessage).videoNote).toEqual(null);
+  expect(new TelegramEvent(videoNoteMessage).videoNote).toEqual({
+    fileId: '654',
+    length: 100,
+    duration: 399,
+  });
+  expect(new TelegramEvent(replyToTextMessage).videoNote).toEqual(null);
+});
+
+it('#isContact', () => {
+  expect(new TelegramEvent(callbackQuery).isContact).toEqual(false);
+  expect(new TelegramEvent(textMessage).isContact).toEqual(false);
+  expect(new TelegramEvent(contactMessage).isContact).toEqual(true);
+  expect(new TelegramEvent(replyToTextMessage).isContact).toEqual(false);
+});
+
+it('#contact', () => {
+  expect(new TelegramEvent(callbackQuery).contact).toEqual(null);
+  expect(new TelegramEvent(textMessage).contact).toEqual(null);
+  expect(new TelegramEvent(contactMessage).contact).toEqual({
+    phoneNumber: '123456789',
+    firstName: 'first',
+  });
+  expect(new TelegramEvent(replyToTextMessage).contact).toEqual(null);
+});
+
+it('#isLocation', () => {
+  expect(new TelegramEvent(callbackQuery).isLocation).toEqual(false);
+  expect(new TelegramEvent(textMessage).isLocation).toEqual(false);
+  expect(new TelegramEvent(locationMessage).isLocation).toEqual(true);
+  expect(new TelegramEvent(replyToTextMessage).isLocation).toEqual(false);
+});
+
+it('#location', () => {
+  expect(new TelegramEvent(callbackQuery).location).toEqual(null);
+  expect(new TelegramEvent(textMessage).location).toEqual(null);
+  expect(new TelegramEvent(locationMessage).location).toEqual({
+    longitude: '111.111',
+    latitude: '99.99',
+  });
+  expect(new TelegramEvent(replyToTextMessage).location).toEqual(null);
+});
+
+it('#isVenue', () => {
+  expect(new TelegramEvent(callbackQuery).isVenue).toEqual(false);
+  expect(new TelegramEvent(textMessage).isVenue).toEqual(false);
+  expect(new TelegramEvent(venueMessage).isVenue).toEqual(true);
+  expect(new TelegramEvent(replyToTextMessage).isVenue).toEqual(false);
+});
+
+it('#venue', () => {
+  expect(new TelegramEvent(callbackQuery).venue).toEqual(null);
+  expect(new TelegramEvent(textMessage).venue).toEqual(null);
+  expect(new TelegramEvent(venueMessage).venue).toEqual({
+    location: {
+      longitude: '111.111',
+      latitude: '99.99',
+    },
+    title: 'title',
+    address: 'addressssss',
+  });
+  expect(new TelegramEvent(replyToTextMessage).venue).toEqual(null);
+});
+
+it('#isEditedMessage', () => {
+  expect(new TelegramEvent(textMessage).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(editedMessage).isEditedMessage).toEqual(true);
+  expect(new TelegramEvent(groupEditedMessage).isEditedMessage).toEqual(true);
+  expect(new TelegramEvent(channelPost).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(editedChannelPost).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(inlineQuery).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(chosenInlineResult).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(callbackQuery).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(shippingQuery).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(preCheckoutQuery).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(poll).isEditedMessage).toEqual(false);
+  expect(new TelegramEvent(replyToTextMessage).isEditedMessage).toEqual(false);
+});
+
+it('#editedMessage', () => {
+  expect(new TelegramEvent(textMessage).editedMessage).toEqual(null);
+  expect(new TelegramEvent(editedMessage).editedMessage).toEqual({
+    messageId: 229,
+    from: {
+      id: 427770117,
+      isBot: false,
+      firstName: 'user_first',
+      lastName: 'user_last',
+      languageCode: 'en',
+    },
+    chat: {
+      id: 427770117,
+      firstName: 'user_first',
+      lastName: 'user_last',
+      languageCode: 'en',
+    },
+    date: 1515736358,
+    editDate: 1515758017,
+    text: 'hiiiii',
+  });
+  expect(new TelegramEvent(groupEditedMessage).editedMessage).toEqual({
+    messageId: 234,
+    from: {
+      id: 427770117,
+      isBot: false,
+      firstName: 'user_first',
+      lastName: 'user_last',
+      languageCode: 'en',
+    },
+    chat: {
+      id: -225456171,
+      title: 'Bottender',
+      type: 'group',
+      allMembersAreAdministrators: true,
+    },
+    date: 1515736470,
+    editDate: 1515758048,
+    text: 'hiiiii',
+  });
+  expect(new TelegramEvent(channelPost).editedMessage).toEqual(null);
+  expect(new TelegramEvent(editedChannelPost).editedMessage).toEqual(null);
+  expect(new TelegramEvent(inlineQuery).editedMessage).toEqual(null);
+  expect(new TelegramEvent(chosenInlineResult).editedMessage).toEqual(null);
+  expect(new TelegramEvent(callbackQuery).editedMessage).toEqual(null);
+  expect(new TelegramEvent(shippingQuery).editedMessage).toEqual(null);
+  expect(new TelegramEvent(preCheckoutQuery).editedMessage).toEqual(null);
+  expect(new TelegramEvent(poll).editedMessage).toEqual(null);
+  expect(new TelegramEvent(replyToTextMessage).editedMessage).toEqual(null);
+});
+
+it('#isChannelPost', () => {
+  expect(new TelegramEvent(textMessage).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(editedMessage).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(channelPost).isChannelPost).toEqual(true);
+  expect(new TelegramEvent(editedChannelPost).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(inlineQuery).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(chosenInlineResult).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(callbackQuery).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(shippingQuery).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(preCheckoutQuery).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(poll).isChannelPost).toEqual(false);
+  expect(new TelegramEvent(replyToTextMessage).isChannelPost).toEqual(false);
+});
+
+it('#channelPost', () => {
+  expect(new TelegramEvent(textMessage).channelPost).toEqual(null);
+  expect(new TelegramEvent(editedMessage).channelPost).toEqual(null);
+  expect(new TelegramEvent(channelPost).channelPost).toEqual({
+    messageId: 2,
+    chat: {
+      id: -1001305240521,
+      title: 'channel_12345',
+      type: 'channel',
+    },
+    date: 1515760382,
+    text: 'post~~~',
+  });
+  expect(new TelegramEvent(editedChannelPost).channelPost).toEqual(null);
+  expect(new TelegramEvent(inlineQuery).channelPost).toEqual(null);
+  expect(new TelegramEvent(chosenInlineResult).channelPost).toEqual(null);
+  expect(new TelegramEvent(callbackQuery).channelPost).toEqual(null);
+  expect(new TelegramEvent(shippingQuery).channelPost).toEqual(null);
+  expect(new TelegramEvent(preCheckoutQuery).channelPost).toEqual(null);
+  expect(new TelegramEvent(poll).channelPost).toEqual(null);
+  expect(new TelegramEvent(replyToTextMessage).channelPost).toEqual(null);
+});
+
+it('#isEditedChannelPost', () => {
+  expect(new TelegramEvent(textMessage).isEditedChannelPost).toEqual(false);
+  expect(new TelegramEvent(editedMessage).isEditedChannelPost).toEqual(false);
+  expect(new TelegramEvent(channelPost).isEditedChannelPost).toEqual(false);
+  expect(new TelegramEvent(editedChannelPost).isEditedChannelPost).toEqual(
+    true
+  );
+  expect(new TelegramEvent(inlineQuery).isEditedChannelPost).toEqual(false);
+  expect(new TelegramEvent(chosenInlineResult).isEditedChannelPost).toEqual(
+    false
+  );
+  expect(new TelegramEvent(callbackQuery).isEditedChannelPost).toEqual(false);
+  expect(new TelegramEvent(shippingQuery).isEditedChannelPost).toEqual(false);
+  expect(new TelegramEvent(preCheckoutQuery).isEditedChannelPost).toEqual(
+    false
+  );
+  expect(new TelegramEvent(poll).isEditedChannelPost).toEqual(false);
+  expect(new TelegramEvent(replyToTextMessage).isEditedChannelPost).toEqual(
+    false
+  );
+});
+
+it('#editedChannelPost', () => {
+  expect(new TelegramEvent(textMessage).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(editedMessage).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(channelPost).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(editedChannelPost).editedChannelPost).toEqual({
+    messageId: 2,
+    chat: {
+      id: -1001305240521,
+      title: 'channel_12345',
+      type: 'channel',
+    },
+    date: 1515760382,
+    editDate: 1515760478,
+    text: 'post~~~edited',
+  });
+  expect(new TelegramEvent(inlineQuery).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(chosenInlineResult).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(callbackQuery).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(shippingQuery).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(preCheckoutQuery).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(poll).editedChannelPost).toEqual(null);
+  expect(new TelegramEvent(replyToTextMessage).editedChannelPost).toEqual(null);
+});
+
+it('#isInlineQuery', () => {
+  expect(new TelegramEvent(textMessage).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(editedMessage).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(channelPost).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(editedChannelPost).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(inlineQuery).isInlineQuery).toEqual(true);
+  expect(new TelegramEvent(chosenInlineResult).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(callbackQuery).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(shippingQuery).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(preCheckoutQuery).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(poll).isInlineQuery).toEqual(false);
+  expect(new TelegramEvent(replyToTextMessage).isInlineQuery).toEqual(false);
+});
+
+it('#inlineQuery', () => {
+  expect(new TelegramEvent(textMessage).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(editedMessage).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(channelPost).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(editedChannelPost).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(inlineQuery).inlineQuery).toEqual({
+    id: '1837258670654537434',
+    from: {
+      id: 427770117,
+      isBot: false,
+      firstName: 'user_first',
+      lastName: 'user_last',
+      languageCode: 'en',
+    },
+    query: '123',
+    offset: '',
+  });
+  expect(new TelegramEvent(chosenInlineResult).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(callbackQuery).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(shippingQuery).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(preCheckoutQuery).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(poll).inlineQuery).toEqual(null);
+  expect(new TelegramEvent(replyToTextMessage).inlineQuery).toEqual(null);
+});
+
+it('#isChosenInlineResult', () => {
+  expect(new TelegramEvent(textMessage).isChosenInlineResult).toEqual(false);
+  expect(new TelegramEvent(editedMessage).isChosenInlineResult).toEqual(false);
+  expect(new TelegramEvent(channelPost).isChosenInlineResult).toEqual(false);
+  expect(new TelegramEvent(editedChannelPost).isChosenInlineResult).toEqual(
+    false
+  );
+  expect(new TelegramEvent(inlineQuery).isChosenInlineResult).toEqual(false);
+  expect(new TelegramEvent(chosenInlineResult).isChosenInlineResult).toEqual(
+    true
+  );
+  expect(new TelegramEvent(callbackQuery).isChosenInlineResult).toEqual(false);
+  expect(new TelegramEvent(shippingQuery).isChosenInlineResult).toEqual(false);
+  expect(new TelegramEvent(preCheckoutQuery).isChosenInlineResult).toEqual(
+    false
+  );
+  expect(new TelegramEvent(poll).isChosenInlineResult).toEqual(false);
+  expect(new TelegramEvent(replyToTextMessage).isChosenInlineResult).toEqual(
+    false
+  );
+});
+
+it('#chosenInlineResult', () => {
+  expect(new TelegramEvent(textMessage).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(editedMessage).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(channelPost).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(editedChannelPost).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(inlineQuery).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(chosenInlineResult).chosenInlineResult).toEqual({
+    resultId: '2837258670654537434',
+    from: {
+      id: 427770117,
+      isBot: false,
+      firstName: 'user_first',
+      lastName: 'user_last',
+      languageCode: 'en',
+    },
+    inlineMessageId: '1837258670654537434',
+    query: '123',
+  });
+  expect(new TelegramEvent(callbackQuery).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(shippingQuery).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(preCheckoutQuery).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(poll).chosenInlineResult).toEqual(null);
+  expect(new TelegramEvent(replyToTextMessage).chosenInlineResult).toEqual(
+    null
+  );
+});
+
+it('#isCallbackQuery', () => {
+  expect(new TelegramEvent(textMessage).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(editedMessage).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(channelPost).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(editedChannelPost).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(inlineQuery).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(chosenInlineResult).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(callbackQuery).isCallbackQuery).toEqual(true);
+  expect(new TelegramEvent(groupCallbackQuery).isCallbackQuery).toEqual(true);
+  expect(new TelegramEvent(shippingQuery).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(preCheckoutQuery).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(poll).isCallbackQuery).toEqual(false);
+  expect(new TelegramEvent(replyToTextMessage).isCallbackQuery).toEqual(false);
+});
+
+it('#callbackQuery', () => {
+  expect(new TelegramEvent(textMessage).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(editedMessage).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(channelPost).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(editedChannelPost).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(inlineQuery).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(chosenInlineResult).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(callbackQuery).callbackQuery).toEqual({
+    id: '123',
+    from: {
+      id: 427770117,
+      isBot: false,
+      firstName: 'user_first',
+      lastName: 'user_last',
+      languageCode: 'en',
+    },
+    message: {
+      messageId: 666,
+      from: {
+        id: 313534466,
+        isBot: true,
+        firstName: 'bot_first',
+        username: 'bot_name',
+      },
+      chat: {
+        id: 427770117,
+        firstName: 'first',
+        lastName: 'last',
+        type: 'private',
+      },
+      date: 1499402829,
+      text: 'text',
+    },
+    chatInstance: '-1828607021492040088',
+    data: 'data',
+  });
+  expect(new TelegramEvent(groupCallbackQuery).callbackQuery).toEqual({
+    id: '1837258667245133763',
+    from: {
+      id: 427770117,
+      isBot: false,
+      firstName: 'user_first',
+      lastName: 'user_last',
+      languageCode: 'en',
+    },
+    message: {
+      messageId: 237,
+      from: {
+        id: 313534466,
+        isBot: true,
+        firstName: 'bot_first',
+        username: 'bot_name',
+      },
+      chat: {
+        id: -225456171,
+        title: 'Bottender',
+        type: 'group',
+        allMembersAreAdministrators: true,
+      },
+      date: 1515736481,
+      text: 'Hello World',
+    },
+    chatInstance: '-582211693826679000',
+    data: '123',
+  });
+  expect(new TelegramEvent(shippingQuery).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(preCheckoutQuery).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(poll).callbackQuery).toEqual(null);
+  expect(new TelegramEvent(replyToTextMessage).callbackQuery).toEqual(null);
+});
+
+it('#isPayload', () => {
+  expect(new TelegramEvent(textMessage).isPayload).toEqual(false);
+  expect(new TelegramEvent(editedMessage).isPayload).toEqual(false);
+  expect(new TelegramEvent(channelPost).isPayload).toEqual(false);
+  expect(new TelegramEvent(editedChannelPost).isPayload).toEqual(false);
+  expect(new TelegramEvent(inlineQuery).isPayload).toEqual(false);
+  expect(new TelegramEvent(chosenInlineResult).isPayload).toEqual(false);
+  expect(new TelegramEvent(callbackQuery).isPayload).toEqual(true);
+  expect(new TelegramEvent(groupCallbackQuery).isPayload).toEqual(true);
+  expect(new TelegramEvent(shippingQuery).isPayload).toEqual(false);
+  expect(new TelegramEvent(preCheckoutQuery).isPayload).toEqual(false);
+  expect(new TelegramEvent(poll).isPayload).toEqual(false);
+  expect(new TelegramEvent(replyToTextMessage).isPayload).toEqual(false);
+});
+
+it('#payload', () => {
+  expect(new TelegramEvent(textMessage).payload).toEqual(null);
+  expect(new TelegramEvent(editedMessage).payload).toEqual(null);
+  expect(new TelegramEvent(channelPost).payload).toEqual(null);
+  expect(new TelegramEvent(editedChannelPost).payload).toEqual(null);
+  expect(new TelegramEvent(inlineQuery).payload).toEqual(null);
+  expect(new TelegramEvent(chosenInlineResult).payload).toEqual(null);
+  expect(new TelegramEvent(callbackQuery).payload).toEqual('data');
+  expect(new TelegramEvent(groupCallbackQuery).payload).toEqual('123');
+  expect(new TelegramEvent(shippingQuery).payload).toEqual(null);
+  expect(new TelegramEvent(preCheckoutQuery).payload).toEqual(null);
+  expect(new TelegramEvent(poll).payload).toEqual(null);
+  expect(new TelegramEvent(replyToTextMessage).payload).toEqual(null);
+});

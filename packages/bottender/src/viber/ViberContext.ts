@@ -50,4 +50,157 @@ class ViberContext extends Context<ViberClient, ViberEvent> {
   }
 
   /**
-   * Get user online status from the owner o
+   * Get user online status from the owner of the session.
+   *
+   */
+  async getOnlineStatus(): Promise<ViberTypes.UserOnlineStatus | null> {
+    if (!this._session) {
+      warning(
+        false,
+        'getOnlineStatus: should not be called in context without session'
+      );
+      return null;
+    }
+
+    const status = await this._client.getOnlineStatus([this._session.user.id]);
+    return status[0];
+  }
+
+  async sendMessage(message: ViberTypes.Message): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendMessage: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendMessage(this._session.user.id, message);
+  }
+
+  async sendPicture(
+    picture: ViberTypes.Picture,
+    options?: ViberTypes.MessageOptions
+  ): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendPicture: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendPicture(this._session.user.id, picture, options);
+  }
+
+  async sendVideo(
+    video: ViberTypes.Video,
+    options?: ViberTypes.MessageOptions
+  ): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendVideo: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendVideo(this._session.user.id, video, options);
+  }
+
+  async sendFile(
+    file: ViberTypes.File,
+    options?: ViberTypes.MessageOptions
+  ): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendFile: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendFile(this._session.user.id, file, options);
+  }
+
+  async sendContact(
+    contact: ViberTypes.Contact,
+    options?: ViberTypes.MessageOptions
+  ): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendContact: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendContact(this._session.user.id, contact, options);
+  }
+
+  async sendLocation(
+    location: ViberTypes.Location,
+    options?: ViberTypes.MessageOptions
+  ): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendLocation: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendLocation(this._session.user.id, location, options);
+  }
+
+  async sendURL(
+    url: string,
+    options?: ViberTypes.MessageOptions
+  ): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendURL: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendURL(this._session.user.id, url, options);
+  }
+
+  async sendSticker(
+    stickerId: number,
+    options?: ViberTypes.MessageOptions
+  ): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendSticker: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendSticker(this._session.user.id, stickerId, options);
+  }
+
+  async sendCarouselContent(
+    richMedia: ViberTypes.RichMedia,
+    options?: ViberTypes.MessageOptions
+  ): Promise<any> {
+    if (!this._session) {
+      warning(
+        false,
+        `sendCarouselContent: should not be called in context without session`
+      );
+      return;
+    }
+
+    return this._client.sendCarouselContent(
+      this._session.user.id,
+      richMedia,
+      options
+    );
+  }
+}
+
+export default ViberContext;

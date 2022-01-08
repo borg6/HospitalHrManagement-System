@@ -171,4 +171,126 @@ describe('#viber', () => {
       });
     });
 
-    it('should not call action when it receives a non-vibe
+    it('should not call action when it receives a non-viber event', async () => {
+      await expectRouteNotMatchContext({
+        route: viber.any(Action),
+        context: new TestContext({
+          client: {} as any,
+          event: {},
+        }),
+      });
+    });
+  });
+
+  describe('#viber.message', () => {
+    it('should call action when it receives a viber message event', async () => {
+      await expectRouteMatchViberEvent({
+        route: viber.message(Action),
+        event: viberEventTextMessage,
+      });
+    });
+
+    it('should not call action when it receives a non-message event', async () => {
+      await expectRouteNotMatchViberEvent({
+        route: viber.message(Action),
+        event: viberEventSubscribed,
+      });
+    });
+  });
+
+  describe('#viber.subscribed', () => {
+    it('should call action when it receives a viber subscribed event', async () => {
+      await expectRouteMatchViberEvent({
+        route: viber.subscribed(Action),
+        event: viberEventSubscribed,
+      });
+    });
+
+    it('should not call action when it receives a non-subscribed event', async () => {
+      await expectRouteNotMatchViberEvent({
+        route: viber.subscribed(Action),
+        event: viberEventTextMessage,
+      });
+    });
+  });
+
+  describe('#viber.unsubscribed', () => {
+    it('should call action when it receives a viber unsubscribed event', async () => {
+      await expectRouteMatchViberEvent({
+        route: viber.unsubscribed(Action),
+        event: viberEventUnsubscribed,
+      });
+    });
+
+    it('should not call action when it receives a non-unsubscribed event', async () => {
+      await expectRouteNotMatchViberEvent({
+        route: viber.unsubscribed(Action),
+        event: viberEventTextMessage,
+      });
+    });
+  });
+
+  describe('#viber.conversationStarted', () => {
+    it('should call action when it receives a viber conversationStarted event', async () => {
+      await expectRouteMatchViberEvent({
+        route: viber.conversationStarted(Action),
+        event: viberEventConversationStarted,
+      });
+    });
+
+    it('should not call action when it receives a non-conversationStarted event', async () => {
+      await expectRouteNotMatchViberEvent({
+        route: viber.conversationStarted(Action),
+        event: viberEventTextMessage,
+      });
+    });
+  });
+
+  describe('#viber.delivered', () => {
+    it('should call action when it receives a viber delivered event', async () => {
+      await expectRouteMatchViberEvent({
+        route: viber.delivered(Action),
+        event: viberEventDelivered,
+      });
+    });
+
+    it('should not call action when it receives a non-delivered event', async () => {
+      await expectRouteNotMatchViberEvent({
+        route: viber.delivered(Action),
+        event: viberEventTextMessage,
+      });
+    });
+  });
+
+  describe('#viber.seen', () => {
+    it('should call action when it receives a viber seen event', async () => {
+      await expectRouteMatchViberEvent({
+        route: viber.seen(Action),
+        event: viberEventSeen,
+      });
+    });
+
+    it('should not call action when it receives a non-seen event', async () => {
+      await expectRouteNotMatchViberEvent({
+        route: viber.seen(Action),
+        event: viberEventTextMessage,
+      });
+    });
+  });
+
+  describe('#viber.failed', () => {
+    it('should call action when it receives a viber failed event', async () => {
+      await expectRouteMatchViberEvent({
+        route: viber.failed(Action),
+        event: viberEventFailed,
+      });
+    });
+
+    it('should not call action when it receives a non-failed event', async () => {
+      await expectRouteNotMatchViberEvent({
+        route: viber.failed(Action),
+        event: viberEventTextMessage,
+      });
+    });
+  });
+});

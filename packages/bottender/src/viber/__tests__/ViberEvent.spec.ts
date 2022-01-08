@@ -749,3 +749,16 @@ it('#isFailed', () => {
 
 it('#failed', () => {
   expect(new ViberEvent(subscribed).failed).toEqual(null);
+  expect(new ViberEvent(unsubscribed).failed).toEqual(null);
+  expect(new ViberEvent(conversationStarted).failed).toEqual(null);
+  expect(new ViberEvent(delivered).failed).toEqual(null);
+  expect(new ViberEvent(seen).failed).toEqual(null);
+  expect(new ViberEvent(failed).failed).toEqual({
+    event: 'failed',
+    timestamp: 1457764197627,
+    messageToken: 4912661846655238145,
+    userId: '01234567890A=',
+    desc: 'failure description',
+  });
+  expect(new ViberEvent(textMessage).failed).toEqual(null);
+});

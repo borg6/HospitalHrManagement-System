@@ -207,4 +207,28 @@ function getPostInsights<P extends 'day' | 'lifetime'>(
     {
       access_token: options.accessToken,
       period: options.period,
-      metric:
+      metric: options.metric.join(','),
+      date_preset: 'datePreset' in options ? options.datePreset : undefined,
+      since: 'since' in options ? formatDate(options.since) : undefined,
+      until: 'until' in options ? formatDate(options.until) : undefined,
+    },
+    isNil
+  );
+
+  return {
+    method: 'GET',
+    relativeUrl: `/${postId}/insights?${querystring.stringify(query)}`,
+  };
+}
+
+const FacebookBatch = {
+  sendComment,
+  sendLike,
+  getComment,
+  getLikes,
+
+  getPageInsights,
+  getPostInsights,
+};
+
+export default FacebookBatch;

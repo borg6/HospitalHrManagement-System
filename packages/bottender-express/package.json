@@ -1,0 +1,24 @@
+
+{
+  "name": "@bottender/express",
+  "version": "1.5.1",
+  "license": "MIT",
+  "homepage": "https://bottender.js.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yoctol/bottender.git"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.2",
+    "@types/lodash": "^4.14.149",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15"
+  }
+}

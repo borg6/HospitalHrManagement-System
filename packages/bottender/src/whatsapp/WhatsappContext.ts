@@ -35,4 +35,10 @@ class WhatsappContext extends Context<TwilioClient, WhatsappEvent> {
 
     return this._client.createMessage({
       to,
-      body: t
+      body: text,
+      ...options,
+    });
+  }
+}
+
+export default WhatsappContext;

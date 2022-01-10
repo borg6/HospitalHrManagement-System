@@ -424,4 +424,32 @@ export default class FacebookClient extends MessengerClient {
         : never;
       period?: P;
     } & MergeExclusive<
-      
+      {
+        datePreset?: Types.DatePreset;
+      },
+      {
+        since?: string | Date;
+        until?: string | Date;
+      }
+    >
+  ): Promise<D> {
+    return this.axios
+      .get<{
+        data: D;
+        paging: {
+          previous: string;
+          next: string;
+        };
+      }>(`/${postId}/insights`, {
+        params: {
+          access_token: this.accessToken,
+          period: options.period,
+          metric: options.metric.join(','),
+          date_preset: 'datePreset' in options ? options.datePreset : undefined,
+          since: 'since' in options ? options.since : undefined,
+          until: 'until' in options ? options.until : undefined,
+        },
+      })
+      .then((res) => res.data.data, handleError);
+  }
+}

@@ -219,3 +219,27 @@ describe('getPostInsights', () => {
     expect(
       FacebookBatch.getPostInsights('POST_ID', {
         metric: ['post_video_views_organic', 'post_video_views_paid'],
+        period: 'day',
+        since: new Date('2020-07-06T03:24:00Z'),
+        until: new Date('2020-07-07T03:24:00Z'),
+      })
+    ).toEqual({
+      method: 'GET',
+      relativeUrl:
+        '/POST_ID/insights?period=day&metric=post_video_views_organic%2Cpost_video_views_paid&since=2020-07-06T03%3A24%3A00.000Z&until=2020-07-07T03%3A24%3A00.000Z',
+    });
+  });
+
+  it('should support custom access token', () => {
+    expect(
+      FacebookBatch.getPostInsights('POST_ID', {
+        metric: ['post_video_views_organic', 'post_video_views_paid'],
+        period: 'day',
+        accessToken: ACCESS_TOKEN,
+      })
+    ).toEqual({
+      method: 'GET',
+      relativeUrl: `/POST_ID/insights?access_token=${ACCESS_TOKEN}&period=day&metric=post_video_views_organic%2Cpost_video_views_paid`,
+    });
+  });
+});

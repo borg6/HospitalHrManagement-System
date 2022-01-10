@@ -281,4 +281,169 @@ export default class MessengerHandler extends Handler {
 
   onRead(
     ...args:
-      | [Predicate, FunctionalHandler | Builder
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isRead, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onRead' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isRead && predicate(context.event.read, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onDelivery(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isDelivery, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onDelivery' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isDelivery &&
+          predicate(context.event.delivery, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onLocation(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isLocation, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onLocation' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isLocation &&
+          predicate(context.event.location, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onImage(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isImage, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onImage' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isImage && predicate(context.event.image, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onAudio(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isAudio, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onAudio' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isAudio && predicate(context.event.audio, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onVideo(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isVideo, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onVideo' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+ 

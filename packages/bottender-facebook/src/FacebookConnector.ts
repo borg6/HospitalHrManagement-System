@@ -123,4 +123,78 @@ export default class FacebookConnector
         const pageId = entry.id;
         const timestamp = entry.time;
         if ('messaging' in entry) {
-          return new MessengerEvent(entry.messagi
+          return new MessengerEvent(entry.messaging[0], {
+            pageId,
+            isStandby: false,
+          });
+        }
+
+        if ('standby' in entry) {
+          return new MessengerEvent(entry.standby[0], {
+            pageId,
+            isStandby: true,
+          });
+        }
+
+        if ('changes' in entry) {
+          return new FacebookEvent(entry.changes[0], { pageId, timestamp });
+        }
+
+        return null;
+      })
+      .filter(
+        (event): event is FacebookEvent | MessengerEvent => event !== null
+      );
+  }
+
+  public async createContext(params: {
+    event: FacebookEvent | MessengerEvent;
+    session?: Session;
+    initialState?: Record<string, any>;
+    requestContext?: RequestContext;
+    emitter?: EventEmitter;
+  }): Promise<FacebookContext | MessengerContext> {
+    let customAccessToken;
+
+    if (this._mapPageToAccessToken) {
+      const { pageId } = params.event;
+
+      if (!pageId) {
+        warning(false, 'Could not find pageId from request body.');
+      } else {
+        customAccessToken = await this._mapPageToAccessToken(pageId);
+      }
+    }
+
+    let client;
+    if (customAccessToken) {
+      client = new FacebookClient({
+        accessToken: customAccessToken,
+        appSecret: this._appSecret,
+        origin: this._origin,
+        skipAppSecretProof: this._skipAppSecretProof,
+      });
+    } else {
+      client = this._client;
+    }
+
+    if (params.event instanceof FacebookEvent) {
+      return new FacebookContext({
+        ...params,
+        event: params.event,
+        client,
+        customAccessToken,
+        batchQueue: this._batchQueue,
+        appId: this._appId,
+      });
+    }
+    return new MessengerContext({
+      ...params,
+      event: params.event,
+      client,
+      customAccessToken,
+      batchQueue: this._batchQueue,
+      appId: this._appId,
+    });
+  }
+}

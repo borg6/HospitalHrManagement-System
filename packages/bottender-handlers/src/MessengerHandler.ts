@@ -110,4 +110,175 @@ export default class MessengerHandler extends Handler {
 
   onPayment(
     ...args:
-      | [Predicate, FunctionalHandler | Build
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isPayment, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onPayment' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isPayment && predicate(context.event.payment, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onOptin(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isOptin, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onOptin' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isOptin && predicate(context.event.optin, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onCheckoutUpdate(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isCheckoutUpdate, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onCheckoutUpdate' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isCheckoutUpdate &&
+          predicate(context.event.checkoutUpdate, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onPreCheckout(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isPreCheckout, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onPreCheckout' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isPreCheckout &&
+          predicate(context.event.preCheckout, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onQuickReply(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isQuickReply, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onQuickReply' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isQuickReply &&
+          predicate(context.event.quickReply, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onEcho(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isEcho, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+      this.on(
+        (context) =>
+          context.event.isEcho && predicate(context.event.message, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onRead(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder

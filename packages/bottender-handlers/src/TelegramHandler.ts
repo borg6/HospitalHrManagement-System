@@ -1,3 +1,4 @@
+
 import warning from 'warning';
 
 import Handler, {
@@ -8,15 +9,15 @@ import Handler, {
   matchPattern,
 } from './Handler';
 
-export default class MessengerHandler extends Handler {
-  onPostback(
+export default class TelegramHandler extends Handler {
+  onCallbackQuery(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isPostback, handler);
+      this.on((context) => context.event.isCallbackQuery, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -25,13 +26,13 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onPostback' only accepts function, but received ${typeof predicate}`
+        `'onCallbackQuery' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isPostback &&
-          predicate(context.event.postback, context),
+          context.event.isCallbackQuery &&
+          predicate(context.event.callbackQuery, context),
         handler
       );
     }
@@ -47,14 +48,11 @@ export default class MessengerHandler extends Handler {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
 
-      this.on(
-        ({ event }) =>
-          event.isPostback || (event.isMessage && !!event.message.quick_reply),
-        handler
-      );
+      this.on((context) => context.event.isPayload, handler);
     } else {
       // eslint-disable-next-line prefer-const
-      let [pattern, handler] = args as [Pattern, FunctionalHandler | Builder];
+      let [pattern, handler]: [Pattern, FunctionalHandler | Builder] =
+        args as any;
 
       if ('build' in handler) {
         handler = handler.build();
@@ -81,13 +79,7 @@ export default class MessengerHandler extends Handler {
 
           const _handler = handler;
           handler = (context) => {
-            let message;
-            if (context.event.isPostback) {
-              message = context.event.postback.payload;
-            } else {
-              message = context.event.message.quick_reply.payload;
-            }
-            const match = patternRegExp.exec(message);
+            const match = patternRegExp.exec(context.event.payload);
 
             if (!match) return _handler(context);
 
@@ -105,17 +97,18 @@ export default class MessengerHandler extends Handler {
         );
       }
     }
+
     return this;
   }
 
-  onPayment(
+  onPhoto(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isPayment, handler);
+      this.on((context) => context.event.isPhoto, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -124,12 +117,12 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onPayment' only accepts function, but received ${typeof predicate}`
+        `'onPhoto' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isPayment && predicate(context.event.payment, context),
+          context.event.isPhoto && predicate(context.event.photo, context),
         handler
       );
     }
@@ -137,14 +130,14 @@ export default class MessengerHandler extends Handler {
     return this;
   }
 
-  onOptin(
+  onDocument(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isOptin, handler);
+      this.on((context) => context.event.isDocument, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -153,12 +146,13 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onOptin' only accepts function, but received ${typeof predicate}`
+        `'onDocument' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isOptin && predicate(context.event.optin, context),
+          context.event.isDocument &&
+          predicate(context.event.document, context),
         handler
       );
     }
@@ -166,14 +160,14 @@ export default class MessengerHandler extends Handler {
     return this;
   }
 
-  onCheckoutUpdate(
+  onAudio(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isCheckoutUpdate, handler);
+      this.on((context) => context.event.isAudio, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -182,13 +176,12 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onCheckoutUpdate' only accepts function, but received ${typeof predicate}`
+        `'onAudio' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isCheckoutUpdate &&
-          predicate(context.event.checkoutUpdate, context),
+          context.event.isAudio && predicate(context.event.audio, context),
         handler
       );
     }
@@ -196,14 +189,14 @@ export default class MessengerHandler extends Handler {
     return this;
   }
 
-  onPreCheckout(
+  onGame(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isPreCheckout, handler);
+      this.on((context) => context.event.isGame, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -212,13 +205,12 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onPreCheckout' only accepts function, but received ${typeof predicate}`
+        `'onGame' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isPreCheckout &&
-          predicate(context.event.preCheckout, context),
+          context.event.isGame && predicate(context.event.game, context),
         handler
       );
     }
@@ -226,14 +218,14 @@ export default class MessengerHandler extends Handler {
     return this;
   }
 
-  onQuickReply(
+  onSticker(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isQuickReply, handler);
+      this.on((context) => context.event.isSticker, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -242,13 +234,12 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onQuickReply' only accepts function, but received ${typeof predicate}`
+        `'onSticker' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isQuickReply &&
-          predicate(context.event.quickReply, context),
+          context.event.isSticker && predicate(context.event.sticker, context),
         handler
       );
     }
@@ -256,37 +247,14 @@ export default class MessengerHandler extends Handler {
     return this;
   }
 
-  onEcho(
+  onVideo(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isEcho, handler);
-    } else {
-      const [predicate, handler] = args as [
-        Predicate,
-        FunctionalHandler | Builder
-      ];
-      this.on(
-        (context) =>
-          context.event.isEcho && predicate(context.event.message, context),
-        handler
-      );
-    }
-
-    return this;
-  }
-
-  onRead(
-    ...args:
-      | [Predicate, FunctionalHandler | Builder]
-      | [FunctionalHandler | Builder]
-  ) {
-    if (args.length < 2) {
-      const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isRead, handler);
+      this.on((context) => context.event.isVideo, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -295,12 +263,12 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onRead' only accepts function, but received ${typeof predicate}`
+        `'onVideo' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isRead && predicate(context.event.read, context),
+          context.event.isVideo && predicate(context.event.video, context),
         handler
       );
     }
@@ -308,14 +276,14 @@ export default class MessengerHandler extends Handler {
     return this;
   }
 
-  onDelivery(
+  onVoice(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isDelivery, handler);
+      this.on((context) => context.event.isVoice, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -324,13 +292,71 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onDelivery' only accepts function, but received ${typeof predicate}`
+        `'onVoice' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isDelivery &&
-          predicate(context.event.delivery, context),
+          context.event.isVoice && predicate(context.event.voice, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onVideoNote(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isVideoNote, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onVideoNote' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isVideoNote &&
+          predicate(context.event.videoNote, context),
+        handler
+      );
+    }
+
+    return this;
+  }
+
+  onContact(
+    ...args:
+      | [Predicate, FunctionalHandler | Builder]
+      | [FunctionalHandler | Builder]
+  ) {
+    if (args.length < 2) {
+      const [handler] = args as [FunctionalHandler | Builder];
+      this.on((context) => context.event.isContact, handler);
+    } else {
+      const [predicate, handler] = args as [
+        Predicate,
+        FunctionalHandler | Builder
+      ];
+
+      warning(
+        typeof predicate === 'function',
+        `'onContact' only accepts function, but received ${typeof predicate}`
+      );
+
+      this.on(
+        (context) =>
+          context.event.isContact && predicate(context.event.contact, context),
         handler
       );
     }
@@ -368,14 +394,14 @@ export default class MessengerHandler extends Handler {
     return this;
   }
 
-  onImage(
+  onVenue(
     ...args:
       | [Predicate, FunctionalHandler | Builder]
       | [FunctionalHandler | Builder]
   ) {
     if (args.length < 2) {
       const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isImage, handler);
+      this.on((context) => context.event.isVenue, handler);
     } else {
       const [predicate, handler] = args as [
         Predicate,
@@ -384,129 +410,12 @@ export default class MessengerHandler extends Handler {
 
       warning(
         typeof predicate === 'function',
-        `'onImage' only accepts function, but received ${typeof predicate}`
+        `'onVenue' only accepts function, but received ${typeof predicate}`
       );
 
       this.on(
         (context) =>
-          context.event.isImage && predicate(context.event.image, context),
-        handler
-      );
-    }
-
-    return this;
-  }
-
-  onAudio(
-    ...args:
-      | [Predicate, FunctionalHandler | Builder]
-      | [FunctionalHandler | Builder]
-  ) {
-    if (args.length < 2) {
-      const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isAudio, handler);
-    } else {
-      const [predicate, handler] = args as [
-        Predicate,
-        FunctionalHandler | Builder
-      ];
-
-      warning(
-        typeof predicate === 'function',
-        `'onAudio' only accepts function, but received ${typeof predicate}`
-      );
-
-      this.on(
-        (context) =>
-          context.event.isAudio && predicate(context.event.audio, context),
-        handler
-      );
-    }
-
-    return this;
-  }
-
-  onVideo(
-    ...args:
-      | [Predicate, FunctionalHandler | Builder]
-      | [FunctionalHandler | Builder]
-  ) {
-    if (args.length < 2) {
-      const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isVideo, handler);
-    } else {
-      const [predicate, handler] = args as [
-        Predicate,
-        FunctionalHandler | Builder
-      ];
-
-      warning(
-        typeof predicate === 'function',
-        `'onVideo' only accepts function, but received ${typeof predicate}`
-      );
-
-      this.on(
-        (context) =>
-          context.event.isVideo && predicate(context.event.video, context),
-        handler
-      );
-    }
-
-    return this;
-  }
-
-  onFile(
-    ...args:
-      | [Predicate, FunctionalHandler | Builder]
-      | [FunctionalHandler | Builder]
-  ) {
-    if (args.length < 2) {
-      const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isFile, handler);
-    } else {
-      const [predicate, handler] = args as [
-        Predicate,
-        FunctionalHandler | Builder
-      ];
-
-      warning(
-        typeof predicate === 'function',
-        `'onFile' only accepts function, but received ${typeof predicate}`
-      );
-
-      this.on(
-        (context) =>
-          context.event.isFile && predicate(context.event.file, context),
-        handler
-      );
-    }
-
-    return this;
-  }
-
-  onFallback(
-    ...args:
-      | [Predicate, FunctionalHandler | Builder]
-      | [FunctionalHandler | Builder]
-  ) {
-    if (args.length < 2) {
-      const [handler] = args as [FunctionalHandler | Builder];
-      this.on((context) => context.event.isFallback, handler);
-    } else {
-      const [predicate, handler] = args as [
-        Predicate,
-        FunctionalHandler | Builder
-      ];
-
-      warning(
-        typeof predicate === 'function',
-        `'onFallback' only accepts function, but received ${typeof predicate}`
-      );
-
-      this.on(
-        (context) =>
-          context.event.isFallback &&
-          predicate(context.event.fallback, context),
+          context.event.isVenue && predicate(context.event.venue, context),
         handler
       );
     }

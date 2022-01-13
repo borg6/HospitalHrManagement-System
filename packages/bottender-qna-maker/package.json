@@ -1,0 +1,36 @@
+{
+  "name": "@bottender/qna-maker",
+  "version": "1.5.5",
+  "description": "QnA Maker integration for Bottender.",
+  "license": "MIT",
+  "homepage": "https://bottender.js.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yoctol/bottender.git"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "invariant": "^2.2.4"
+  },
+  "peerDependencies": {
+    "bottender": ">= 1.2.0-0"
+  },
+  "devDependencies": {
+    "bottender": "^1.5.5"
+  },
+  "keywords": [
+    "bot",
+    "bottender",
+    "chatbot",
+    "language",
+    "messaging",
+    "nlu",
+    "qna-maker",
+    "understanding"
+  ]
+}

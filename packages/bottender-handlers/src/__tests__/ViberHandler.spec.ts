@@ -363,3 +363,28 @@ describe('#onFailed', () => {
     const predicate = jest.fn(() => true);
     const handler = jest.fn();
     const context = {
+      event: {
+        isFailed: true,
+        failed,
+      },
+    };
+    builder.onFailed(predicate, handler);
+    await builder.build()(context);
+    expect(predicate).toBeCalledWith(failed, context);
+    expect(handler).toBeCalledWith(context);
+  });
+
+  it('should not call handler when received not failed event', async () => {
+    const { builder } = setup();
+    const handler = jest.fn();
+    const context = {
+      event: {
+        isFailed: false,
+        failed: null,
+      },
+    };
+    builder.onFailed(handler);
+    await builder.build()(context);
+    expect(handler).not.toBeCalled();
+  });
+});

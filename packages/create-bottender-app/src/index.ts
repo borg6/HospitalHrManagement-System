@@ -410,3 +410,26 @@ const init = async (): Promise<void> => {
     print('    Starts the production server.');
     print('');
     print(`  ${command} dev`);
+    print('    Starts the development server.');
+    print('');
+    print(`  ${command} lint`);
+    print('    Checks the code with the linter.');
+    print('');
+    print('We suggest that you begin by typing:');
+    print('');
+    print(`  cd ${name}`);
+    print(`  ${command} dev`);
+    print('');
+    print('Happy hacking!');
+  } catch (err) {
+    error('init error with');
+    if (err.response) {
+      error(`status: ${err.response.status}`);
+    } else {
+      error(`message: ${err.message}`);
+    }
+    return process.exit(1);
+  }
+};
+
+export default init;

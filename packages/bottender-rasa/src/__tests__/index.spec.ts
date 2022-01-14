@@ -236,4 +236,35 @@ it('should support parameters of rasa', async () => {
       intent: {
         confidence: 0.6323,
         name: 'greeting',
-      }
+      },
+      intent_ranking: [
+        {
+          confidence: 0.6323,
+          name: 'greeting',
+        },
+      ],
+      text: 'Hello!',
+    });
+
+  const app = run(
+    chain([
+      rasa({
+        origin: 'http://localhost:5005',
+        actions: {
+          greeting: SayHello,
+        },
+        confidenceThreshold: 0.6,
+        emulationMode: 'WIT',
+      }),
+      Unknown,
+    ])
+  );
+
+  await app(context);
+
+  expect(context.sendText).toBeCalledWith('Hello!');
+
+  expect(requestQuery).toEqual({
+    emulation_mode: 'WIT',
+  });
+});

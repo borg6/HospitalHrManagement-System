@@ -506,4 +506,103 @@ Responds carousel template message using specified reply token.
 
 <img src="https://user-images.githubusercontent.com/563929/82651957-735c4e00-9c4f-11ea-8147-2fae91afb62e.png" width="250px" />
 
-| Param                    | Type      
+| Param                    | Type            | Description                                                                           |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------- |
+| token                    | `String`        | `replyToken` received via webhook.                                                    |
+| altText                  | `String`        | Alternative text.                                                                     |
+| carouselItems            | `Array<Object>` | Array of columns which contains object for carousel.                                  |
+| options                  | `Object`        | Object contains options.                                                              |
+| options.imageAspectRatio | `String`        | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square` |
+| options.imageSize        | `String`        | Size of the image. Specify one of the following values: `cover`, `contain`            |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.                                          |
+| options.quickReply.items | `Array`         | Quick reply items.                                                                    |
+
+Example:
+
+```js
+client.replyCarouselTemplate(REPLY_TOKEN, 'this is a carousel template', [
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=111',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/111',
+      },
+    ],
+  },
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item2.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=222',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=222',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    ],
+  },
+]);
+```
+
+<br />
+
+#### `replyImageCarouselTemplate(token, altText, carouselItems, options)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#image-carousel)
+
+Responds image carousel template message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82652055-971f9400-9c4f-11ea-878a-23dcabb430dc.png" width="250px" />
+
+| Param                    | Type            | Description                                                |
+| ------------------------ | --------------- | ---------------------------------------------------------- |
+| token                    | `String`        | `replyToken` received via webhook.                         |
+| altText                  | `String`        | Alternative text.                                          |
+| carouselItems            | `Array<Object>` | Array of columns which contains object for image carousel. |
+| options                  | `Object`        | Optional options.                                          |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.               |
+| options.quickReply.items | `Array`         | Quick reply items.                                         |
+
+Example:
+
+```js
+client.replyImageCarouselTemplate(
+  REPLY_TOKEN,
+  'this is an image carousel template',
+  [
+    {
+      imageUrl: 'https://example.com/bot/images/item1.jpg',
+      action: {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+    },
+    {
+      imageUrl: 'https://example.com/bot/images/item2.jpg',
+      action: {
+        type: 'message',
+        label: 'Yes',
+        text: 'yes',

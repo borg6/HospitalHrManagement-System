@@ -1487,4 +1487,104 @@ Sends imagemap message to multiple users.
 | imagemap.video.area.height          | `Number`        | Height of the video area.                                                                   |
 | imagemap.video.externalLink.linkUri | `String`        | Webpage URL. Called when the label displayed after the video is tapped.                     |
 | imagemap.video.externalLink.label   | `String`        | Label. Displayed after the video is finished.                                               |
-| ima
+| imagemap.actions                    | `Array<Object>` | Action when tapped.                                                                         |
+| options                             | `Object`        | Optional options.                                                                           |
+| options.quickReply                  | `Object`        | Quick reply object to attach to the message.                                                |
+| options.quickReply.items            | `Array`         | Quick reply items.                                                                          |
+
+Example:
+
+```js
+client.multicastImagemap([USER_ID], 'this is an imagemap', {
+  baseUrl: 'https://example.com/bot/images/rm001',
+  baseSize: {
+    width: 1040,
+    height: 1040,
+  },
+  actions: [
+    {
+      type: 'uri',
+      linkUri: 'https://example.com/',
+      area: {
+        x: 0,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+    {
+      type: 'message',
+      text: 'hello',
+      area: {
+        x: 520,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+  ],
+});
+```
+
+<br />
+
+### Multicast Template Messages
+
+#### `multicastTemplate(userIds, altText, template, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#template-messages)
+
+Sends template message to multiple users.
+
+| Param                    | Type            | Description                                  |
+| ------------------------ | --------------- | -------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                        |
+| altText                  | `String`        | Alternative text.                            |
+| template                 | `Object`        | Object with the contents of the template.    |
+| options                  | `Object`        | Optional options.                            |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`         | Quick reply items.                           |
+
+Example:
+
+```js
+client.multicastTemplate([USER_ID], 'this is a template', {
+  type: 'buttons',
+  thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+  title: 'Menu',
+  text: 'Please select',
+  actions: [
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `multicastButtonTemplate(userIds, altText, buttonTemplate, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#buttons)
+
+Alias: `multicastButtonsTemplate`.
+
+Sends button template message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82651618-f6c96f80-9c4e-11ea-873c-90821a7f5510.png" width="250px" />
+
+| Param                               | Type            | Description                                                                                   |
+| ----------------------------------- | --------------- | --------------------------------------------------------------------------------------------- |
+| userIds                             | `Array<String>` | IDs of the receivers.                                                                         |
+| altText                             | `String`        | Alternative text.                                                                             |
+| buttonTemplate                      | `Object`        | Object contains buttonTemplate's parameters.                                                  |
+| buttonTemplate.thumbnailImageUrl    | `String`        | Image URL of buttonTemplate.                                                                  |
+| buttonTemplate.imageAspectRatio     | `String`        | Aspect ratio of the im

@@ -141,4 +141,57 @@ client.sendMessage(
 Available messaging types:
 
 - `UPDATE` as default
-- `RESPONSE` using `{ messagingType: '
+- `RESPONSE` using `{ messagingType: 'RESPONSE' }` options
+- `MESSAGE_TAG` using `{ tag: 'ANY_TAG' }` options
+
+<br />
+
+<a id="content-types" />
+
+### Content Types - [Content types](https://developers.facebook.com/docs/messenger-platform/send-api-reference/contenttypes)
+
+#### `sendText(userId, text [, options])`
+
+Send plain text messages to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param   | Type                              | Description                                                                                                                                                                                                                       |
+| ------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId  | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                 |
+| text    | `String`                          | Text of the message to be sent.                                                                                                                                                                                                   |
+| options | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+client.sendText(USER_ID, 'Hello!', { tag: 'CONFIRMED_EVENT_UPDATE' });
+```
+
+<br />
+
+#### `sendAttachment(userId, attachment [, options])`
+
+Send attachment messages to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param            | Type                              | Description                                                                                                                                                                                                                       |
+| ---------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId           | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                 |
+| attachment       | `Object`                          | [attachment](https://developers.facebook.com/docs/messenger-platform/reference/send-api#attachment) object.                                                                                                                       |
+| options          | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+| options.filename | `String`                          | Required when upload from buffer.                                                                                                                                                                                                 |
+
+Example:
+
+```js
+client.sendAttachment(USER_ID, {
+  type: 'image',
+  payload: {
+    url: 'https://example.com/pic.png',
+  },
+});
+```
+
+<br />
+
+#### `sendAudio(userId, audio [, options])`
+
+Send sounds to specified user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs

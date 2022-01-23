@@ -323,4 +323,78 @@ Send files to specified user by uploading them or sharing a URL using the [Send 
 | ---------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | userId           | <code>String &#124; Object</code>                                            | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
 | file             | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The file to be sent.                                                                                                                              |
-| options          | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://develo
+| options          | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+| options.filename | `String`                                                                     | Required when upload from buffer.                                                                                                                 |
+
+Example:
+
+- Send file using a URL string:
+
+```js
+client.sendFile(USER_ID, 'https://example.com/receipt.pdf');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+client.sendFile(USER_ID, { attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+client.sendFile(USER_ID, fs.createReadStream('receipt.pdf'));
+```
+
+- Use `Buffer` to send attachment:
+
+```js
+client.sendFile(USER_ID, buffer, { filename: 'file.pdf' });
+```
+
+<br />
+
+<a id="templates" />
+
+### Templates - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/templates)
+
+#### `sendTemplate(userId, template [, options])`
+
+Send structured message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param    | Type                              | Description                                                                                                                                                                                                                       |
+| -------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId   | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                 |
+| template | `Object`                          | Object of the template.                                                                                                                                                                                                           |
+| options  | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+client.sendTemplate(USER_ID, {
+  templateType: 'button',
+  text: 'title',
+  buttons: [
+    {
+      type: 'postback',
+      title: 'Start Chatting',
+      payload: 'USER_DEFINED_PAYLOAD',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `sendButtonTemplate(userId, title, buttons [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template)
+
+Send button message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410664-0b80b080-27dc-11e8-8854-4408d6f32fdf.png" alt="sendButtonTemplate" width="250" />
+
+| Param   | Type                              | Description                                                                                                                                                         |
+| ------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId  | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                   |
+| title   | `String`                          | Text that appears above the buttons.

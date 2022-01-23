@@ -397,4 +397,90 @@ Send button message templates to specified user using the [Send API](https://dev
 | Param   | Type                              | Description                                                                                                                                                         |
 | ------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | userId  | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                   |
-| title   | `String`                          | Text that appears above the buttons.
+| title   | `String`                          | Text that appears above the buttons.                                                                                                                                |
+| buttons | `Array<Object>`                   | Array of [button](https://developers.facebook.com/docs/messenger-platform/send-messages/template/button#button). Set of 1-3 buttons that appear as call-to-actions. |
+| options | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types).                   |
+
+Example:
+
+```js
+client.sendButtonTemplate(USER_ID, 'What do you want to do next?', [
+  {
+    type: 'web_url',
+    url: 'https://petersapparel.parseapp.com',
+    title: 'Show Website',
+  },
+  {
+    type: 'postback',
+    title: 'Start Chatting',
+    payload: 'USER_DEFINED_PAYLOAD',
+  },
+]);
+```
+
+<br />
+
+#### `sendGenericTemplate(userId, elements [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template)
+
+Send generic message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410502-bf948426-27db-11e8-8c9d-7fd6158d0cc2.png" alt="sendGenericTemplate" width="750" />
+
+| Param    | Type                              | Description                                                                                                                                                                                                                                       |
+| -------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId   | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                                 |
+| elements | `Array<Object>`                   | Array of [element](https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic#element). Data for each bubble in message.                                                                                              |
+| options  | `Object`                          | Other optional parameters, such as `imageAspectRatio`, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) and [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+client.sendGenericTemplate(
+  USER_ID,
+  [
+    {
+      title: "Welcome to Peter's Hats",
+      imageUrl: 'https://petersfancybrownhats.com/company_image.png',
+      subtitle: "We've got the right hat for everyone.",
+      defaultAction: {
+        type: 'web_url',
+        url: 'https://peterssendreceiveapp.ngrok.io/view?item=103',
+        messengerExtensions: true,
+        webviewHeightRatio: 'tall',
+        fallbackUrl: 'https://peterssendreceiveapp.ngrok.io/',
+      },
+      buttons: [
+        {
+          type: 'postback',
+          title: 'Start Chatting',
+          payload: 'DEVELOPER_DEFINED_PAYLOAD',
+        },
+      ],
+    },
+  ],
+  { imageAspectRatio: 'square' }
+);
+```
+
+Adding a [tag](https://developers.facebook.com/docs/messenger-platform/message-tags) to a message allows you to send it outside the 24+1 window, for a limited number of use cases, per [Messenger Platform policy](https://developers.facebook.com/docs/messenger-platform/policy-overview).
+
+Example:
+
+```js
+client.sendGenericTemplate(
+  USER_ID,
+  [
+    {
+      // ...
+    },
+  ],
+  { tag: 'CONFIRMED_EVENT_UPDATE' }
+);
+```
+
+Available tags:
+
+- `CONFIRMED_EVENT_UPDATE`
+- `POST_PURCHASE_UPDATE`
+- `ACCOUNT_UPDATE`
+- `HUMAN_AGENT

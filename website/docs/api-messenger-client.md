@@ -1117,4 +1117,166 @@ client.uploadAttachment('image', buffer, {
 Upload audio attachment using URL address, buffer, or stream.
 
 | Param   | Type                                                | Description                |
-| ------- | -------------------------------------
+| ------- | --------------------------------------------------- | -------------------------- |
+| audio   | <code>String &#124; Buffer &#124; ReadStream</code> | The audio to be uploaded.  |
+| options | `Object`                                            | Other optional parameters. |
+
+Example:
+
+```js
+client.uploadAudio('http://www.example.com/audio.mp3', { isReusable: true });
+```
+
+Or using read stream:
+
+```js
+const fs = require('fs');
+
+client.uploadAudio(fs.createReadStream('audio.mp3'), { isReusable: true });
+```
+
+Or using buffer:
+
+```js
+client.uploadAudio(buffer, {
+  isReusable: true,
+  filename: 'audio.mp3',
+});
+```
+
+<br />
+
+#### `uploadImage(image, options)`
+
+Upload image attachment using URL address, buffer, or stream.
+
+| Param   | Type                                                | Description                |
+| ------- | --------------------------------------------------- | -------------------------- |
+| image   | <code>String &#124; Buffer &#124; ReadStream</code> | The image to be uploaded.  |
+| options | `Object`                                            | Other optional parameters. |
+
+Example:
+
+```js
+client.uploadImage('http://www.example.com/image.jpg', { isReusable: true });
+```
+
+Or using read stream:
+
+```js
+const fs = require('fs');
+
+client.uploadImage(fs.createReadStream('image.jpg'), { isReusable: true });
+```
+
+Or using buffer:
+
+```js
+client.uploadImage(buffer, {
+  isReusable: true,
+  filename: 'image.jpg',
+});
+```
+
+<br />
+
+#### `uploadVideo(video, options)`
+
+Upload video attachment using URL address, buffer, or stream.
+
+| Param   | Type                                                | Description                |
+| ------- | --------------------------------------------------- | -------------------------- |
+| video   | <code>String &#124; Buffer &#124; ReadStream</code> | The video to be uploaded.  |
+| options | `Object`                                            | Other optional parameters. |
+
+Example:
+
+```js
+client.uploadVideo('http://www.example.com/video.mp4', { isReusable: true });
+```
+
+Or using read stream:
+
+```js
+const fs = require('fs');
+
+client.uploadVideo(fs.createReadStream('video.mp4'), { isReusable: true });
+```
+
+Or using buffer:
+
+```js
+client.uploadVideo(buffer, {
+  isReusable: true,
+  filename: 'video.mp4',
+});
+```
+
+<br />
+
+#### `uploadFile(file, options)`
+
+Upload file attachment using URL address, buffer, or stream.
+
+| Param   | Type                                                | Description                |
+| ------- | --------------------------------------------------- | -------------------------- |
+| file    | <code>String &#124; Buffer &#124; ReadStream</code> | The file to be uploaded.   |
+| options | `Object`                                            | Other optional parameters. |
+
+Example:
+
+```js
+client.uploadFile('http://www.example.com/file.pdf', { isReusable: true });
+```
+
+Or using read stream:
+
+```js
+const fs = require('fs');
+
+client.uploadFile(fs.createReadStream('file.pdf'), { isReusable: true });
+```
+
+Or using buffer:
+
+```js
+client.uploadFile(buffer, {
+  isReusable: true,
+  filename: 'file.pdf',
+});
+```
+
+<br />
+
+<a id="message-batching" />
+
+### Message Batching - [Official Docs](https://developers.facebook.com/docs/graph-api/making-multiple-requests)
+
+#### `sendBatch(requests)`
+
+Sends multiple requests in one batch.
+
+| Param    | Type            | Description               |
+| -------- | --------------- | ------------------------- |
+| requests | `Array<Object>` | Subrequests in the batch. |
+
+Example
+
+```js
+const { MessengerBatch } = require('messaging-api-messenger');
+
+client.sendBatch([
+  MessengerBatch.sendText(USER_ID, '1'),
+  MessengerBatch.sendText(USER_ID, '2'),
+  MessengerBatch.sendText(USER_ID, '3'),
+  MessengerBatch.sendText(USER_ID, '4'),
+  MessengerBatch.sendText(USER_ID, '5'),
+]);
+```
+
+There are a bunch of factory methods can be used to create batch messages:
+
+- `MessengerBatch.sendRequest`
+- `MessengerBatch.sendMessage`
+- `MessengerBatch.sendText`
+- `Mes

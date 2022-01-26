@@ -2014,4 +2014,120 @@ Sets the values of chat extension home URL.
 
 Exmaple:
 
-`
+```js
+client.setHomeURL('http://petershats.com/send-a-hat', {
+  webviewHeightRatio: 'tall',
+  inTest: true,
+});
+```
+
+<br />
+
+#### `deleteHomeURL`
+
+Deletes chat extension home URL.
+
+Example:
+
+```js
+client.deleteHomeURL();
+```
+
+<br />
+
+### Handover Protocol API
+
+#### `passThreadControl(userId, targetAppId, metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/pass-thread-control)
+
+Passes thread control from your app to another app.
+
+| Param       | Type     | Description                                                                      |
+| ----------- | -------- | -------------------------------------------------------------------------------- |
+| userId      | `String` | The PSID of the message recipient.                                               |
+| targetAppId | `Number` | The app ID of the Secondary Receiver to pass thread control to.                  |
+| metadata    | `String` | Metadata passed to the receiving app in the `pass_thread_control` webhook event. |
+
+Example:
+
+```js
+client.passThreadControl(USER_ID, APP_ID, 'free formed text for another app');
+```
+
+<br />
+
+#### `passThreadControlToPageInbox(userId, metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/handover-protocol/pass-thread-control#page_inbox)
+
+Passes thread control from your app to "Page Inbox" app.
+
+| Param    | Type     | Description                                                                      |
+| -------- | -------- | -------------------------------------------------------------------------------- |
+| userId   | `String` | The PSID of the message recipient.                                               |
+| metadata | `String` | Metadata passed to the receiving app in the `pass_thread_control` webhook event. |
+
+Example:
+
+```js
+client.passThreadControlToPageInbox(
+  USER_ID,
+  'free formed text for another app'
+);
+```
+
+<br />
+
+#### `takeThreadControl(userId, metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/take-thread-control)
+
+Takes control of a specific thread from a Secondary Receiver app.
+
+| Param    | Type     | Description                                                                           |
+| -------- | -------- | ------------------------------------------------------------------------------------- |
+| userId   | `String` | The PSID of the message recipient.                                                    |
+| metadata | `String` | Metadata passed back to the secondary app in the `take_thread_control` webhook event. |
+
+Example:
+
+```js
+client.takeThreadControl(USER_ID, 'free formed text for another app');
+```
+
+<br />
+
+#### `requestThreadControl(userId, metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/handover-protocol/request-thread-control/)
+
+Requests control of a specific thread from a Primary Receiver app.
+
+| Param    | Type     | Description                                                                       |
+| -------- | -------- | --------------------------------------------------------------------------------- |
+| userId   | `String` | The PSID of the message recipient.                                                |
+| metadata | `String` | Metadata passed to the primary app in the `request_thread_control` webhook event. |
+
+Example:
+
+```js
+client.requestThreadControl(USER_ID, 'free formed text for primary app');
+```
+
+<br />
+
+#### `getThreadOwner` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/handover-protocol/get-thread-owner)
+
+Get the current thread owner.
+
+| Param  | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+| userId | `String` | The PSID of the message recipient. |
+
+Example:
+
+```js
+client.getThreadOwner(USER_ID).then((threadOwner) => {
+  console.log(threadOwner);
+  // {
+  //   appId: '12345678910'
+  // }
+});
+```
+
+<br />
+
+#### `getSecondaryReceivers` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/secondary-r

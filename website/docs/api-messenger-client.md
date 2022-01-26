@@ -2348,4 +2348,87 @@ Retrieves the number of messaging conversations on Facebook Messenger that began
 | Param         | Type     | Description                                                       |
 | ------------- | -------- | ----------------------------------------------------------------- |
 | options       | `Object` | Optional arguments.                                               |
-| options.since | `number` | Optional. UNIX timestamp of the 
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getNewConversations().then((result) => {
+  console.log(result);
+  // {
+  //   name: 'page_messages_new_conversations_unique',
+  //   period: 'day',
+  //   values: [
+  //     { value: 1, endTime: '2018-03-12T07:00:00+0000' },
+  //     { value: 0, endTime: '2018-03-13T07:00:00+0000' },
+  //   ],
+  //   title: 'Daily unique new conversations count',
+  //   description:
+  //     'Daily: The number of messaging conversations on Facebook Messenger that began with people who had never messaged with your business before.',
+  //   id:
+  //     '1386473101668063/insights/page_messages_new_conversations_unique/day',
+  // }
+});
+```
+
+<br />
+
+<a id="built-in-nlp-api" />
+
+### Built-in NLP API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/built-in-nlp)
+
+#### `setNLPConfigs(config)`
+
+Set values of NLP configs.
+
+| Param              | Type      | Description                                                                                                                                                                                                                                                                             |
+| ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| config             | `Object`  | Configuration of NLP.                                                                                                                                                                                                                                                                   |
+| config.nlpEnabled  | `Boolean` | Optional. Either enable NLP or disable NLP for that Page.                                                                                                                                                                                                                               |
+| config.model       | `String`  | Optional. Specifies the NLP model to use. Either one of `{CHINESE, CROATIAN, DANISH, DUTCH, ENGLISH, FRENCH_STANDARD, GERMAN_STANDARD, HEBREW, HUNGARIAN, IRISH, ITALIAN_STANDARD, KOREAN, NORWEGIAN_BOKMAL, POLISH, PORTUGUESE, ROMANIAN, SPANISH, SWEDISH, VIETNAMESE}`, or `CUSTOM`. |
+| config.customToken | `String`  | Optional. Access token from Wit.                                                                                                                                                                                                                                                        |
+| config.verbose     | `Boolean` | Optional. Specifies whether verbose mode if enabled, which returns extra information like the position of the detected entity in the query.                                                                                                                                             |
+| config.nBest       | `Number`  | Optional. The number of entities to return, in descending order of confidence. Minimum 1. Maximum 8. Defaults to 1.                                                                                                                                                                     |
+
+Example:
+
+```js
+client.setNLPConfigs({
+  nlpEnabled: true,
+});
+```
+
+<br />
+
+#### `enableNLP`
+
+Enabling Built-in NLP.
+
+Example:
+
+```js
+client.enableNLP();
+```
+
+<br />
+
+#### `disableNLP`
+
+Disabling Built-in NLP.
+
+Example:
+
+```js
+client.disableNLP();
+```
+
+<br />
+
+<a id="event-logging-api" />
+
+### Event Logging API - [Official Docs](https://developers.facebook.com/docs/app-events/bots-for-messenger#logging-custom-events)
+
+#### `logCustomEvents(activity)`
+
+Log custom events by using th

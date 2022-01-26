@@ -1874,4 +1874,144 @@ Example:
 client.deleteWhitelistedDomains();
 ```
 
-<a id="ac
+<a id="account-linking-url" />
+
+### Account Linking URL - [Official Docs](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/account-linking-url)
+
+#### `getAccountLinkingURL`
+
+Retrieves the current value of account linking URL.
+
+Example:
+
+```js
+client.getAccountLinkingURL().then((accountLinking) => {
+  console.log(accountLinking);
+  // {
+  //   accountLinkingUrl:
+  //     'https://www.example.com/oauth?response_type=code&client_id=1234567890&scope=basic',
+  // }
+});
+```
+
+<br />
+
+#### `setAccountLinkingURL(url)`
+
+Sets the values of account linking URL.
+
+| Param | Type     | Description          |
+| ----- | -------- | -------------------- |
+| url   | `String` | Account linking URL. |
+
+Example:
+
+```js
+client.setAccountLinkingURL(
+  'https://www.example.com/oauth?response_type=code&client_id=1234567890&scope=basic'
+);
+```
+
+<br />
+
+#### `deleteAccountLinkingURL`
+
+Deletes account linking URL.
+
+Example:
+
+```js
+client.deleteAccountLinkingURL();
+```
+
+<br />
+
+<a id="target-audience" />
+
+### Target Audience - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/target-audience)
+
+#### `getTargetAudience`
+
+Retrieves the current value of target audience.
+
+Example:
+
+```js
+client.getTargetAudience().then((targetAudience) => {
+  console.log(targetAudience);
+  // {
+  //   audienceType: 'custom',
+  //   countries: {
+  //     whitelist: ['US', 'CA'],
+  //   },
+  // }
+});
+```
+
+<br />
+
+#### `setTargetAudience(type, whitelist, blacklist)`
+
+Sets the values of target audience.
+
+| Param     | Type            | Description                                                                                                                             |
+| --------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------ | ------ |
+| type      | `String`        | Audience type. Valid values include `all                                                                                                | custom | none`. |
+| whitelist | `Array<String>` | List of ISO 3166 Alpha-2 codes. Users in any of the blacklist countries won't see your bot on discovery surfaces on Messenger Platform. |
+| blacklist | `Array<String>` | List of ISO 3166 Alpha-2 codes. Users in any of the whitelist countries will see your bot on discovery surfaces on Messenger Platform.  |
+
+Exmaple:
+
+```js
+client.setTargetAudience('custom', ['US', 'CA'], ['UK']);
+```
+
+<br />
+
+#### `deleteTargetAudience`
+
+Deletes target audience.
+
+Example:
+
+```js
+client.deleteTargetAudience();
+```
+
+<br />
+
+<a id="chat-extension-home-url" />
+
+### Chat Extension Home URL - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/home-url)
+
+#### `getHomeURL`
+
+Retrieves the current value of chat extension home URL.
+
+Example:
+
+```js
+client.getHomeURL().then((chatExtension) => {
+  console.log(chatExtension);
+  // {
+  //   url: 'http://petershats.com/send-a-hat',
+  //   webviewHeightRatio: 'tall',
+  //   inTest: true,
+  // }
+});
+```
+
+<br />
+
+#### `setHomeURL(url, attributes)`
+
+Sets the values of chat extension home URL.
+
+| Param      | Type     | Description                                                                                                                                  |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| url        | `String` | The URL to be invoked from drawer.                                                                                                           |
+| attributes | `Object` | Other [properties](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/home-url#properties) of home URL. |
+
+Exmaple:
+
+`

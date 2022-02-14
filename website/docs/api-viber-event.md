@@ -200,4 +200,200 @@ Example:
 event.url; // 'http://example.com'
 ```
 
-####
+#### `isLocation`
+
+Determine if the event is a message event which includes location.
+
+Example:
+
+```js
+event.isLocation; // true
+```
+
+#### `location`
+
+The location object from Viber raw event.
+
+Example:
+
+```js
+event.location;
+// {
+//   lat: 50.76891,
+//   lon: 6.11499,
+// }
+```
+
+#### `isSubscribed`
+
+Determine if the event is a subscribed event.
+
+Example:
+
+```js
+event.isSubscribed; // true
+```
+
+#### `subscribed`
+
+The subscribed payload from Viber raw event.
+
+Example:
+
+```js
+event.subscribed;
+// {
+//   event: 'subscribed',
+//   timestamp: 1457764197627,
+//   user: {
+//     id: '01234567890A=',
+//     name: 'John McClane',
+//     avatar: 'http://avatar.example.com',
+//     country: 'UK',
+//     language: 'en',
+//     api_version: 1,
+//   },
+//   message_token: 4912661846655238145,
+// }
+```
+
+#### `isUnsubscribed`
+
+Determine if the event is an unsubscribed event.
+
+Example:
+
+```js
+event.isUnsubscribed; // true
+```
+
+#### `unsubscribed`
+
+The unsubscribed payload from Viber raw event.
+
+Example:
+
+```js
+event.unsubscribed;
+// {
+//   event: 'unsubscribed',
+//   timestamp: 1457764197627,
+//   user_id: '01234567890A=',
+//   message_token: 4912661846655238145,
+// }
+```
+
+#### `isConversationStarted`
+
+Determine if the event is a conversation_started event.
+
+Example:
+
+```js
+event.isConversationStarted; // true
+```
+
+#### `conversationStarted`
+
+The conversation started payload from Viber raw event.
+
+Example:
+
+```js
+event.conversationStarted;
+// {
+//   event: 'conversation_started',
+//   timestamp: 1457764197627,
+//   message_token: 4912661846655238145,
+//   type: 'open',
+//   context: 'context information',
+//   user: {
+//     id: '01234567890A=',
+//     name: 'John McClane',
+//     avatar: 'http://avatar.example.com',
+//     country: 'UK',
+//     language: 'en',
+//     api_version: 1,
+//   },
+//   subscribed: false,
+// }
+```
+
+#### `isDelivered`
+
+The delivered payload from Viber raw event.
+
+Example:
+
+```js
+event.isDelivered; // true
+```
+
+#### `delivered`
+
+The delivered payload from Viber raw event.
+
+Example:
+
+```js
+event.delivered;
+// {
+//   event: 'delivered',
+//   timestamp: 1457764197627,
+//   message_token: 4912661846655238145,
+//   user_id: '01234567890A=',
+// }
+```
+
+#### `isSeen`
+
+Determine if the event is a seen event.
+
+Example:
+
+```js
+event.isSeen; // true
+```
+
+#### `seen`
+
+The seen payload from Viber raw event.
+
+Example:
+
+```js
+event.seen;
+// {
+//   event: 'seen',
+//   timestamp: 1457764197627,
+//   message_token: 4912661846655238145,
+//   user_id: '01234567890A=',
+// }
+```
+
+#### `isFailed`
+
+Determine if the event is a failed event.
+
+Example:
+
+```js
+event.isFailed; // true
+```
+
+#### `failed`
+
+The failed payload from Viber raw event.
+
+Example:
+
+```js
+event.failed;
+// {
+//   event: 'failed',
+//   timestamp: 1457764197627,
+//   message_token: 4912661846655238145,
+//   user_id: '01234567890A=',
+//   desc: 'failure description',
+// }
+```

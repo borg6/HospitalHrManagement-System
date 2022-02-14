@@ -666,4 +666,25 @@ Example:
 event.isPreCheckoutQuery; // true
 ```
 
-#### `preCheckoutQu
+#### `preCheckoutQuery`
+
+The pre checkout query from Telegram raw event.
+
+Example:
+
+```js
+event.preCheckoutQuery;
+// {
+//   id: '123',
+//   from: {
+//     id: 427770117,
+//     is_bot: false,
+//     first_name: 'first',
+//     last_name: 'last',
+//     language_code: 'en',
+//   },
+//   currency: 'USD',
+//   total_amount: 100,
+//   invoice_payload: 'payload',
+// }
+```

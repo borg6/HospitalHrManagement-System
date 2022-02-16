@@ -166,4 +166,11 @@ In the following example, you can see an example of the famous `Like Sticker` (a
 ```js
 async function App(context) {
   if (context.event.isLikeSticker) {
-    await context.sendText('Go
+    await context.sendText('Good to know you like us!');
+  }
+}
+```
+
+## Handling Events with Router
+
+Bottender offers a bunch of helpers to route within your Messenger or multi-platform app. To learn more about how to use those Messenger particular routes with router, check out [Messenger Routing](channel-messenger-routing.md).

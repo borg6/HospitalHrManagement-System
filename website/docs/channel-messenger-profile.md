@@ -227,4 +227,25 @@ module.exports = {
 
 ## Setting Domain Whitelist
 
-The [whitelisted domains](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/domain-whitelisting) of your bot's Messenger profile specifies a list of third-party domains that are accessible in the Messenger webview for use with the **Messenger Extensions SDK**, the **Checkbox Plugin**, and t
+The [whitelisted domains](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/domain-whitelisting) of your bot's Messenger profile specifies a list of third-party domains that are accessible in the Messenger webview for use with the **Messenger Extensions SDK**, the **Checkbox Plugin**, and the **Customer Chat Plugin**.
+
+This can be set by using `channels.messenger.profile.whitelistedDomains` fields in `bottender.config.js`:
+
+```js
+// bottender.config.js
+module.exports = {
+  channels: {
+    messenger: {
+      // Omission here...
+      profile: {
+        whitelistedDomains: ['<WHITELISTED_DOMAIN>', '<WHITELISTED_DOMAIN>'],
+      },
+    },
+  },
+};
+```
+
+> **Note:** Domains must meet the following requirements to be whitelisted:
+>
+> - Served over **HTTPS**
+> - Use a fully qualified domain name, such as https://www.messenger.com/. IP addresses and localhost are not supported for whitelisting.

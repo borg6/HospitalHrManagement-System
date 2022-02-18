@@ -89,4 +89,106 @@ module.exports = {
       enabled: true,
       path: '/webhooks/slack',
       accessToken: process.env.SLACK_ACCESS_TOKEN,
-      signingSe
+      signingSecret: process.env.SLACK_SIGNING_SECRET,
+      // verificationToken: process.env.SLACK_VERIFICATION_TOKEN, // deprecated, use signingSecret
+    },
+  },
+};
+```
+
+Make sure to set the `channels.slack.enabled` field to `true`.
+
+By default, the Bottender server listens to the Slack requests on the `/webhooks/slack` path. However, you can overwrite the path by assigning the preferred webhook path in the `channels.slack.path` field.
+
+We highly recommend setting your sensitive config using `process.env`, so you could avoid any credentials get exposed.
+
+## Environment Configuration
+
+Bottender utilizes the [dotenv](https://www.npmjs.com/package/dotenv) package to load your environment variables when developing your app.
+
+To make a Slack bot work, you must prepare the following environment variables, which you may put into your `.env` file later:
+
+- Slack Access Token
+- Slack Signing Secret (or Slack Verification Token)
+
+### Slack Access Token
+
+You can find Slack access token in [Slack Developer Console](https://api.slack.com/apps) → \${YourApp} → OAuth & Permissions → Bot User OAuth Access Token
+
+ <p><img width="800" src="https://user-images.githubusercontent.com/563929/82573621-94be2b00-9bb8-11ea-991c-f7ae5cfffc15.png"/></p>
+
+After you get your **Slack Access Token**, paste the value into the `SLACK_ACCESS_TOKEN` field in your `.env` file:
+
+```
+# .env
+
+SLACK_ACCESS_TOKEN=<YOUR SLACK ACCESS TOKEN>
+```
+
+### Slack Signing Secret
+
+You can find Slack signing secret in [Slack Developer Console](https://api.slack.com/apps) → \${YourApp} → Basic Information → App Credentials → Signing Secret.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82585491-a7406080-9bc8-11ea-9fbc-e91b72cc6eb9.png"/></p>
+
+After you get your **Slack Signing Secret**, paste the value into the `SLACK_SIGNING_SECRET` field in your `.env` file:
+
+```
+# .env
+
+SLACK_SIGNING_SECRET=<YOUR SLACK SIGNING SECRET>
+```
+
+### Slack Verification Token (Deprecated)
+
+We recommend using signing secret instead of verification token, but we also support verification token.
+
+You can find Slack verification token in [Slack Developer Console](https://api.slack.com/apps) → \${YourApp} → Basic Information → App Credentials → Verification Token.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82585491-a7406080-9bc8-11ea-9fbc-e91b72cc6eb9.png"/></p>
+
+After you get your **Slack Verification Token**, paste the value into the `SLACK_VERIFICATION_TOKEN` field in your `.env` file:
+
+```
+# .env
+
+# SLACK_VERIFICATION_TOKEN=<YOUR SLACK VERIFICATION TOKEN> # deprecated, use `SLACK_SIGNING_SECRET` instead
+```
+
+## Webhook
+
+After finishing the above settings, you can start your server with Slack webhook event listening using the following commands:
+
+```sh
+# in production mode
+npm start
+
+# or in development mode
+npm run dev
+```
+
+When you run bottender in development mode, Bottender automatically run up a ngrok client, and then you can get the information of webhook URL from the console like this:
+
+```
+App has started
+slack webhook URL: https://42bbf602.ngrok.io/webhooks/slack
+server is running on 5000 port...
+```
+
+Then, you have to copy your Slack webhook URL to [Slack Developer Console](https://api.slack.com/apps) → \${YourApp} → Event Subscriptions, where you can pick which bot events to subscribe.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82586277-e58a4f80-9bc9-11ea-9d72-748685aed912.png"/></p>
+
+Turn on the switch.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82586465-2a15eb00-9bca-11ea-86ad-2a198e8f3ca1.png"/></p>
+
+Fill the Request URL field with your Slack webhook URL.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82586596-65b0b500-9bca-11ea-83eb-db2a032e5205.png"/></p>
+
+You can see the word `Verified` after setting the webhook URL.
+
+Now, open the `Subscribe to bot events` block to subscribe some events.
+
+<p><img width="800" src="https://user

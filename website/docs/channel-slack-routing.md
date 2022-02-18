@@ -30,4 +30,9 @@ async function HandleAnySlashCommand(context) {}
 async function HandleSlack(context) {}
 ```
 
-All available routes in `slack` that recognize different ki
+All available routes in `slack` that recognize different kind of events:
+
+- `slack.any` - triggers the action when receiving any Slack events.
+- `slack.message` - triggers the action when receiving Slack message events.
+- `slack.event` - triggers the action when receiving particular Slack events. See all event types in [Slack docs](https://api.slack.com/events).
+- `slack.command` - triggers the action when receiving Slack slash command events.

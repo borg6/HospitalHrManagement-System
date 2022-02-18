@@ -69,4 +69,18 @@ All available routes in `messenger` that recognize different kind of events:
 - `messenger.echo` - triggers the action when receiving Messenger `echo` events.
 - `messenger.gamePlay` - triggers the action when receiving Messenger `game_play` events.
 - `messenger.passThreadControl` - triggers the action when receiving Messenger `pass_thread_control` events.
-- `messenger.takeThre
+- `messenger.takeThreadControl` - triggers the action when receiving Messenger `take_thread_control` events.
+- `messenger.requestThreadControl` - triggers the action when receiving Messenger `request_thread_control` events.
+- `messenger.appRoles` - triggers the action when receiving Messenger `app_roles` events.
+- `messenger.optin` - triggers the action when receiving Messenger `optin` events.
+- `messenger.policyEnforcement` - triggers the action when receiving Messenger `policy_enforcement` events.
+- `messenger.postback` - triggers the action when receiving Messenger `postback` events.
+- `messenger.preCheckout` - triggers the action when receiving Messenger `pre_checkout` events.
+- `messenger.reaction.react` - triggers the action when receiving Messenger `reaction` events with action `react`.
+- `messenger.reaction.unreact` - triggers the action when receiving Messenger `reaction` events with action `unreact`.
+- `messenger.reaction` - triggers the action when receiving Messenger `reaction` events.
+- `messenger.read` - triggers the action when receiving Messenger `read` events.
+- `messenger.referral` - triggers the action when receiving Messenger `referral` events.
+- `messenger.standby` - triggers the action when receiving Messenger `standby` events.
+
+> **Note:** You must subscribe corresponding events for your page to receive the events.

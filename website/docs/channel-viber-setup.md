@@ -72,4 +72,28 @@ For more information, see Viber's official document, [Authentication Token](http
 
 ## Webhook
 
-After finishing above settings, you can start your server wi
+After finishing above settings, you can start your server with Viber webhook event listening using the following commands:
+
+```sh
+# in production mode
+npm start
+
+# or in development mode
+npm run dev
+```
+
+When you run bottender in development mode, Bottender automatically run up a ngrok client, and then you can get the information of webhook URL from the console like this:
+
+```
+App has started
+viber webhook URL: https://42bbf602.ngrok.io/webhooks/viber
+server is running on 5000 port...
+```
+
+Then, you can finish your Viber webhook setting with the following command.
+
+```sh
+npx bottender viber webhook set
+```
+
+Now you are ready to interact with your bot on Viber.

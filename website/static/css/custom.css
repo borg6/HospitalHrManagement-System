@@ -1,0 +1,181 @@
+/* your custom css */
+
+a.primary {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(180deg, #0094ff 0%, #006aee 100%);
+  border-radius: 24px;
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 24px;
+  height: 36px;
+  padding: 0 24px;
+  text-align: center;
+  letter-spacing: 0.24px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+a.primary.large {
+  height: 48px;
+}
+
+a.primary:hover {
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(180deg, #64beff 0%, #3290ff 100%);
+}
+
+a.primary:active {
+  text-decoration: none;
+  color: #ffffff;
+  background: linear-gradient(180deg, #0086e8 0%, #035bc8 100%);
+}
+
+a:focus {
+  outline: none;
+}
+
+.indexContainer {
+  padding: 40px 0 0;
+}
+
+.indexContainer article pre {
+  margin-top: 24px;
+  margin-bottom: 28px;
+}
+
+.post p a {
+  text-decoration: underline !important;
+}
+.post a {
+  font-weight: 600;
+}
+
+h1 a {
+  color: #24292e;
+}
+
+a {
+  color: #4a90e2;
+}
+
+.post p a {
+  text-decoration: inherit !important;
+}
+.post p a:hover {
+  text-decoration: underline !important;
+}
+.post a {
+  font-weight: inherit;
+}
+
+.homeContainer {
+  background-color: #0a1c30;
+  height: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.homeContainer .triangle {
+  height: 80px;
+  background: linear-gradient(
+    to top right,
+    #fff 0%,
+    #fff 50%,
+    #0a1c30 50%,
+    #0a1c30 100%
+  );
+}
+
+.homeSplashFade {
+  height: 100%;
+  margin: 0 20px;
+  background-image: url('/img/element_hero_illustration.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 50%;
+}
+
+.hero-content {
+  text-align: left;
+  margin-left: 15%;
+  margin-top: 200px;
+}
+
+.hero-content h1 {
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 48px;
+  color: #ffffff;
+}
+
+.hero-content h2 {
+  font-family: Roboto;
+  font-weight: normal;
+  margin-top: 8px;
+  margin-bottom: 56px;
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.mainContainer {
+  background-color: #ffffff;
+}
+
+.features {
+  margin-top: 48px;
+  margin-bottom: 112px;
+}
+
+.features h2 {
+  font-family: Montserrat;
+  font-weight: bold;
+  font-size: 40px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: #050f37;
+}
+
+.features .container .wrapper {
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 0 20px;
+}
+
+.features .container .gridBlock {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 80px;
+}
+
+.features .container .blockElement {
+  display: flex;
+  flex: none;
+  flex-flow: row wrap;
+}
+
+.features .container .blockContent {
+  flex: 1 1;
+  word-wrap: break-word;
+}
+
+.features .container .wrapper .blockImage {
+  flex: none;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.features .container .wrapper p {
+  font-family: Roboto;
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 360px;
+  text-align: left;
+  margin-bottom: 16px;
+  color: #050f37;
+}
+
+.features .cont

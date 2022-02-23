@@ -203,4 +203,10 @@ const Index: FC = () => {
               </Link>
             </div>
           </div>
-   
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default Index;

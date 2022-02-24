@@ -436,4 +436,105 @@ a {
   }
 
   .footer-medias {
- 
+    margin-top: 24px;
+  }
+
+  .footer-contacts {
+    text-align: center;
+  }
+
+  .icons {
+    justify-content: space-around;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .homeSplashFade {
+    background-position: 100% 80%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .features .container .blockElement {
+    flex: none;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .gridBlock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+}
+
+/**
+ * Showcase
+ */
+
+.showcaseSection {
+  margin: 80px auto;
+  max-width: 900px;
+}
+
+.showcaseSection,
+.showcaseSection .prose h1 {
+  text-align: center;
+}
+
+.showcaseSection .prose {
+  margin: 0 auto;
+  max-width: 560px;
+  text-align: center;
+}
+
+.showcase {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.showcase .link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 180px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.showcase .link:hover {
+  text-decoration: underline;
+}
+
+.showcase .link .caption {
+  line-height: 20px;
+  height: 20px;
+}
+
+.showcase .link img {
+  border-style: none;
+  box-sizing: content-box;
+  max-width: 100%;
+  max-height: 110px;
+  padding: 20px;
+  width: 110px;
+  align-self: center;
+}
+
+@media only screen and (max-width: 735px) {
+  .showcase .link {
+    height: 134px;
+  }
+
+  .showcase .link img {
+    max-height: 64px;
+    padding: 20px;
+    width: 64px;
+  }
+}

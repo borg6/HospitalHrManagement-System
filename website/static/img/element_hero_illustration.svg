@@ -130,4 +130,77 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M235.812 103.675L231.064 105.77V101.429L235.812 99.4555V103.675Z" fill="#F5E48C"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M231.064 105.77L227.107 103.797V99.4555L231.064 101.338V105.77Z" fill="url(#paint32_linear)"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M260.343 88.4134L264.679 90.7728L269.047 88.3963L264.711 86.0368L260.343 88.4134Z" fill="white"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M
+<path fill-rule="evenodd" clip-rule="evenodd" d="M260.343 93.1527L264.695 95.5088V90.7728L260.343 88.4048V93.1527Z" fill="url(#paint33_linear)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M264.695 95.5088L269.047 92.7462V88.4048L264.695 90.7728V95.5088Z" fill="url(#paint34_linear)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M246.89 42.6327L251.227 44.9918L255.595 42.6149L251.259 40.2558L246.89 42.6327Z" fill="white"/>
+<mask id="mask10" mask-type="alpha" maskUnits="userSpaceOnUse" x="246" y="42" width="6" height="8">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M246.956 46.8691L251.366 49.1254V44.5807L246.956 42.3244V46.8691Z" fill="white"/>
+</mask>
+<g mask="url(#mask10)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M246.89 46.8443L251.638 48.9392V44.7195L246.89 42.6245V46.8443Z" fill="url(#paint35_linear)"/>
+</g>
+<mask id="mask11" mask-type="alpha" maskUnits="userSpaceOnUse" x="251" y="42" width="5" height="8">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M251.18 49.1254L255.787 46.8528V42.3074L251.18 44.5807V49.1254Z" fill="white"/>
+</mask>
+<g mask="url(#mask11)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M250.847 48.9392L255.595 46.8343V42.6245L250.847 44.73V48.9392Z" fill="url(#paint36_linear)"/>
+</g>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0" transform="scale(0.00230415 0.004)"/>
+</pattern>
+<pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image1"/>
+</pattern>
+<pattern id="pattern2" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2"/>
+</pattern>
+<pattern id="pattern3" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image3"/>
+</pattern>
+<pattern id="pattern4" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image4"/>
+</pattern>
+<pattern id="pattern5" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0" transform="scale(0.00230415 0.004)"/>
+</pattern>
+<pattern id="pattern6" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0" transform="scale(0.00230415 0.004)"/>
+</pattern>
+<pattern id="pattern7" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image5" transform="scale(0.00401606 0.00769231)"/>
+</pattern>
+<pattern id="pattern8" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image6" transform="scale(0.00230415 0.004)"/>
+</pattern>
+<pattern id="pattern9" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image7" transform="scale(0.00230415 0.004)"/>
+</pattern>
+<pattern id="pattern10" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image8" transform="scale(0.00230415 0.004)"/>
+</pattern>
+<linearGradient id="paint0_linear" x1="793.497" y1="277.073" x2="704.42" y2="-150.231" gradientUnits="userSpaceOnUse">
+<stop stop-color="#50D5FF"/>
+<stop offset="1" stop-color="#3C5AD0"/>
+</linearGradient>
+<linearGradient id="paint1_linear" x1="148.767" y1="0.00153598" x2="148.767" y2="364.673" gradientUnits="userSpaceOnUse">
+<stop stop-color="#64C9E2" stop-opacity="0.01"/>
+<stop offset="1" stop-color="#34CCFF" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint2_linear" x1="465.97" y1="302.509" x2="451.897" y2="230.032" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3796E9"/>
+<stop offset="1" stop-color="#5ED0E8"/>
+</linearGradient>
+<linearGradient id="paint3_linear" x1="518.663" y1="277.263" x2="500.285" y2="183.121" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3796E9"/>
+<stop offset="1" stop-color="#5ED0E8"/>
+</linearGradient>
+<linearGradient id="paint4_linear" x1="541.754" y1="254.708" x2="530.113" y2="195.699" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3796E9"/>
+<stop offset="1" stop-color="#5ED0E8"/>
+</linearGradient>
+<linearGradient id="paint5_linear" x1="354.376" y1="236.41" x2="338.704" y2="154.017" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E264D5"/>
+<stop offset="1" stop-color="#975EE8"/>
+</linearGradient>
+<linearGra

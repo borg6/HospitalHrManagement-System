@@ -203,4 +203,72 @@
 <stop stop-color="#E264D5"/>
 <stop offset="1" stop-color="#975EE8"/>
 </linearGradient>
-<linearGra
+<linearGradient id="paint6_linear" x1="574.034" y1="236.125" x2="542.898" y2="300.907" gradientUnits="userSpaceOnUse">
+<stop stop-color="#328EF5"/>
+<stop offset="1" stop-color="#3DC8FF"/>
+</linearGradient>
+<linearGradient id="paint7_linear" x1="532.555" y1="164.181" x2="532.555" y2="303.104" gradientUnits="userSpaceOnUse">
+<stop stop-color="#64C9E2" stop-opacity="0.01"/>
+<stop offset="1" stop-color="#34CCFF" stop-opacity="0.3"/>
+</linearGradient>
+<linearGradient id="paint8_linear" x1="299.339" y1="156.561" x2="236.487" y2="46.1523" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E264D5" stop-opacity="0.296219"/>
+<stop offset="1" stop-color="#975EE8" stop-opacity="0.01"/>
+</linearGradient>
+<linearGradient id="paint9_linear" x1="69.3986" y1="210.417" x2="17.6295" y2="318.543" gradientUnits="userSpaceOnUse">
+<stop stop-color="#32F5EA" stop-opacity="0.480687"/>
+<stop offset="1" stop-color="#328EF5" stop-opacity="0.01"/>
+</linearGradient>
+<linearGradient id="paint10_linear" x1="123.208" y1="238.044" x2="71.4391" y2="346.169" gradientUnits="userSpaceOnUse">
+<stop stop-color="#32F5EA" stop-opacity="0.480687"/>
+<stop offset="1" stop-color="#328EF5" stop-opacity="0.01"/>
+</linearGradient>
+<linearGradient id="paint11_linear" x1="173.061" y1="268.038" x2="121.292" y2="376.164" gradientUnits="userSpaceOnUse">
+<stop stop-color="#32F5EA" stop-opacity="0.480687"/>
+<stop offset="1" stop-color="#328EF5" stop-opacity="0.01"/>
+</linearGradient>
+<linearGradient id="paint12_linear" x1="223.705" y1="299.611" x2="171.936" y2="407.737" gradientUnits="userSpaceOnUse">
+<stop stop-color="#32F5EA" stop-opacity="0.480687"/>
+<stop offset="1" stop-color="#328EF5" stop-opacity="0.01"/>
+</linearGradient>
+<linearGradient id="paint13_linear" x1="268.81" y1="335.131" x2="217.041" y2="443.257" gradientUnits="userSpaceOnUse">
+<stop stop-color="#32F5EA" stop-opacity="0.480687"/>
+<stop offset="1" stop-color="#328EF5" stop-opacity="0.01"/>
+</linearGradient>
+<linearGradient id="paint14_linear" x1="324.993" y1="366.704" x2="273.224" y2="474.83" gradientUnits="userSpaceOnUse">
+<stop stop-color="#32F5EA" stop-opacity="0.480687"/>
+<stop offset="1" stop-color="#328EF5" stop-opacity="0.01"/>
+</linearGradient>
+<linearGradient id="paint15_linear" x1="297.152" y1="160.588" x2="287.996" y2="113.644" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E264D5"/>
+<stop offset="1" stop-color="#975EE8"/>
+</linearGradient>
+<linearGradient id="paint16_linear" x1="328.788" y1="391.3" x2="311.947" y2="362.055" gradientUnits="userSpaceOnUse">
+<stop stop-color="#20B038"/>
+<stop offset="1" stop-color="#60D66A"/>
+</linearGradient>
+<linearGradient id="paint17_linear" x1="329.395" y1="391.649" x2="311.95" y2="361.355" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F9F9F9"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<linearGradient id="paint18_linear" x1="553.08" y1="218.588" x2="553.08" y2="214.172" gradientUnits="userSpaceOnUse">
+<stop stop-color="#04B5AA"/>
+<stop offset="1" stop-color="#00FFFF"/>
+</linearGradient>
+<linearGradient id="paint19_linear" x1="552.166" y1="217.812" x2="543.911" y2="214.17" gradientUnits="userSpaceOnUse">
+<stop stop-color="#23698C"/>
+<stop offset="1" stop-color="#144B66"/>
+</linearGradient>
+<linearGradient id="paint20_linear" x1="554.201" y1="218.571" x2="549.227" y2="216.355" gradientUnits="userSpaceOnUse">
+<stop stop-color="#23698C"/>
+<stop offset="1" stop-color="#00BFAF"/>
+</linearGradient>
+<linearGradient id="paint21_linear" x1="583.505" y1="156.484" x2="589.687" y2="156.484" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F49E5B"/>
+<stop offset="1" stop-color="#F4C15B"/>
+</linearGradient>
+<linearGradient id="paint22_linear" x1="580.179" y1="256.918" x2="593.531" y2="250.811" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E4F0FF"/>
+<stop offset="1" stop-color="#BDCDF9"/>
+</linearGradient>
+<linearGradient id="paint23_linear" x1="577.652" y1="250.319" x2="587.982" y2="254.922" gradi

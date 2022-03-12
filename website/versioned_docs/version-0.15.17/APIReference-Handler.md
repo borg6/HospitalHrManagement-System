@@ -48,4 +48,31 @@ It will trigger handler function from **any event**.
 
 It will trigger handler function if any `onXXX` function don't send any things back to user.
 
-|  Param  |    Type    |                                                           Description                        
+|  Param  |    Type    |                                                           Description                                                            |
+| :-----: | :--------: | :------------------------------------------------------------------------------------------------------------------------------: |
+| handler | `function` | This is a callback function receiving [context](api-context) as first parameter. <br/> `function handler(context) { /* ... */ }` |
+
+#### `onError(handler)`
+
+It will trigger handler function if any Error is thrown.
+
+|  Param  |    Type    |                                                                                Description                                                                                |
+| :-----: | :--------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| handler | `function` | This is a callback function receiving [context](api-context) as first parameter and **error as second parameter**. <br/> `function handler(context, error) { /* ... */ }` |
+
+### Methods table
+
+|       Name       | Messenger | LINE | Slack | Telegram |                                                                           Description                                                                            |
+| :--------------: | :-------: | :--: | :---: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|        on        |    ✅     |  ✅  |  ✅   |    ✅    |                                   it will trigger function from second parameter if function from first parameter return true.                                   |
+|     onEvent      |    ✅     |  ✅  |  ✅   |    ✅    |           it will always trigger function from parameter. <br/><br/>**Notice: This method will handle all event. Make sure this is the last method.**            |
+|    onMessage     |    ✅     |  ✅  |  ✅   |    ✅    |                  it will trigger function from parameter if **context.event.isMessage** is true and function from first parameter return true.                   |
+|      onText      |    ✅     |  ✅  |  ✅   |    ✅    |                    it will trigger function from parameter if **context.event.isText** is true and function from first parameter return true.                    |
+|   onUnhandled    |    ✅     |  ✅  |  ✅   |    ✅    |                                                 it will trigger function from parameter if event is not handled.                                                 |
+|     onError      |    ✅     |  ✅  |  ✅   |    ✅    |                                                    it will trigger function from parameter if error happens.                                                     |
+|    onPostback    |    ✅     |  ✅  |       |          |                  it will trigger function from parameter if **context.event.isPostback** is true and function from first parameter return true.                  |
+|    onPayload     |    ✅     |  ✅  |       |    ✅    | it will trigger function from parameter if **context.event.isPostback** or **context.event.isQuickReply** is true and function from first parameter return true. |
+|    onLocation    |    ✅     |      |       |    ✅    |                  it will trigger function from parameter if **context.event.isLocation** is true and function from first parameter return true.                  |
+|     onAudio      |    ✅     |      |       |    ✅    |                   it will trigger function from parameter if **context.event.isAudio** is true and function from first parameter return true.                    |
+|     onVideo      |    ✅     |      |       |    ✅    |                   it will trigger function from parameter if **context.event.isVideo** is true and function from first parameter return true.                    |
+|    onPayment     |    ✅     |      |       |          |                  it will trigger function from parameter if **context.ev

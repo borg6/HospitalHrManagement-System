@@ -94,4 +94,89 @@ It will trigger handler function if any Error is thrown.
 | onCallbackQuery  |           |      |       |    ✅    |               it will trigger function from parameter if **context.event.isCallbackQuery** is true and function from first parameter return true.                |
 |     onPhoto      |           |      |       |    ✅    |                   it will trigger function from parameter if **context.event.isPhoto** is true and function from first parameter return true.                    |
 |    onDocument    |           |      |       |    ✅    |                  it will trigger function from parameter if **context.event.isDocument** is true and function from first parameter return true.                  |
-|      onGame      |           |      |       |    ✅    |                    it will
+|      onGame      |           |      |       |    ✅    |                    it will trigger function from parameter if **context.event.isGame** is true and function from first parameter return true.                    |
+|    onSticker     |           |      |       |    ✅    |                  it will trigger function from parameter if **context.event.isSticker** is true and function from first parameter return true.                   |
+|     onVoice      |           |      |       |    ✅    |                   it will trigger function from parameter if **context.event.isVoice** is true and function from first parameter return true.                    |
+|   onVideoNote    |           |      |       |    ✅    |                 it will trigger function from parameter if **context.event.isVideoNote** is true and function from first parameter return true.                  |
+|    onContact     |           |      |       |    ✅    |                  it will trigger function from parameter if **context.event.isContact** is true and function from first parameter return true.                   |
+|     onVenue      |           |      |       |    ✅    |                   it will trigger function from parameter if **context.event.isVenue** is true and function from first parameter return true.                    |
+
+## Example
+
+- [MessengerHandler](https://github.com/Yoctol/bottender/tree/v0.15.x/examples/messenger-builder/index.js)
+- [LineHandler](https://github.com/Yoctol/bottender/tree/v0.15.x/examples/line-builder/index.js)
+- [SlackHandler](https://github.com/Yoctol/bottender/tree/v0.15.x/examples/slack-builder/index.js)
+- [TelegramHandler](https://github.com/Yoctol/bottender/tree/v0.15.x/examples/telegram-builder/index.js)
+- [ViberHandler](https://github.com/Yoctol/bottender/tree/v0.15.x/examples/viber-builder/index.js)
+
+Let's use `MessengerHandler` as an example.
+
+#### `onText`
+
+```
+User > yee
+MessengerBot > yee.
+User > yooooooo~
+MessengerBot > Hi there!
+User > I am going to sing a song for you.
+MessengerBot > You talk too much!
+User > yeeeeeee~
+MessengerBot > I do not know what you said.
+```
+
+```js
+const handler = new MessengerHandler()
+  .onText('yee', async (context) => {
+    await context.sendText('yee.');
+  })
+  .onText(/yo/i, async (context) => {
+    await context.sendText('Hi there!');
+  })
+  .onText(
+    (text, context) => {
+      return text.length > 20;
+    },
+    async (context) => {
+      await context.sendText('You talk too much!');
+    }
+  )
+  .onText(async (context) => {
+    await context.sendText('I do not know what you said.');
+  });
+```
+
+#### `onUnhandled`
+
+```
+User > yooooooo~
+MessengerBot > Oops. I do nothing.
+```
+
+```js
+const handler = new MessengerHandler()
+  .onText(async (context) => {
+    // event will come here first
+    // but you do nothing
+  })
+  .onUnhandled(async (context) => {
+    await context.sendText('Oops. I do nothing.');
+  });
+```
+
+#### `onError`
+
+```
+User > yooooooo~
+MessengerBot > Oops. Error happens.
+```
+
+```js
+const handler = new MessengerHandler()
+  .onText((context) => {
+    throw new Error('Here comes error!');
+  })
+  .onError(async (context, err) => {
+    console.log(err.message); // Here comes error!
+    await context.sendText('Oops. Error happens.');
+  });
+```

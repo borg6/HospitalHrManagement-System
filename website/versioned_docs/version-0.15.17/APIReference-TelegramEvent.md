@@ -72,3 +72,337 @@ event.message;
 // }
 ```
 
+#### `isText`
+
+Determine if the event is a message event which includes text.
+
+Example:
+
+```js
+event.isText; // true
+```
+
+#### `text`
+
+The text string from Telegram raw event.
+
+Example:
+
+```js
+event.text; // 'text'
+```
+
+#### `isAudio`
+
+Determine if the event is a message event which includes audio.
+
+Example:
+
+```js
+event.isAudio; // true
+```
+
+#### `audio`
+
+The audio object from Telegram raw event.
+
+Example:
+
+```js
+event.audio;
+// {
+//   file_id: '321',
+//   duration: 100,
+//   title: 'audioooooooo',
+// }
+```
+
+#### `isDocument`
+
+Determine if the event is a message event which includes document.
+
+Example:
+
+```js
+event.isDocument; // true
+```
+
+#### `document`
+
+The document object from Telegram raw event.
+
+Example:
+
+```js
+event.document;
+// {
+//   file_id: '234',
+//   file_name: 'file',
+// }
+```
+
+#### `isGame`
+
+Determine if the event is a message event which includes game.
+
+Example:
+
+```js
+event.isGame; // true
+```
+
+#### `game`
+
+The game object from Telegram raw event.
+
+Example:
+
+```js
+event.game;
+// {
+//   title: 'gammmmmmmme',
+//   description: 'Description of the game',
+//   photo: [
+//     {
+//       file_id: '112',
+//       width: 100,
+//       height: 100,
+//     },
+//     {
+//       file_id: '116',
+//       width: 50,
+//       height: 50,
+//     },
+//   ],
+// }
+```
+
+#### `isPhoto`
+
+Determine if the event is a message event which includes photo.
+
+Example:
+
+```js
+event.isPhoto; // true
+```
+
+#### `photo`
+
+The photo object from Telegram raw event.
+
+Example:
+
+```js
+event.photo;
+// [
+//   {
+//     file_id: '112',
+//     width: 100,
+//     height: 100,
+//   },
+//   {
+//     file_id: '116',
+//     width: 50,
+//     height: 50,
+//   },
+// ]
+```
+
+#### `isSticker`
+
+Determine if the event is a message event which includes sticker.
+
+Example:
+
+```js
+event.isSticker; // true
+```
+
+#### `sticker`
+
+The sticker object from Telegram raw event.
+
+Example:
+
+```js
+event.sticker;
+// {
+//   file_id: '123',
+//   width: 50,
+//   height: 50,
+// }
+```
+
+#### `isVideo`
+
+Determine if the event is a message event which includes video.
+
+Example:
+
+```js
+event.isVideo; // true
+```
+
+#### `video`
+
+The video object from Telegram raw event.
+
+Example:
+
+```js
+event.video;
+// {
+//   file_id: '321',
+//   width: 100,
+//   height: 100,
+//   duration: 199,
+// }
+```
+
+#### `isVoice`
+
+Determine if the event is a message event which includes voice.
+
+Example:
+
+```js
+event.isVoice; // true
+```
+
+#### `voice`
+
+The voice object from Telegram raw event.
+
+Example:
+
+```js
+event.voice;
+// {
+//   file_id: '543',
+//   duration: 299,
+// }
+```
+
+#### `isVideoNote`
+
+Determine if the event is a message event which includes video note.
+
+Example:
+
+```js
+event.isVideoNote; // true
+```
+
+#### `videoNote`
+
+The video note object from Telegram raw event.
+
+Example:
+
+```js
+event.videoNote;
+// {
+//   file_id: '654',
+//   length: 100,
+//   duration: 399,
+// }
+```
+
+#### `isContact`
+
+Determine if the event is a message event which includes contact.
+
+Example:
+
+```js
+event.isContact; // true
+```
+
+#### `contact`
+
+The contact object from Telegram raw event.
+
+Example:
+
+```js
+event.contact;
+// {
+//   phone_number: '123456789',
+//   first_name: 'first',
+// }
+```
+
+#### `isLocation`
+
+Determine if the event is a message event which includes location.
+
+Example:
+
+```js
+event.isLocation; // true
+```
+
+#### `location`
+
+The location object from Telegram raw event.
+
+Example:
+
+```js
+event.location;
+// {
+//   longitude: '111.111',
+//   latitude: '99.99',
+// }
+```
+
+#### `isVenue`
+
+Determine if the event is a message event which includes venue.
+
+Example:
+
+```js
+event.isVenue; // true
+```
+
+#### `venue`
+
+The venue object from Telegram raw event.
+
+Example:
+
+```js
+event.venue;
+// {
+//   location: {
+//     longitude: '111.111',
+//     latitude: '99.99',
+//   },
+//   title: 'title',
+//   address: 'addressssss',
+// }
+```
+
+#### `isEditedMessage`
+
+Determine if the event is an edited message event.
+
+Example:
+
+```js
+event.isEditedMessage; // true
+```
+
+#### `editedMessage`
+
+The edited message from Telegram raw event.
+
+Example:
+
+```js
+event.editedMessage;
+// {
+//   message_id: 229,
+// 

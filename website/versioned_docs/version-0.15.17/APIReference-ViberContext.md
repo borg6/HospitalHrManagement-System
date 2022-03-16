@@ -166,4 +166,112 @@ Sending a location message to the user.
 | location     | `Object` |
 | location.lat | `String` | Latitude (±90°) within valid ranges.   |
 | location.lon | `String` | Longitude (±180°) within valid ranges. |
-| options      | `Object` | Other optional parameter
+| options      | `Object` | Other optional parameters.             |
+
+Example:
+
+```js
+context.sendLocation({
+  lat: '37.7898',
+  lon: '-122.3942',
+});
+```
+
+<br />
+
+#### `sendURL(url [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#url-message)
+
+Sending an URL message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481921-6069f346-aeeb-11e7-97bf-83a17da0bc7a.jpg" width="300" />
+
+| Param   | Type     | Description                |
+| ------- | -------- | -------------------------- |
+| url     | `String` | URL. Max 2,000 characters. |
+| options | `Object` | Other optional parameters. |
+
+Example:
+
+```js
+context.sendURL('http://developers.viber.com');
+```
+
+<br />
+
+#### `sendSticker(stickerId [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#sticker-message)
+
+Sending a sticker message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481922-60c2c444-aeeb-11e7-8fc9-bce2e5d06c42.jpg" width="300" />
+
+| Param     | Type     | Description                                                                                                          |
+| --------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| stickerId | `Number` | Unique Viber sticker ID. For examples visit the [sticker IDs](https://viber.github.io/docs/tools/sticker-ids/) page. |
+| options   | `Object` | Other optional parameters.                                                                                           |
+
+Example:
+
+```js
+context.sendSticker(46105);
+```
+
+<br />
+
+#### `sendCarouselContent(richMedia [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#carousel-content-message)
+
+Sending a carousel content message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481917-5f1b43b4-aeeb-11e7-8557-e25951d69b53.jpg" width="300" />
+
+| Param                         | Type            | Description                                                                              |
+| ----------------------------- | --------------- | ---------------------------------------------------------------------------------------- |
+| richMedia.ButtonsGroupColumns | `Number`        | Number of columns per carousel content block. Default 6 columns. Possible values: 1 - 6. |
+| richMedia.ButtonsGroupRows    | `Number`        | Number of rows per carousel content block. Default 7 rows. Possible values: 1 - 7.       |
+| richMedia.Buttons             | `Array<Object>` | Array of buttons. Max of 6 _ ButtonsGroupColumns _ ButtonsGroupRows.                     |
+| options                       | `Object`        | Other optional parameters.                                                               |
+
+Example:
+
+```js
+context.sendCarouselContent({
+  Type: 'rich_media',
+  ButtonsGroupColumns: 6,
+  ButtonsGroupRows: 7,
+  BgColor: '#FFFFFF',
+  Buttons: [
+    {
+      Columns: 6,
+      Rows: 3,
+      ActionType: 'open-url',
+      ActionBody: 'https://www.google.com',
+      Image: 'http://html-test:8080/myweb/guy/assets/imageRMsmall2.png',
+    },
+    {
+      Columns: 6,
+      Rows: 2,
+      Text: '<font color=#323232><b>Headphones with Microphone, On-ear Wired earphones</b></font><font color=#777777><br/>Sound Intone </font><font color=#6fc133>$17.99</font>',
+      ActionType: 'open-url',
+      ActionBody: 'https://www.google.com',
+      TextSize: 'medium',
+      TextVAlign: 'middle',
+      TextHAlign: 'left',
+    },
+    {
+      Columns: 6,
+      Rows: 1,
+      ActionType: 'reply',
+      ActionBody: 'https://www.google.com',
+      Text: '<font color=#ffffff>Buy</font>',
+      TextSize: 'large',
+      TextVAlign: 'middle',
+      TextHAlign: 'middle',
+      Image: 'https://s14.postimg.org/4mmt4rw1t/Button.png',
+    },
+    {
+      Columns: 6,
+      Rows: 1,
+      ActionType: 'reply',
+      ActionBody: 'https://www.google.com',
+      Text: '<font color=#8367db>MORE DETAILS</font>',
+      TextSize: 'small',
+      TextVAlign: 'm

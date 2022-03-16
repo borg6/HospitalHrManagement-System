@@ -659,4 +659,33 @@ event.shippingQuery;
 
 #### `isPreCheckoutQuery`
 
-Determine if
+Determine if the event is a pre checkout query event.
+
+Example:
+
+```js
+event.isPreCheckoutQuery; // true
+```
+
+#### `preCheckoutQuery`
+
+The pre checkout query from Telegram raw event.
+
+Example:
+
+```js
+event.preCheckoutQuery;
+// {
+//   id: '123',
+//   from: {
+//     id: 427770117,
+//     is_bot: false,
+//     first_name: 'first',
+//     last_name: 'last',
+//     language_code: 'en',
+//   },
+//   currency: 'USD',
+//   total_amount: 100,
+//   invoice_payload: 'payload',
+// }
+```

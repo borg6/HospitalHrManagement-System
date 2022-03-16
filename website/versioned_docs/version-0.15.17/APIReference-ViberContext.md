@@ -274,4 +274,139 @@ context.sendCarouselContent({
       ActionBody: 'https://www.google.com',
       Text: '<font color=#8367db>MORE DETAILS</font>',
       TextSize: 'small',
-      TextVAlign: 'm
+      TextVAlign: 'middle',
+      TextHAlign: 'middle',
+    },
+    {
+      Columns: 6,
+      Rows: 3,
+      ActionType: 'open-url',
+      ActionBody: 'https://www.google.com',
+      Image: 'https://s16.postimg.org/wi8jx20wl/image_RMsmall2.png',
+    },
+    {
+      Columns: 6,
+      Rows: 2,
+      Text: "<font color=#323232><b>Hanes Men's Humor Graphic T-Shirt</b></font><font color=#777777><br/>Hanes</font><font color=#6fc133>$10.99</font>",
+      ActionType: 'open-url',
+      ActionBody: 'https://www.google.com',
+      TextSize: 'medium',
+      TextVAlign: 'middle',
+      TextHAlign: 'left',
+    },
+    {
+      Columns: 6,
+      Rows: 1,
+      ActionType: 'reply',
+      ActionBody: 'https://www.google.com',
+      Text: '<font color=#ffffff>Buy</font>',
+      TextSize: 'large',
+      TextVAlign: 'middle',
+      TextHAlign: 'middle',
+      Image: 'https://s14.postimg.org/4mmt4rw1t/Button.png',
+    },
+    {
+      Columns: 6,
+      Rows: 1,
+      ActionType: 'reply',
+      ActionBody: 'https://www.google.com',
+      Text: '<font color=#8367db>MORE DETAILS</font>',
+      TextSize: 'small',
+      TextVAlign: 'middle',
+      TextHAlign: 'middle',
+    },
+  ],
+});
+```
+
+<br />
+
+<a id="keyboards" />
+
+### Keyboards - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#keyboards)
+
+The Viber API allows sending a custom keyboard using the send_message API, to supply the user with a set of predefined replies or actions. Keyboards can be attached to any message type and be sent and displayed together. To attach a keyboard to a message simply add the keyboard’s parameters to the options:
+
+```js
+context.sendText('Hello', {
+  keyboard: {
+    DefaultHeight: true,
+    BgColor: '#FFFFFF',
+    Buttons: [
+      {
+        Columns: 6,
+        Rows: 1,
+        BgColor: '#2db9b9',
+        BgMediaType: 'gif',
+        BgMedia: 'http://www.url.by/test.gif',
+        BgLoop: true,
+        ActionType: 'open-url',
+        ActionBody: 'www.tut.by',
+        Image: 'www.tut.by/img.jpg',
+        Text: 'Key text',
+        TextVAlign: 'middle',
+        TextHAlign: 'center',
+        TextOpacity: 60,
+        TextSize: 'regular',
+      },
+    ],
+  },
+});
+```
+
+Which in turn will look like this:
+
+<img src="https://developers.viber.com/docs/img/example_keyboard.png" width="300" />
+
+<br />
+
+### Get User Details
+
+#### `getUserDetails()` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-user-details)
+
+It will fetch the details of the user.
+
+Example:
+
+```js
+context.getUserDetails().then((user) => {
+  console.log(user);
+  // {
+  //   id: '01234567890A=',
+  //   name: 'John McClane',
+  //   avatar: 'http://avatar.example.com',
+  //   country: 'UK',
+  //   language: 'en',
+  //   primary_device_os: 'android 7.1',
+  //   api_version: 1,
+  //   viber_version: '6.5.0',
+  //   mcc: 1,
+  //   mnc: 1,
+  //   device_type: 'iPhone9,4',
+  // };
+});
+```
+
+-->
+
+<br />
+
+### Get Online
+
+#### `getOnlineStatus()` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-online)
+
+It will fetch the online status of the user.
+
+Example:
+
+```js
+context.getOnlineStatus().then((status) => {
+  console.log(status);
+  // {
+  //   id: '01234567891=',
+  //   online_status: 1,
+  //   online_status_message: 'offline',
+  //   last_online: 1457764197627,
+  // }
+});
+```

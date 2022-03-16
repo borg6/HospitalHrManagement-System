@@ -86,4 +86,84 @@ Sending a video message to the user.
 | Param           | Type     | Description                                                                                               |
 | --------------- | -------- | --------------------------------------------------------------------------------------------------------- |
 | video           | `Object` |
-| vid
+| video.media     | `String` | URL of the video (MP4, H264). Max size 50 MB. Only MP4 and H264 are supported.                            |
+| video.size      | `Number` | Size of the video in bytes.                                                                               |
+| video.duration  | `Number` | Video duration in seconds; will be displayed to the receiver. Max 180 seconds.                            |
+| video.thumbnail | `String` | URL of a reduced size image (JPEG). Max size 100 kb. Recommended: 400x400. Only JPEG format is supported. |
+| options         | `Object` | Other optional parameters.                                                                                |
+
+Example:
+
+```js
+context.sendVideo({
+  media: 'http://www.images.com/video.mp4',
+  size: 10000,
+  thumbnail: 'http://www.images.com/thumb.jpg',
+  duration: 10,
+});
+```
+
+<br />
+
+#### `sendFile(file [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#file-message)
+
+Sending a file message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481919-600f437e-aeeb-11e7-9f13-7269a055cb86.jpg" width="300" />
+
+| Param          | Type     | Description                                                                                                                                                         |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| file           | `Object` |
+| file.media     | `String` | URL of the file. Max size 50 MB. See [forbidden file formats](https://developers.viber.com/docs/api/rest-bot-api/#forbiddenFileFormats) for unsupported file types. |
+| file.size      | `Number` | Size of the file in bytes.                                                                                                                                          |
+| file.file_name | `String` | Name of the file. File name should include extension. Max 256 characters (including file extension).                                                                |
+| options        | `Object` | Other optional parameters.                                                                                                                                          |
+
+Example:
+
+```js
+context.sendFile({
+  media: 'http://www.images.com/file.doc',
+  size: 10000,
+  file_name: 'name_of_file.doc',
+});
+```
+
+<br />
+
+#### `sendContact(contact [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#contact-message)
+
+Sending a contact message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481924-615ce8b2-aeeb-11e7-8425-2d3bfa115fc1.jpg" width="300" />
+
+| Param                | Type     | Description                                     |
+| -------------------- | -------- | ----------------------------------------------- |
+| contact              | `Object` |
+| contact.name         | `String` | Name of the contact. Max 28 characters.         |
+| contact.phone_number | `String` | Phone number of the contact. Max 18 characters. |
+| options              | `Object` | Other optional parameters.                      |
+
+Example:
+
+```js
+context.sendContact({
+  name: 'Itamar',
+  phone_number: '+972511123123',
+});
+```
+
+<br />
+
+#### `sendLocation(location [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#location-message)
+
+Sending a location message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481923-61199a9e-aeeb-11e7-8a25-e3813eceb25b.jpg" width="300" />
+
+| Param        | Type     | Description                            |
+| ------------ | -------- | -------------------------------------- |
+| location     | `Object` |
+| location.lat | `String` | Latitude (±90°) within valid ranges.   |
+| location.lon | `String` | Longitude (±180°) within valid ranges. |
+| options      | `Object` | Other optional parameter

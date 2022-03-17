@@ -60,4 +60,20 @@ We can use [regular expressions](https://developer.mozilla.org/en-US/docs/Web/Ja
 bot.onEvent(async (context) => {
   if (context.event.isText) {
     const { text } = context.event.message;
-    if (/^h(ello|i)/i.te
+    if (/^h(ello|i)/i.test(text)) {
+      // ...
+    }
+  }
+});
+```
+
+Now, not only `hello`, `hi` but also `Hello`, `hi~` will be matched.
+
+## Leverage NLU Technologies
+
+If you want to have more general intent recognition, you can leverage modern NLU (Natural Language Understanding) technologies. They can help you recognize the intent of user input sentences. There are several online services you can choose from, for example:
+
+- [LUIS.ai](https://www.luis.ai/) from Microsoft
+- [Dialogflow](https://dialogflow.com/) (formerly api.ai) from Google
+- [wit.ai](https://wit.ai/) from Facebook
+- [Watson](https://www.ibm.com/watson/) from IBM

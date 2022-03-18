@@ -55,4 +55,64 @@ There are many different types of events your bot may receive from LINE. In Bott
 - Follow event
 - Unfollow event
 - Join event
-- 
+- Leave event
+- Postback event
+- Beacon event
+
+For example:
+
+```js
+bot.onEvent(async (context) => {
+  if (context.event.isFollow) {
+    await context.sendText('Hello, welcome to this bot!');
+  } else if (context.event.isText && context.event.text === 'How are you?') {
+    await context.sendText('I am fine.');
+  } else {
+    await context.sendText('I do not understand.');
+  }
+});
+```
+
+## Message Types
+
+There are many different types of messages you can send from your bot. In Bottender, you can use functions like `context.sendText()`, `context.sendButtonTemplate()` to send messages. For more information, check [LineContext Reference](api-linecontext) and [official docs](https://developers.line.me/en/docs/messaging-api/message-types/).
+
+- Text
+- Sticker
+- Image
+- Video
+- Audio
+- Location
+- Imagemap
+- Flex
+- Template
+  - Buttons
+  - Confirm
+  - Carousel
+  - Image carousel
+
+## LINE Specific
+
+### Group Chats
+
+LINE has 2 types of group chats, **groups** and **rooms**. For more information, check [official docs](https://developers.line.me/en/docs/messaging-api/group-chats/).
+
+You can invite your bot account into a group or a room. By doing so, the events will create **group/room sessions**. Send methods like `context.sendText()` will send to the group/room rather than to the private message to the sender in these contexts. You can still get the sender's profile with `context.session.user`.
+
+If your LINE bot is connected to a **LINE@ Approved account** or an **official account**, you can access the group/room member IDs in `context.session.group` or `context.session.room`. If not, these properties will return an empty array `[]`.
+
+### Beacons
+
+With **LINE Beacon**, your bot can receive beacon webhook events whenever a LINE user enters or leaves the proximity of a beacon. Using beacons, you can customize your bot to interact with users in specific contexts. For more information, check [official docs](https://developers.line.me/en/docs/messaging-api/using-beacons/).
+
+### Signature Verification
+
+To ensure that the request is sent from the LINE Platform, you should provide your **channel secret** so that Bottender can do signature validation for you. For more information, check [official docs](https://developers.line.me/en/docs/messaging-api/reference/#signature-validation).
+
+## References
+
+- [official docs](https://developers.line.me/en/docs/messaging-api/overview/): official docs of LINE messaging API.
+- [LINE@ MANAGER](https://admin-official.line.me/)
+- [LINE developers](https://developers.line.me)
+- [messaging-api-line](https://github.com/bottenderjs/messaging-apis/tree/master/packages/messaging-api-line)
+- [line-hello-world](https://github.com/Yoctol/bottender/blob/master/examples/line-hello-world/index.js) example.

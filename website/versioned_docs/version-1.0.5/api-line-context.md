@@ -197,4 +197,114 @@ context.replySticker({ packageId: '1', stickerId: '1' });
 
 <br />
 
-### Reply Imagemap Messag
+### Reply Imagemap Message
+
+#### `replyImagemap(altText, imagemap)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#imagemap-message)
+
+Responds imagemap message to the receiver using reply token.
+
+<img src="https://developers.line.me/media/messaging-api/messages/imagemap-dd854fa7.png" width="250px" />
+
+| Param                    | Type       | Description                            |
+| ------------------------ | ---------- | -------------------------------------- |
+| altText                  | `String`   | Alternative text.                      |
+| imagemap                 | `Object`   | Object contains imagemap's parameters. |
+| imagemap.baseUrl         | `String`   | Base URL of image.                     |
+| imagemap.baseSize        | `Object`   | Base size object.                      |
+| imagemap.baseSize.width  | `Number`   | Width of base image.                   |
+| imagemap.baseSize.height | `Number`   | Height of base image.                  |
+| imagemap.actions         | `Object[]` | Action when tapped.                    |
+
+Example:
+
+```js
+context.replyImagemap('this is an imagemap', {
+  baseUrl: 'https://example.com/bot/images/rm001',
+  baseSize: {
+    width: 1040,
+    height: 1040,
+  },
+  actions: [
+    {
+      type: 'uri',
+      linkUri: 'https://example.com/',
+      area: {
+        x: 0,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+    {
+      type: 'message',
+      text: 'hello',
+      area: {
+        x: 520,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+  ],
+});
+```
+
+<br />
+
+### Reply Template Messages
+
+#### `replyTemplate(altText, template)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#template-messages)
+
+Responds template message to the receiver using reply token.
+
+| Param    | Type     | Description                               |
+| -------- | -------- | ----------------------------------------- |
+| altText  | `String` | Alternative text.                         |
+| template | `Object` | Object with the contents of the template. |
+
+Example:
+
+```js
+context.replyTemplate('this is a template', {
+  type: 'buttons',
+  thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+  title: 'Menu',
+  text: 'Please select',
+  actions: [
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `replyButtonTemplate(altText, buttonTemplate)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#buttons)
+
+Alias: `replyButtonsTemplate`.
+
+Responds button template message to the receiver using reply token.
+
+<img src="https://developers.line.me/media/messaging-api/messages/buttons-86e14165.png" width="250px" />
+
+| Param                               | Type       | Description                                                                                   |
+| ----------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
+| altText                             | `String`   | Alternative text.                                                                             |
+| buttonTemplate                      | `Object`   | Object contains buttonTemplate's parameters.                                                  |
+| buttonTemplate.thumbnailImageUrl    | `String`   | Image URL of buttonTemplate.                                                                  |
+| buttonTemplate.imageAspectRatio     | `String`   | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square`         |
+| buttonTemplate.imageSize            | `String`   | Size of the image. Specify one of the following values: `cover`, `contain`                    |
+| buttonTemplate.imageBackgroundColor | `String`   | Background color of image. Specify a RGB color value. The 

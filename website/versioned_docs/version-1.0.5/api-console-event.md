@@ -43,4 +43,40 @@ event.message;
 
 #### `isText`
 
-Determine if the ev
+Determine if the event is a message event which includes text.
+
+Example:
+
+```js
+event.isText; // true
+```
+
+#### `text`
+
+The text string from Console raw event.
+
+Example:
+
+```js
+event.text; // 'Awesome.'
+```
+
+#### `isPayload`
+
+Determine if the event is a payload event.
+
+Example:
+
+```js
+event.isPayload; // true
+```
+
+#### `payload`
+
+The payload string from Console raw event.
+
+Example:
+
+```js
+event.payload; // 'MY_PAYLOAD'
+```

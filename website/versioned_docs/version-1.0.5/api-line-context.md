@@ -307,4 +307,109 @@ Responds button template message to the receiver using reply token.
 | buttonTemplate.thumbnailImageUrl    | `String`   | Image URL of buttonTemplate.                                                                  |
 | buttonTemplate.imageAspectRatio     | `String`   | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square`         |
 | buttonTemplate.imageSize            | `String`   | Size of the image. Specify one of the following values: `cover`, `contain`                    |
-| buttonTemplate.imageBackgroundColor | `String`   | Background color of image. Specify a RGB color value. The 
+| buttonTemplate.imageBackgroundColor | `String`   | Background color of image. Specify a RGB color value. The default value is `#FFFFFF` (white). |
+| buttonTemplate.title                | `String`   | Title of buttonTemplate.                                                                      |
+| buttonTemplate.text                 | `String`   | Message text of buttonTemplate.                                                               |
+| buttonTemplate.defaultAction        | `Object`   | Action when image is tapped; set for the entire image, title, and text area.                  |
+| buttonTemplate.actions              | `Object[]` | Action when tapped.                                                                           |
+
+Example:
+
+```js
+context.replyButtonTemplate('this is a template', {
+  thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+  title: 'Menu',
+  text: 'Please select',
+  actions: [
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `replyConfirmTemplate(altText, confirmTemplate)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#confirm)
+
+Responds confirm template message to the receiver using reply token.
+
+<img src="https://developers.line.me/media/messaging-api/messages/confirm-444aead5.png" width="250px" />
+
+| Param                   | Type       | Description                                   |
+| ----------------------- | ---------- | --------------------------------------------- |
+| altText                 | `String`   | Alternative text.                             |
+| confirmTemplate         | `Object`   | Object contains confirmTemplate's parameters. |
+| confirmTemplate.text    | `String`   | Message text of confirmTemplate.              |
+| confirmTemplate.actions | `Object[]` | Action when tapped.                           |
+
+Example:
+
+```js
+context.replyConfirmTemplate('this is a confirm template', {
+  text: 'Are you sure?',
+  actions: [
+    {
+      type: 'message',
+      label: 'Yes',
+      text: 'yes',
+    },
+    {
+      type: 'message',
+      label: 'No',
+      text: 'no',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `replyCarouselTemplate(altText, carouselItems, options)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#carousel)
+
+Responds carousel template message to the receiver using reply token.
+
+<img src="https://developers.line.me/media/messaging-api/messages/carousel-c59baef6.png" width="250px" />
+
+| Param                    | Type       | Description                                                                           |
+| ------------------------ | ---------- | ------------------------------------------------------------------------------------- |
+| altText                  | `String`   | Alternative text.                                                                     |
+| carouselItems            | `Object[]` | Array of columns which contains object for carousel.                                  |
+| options                  | `Object`   | Object contains options.                                                              |
+| options.imageAspectRatio | `String`   | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square` |
+| options.imageSize        | `String`   | Size of the image. Specify one of the following values: `cover`, `contain`            |
+
+Example:
+
+```js
+context.replyCarouselTemplate('this is a carousel template', [
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=111',
+      },
+      {
+        type: 'uri',
+   

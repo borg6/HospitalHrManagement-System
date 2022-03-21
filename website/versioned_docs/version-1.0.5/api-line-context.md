@@ -412,4 +412,152 @@ context.replyCarouselTemplate('this is a carousel template', [
       },
       {
         type: 'uri',
-   
+        label: 'View detail',
+        uri: 'http://example.com/page/111',
+      },
+    ],
+  },
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item2.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=222',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=222',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    ],
+  },
+]);
+```
+
+<br />
+
+#### `replyImageCarouselTemplate(altText, carouselItems)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#image-carousel)
+
+Responds image carousel template message to the receiver using reply token.
+
+<img src="https://developers.line.me/media/messaging-api/messages/image-carousel-301701f6.png" width="250px" />
+
+| Param         | Type       | Description                                                |
+| ------------- | ---------- | ---------------------------------------------------------- |
+| altText       | `String`   | Alternative text.                                          |
+| carouselItems | `Object[]` | Array of columns which contains object for image carousel. |
+
+Example:
+
+```js
+context.replyImageCarouselTemplate('this is an image carousel template', [
+  {
+    imageUrl: 'https://example.com/bot/images/item1.jpg',
+    action: {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=111',
+    },
+  },
+  {
+    imageUrl: 'https://example.com/bot/images/item2.jpg',
+    action: {
+      type: 'message',
+      label: 'Yes',
+      text: 'yes',
+    },
+  },
+  {
+    imageUrl: 'https://example.com/bot/images/item3.jpg',
+    action: {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/222',
+    },
+  },
+]);
+```
+
+<br />
+
+### Reply Flex Messages
+
+#### `replyFlex(altText, contents)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#flex-message)
+
+Responds flex message using specified reply token.
+
+<img src="https://developers.line.me/media/messaging-api/using-flex-messages/bubbleSample-77d825e6.png" />
+
+| Param    | Type     | Description                                                                                             |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| altText  | `String` | Alternative text.                                                                                       |
+| contents | `Object` | Flex Message [container](https://developers.line.me/en/docs/messaging-api/reference/#container) object. |
+
+Example:
+
+```js
+context.replyFlex('this is a flex', {
+  type: 'bubble',
+  header: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Header text',
+      },
+    ],
+  },
+  hero: {
+    type: 'image',
+    url: 'https://example.com/flex/images/image.jpg',
+  },
+  body: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Body text',
+      },
+    ],
+  },
+  footer: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Footer text',
+      },
+    ],
+  },
+  styles: {
+    comment: 'See the example of a bubble style object',
+  },
+});
+```
+
+<br />
+
+<a id="push-api" />
+
+### Push API - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#send-push-message)
+
+Sends messages to the user, group, or room at any time.
+
+#### `push(messages)`
+
+Sends messages to the receiver using ID.
+
+| Param    | Type       | Description                                                             |
+| -------- | ---------- | ----------------------------------------------------------------------- |
+| messages | `Object[]` | Array of objects which contains the contents of the message to be sent

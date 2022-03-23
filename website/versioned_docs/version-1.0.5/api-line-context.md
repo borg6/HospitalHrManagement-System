@@ -560,4 +560,135 @@ Sends messages to the receiver using ID.
 
 | Param    | Type       | Description                                                             |
 | -------- | ---------- | ----------------------------------------------------------------------- |
-| messages | `Object[]` | Array of objects which contains the contents of the message to be sent
+| messages | `Object[]` | Array of objects which contains the contents of the message to be sent. |
+
+Example:
+
+```js
+context.push([
+  {
+    type: 'text',
+    text: 'Hello!',
+  },
+]);
+```
+
+<br />
+
+#### `pushText(text)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#text-message)
+
+Alias: `sendText`.
+
+Sends text message to the receiver using ID.
+
+<img src="https://developers.line.me/media/messaging-api/messages/text-bf530b30.png" width="250px" />
+
+You can include LINE original emoji in text messages using character codes. For a list of LINE emoji that can be sent in LINE chats, see the [emoji list](https://developers.line.me/media/messaging-api/emoji-list.pdf).
+
+<img src="https://developers.line.me/media/messaging-api/messages/emoji-b3285d27.png" width="250px" />
+
+| Param | Type     | Description                     |
+| ----- | -------- | ------------------------------- |
+| text  | `String` | Text of the message to be sent. |
+
+Example:
+
+```js
+context.pushText('Hello!');
+```
+
+<br />
+
+#### `pushImage(imageUrl, previewImageUrl)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#image-message)
+
+Alias: `sendImage`.
+
+Sends image message to the receiver using ID.
+
+<img src="https://developers.line.me/media/messaging-api/messages/image-167efb33.png" width="250px" /><img src="https://developers.line.me/media/messaging-api/messages/image-full-04fbba55.png" width="250px" />
+
+| Param           | Type     | Description        |
+| --------------- | -------- | ------------------ |
+| imageUrl        | `String` | Image URL.         |
+| previewImageUrl | `String` | Preview image URL. |
+
+Example:
+
+```js
+context.pushImage({
+  originalContentUrl: 'https://example.com/original.jpg',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `pushVideo(videoUrl, previewImageUrl)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#video-message)
+
+Alias: `sendVideo`.
+
+Sends video message to the receiver using ID.
+
+<img src="https://developers.line.me/media/messaging-api/messages/video-a1bc08a4.png" width="250px" />
+
+| Param           | Type     | Description           |
+| --------------- | -------- | --------------------- |
+| videoUrl        | `String` | URL of video file.    |
+| previewImageUrl | `String` | URL of preview image. |
+
+Example:
+
+```js
+context.pushVideo({
+  originalContentUrl: 'https://example.com/original.mp4',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `pushAudio(audioUrl, duration)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#audio-message)
+
+Alias: `sendAudio`.
+
+Sends audio message to the receiver using ID.
+
+<img src="https://developers.line.me/media/messaging-api/messages/audio-6290d91b.png" width="250px" />
+
+| Param    | Type     | Description           |
+| -------- | -------- | --------------------- |
+| audioUrl | `String` | URL of audio file.    |
+| duration | `Number` | Length of audio file. |
+
+Example:
+
+```js
+context.pushAudio({
+  originalContentUrl: 'https://example.com/original.m4a',
+  duration: 240000,
+});
+```
+
+<br />
+
+#### `pushLocation(location)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#location-message)
+
+Alias: `sendLocation`.
+
+Sends location message to the receiver using ID.
+
+<img src="https://developers.line.me/media/messaging-api/messages/location-8f9b6b79.png" width="250px" />
+
+| Param              | Type     | Description                            |
+| ------------------ | -------- | -------------------------------------- |
+| location           | `Object` | Object contains location's parameters. |
+| location.title     | `String` | Title of the location.                 |
+| location.address   | `String` | Address of the location.               |
+| location.latitude  | `Number` | Latitude of the location.              |
+| location.longitude | `Number` | Longitude of the location.             |
+
+Example:
+
+```js
+context.pushLocation({
+  title: 'my location',

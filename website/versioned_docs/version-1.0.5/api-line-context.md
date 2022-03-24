@@ -692,3 +692,142 @@ Example:
 ```js
 context.pushLocation({
   title: 'my location',
+  address: '〒150-0002 東京都渋谷区渋谷２丁目２１−１',
+  latitude: 35.65910807942215,
+  longitude: 139.70372892916203,
+});
+```
+
+<br />
+
+#### `pushSticker(packageId, stickerId)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#sticker-message)
+
+Alias: `sendSticker`.
+
+Sends sticker message to the receiver using ID.
+For a list of stickers that can be sent with the Messaging API, see the [sticker list](https://developers.line.me/media/messaging-api/messages/sticker_list.pdf).
+
+<img src="https://developers.line.me/media/messaging-api/messages/sticker-cb1a6a3a.png" width="250px" />
+
+| Param     | Type     | Description |
+| --------- | -------- | ----------- |
+| packageId | `String` | Package ID. |
+| stickerId | `String` | Sticker ID. |
+
+Example:
+
+```js
+context.pushSticker({ packageId: '1', stickerId: '1' });
+```
+
+<br />
+
+### Push Imagemap Message
+
+#### `pushImagemap(altText, imagemap)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#imagemap-message)
+
+Alias: `sendImagemap`.
+
+Sends imagemap message to the receiver using ID.
+
+<img src="https://developers.line.me/media/messaging-api/messages/imagemap-dd854fa7.png" width="250px" />
+
+| Param                    | Type       | Description                            |
+| ------------------------ | ---------- | -------------------------------------- |
+| altText                  | `String`   | Alternative text.                      |
+| imagemap                 | `Object`   | Object contains imagemap's parameters. |
+| imagemap.baseUrl         | `String`   | Base URL of image.                     |
+| imagemap.baseSize        | `Object`   | Base size object.                      |
+| imagemap.baseSize.width  | `Number`   | Width of base image.                   |
+| imagemap.baseSize.height | `Number`   | Height of base image.                  |
+| imagemap.actions         | `Object[]` | Action when tapped.                    |
+
+Example:
+
+```js
+context.pushImagemap('this is an imagemap', {
+  baseUrl: 'https://example.com/bot/images/rm001',
+  baseSize: {
+    width: 1040,
+    height: 1040,
+  },
+  actions: [
+    {
+      type: 'uri',
+      linkUri: 'https://example.com/',
+      area: {
+        x: 0,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+    {
+      type: 'message',
+      text: 'hello',
+      area: {
+        x: 520,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+  ],
+});
+```
+
+<br />
+
+### Push Template Messages
+
+#### `pushTemplate(altText, template)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#template-messages)
+
+Alias: `sendTemplate`.
+
+Sends template message to the receiver using ID.
+
+| Param    | Type     | Description                               |
+| -------- | -------- | ----------------------------------------- |
+| altText  | `String` | Alternative text.                         |
+| template | `Object` | Object with the contents of the template. |
+
+Example:
+
+```js
+context.pushTemplate('this is a template', {
+  type: 'buttons',
+  thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+  title: 'Menu',
+  text: 'Please select',
+  actions: [
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `pushButtonTemplate(altText, buttonTemplate)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#buttons)
+
+Alias: `pushButtonsTemplate`, `sendButtonTemplate`, `sendButtonsTemplate`.
+
+Sends button template message to the receiver using ID.
+
+<img src="https://developers.line.me/media/messaging-api/messages/buttons-86e14165.png" width="250px" />
+
+| Param                               | Type       | Description                                                                                   |
+| ------------------------

@@ -1053,4 +1053,182 @@ context.pushFlex('this is a flex', {
   },
   hero: {
     type: 'image',
-    url: 'https://example.com/fl
+    url: 'https://example.com/flex/images/image.jpg',
+  },
+  body: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Body text',
+      },
+    ],
+  },
+  footer: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Footer text',
+      },
+    ],
+  },
+  styles: {
+    comment: 'See the example of a bubble style object',
+  },
+});
+```
+
+<br />
+
+<a id="quick-replies" />
+
+### Quick Replies - [Official Docs](https://developers.line.me/en/reference/messaging-api/#quick-reply)
+
+Sends message with buttons appear at the bottom of the chat screen.
+
+<img src="https://developers.line.me/media/messaging-api/using-quick-reply/quickReplySample2-b0da8a03.png" width="250px" />
+
+```js
+context.replyText(
+  'Select your favorite food category or send me your location!',
+  {
+    quickReply: {
+      items: [
+        {
+          type: 'action',
+          imageUrl: 'https://example.com/sushi.png',
+          action: {
+            type: 'message',
+            label: 'Sushi',
+            text: 'Sushi',
+          },
+        },
+        {
+          type: 'action',
+          imageUrl: 'https://example.com/tempura.png',
+          action: {
+            type: 'message',
+            label: 'Tempura',
+            text: 'Tempura',
+          },
+        },
+        {
+          type: 'action',
+          action: {
+            type: 'location',
+            label: 'Send location',
+          },
+        },
+      ],
+    },
+  }
+);
+```
+
+<br />
+
+<a id="profile-api" />
+
+### Profile API - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#get-profile)
+
+#### `getUserProfile()`
+
+Gets user profile information.
+
+Example:
+
+```js
+context.getUserProfile().then((profile) => {
+  console.log(profile);
+  // {
+  //   displayName: 'LINE taro',
+  //   userId: USER_ID,
+  //   pictureUrl: 'http://obs.line-apps.com/...',
+  //   statusMessage: 'Hello, LINE!',
+  // }
+});
+```
+
+<br />
+
+<a id="grouproom-member-profile-api" />
+
+### Group/Room Member Profile API - [Official Docs](https://developers.line.me/en/docs/messaging-api/group-chats/#getting-a-user-profile-of-a-member-of-a-group-or-room)
+
+#### `getMemberProfile(userId)`
+
+Gets the user profile of a member of the group/room that the bot is in. This includes the user IDs of users who has not added the bot as a friend or has blocked the bot.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| userId | `String` | ID of the user. |
+
+Example:
+
+```js
+context.getMemberProfile(USER_ID).then((member) => {
+  console.log(member);
+  // {
+  //   "displayName":"LINE taro",
+  //   "userId":"Uxxxxxxxxxxxxxx...",
+  //   "pictureUrl":"http://obs.line-apps.com/..."
+  // }
+});
+```
+
+<br />
+
+<a id="grouproom-member-ids-api" />
+
+### Group/Room Member IDs API - [Official Docs](https://developers.line.me/en/docs/messaging-api/group-chats/#getting-user-ids-of-the-members-of-a-group-or-room)
+
+#### `getMemberIds(start)`
+
+Gets the ID of the users of the members of the group/room that the bot is in. This includes the user IDs of users who have not added the bot as a friend or has blocked the bot.  
+This feature is only available for LINE@ Approved accounts or official accounts.
+
+| Param | Type     | Description          |
+| ----- | -------- | -------------------- |
+| start | `String` | `continuationToken`. |
+
+Example:
+
+```js
+context.getMemberIds(CURSOR).then((res) => {
+  console.log(res);
+  // {
+  //   memberIds: [
+  //     'Uxxxxxxxxxxxxxx...',
+  //     'Uxxxxxxxxxxxxxx...',
+  //     'Uxxxxxxxxxxxxxx...'
+  //   ],
+  //   next: 'jxEWCEEP...'
+  // }
+});
+```
+
+<br />
+
+#### `getAllMemberIds()`
+
+Recursively gets the ID of the users of the members of the group/room that the bot is in using cursors.  
+This feature is only available for LINE@ Approved accounts or official accounts.
+
+Example:
+
+```js
+context.getAllMemberIds().then((ids) => {
+  console.log(ids);
+  // [
+  //   'Uxxxxxxxxxxxxxx..1',
+  //   'Uxxxxxxxxxxxxxx..2',
+  //   'Uxxxxxxxxxxxxxx..3',
+  //   'Uxxxxxxxxxxxxxx..4',
+  //   'Uxxxxxxxxxxxxxx..5',
+  //   'Uxxxxxxxxxxxxxx..6',
+  // ]
+});
+`

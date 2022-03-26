@@ -919,4 +919,138 @@ Sends carousel template message to the receiver using ID.
 | Param                    | Type       | Description                                                                           |
 | ------------------------ | ---------- | ------------------------------------------------------------------------------------- |
 | altText                  | `String`   | Alternative text.                                                                     |
-| carouselItems     
+| carouselItems            | `Object[]` | Array of columns which contains object for carousel.                                  |
+| options                  | `Object`   | Object contains options.                                                              |
+| options.imageAspectRatio | `String`   | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square` |
+| options.imageSize        | `String`   | Size of the image. Specify one of the following values: `cover`, `contain`            |
+
+Example:
+
+```js
+context.pushCarouselTemplate('this is a carousel template', [
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=111',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/111',
+      },
+    ],
+  },
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item2.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=222',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=222',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    ],
+  },
+]);
+```
+
+<br />
+
+#### `pushImageCarouselTemplate(altText, carouselItems)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#image-carousel)
+
+Alias: `sendImageCarouselTemplate`.
+
+Sends image carousel template message to the receiver using ID.
+
+<img src="https://developers.line.me/media/messaging-api/messages/image-carousel-301701f6.png" width="250px" />
+
+| Param         | Type       | Description                                                |
+| ------------- | ---------- | ---------------------------------------------------------- |
+| altText       | `String`   | Alternative text.                                          |
+| carouselItems | `Object[]` | Array of columns which contains object for image carousel. |
+
+Example:
+
+```js
+context.pushImageCarouselTemplate('this is an image carousel template', [
+  {
+    imageUrl: 'https://example.com/bot/images/item1.jpg',
+    action: {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=111',
+    },
+  },
+  {
+    imageUrl: 'https://example.com/bot/images/item2.jpg',
+    action: {
+      type: 'message',
+      label: 'Yes',
+      text: 'yes',
+    },
+  },
+  {
+    imageUrl: 'https://example.com/bot/images/item3.jpg',
+    action: {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/222',
+    },
+  },
+]);
+```
+
+<br />
+
+### Push Flex Messages
+
+#### `pushFlex(altText, contents)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#flex-message)
+
+Sends flex message using ID of the receiver.
+
+<img src="https://developers.line.me/media/messaging-api/using-flex-messages/bubbleSample-77d825e6.png" />
+
+| Param    | Type     | Description                                                                                             |
+| -------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| altText  | `String` | Alternative text.                                                                                       |
+| contents | `Object` | Flex Message [container](https://developers.line.me/en/docs/messaging-api/reference/#container) object. |
+
+Example:
+
+```js
+context.pushFlex('this is a flex', {
+  type: 'bubble',
+  header: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Header text',
+      },
+    ],
+  },
+  hero: {
+    type: 'image',
+    url: 'https://example.com/fl

@@ -1,0 +1,60 @@
+---
+id: api-messenger-client
+title: MessengerClient
+---
+
+- [Usage](#usage)
+- [Methods](#methods)
+  - [Send API](#send-api)
+    - [Content Types](#content-types)
+    - [Templates](#templates)
+    - [Quick Replies](#quick-replies)
+    - [Sender Actions](#sender-actions)
+    - [Attachment Upload API](#attachment-upload-api)
+    - [Message Batching](#message-batching)
+  - [User Profile API](#user-profile-api)
+  - [Messenger Profile API](#messenger-profile-api)
+    - [Persistent Menu](#persistent-menu)
+    - [Get Started Button](#get-started-button)
+    - [Greeting Text](#greeting-text)
+    - [Whitelisted Domains](#domain-whitelist)
+    - [Account Linking URL](#account-linking-url)
+    - [Target Audience](#target-audience)
+    - [Chat Extension Home URL](#chat-extension-home-url)
+  - [Handover Protocol API](#handover-protocol-api)
+  - [Page Messaging Insights API](#page-messaging-insights-api)
+  - [Built-in NLP API](#built-in-nlp-api)
+  - [Event Logging API](#event-logging-api)
+  - [ID Matching API](#id-matching-api)
+  - [Persona API](#persona-api)
+  - [Others](#others)
+- [Debug Tips](#debug-tips)
+- [Test](#test)
+
+## Usage
+
+Get the `MessengerClient` instance using the `getClient` function:
+
+```js
+const { getClient } = require('bottender');
+
+const client = getClient('messenger');
+
+// `client` is a `MessengerClient` instance
+await client.sendRawBody(body);
+```
+
+Or, get the `MessengerClient` instance from the `context`:
+
+```js
+async function MyAction(context) {
+  if (context.platform === 'messenger') {
+    // `context.client` is a `MessengerClient` instance
+    await context.client.sendRawBody(body);
+  }
+}
+```
+
+### Error Handling
+
+`MessengerCl

@@ -1231,4 +1231,92 @@ context.getAllMemberIds().then((ids) => {
   //   'Uxxxxxxxxxxxxxx..6',
   // ]
 });
-`
+```
+
+<br />
+
+<a id="leave-api" />
+
+### Leave API - [Official Docs](https://developers.line.me/en/docs/messaging-api/group-chats/#leaving-a-group-or-room)
+
+#### `leave()`
+
+Leave from the group or room.
+
+Example:
+
+```js
+context.leave();
+```
+
+<br />
+
+<a id="rich-menu-api" />
+
+### Rich Menu API - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#rich-menu)
+
+<br />
+
+#### `getLinkedRichMenu()` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#get-rich-menu-id-of-user)
+
+Gets the ID of the rich menu linked to the user.
+
+Example:
+
+```js
+context.getLinkedRichMenu().then((richMenu) => {
+  console.log(richMenu);
+  // {
+  //   richMenuId: "{richMenuId}"
+  // }
+});
+```
+
+<br />
+
+#### `linkRichMenu(richMenuId)` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#link-rich-menu-to-user)
+
+Links a rich menu to the user.
+
+| Param      | Type     | Description                  |
+| ---------- | -------- | ---------------------------- |
+| richMenuId | `String` | ID of an uploaded rich menu. |
+
+Example:
+
+```js
+context.linkRichMenu(RICH_MENU_ID);
+```
+
+<br />
+
+#### `unlinkRichMenu()` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#unlink-rich-menu-from-user)
+
+Unlinks a rich menu from the user.
+
+Example:
+
+```js
+context.unlinkRichMenu();
+```
+
+<br />
+
+<a id="account-link-api" />
+
+### Account Link API - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#account-link)
+
+#### `issueLinkToken()` - [Official Docs](https://developers.line.me/en/docs/messaging-api/reference/#issue-link-token)
+
+Issues a link token used for the [account link](https://developers.line.me/en/docs/messaging-api/linking-accounts/) feature.
+
+Example:
+
+```js
+context.issueLinkToken().then((result) => {
+  console.log(result);
+  // {
+  //   linkToken: 'NMZTNuVrPTqlr2IF8Bnymkb7rXfYv5EY',
+  // }
+});
+```

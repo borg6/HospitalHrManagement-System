@@ -278,4 +278,71 @@ client.sendImage(USER_ID, buffer, { filename: 'vr.jpg' });
 
 Send videos to specified user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
 
-| Param       
+| Param            | Type                                                                         | Description                                                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId           | <code>String &#124; Object</code>                                            | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| video            | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The video to be sent.                                                                                                                             |
+| options          | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+| options.filename | `String`                                                                     | Required when upload from buffer.                                                                                                                 |
+
+Example:
+
+- Send video using a URL string:
+
+```js
+client.sendVideo(USER_ID, 'https://example.com/video.mp4');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+client.sendVideo(USER_ID, { attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+client.sendVideo(USER_ID, fs.createReadStream('video.mp4'));
+```
+
+- Use `Buffer` to send attachment:
+
+```js
+client.sendVideo(USER_ID, buffer, { filename: 'video.mp4' });
+```
+
+<br />
+
+#### `sendFile(userId, file [, options])`
+
+Send files to specified user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param            | Type                                                                         | Description                                                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId           | <code>String &#124; Object</code>                                            | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| file             | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The file to be sent.                                                                                                                              |
+| options          | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+| options.filename | `String`                                                                     | Required when upload from buffer.                                                                                                                 |
+
+Example:
+
+- Send file using a URL string:
+
+```js
+client.sendFile(USER_ID, 'https://example.com/receipt.pdf');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+client.sendFile(USER_ID, { attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+client.sendFile(USER_ID, fs.createReadStream

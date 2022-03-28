@@ -345,4 +345,67 @@ client.sendFile(USER_ID, { attachmentId: '55688' });
 ```js
 const fs = require('fs');
 
-client.sendFile(USER_ID, fs.createReadStream
+client.sendFile(USER_ID, fs.createReadStream('receipt.pdf'));
+```
+
+- Use `Buffer` to send attachment:
+
+```js
+client.sendFile(USER_ID, buffer, { filename: 'file.pdf' });
+```
+
+<br />
+
+<a id="templates" />
+
+### Templates - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/templates)
+
+#### `sendTemplate(userId, template [, options])`
+
+Send structured message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param    | Type                              | Description                                                                                                                                                                                                                       |
+| -------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId   | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                 |
+| template | `Object`                          | Object of the template.                                                                                                                                                                                                           |
+| options  | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+client.sendTemplate(USER_ID, {
+  templateType: 'button',
+  text: 'title',
+  buttons: [
+    {
+      type: 'postback',
+      title: 'Start Chatting',
+      payload: 'USER_DEFINED_PAYLOAD',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `sendButtonTemplate(userId, title, buttons [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template)
+
+Send button message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410664-0b80b080-27dc-11e8-8854-4408d6f32fdf.png" alt="sendButtonTemplate" width="250" />
+
+| Param   | Type                              | Description                                                                                                                                                         |
+| ------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId  | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                   |
+| title   | `String`                          | Text that appears above the buttons.                                                                                                                                |
+| buttons | `Array<Object>`                   | Array of [button](https://developers.facebook.com/docs/messenger-platform/send-messages/template/button#button). Set of 1-3 buttons that appear as call-to-actions. |
+| options | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types).                   |
+
+Example:
+
+```js
+client.sendButtonTemplate(USER_ID, 'What do you want to do next?', [
+  {
+    type: 'web_url',
+    url: 'https://petersapparel.parseapp.com',
+    title: 'Show Websi

@@ -792,4 +792,138 @@ client.sendAirlineItineraryTemplate(USER_ID, {
   passengerInfo: [
     {
       name: 'Farbound Smith Jr',
-   
+      ticketNumber: '0741234567890',
+      passengerId: 'p001',
+    },
+    {
+      name: 'Nick Jones',
+      ticketNumber: '0741234567891',
+      passengerId: 'p002',
+    },
+  ],
+  flightInfo: [
+    {
+      connectionId: 'c001',
+      segmentId: 's001',
+      flightNumber: 'KL9123',
+      aircraftType: 'Boeing 737',
+      departureAirport: {
+        airportCode: 'SFO',
+        city: 'San Francisco',
+        terminal: 'T4',
+        gate: 'G8',
+      },
+      arrivalAirport: {
+        airportCode: 'SLC',
+        city: 'Salt Lake City',
+        terminal: 'T4',
+        gate: 'G8',
+      },
+      flightSchedule: {
+        departureTime: '2016-01-02T19:45',
+        arrivalTime: '2016-01-02T21:20',
+      },
+      travelClass: 'business',
+    },
+    {
+      connectionId: 'c002',
+      segmentId: 's002',
+      flightNumber: 'KL321',
+      aircraftType: 'Boeing 747-200',
+      travelClass: 'business',
+      departureAirport: {
+        airportCode: 'SLC',
+        city: 'Salt Lake City',
+        terminal: 'T1',
+        gate: 'G33',
+      },
+      arrivalAirport: {
+        airportCode: 'AMS',
+        city: 'Amsterdam',
+        terminal: 'T1',
+        gate: 'G33',
+      },
+      flightSchedule: {
+        departureTime: '2016-01-02T22:45',
+        arrivalTime: '2016-01-03T17:20',
+      },
+    },
+  ],
+  passengerSegmentInfo: [
+    {
+      segmentId: 's001',
+      passengerId: 'p001',
+      seat: '12A',
+      seatType: 'Business',
+    },
+    {
+      segmentId: 's001',
+      passengerId: 'p002',
+      seat: '12B',
+      seatType: 'Business',
+    },
+    {
+      segmentId: 's002',
+      passengerId: 'p001',
+      seat: '73A',
+      seatType: 'World Business',
+      productInfo: [
+        {
+          title: 'Lounge',
+          value: 'Complimentary lounge access',
+        },
+        {
+          title: 'Baggage',
+          value: '1 extra bag 50lbs',
+        },
+      ],
+    },
+    {
+      segmentId: 's002',
+      passengerId: 'p002',
+      seat: '73B',
+      seatType: 'World Business',
+      productInfo: [
+        {
+          title: 'Lounge',
+          value: 'Complimentary lounge access',
+        },
+        {
+          title: 'Baggage',
+          value: '1 extra bag 50lbs',
+        },
+      ],
+    },
+  ],
+  priceInfo: [
+    {
+      title: 'Fuel surcharge',
+      amount: '1597',
+      currency: 'USD',
+    },
+  ],
+  basePrice: '12206',
+  tax: '200',
+  totalPrice: '14003',
+  currency: 'USD',
+});
+```
+
+<br />
+
+#### `sendAirlineUpdateTemplate(userId, attributes [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-update-template)
+
+Send airline flight update message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37411064-e3005a56-27dc-11e8-8486-4fc548ad7b1a.png" alt="sendAirlineUpdateTemplate" width="250" />
+
+| Param      | Type                              | Description                                                                                                                                       |
+| ---------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId     | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| attributes | `Object`                          | [payload](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-update-template#payload) of update template.         |
+| options    | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+```js
+client.send

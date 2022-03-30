@@ -1038,4 +1038,116 @@ client.markSeen(USER_ID);
 Turn typing indicators on for specified user.
 
 | Param  | Type                              | Description                                                                                                                                       |
-| ------ | --------------------------------- | ------------------------------------------------------------------------------
+| ------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+
+Example:
+
+```js
+client.typingOn(USER_ID);
+```
+
+<br />
+
+#### `typingOff(userId)`
+
+Turn typing indicators off for specified user.
+
+| Param  | Type                              | Description                                                                                                                                       |
+| ------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+
+Example:
+
+```js
+client.typingOff(USER_ID);
+```
+
+<br />
+
+<a id="attachment-upload-api" />
+
+### Attachment Upload API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/attachment-upload)
+
+> Note: Only attachments that were uploaded with the `isReusable` property set to `true` can be sent to other message recipients.
+
+#### `uploadAttachment(type, attachment, options)`
+
+Upload specified type attachment using URL address, buffer, or stream.
+
+| Param              | Type                                                                                             | Description                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------ | --------------------------------------------------- |
+| type               | `String`                                                                                         | Must be one of `image`, `video`, `audio` or `file`. |
+| attachment         | <code>String &#124; Buffer &#124; ReadStream</code>                                              | Attachment to be uploaded.                          |
+| options            | `Object`                                                                                         | Other optional parameters.                          |
+| options.isReusable | Set to `true` to make the saved asset sendable to other message recipients. Defaults to `false`. |
+| options.filename   | Required when upload from buffer.                                                                |
+
+Example:
+
+```js
+client.uploadAttachment('image', 'http://www.example.com/image.jpg', {
+  isReusable: true,
+});
+```
+
+Or using read stream:
+
+```js
+const fs = require('fs');
+
+client.uploadAttachment('image', fs.createReadStream('image.jpg'), {
+  isReusable: true,
+});
+```
+
+Or using buffer:
+
+```js
+client.uploadAttachment('image', buffer, {
+  isReusable: true,
+  filename: 'image.jpg',
+});
+```
+
+<br />
+
+#### `uploadAudio(audio, options)`
+
+Upload audio attachment using URL address, buffer, or stream.
+
+| Param   | Type                                                | Description                |
+| ------- | --------------------------------------------------- | -------------------------- |
+| audio   | <code>String &#124; Buffer &#124; ReadStream</code> | The audio to be uploaded.  |
+| options | `Object`                                            | Other optional parameters. |
+
+Example:
+
+```js
+client.uploadAudio('http://www.example.com/audio.mp3', { isReusable: true });
+```
+
+Or using read stream:
+
+```js
+const fs = require('fs');
+
+client.uploadAudio(fs.createReadStream('audio.mp3'), { isReusable: true });
+```
+
+Or using buffer:
+
+```js
+client.uploadAudio(buffer, {
+  isReusable: true,
+  filename: 'audio.mp3',
+});
+```
+
+<br />
+
+#### `uploadImage(image, options)`
+
+Upload image attachment using URL address, buffer, or stream.
+
+| Param   | Type                                                | Description              

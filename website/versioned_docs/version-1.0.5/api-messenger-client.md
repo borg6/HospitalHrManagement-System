@@ -1304,4 +1304,188 @@ There are a bunch of factory methods can be used to create batch messages:
 - `MessengerBatch.passThreadControlToPageInbox`
 - `MessengerBatch.takeThreadControl`
 - `MessengerBatch.requestThreadControl`
-- `
+- `MessengerBatch.associateLabel`
+- `MessengerBatch.dissociateLabel`
+- `MessengerBatch.getAssociatedLabels`
+
+Those methods exactly have same argument signature with client methods.
+
+<br />
+
+<a id="custom-labels" />
+
+### Custom Labels - [Official Docs](https://developers.facebook.com/docs/messenger-platform/identity/custom-labels)
+
+#### `createLabel(name)`
+
+Creating a Label.
+
+| Param | Type     | Description               |
+| ----- | -------- | ------------------------- |
+| name  | `String` | name of the custom label. |
+
+Example:
+
+```js
+client.createLabel('awesome').then((label) => {
+  console.log(label);
+  // {
+  //   id: 1712444532121303
+  // }
+});
+```
+
+<br />
+
+#### `associateLabel(userId, labelId)`
+
+Associating a Label to a PSID.
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `String` | Page-scoped user ID of the recipient. |
+| labelId | `String` | ID of the custom label.               |
+
+Example:
+
+```js
+client.associateLabel(USER_ID, LABEL_ID);
+```
+
+<br />
+
+#### `dissociateLabel(userId, labelId)`
+
+Removing a Label From a PSID.
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `String` | Page-scoped user ID of the recipient. |
+| labelId | `String` | ID of the custom label.               |
+
+Example:
+
+```js
+client.dissociateLabel(USER_ID, LABEL_ID);
+```
+
+<br />
+
+#### `getAssociatedLabels(userId)`
+
+Retrieving Labels Associated with a PSID.
+
+| Param  | Type     | Description                           |
+| ------ | -------- | ------------------------------------- |
+| userId | `String` | Page-scoped user ID of the recipient. |
+
+Example:
+
+```js
+client.getAssociatedLabels(USER_ID).then((result) => {
+  console.log(result);
+  // {
+  //   data: [
+  //     {
+  //       name: 'myLabel',
+  //       id: '1001200005003',
+  //     },
+  //     {
+  //       name: 'myOtherLabel',
+  //       id: '1001200005002',
+  //     },
+  //   ],
+  //   paging: {
+  //     cursors: {
+  //       before:
+  //         'QVFIUmx1WTBpMGpJWXprYzVYaVhabW55dVpycko4U2xURGE5ODNtNFZAPal94a1hTUnNVMUtoMVVoTzlzSDktUkMtQkUzWEFLSXlMS3ZALYUw3TURLelZAPOGVR',
+  //       after:
+  //         'QVFIUmItNkpTbjVzakxFWGRydzdaVUFNNnNPaUl0SmwzVHN5ZAWZAEQ3lZANDAzTXFIM0NHbHdYSkQ5OG1GaEozdjkzRmxpUFhxTDl4ZAlBibnE4LWt1eGlTa3Bn',
+  //     },
+  //   },
+  // }
+});
+```
+
+<br />
+
+#### `getLabelDetails(labelId, options)`
+
+Retrieving Label Details.
+
+| Param          | Type            | Description                     |
+| -------------- | --------------- | ------------------------------- |
+| labelId        | `String`        | ID of the custom label.         |
+| options.fields | `Array<String>` | fields to retrieve with its ID. |
+
+Example:
+
+```js
+client.getLabelDetails(LABEL_ID, { fields: ['name'] }).then((result) => {
+  console.log(result);
+  // {
+  //   id: "1001200005002",
+  //   name: "myLabel",
+  // }
+});
+```
+
+<br />
+
+#### `getLabelList()`
+
+Retrieving a List of All Labels.
+
+Example:
+
+```js
+client.getLabelList().then((result) => {
+  console.log(result);
+  // {
+  //   data: [
+  //     {
+  //       name: 'myLabel',
+  //       id: '1001200005003',
+  //     },
+  //     {
+  //       name: 'myOtherLabel',
+  //       id: '1001200005002',
+  //     },
+  //   ],
+  //   paging: {
+  //     cursors: {
+  //       before:
+  //         'QVFIUmx1WTBpMGpJWXprYzVYaVhabW55dVpycko4U2xURGE5ODNtNFZAPal94a1hTUnNVMUtoMVVoTzlzSDktUkMtQkUzWEFLSXlMS3ZALYUw3TURLelZAPOGVR',
+  //       after:
+  //         'QVFIUmItNkpTbjVzakxFWGRydzdaVUFNNnNPaUl0SmwzVHN5ZAWZAEQ3lZANDAzTXFIM0NHbHdYSkQ5OG1GaEozdjkzRmxpUFhxTDl4ZAlBibnE4LWt1eGlTa3Bn',
+  //     },
+  //   },
+  // }
+});
+```
+
+<br />
+
+#### `deleteLabel(labelId)`
+
+Deleting a Label.
+
+| Param   | Type     | Description             |
+| ------- | -------- | ----------------------- |
+| labelId | `String` | ID of the custom label. |
+
+Example:
+
+```js
+client.deleteLabel(LABEL_ID);
+```
+
+<br />
+
+<a id="user-profile-api" />
+
+### User Profile API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/user-profile)
+
+#### `getUserProfile(userId, options)`
+
+Retrieving a Person's Profile

@@ -1488,4 +1488,112 @@ client.deleteLabel(LABEL_ID);
 
 #### `getUserProfile(userId, options)`
 
-Retrieving a Person's Profile
+Retrieving a Person's Profile.
+
+| Param          | Type            | Description                                                                                                                                                                      |
+| -------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId         | `String`        | Page-scoped user ID of the recipient.                                                                                                                                            |
+| options.fields | `Array<String>` | Value must be among `id`, `name`, `first_name`, `last_name`, `profile_pic`, `locale`, `timezone`, `gender`, default with `id`, `name`, `first_name`, `last_name`, `profile_pic`, |
+
+Example:
+
+```js
+client.getUserProfile(USER_ID).then((user) => {
+  console.log(user);
+  // {
+  //   id: '5566'
+  //   firstName: 'Johnathan',
+  //   lastName: 'Jackson',
+  //   profilePic: 'https://example.com/pic.png',
+  // }
+});
+```
+
+<br />
+
+<a id="messenger-profile-api" />
+
+### Messenger Profile API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile)
+
+#### `getMessengerProfile(fields)`
+
+Retrieves the current value of one or more Messenger Profile properties by name.
+
+| Param  | Type            | Description                                                                                                                                    |
+| ------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| fields | `Array<String>` | Value must be among `account_linking_url`, `persistent_menu`, `get_started`, `greeting`, `whitelisted_domains`, `target_audience`, `home_url`. |
+
+Example:
+
+```js
+client
+  .getMessengerProfile(['get_started', 'persistent_menu'])
+  .then((profile) => {
+    console.log(profile);
+    // [
+    //   {
+    //     getStarted: {
+    //       payload: 'GET_STARTED',
+    //     },
+    //   },
+    //   {
+    //     persistentMenu: [
+    //       {
+    //         locale: 'default',
+    //         composerInputDisabled: true,
+    //         callToActions: [
+    //           {
+    //             type: 'postback',
+    //             title: 'Restart Conversation',
+    //             payload: 'RESTART',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // ]
+  });
+```
+
+<br />
+
+#### `setMessengerProfile(profile)`
+
+Sets the values of one or more Messenger Profile properties. Only properties set in the request body will be overwritten.
+
+| Param   | Type     | Description                                                                                                                      |
+| ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| profile | `Object` | Object of [Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api#profile_properties). |
+
+Example:
+
+```js
+client.setMessengerProfile({
+  getStarted: {
+    payload: 'GET_STARTED',
+  },
+  persistentMenu: [
+    {
+      locale: 'default',
+      composerInputDisabled: true,
+      callToActions: [
+        {
+          type: 'postback',
+          title: 'Restart Conversation',
+          payload: 'RESTART',
+        },
+      ],
+    },
+  ],
+});
+```
+
+<br />
+
+#### `deleteMessengerProfile(fields)`
+
+Deletes one or more Messenger Profile properties. Only properties specified in the fields array will be deleted.
+
+| Param  | Type            | Description                                                                                                                                    |
+| ------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| fields | `Array<String>` | Value must be among `account_linki

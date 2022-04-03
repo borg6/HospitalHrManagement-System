@@ -1752,4 +1752,189 @@ Sets the values of get started button.
 
 | Param   | Type     | Description                                                                                                 |
 | ------- | -------- | ----------------------------------------------------------------------------------------------------------- |
-| payload | `String` | Payload sent back to your webhook in a `messaging_postback
+| payload | `String` | Payload sent back to your webhook in a `messaging_postbacks` event when the 'Get Started' button is tapped. |
+
+Example:
+
+```js
+client.setGetStarted('GET_STARTED');
+```
+
+<br />
+
+#### `deleteGetStarted`
+
+Deletes get started button.
+
+Example:
+
+```js
+client.deleteGetStarted();
+```
+
+<a id="greeting-text" />
+
+### Greeting Text - [Officail docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/greeting-text)
+
+<img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t39.2365-6/14287888_188235318253964_1078929636_n.png?oh=a1171ab50f04d3a244ed703eafd2dbef&oe=59F01AF5" alt="Greeting Text" width="250" />
+
+#### `getGreeting`
+
+Retrieves the current value of greeting text.
+
+Example:
+
+```js
+client.getGreeting().then((greeting) => {
+  console.log(greeting);
+  // [
+  //   {
+  //     locale: 'default',
+  //     text: 'Hello!',
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `setGreeting(greeting)`
+
+Sets the values of greeting text.
+
+| Param    | Type            | Description                                                                                                                       |
+| -------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| greeting | `Array<Object>` | Array of [greeting](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/greeting#properties). |
+
+Example:
+
+```js
+client.setGreeting([
+  {
+    locale: 'default',
+    text: 'Hello!',
+  },
+]);
+```
+
+<br />
+
+#### `deleteGreeting`
+
+Deletes greeting text.
+
+Example:
+
+```js
+client.deleteGreeting();
+```
+
+<a id="domain-whitelist" />
+
+### Whitelisted Domains - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/domain-whitelisting)
+
+#### `getWhitelistedDomains`
+
+Retrieves the current value of whitelisted domains.
+
+Example:
+
+```js
+client.getWhitelistedDomains().then((domains) => {
+  console.log(domains);
+  // ['http://www.example.com/']
+});
+```
+
+<br />
+
+#### `setWhitelistedDomains(domains)`
+
+Sets the values of whitelisted domains.
+
+| Param   | Type            | Description                                                                                                                                            |
+| ------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| domains | `Array<String>` | Array of [whitelisted_domain](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/domain-whitelisting#properties). |
+
+Example:
+
+```js
+client.setWhitelistedDomains(['www.example.com']);
+```
+
+<br />
+
+#### `deleteWhitelistedDomains`
+
+Deletes whitelisted domains.
+
+Example:
+
+```js
+client.deleteWhitelistedDomains();
+```
+
+<a id="account-linking-url" />
+
+### Account Linking URL - [Official Docs](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/account-linking-url)
+
+#### `getAccountLinkingURL`
+
+Retrieves the current value of account linking URL.
+
+Example:
+
+```js
+client.getAccountLinkingURL().then((accountLinking) => {
+  console.log(accountLinking);
+  // {
+  //   accountLinkingUrl:
+  //     'https://www.example.com/oauth?response_type=code&client_id=1234567890&scope=basic',
+  // }
+});
+```
+
+<br />
+
+#### `setAccountLinkingURL(url)`
+
+Sets the values of account linking URL.
+
+| Param | Type     | Description          |
+| ----- | -------- | -------------------- |
+| url   | `String` | Account linking URL. |
+
+Example:
+
+```js
+client.setAccountLinkingURL(
+  'https://www.example.com/oauth?response_type=code&client_id=1234567890&scope=basic'
+);
+```
+
+<br />
+
+#### `deleteAccountLinkingURL`
+
+Deletes account linking URL.
+
+Example:
+
+```js
+client.deleteAccountLinkingURL();
+```
+
+<br />
+
+<a id="target-audience" />
+
+### Target Audience - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/target-audience)
+
+#### `getTargetAudience`
+
+Retrieves the current value of target audience.
+
+Example:
+
+```js
+client.getTargetAudienc

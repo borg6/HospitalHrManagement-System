@@ -1937,4 +1937,127 @@ Retrieves the current value of target audience.
 Example:
 
 ```js
-client.getTargetAudienc
+client.getTargetAudience().then((targetAudience) => {
+  console.log(targetAudience);
+  // {
+  //   audienceType: 'custom',
+  //   countries: {
+  //     whitelist: ['US', 'CA'],
+  //   },
+  // }
+});
+```
+
+<br />
+
+#### `setTargetAudience(type, whitelist, blacklist)`
+
+Sets the values of target audience.
+
+| Param     | Type            | Description                                                                                                                             |
+| --------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------ | ------ |
+| type      | `String`        | Audience type. Valid values include `all                                                                                                | custom | none`. |
+| whitelist | `Array<String>` | List of ISO 3166 Alpha-2 codes. Users in any of the blacklist countries won't see your bot on discovery surfaces on Messenger Platform. |
+| blacklist | `Array<String>` | List of ISO 3166 Alpha-2 codes. Users in any of the whitelist countries will see your bot on discovery surfaces on Messenger Platform.  |
+
+Exmaple:
+
+```js
+client.setTargetAudience('custom', ['US', 'CA'], ['UK']);
+```
+
+<br />
+
+#### `deleteTargetAudience`
+
+Deletes target audience.
+
+Example:
+
+```js
+client.deleteTargetAudience();
+```
+
+<br />
+
+<a id="chat-extension-home-url" />
+
+### Chat Extension Home URL - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/home-url)
+
+#### `getHomeURL`
+
+Retrieves the current value of chat extension home URL.
+
+Example:
+
+```js
+client.getHomeURL().then((chatExtension) => {
+  console.log(chatExtension);
+  // {
+  //   url: 'http://petershats.com/send-a-hat',
+  //   webviewHeightRatio: 'tall',
+  //   inTest: true,
+  // }
+});
+```
+
+<br />
+
+#### `setHomeURL(url, attributes)`
+
+Sets the values of chat extension home URL.
+
+| Param      | Type     | Description                                                                                                                                  |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| url        | `String` | The URL to be invoked from drawer.                                                                                                           |
+| attributes | `Object` | Other [properties](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/home-url#properties) of home URL. |
+
+Exmaple:
+
+```js
+client.setHomeURL('http://petershats.com/send-a-hat', {
+  webviewHeightRatio: 'tall',
+  inTest: true,
+});
+```
+
+<br />
+
+#### `deleteHomeURL`
+
+Deletes chat extension home URL.
+
+Example:
+
+```js
+client.deleteHomeURL();
+```
+
+<br />
+
+### Handover Protocol API
+
+#### `passThreadControl(userId, targetAppId, metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/pass-thread-control)
+
+Passes thread control from your app to another app.
+
+| Param       | Type     | Description                                                                      |
+| ----------- | -------- | -------------------------------------------------------------------------------- |
+| userId      | `String` | The PSID of the message recipient.                                               |
+| targetAppId | `Number` | The app ID of the Secondary Receiver to pass thread control to.                  |
+| metadata    | `String` | Metadata passed to the receiving app in the `pass_thread_control` webhook event. |
+
+Example:
+
+```js
+client.passThreadControl(USER_ID, APP_ID, 'free formed text for another app');
+```
+
+<br />
+
+#### `passThreadControlToPageInbox(userId, metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/handover-protocol/pass-thread-control#page_inbox)
+
+Passes thread control from your app to "Page Inbox" app.
+
+| Param    | Type     | Description                                                                      |
+| -------- | -------- | ------------

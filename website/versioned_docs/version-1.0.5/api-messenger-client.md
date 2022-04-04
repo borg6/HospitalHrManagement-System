@@ -2171,4 +2171,126 @@ Retrieves the insights of your Facebook Page.
 | ------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | metrics       | `Array`  | [The metrics](https://developers.facebook.com/docs/messenger-platform/reference/messaging-insights-api/#metrics) you want to check. |
 | options       | `Object` | Optional arguments.                                                                                                                 |
-| options.since | `numb
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for.                                                                   |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.                                                                     |
+
+Example:
+
+```js
+client
+  .getInsights(['page_messages_reported_conversations_unique'])
+  .then((counts) => {
+    console.log(counts);
+    // [
+    //   {
+    //     "name": "page_messages_reported_conversations_unique",
+    //     "period": "day",
+    //     "values": [
+    //       {
+    //         "value": "<VALUE>",
+    //         "endTime": "<UTC_TIMESTAMP>"
+    //       },
+    //       {
+    //         "value": "<VALUE>",
+    //         "endTime": "<UTC_TIMESTAMP>"
+    //       }
+    //     ]
+    //   }
+    // ]
+  });
+```
+
+<br />
+
+#### `getBlockedConversations(options)`
+
+Retrieves the number of conversations with the Page that have been blocked.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getBlockedConversations().then((counts) => {
+  console.log(counts);
+  //   {
+  //     "name": "page_messages_blocked_conversations_unique",
+  //     "period": "day",
+  //     "values": [
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       },
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       }
+  //    ]
+  //   }
+});
+```
+
+<br />
+
+#### `getReportedConversations(options)`
+
+Retrieves the number of conversations from your Page that have been reported by people for reasons such as spam, or containing inappropriate content.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getReportedConversations().then((counts) => {
+  console.log(counts);
+  //   {
+  //     "name": "page_messages_reported_conversations_unique",
+  //     "period": "day",
+  //     "values": [
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       },
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       }
+  //     ]
+  //   }
+});
+```
+
+<br />
+
+#### `getOpenConversations(options)`
+
+**Deprecated**
+
+> `getOpenConversations()` is deprecated on May 11, 2018.
+> Currently this method returns the same result as the replacing method getTotalMessagingConnections()
+
+Retrieves the total number of open conversations between your Page and people in Messenger. This metric excludes blocked conversations.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getOpenConversations().then((result) => {
+  console.log(result);
+  // {
+  //   name: 'page_messages_total_messaging_connections',
+  //   period: 'day',
+  //   values

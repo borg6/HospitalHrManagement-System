@@ -2469,4 +2469,151 @@ Given a user ID for an app, retrieve the IDs for other apps owned by the same bu
 | Param        | Type     | Description                   |
 | ------------ | -------- | ----------------------------- |
 | userId       | `String` | Page-scoped user ID.          |
-| appSecret    | 
+| appSecret    | `String` | Secret of the app.            |
+| options.app  | `String` | The app to retrieve the IDs.  |
+| options.page | `String` | The page to retrieve the IDs. |
+
+Example:
+
+```js
+client
+  .getIdsForApps({
+    userId: USER_ID,
+    appSecret: APP_SECRET,
+  })
+  .then((result) => {
+    console.log(result);
+    // {
+    //   data: [
+    //     {
+    //       id: '10152368852405295',
+    //       app: {
+    //         category: 'Business',
+    //         link: 'https://www.facebook.com/games/?app_id=1419232575008550',
+    //         name: "John's Game App",
+    //         id: '1419232575008550',
+    //       },
+    //     },
+    //     {
+    //       id: '645195294',
+    //       app: {
+    //         link: 'https://apps.facebook.com/johnsmovieappns/',
+    //         name: 'JohnsMovieApp',
+    //         namespace: 'johnsmovieappns',
+    //         id: '259773517400382',
+    //       },
+    //     },
+    //   ],
+    //   paging: {
+    //     cursors: {
+    //       before: 'MTQ4OTU4MjQ5Nzc4NjY4OAZDZDA',
+    //       after: 'NDAwMDExOTA3MDM1ODMwA',
+    //     },
+    //   },
+    // };
+  });
+```
+
+<br />
+
+#### `getIdsForPages({ userId, appSecret, ...options })`
+
+Given a user ID for a Page (associated with a bot), retrieve the IDs for other Pages owned by the same business.
+
+| Param        | Type     | Description                   |
+| ------------ | -------- | ----------------------------- |
+| userId       | `String` | Page-scoped user ID.          |
+| appSecret    | `String` | Secret of the app.            |
+| options.app  | `String` | The app to retrieve the IDs.  |
+| options.page | `String` | The page to retrieve the IDs. |
+
+Example:
+
+```js
+client
+  .getIdsForPages({
+    userId: USER_ID,
+    appSecret: APP_SECRET,
+  })
+  .then((result) => {
+    console.log(result);
+    // {
+    //   data: [
+    //     {
+    //       id: '12345123', // The psid for the user for that page
+    //       page: {
+    //         category: 'Musician',
+    //         link:
+    //           'https://www.facebook.com/Johns-Next-Great-Thing-380374449010653/',
+    //         name: "John's Next Great Thing",
+    //         id: '380374449010653',
+    //       },
+    //     },
+    //   ],
+    //   paging: {
+    //     cursors: {
+    //       before: 'MTQ4OTU4MjQ5Nzc4NjY4OAZDZDA',
+    //       after: 'NDAwMDExOTA3MDM1ODMwA',
+    //     },
+    //   },
+    // };
+  });
+```
+
+<br />
+
+<a id="persona-api" />
+
+### Persona API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas)
+
+#### `createPersona(persona)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#create)
+
+Creates a persona.
+
+| Param                     | Type                | Description                     |
+| ------------------------- | ------------------- | ------------------------------- |
+| persona.name              | <code>String</code> | name of the persona.            |
+| persona.profilePictureUrl | <code>String</code> | profile picture of the persona. |
+
+```js
+createPersona({
+  name: 'John Mathew',
+  profilePictureUrl: 'https://facebook.com/john_image.jpg',
+}).then((persona) => {
+  console.log(persona);
+  // {
+  //  "id": "<PERSONA_ID>"
+  // }
+});
+```
+
+<br />
+
+#### `getPersona(personaId)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#get)
+
+Retrieves the name and profile picture of a persona.
+
+| Param     | Type                | Description        |
+| --------- | ------------------- | ------------------ |
+| personaId | <code>String</code> | ID of the persona. |
+
+```js
+getPersona(personaId).then((persona) => {
+  console.log(persona);
+  // {
+  //   "name": "John Mathew",
+  //   "profilePictureUrl": "https://facebook.com/john_image.jpg",
+  //   "id": "<PERSONA_ID>"
+  // }
+});
+```
+
+<br />
+
+#### `getPersonas(cursor?: string)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#retrieve_all)
+
+Retrieves personas associated with a Page using the cursor.
+
+| Param  | Type                | Description        |
+| ------ | ------------------- | ------------------ |
+| cursor | <co

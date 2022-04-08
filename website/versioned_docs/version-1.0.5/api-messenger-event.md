@@ -362,3 +362,396 @@ Determine if the event is an opt-in event.
 Example:
 
 ```js
+event.isOptin; // true
+```
+
+#### `optin`
+
+The optin object from Messenger raw event.
+
+Example:
+
+```js
+event.optin;
+// {
+//   ref: 'PASS_THROUGH_PARAM',
+// }
+```
+
+#### `isPayment`
+
+Determine if the event is a payment event.
+
+Example:
+
+```js
+event.isPayment; // true
+```
+
+#### `payment`
+
+The payment object from Messenger raw event.
+
+Example:
+
+```js
+event.payment;
+// {
+//   payload: 'DEVELOPER_DEFINED_PAYLOAD',
+//   requestedUserInfo: {
+//     shippingAddress: {},
+//     contactName: 'Peter Chang',
+//     contactEmail: 'peter@anemail.com',
+//     contactPhone: '+15105551234',
+//   },
+//   paymentCredential: {
+//     providerType: 'paypal',
+//     chargeId: 'ch_18tmdBEoNIH3FPJHa60ep123',
+//     fbPaymentId: '123456789',
+//   },
+//   amount: {
+//     currency: 'USD',
+//     amount: '29.62',
+//   },
+//   shippingOptionId: '123',
+// }
+```
+
+#### `isCheckoutUpdate`
+
+Determine if the event is a checkout update event.
+
+Example:
+
+```js
+event.isCheckoutUpdate; // true
+```
+
+#### `checkoutUpdate`
+
+The checkoutUpdate object from Messenger raw event.
+
+Example:
+
+```js
+event.checkoutUpdate;
+// {
+//   payload: 'DEVELOPER_DEFINED_PAYLOAD',
+//   shippingAddress: {
+//     id: 10105655000959552,
+//     country: 'US',
+//     city: 'MENLO PARK',
+//     street1: '1 Hacker Way',
+//     street2: '',
+//     state: 'CA',
+//     postalCode: '94025',
+//   },
+// }
+```
+
+#### `isPreCheckout`
+
+Determine if the event is a pre-checkout event.
+
+Example:
+
+```js
+event.isPreCheckout; // true
+```
+
+#### `preCheckout`
+
+The preCheckout object from Messenger raw event.
+
+Example:
+
+```js
+event.preCheckout;
+// {
+//   payload: 'xyz',
+//   requestedUserInfo: {
+//     shippingAddress: {
+//       name: 'Tao Jiang',
+//       street1: '600 Edgewater Blvd',
+//       street2: '',
+//       city: 'Foster City',
+//       state: 'CA',
+//       country: 'US',
+//       postalCode: '94404',
+//     },
+//     contactName: 'Tao Jiang',
+//   },
+//   amount: {
+//     currency: 'USD',
+//     amount: '2.70',
+//   },
+// }
+```
+
+#### `isRead`
+
+Determine if the event is a message read event.
+
+Example:
+
+```js
+event.isRead; // true
+```
+
+#### `read`
+
+The read object from Messenger raw event.
+
+Example:
+
+```js
+event.read;
+// {
+//   seq: 38,
+//   watermark: 1458668856253,
+// }
+```
+
+#### `isDelivery`
+
+Determine if the event is a message delivery event.
+
+Example:
+
+```js
+event.isDelivery; // true
+```
+
+#### `delivery`
+
+The delivery object from Messenger raw event.
+
+Example:
+
+```js
+event.delivery;
+// {
+//   mids: ['mid.1458668856218:ed81099e15d3f4f233'],
+//   watermark: 1458668856253,
+//   seq: 37,
+// }
+```
+
+#### `isPayload`
+
+Determine if the event is a postback or quick reply which includes payload.
+
+Example:
+
+```js
+event.isPayload; // true
+```
+
+#### `payload`
+
+The payload received from postback or quick reply.
+
+Example:
+
+```js
+event.payload; // 'USER_DEFINED_PAYLOAD'
+```
+
+#### `isPolicyEnforcement`
+
+Determine if the event is a policy enforcement event.
+
+Example:
+
+```js
+event.isPolicyEnforcement; // true
+```
+
+#### `policyEnforcement`
+
+The policy enforcement object from Messenger raw event.
+
+Example:
+
+```js
+event.policyEnforcement;
+// {
+//   action: 'block',
+//   reason:
+//     'The bot violated our Platform Policies (https://developers.facebook.com/policy/#messengerplatform). Common violations include sending out excessive spammy messages or being non-functional.',
+// }
+```
+
+#### `isAppRoles`
+
+Determine if the event is an app roles event.
+
+Example:
+
+```js
+event.isAppRoles; // true
+```
+
+#### `appRoles`
+
+The app roles object from Messenger raw event.
+
+Example:
+
+```js
+event.appRoles;
+// {
+//   '123456789': ['automation'],
+// }
+```
+
+#### `isStandby`
+
+Determine if the event is a standby event.
+
+Example:
+
+```js
+event.isStandby; // true
+```
+
+#### `isPassThreadControl`
+
+Determine if the event is a pass thread control event.
+
+Example:
+
+```js
+event.isPassThreadControl; // true
+```
+
+#### `passThreadControl`
+
+The pass thread control object from Messenger raw event.
+
+Example:
+
+```js
+event.passThreadControl;
+// {
+//   metadata: 'additional content that the caller wants to set',
+//   newOwnerAppId: '123456789',
+// }
+```
+
+#### `isTakeThreadControl`
+
+Determine if the event is a take thread control event.
+
+Example:
+
+```js
+event.isTakeThreadControl; // true
+```
+
+#### `takeThreadControl`
+
+The take thread control object from Messenger raw event.
+
+Example:
+
+```js
+event.takeThreadControl;
+// {
+//   metadata: 'additional content that the caller wants to set',
+//   previousOwnerAppId: '123456789',
+// }
+```
+
+#### `isRequestThreadControl`
+
+Determine if the event is a request thread control event.
+
+Example:
+
+```js
+event.isRequestThreadControl; // true
+```
+
+#### `requestThreadControl`
+
+The take thread control object from Messenger raw event.
+
+Example:
+
+```js
+event.requestThreadControl;
+// {
+//   metadata: 'additional content that the caller wants to set',
+//   requestedOwnerAppId: '123456789',
+// }
+```
+
+#### `isReferral`
+
+Determine if the event is a referral event.
+
+Example:
+
+```js
+event.isReferral; // true
+```
+
+#### `referral`
+
+The referral object from Messenger event.
+
+Example:
+
+```js
+event.referral;
+// {
+//   ref: 'PASS_THROUGH_PARAM',
+//   source: 'SHORTLINK',
+//   type: 'OPEN_THREAD',
+// }
+```
+
+#### `ref`
+
+The ref string from Messenger event.
+
+Example:
+
+```js
+event.ref; // 'PASS_THROUGH_PARAM'
+```
+
+#### `isFromCustomerChatPlugin`
+
+Determine if the event is from customer chat plugin.
+
+Example:
+
+```js
+event.isFromCustomerChatPlugin; // true
+```
+
+#### `isBrandedCamera`
+
+Determine if the event is a branded_camera event.
+
+Example:
+
+```js
+event.isBrandedCamera; // true
+```
+
+#### `brandedCamera`
+
+The brandedCamera object from Messenger event.
+
+Example:
+
+```js
+event.brandedCamera;
+// {
+//   contentIds: ['<CAMERA-EFFECT-ID>', '<CAMERA-EFFECT-ID>'],
+//   event: 'dismiss',
+// }
+```

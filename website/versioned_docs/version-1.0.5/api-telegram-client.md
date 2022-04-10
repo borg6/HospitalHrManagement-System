@@ -433,4 +433,149 @@ client.sendContact(
   CHAT_ID,
   {
     phoneNumber: '886123456789',
- 
+    firstName: 'first',
+  },
+  { lastName: 'last' }
+);
+```
+
+<br />
+
+#### `sendChatAction(chatId, action)` - [Official Docs](https://core.telegram.org/bots/api/#sendchataction)
+
+Tells the user that something is happening on the bot's side.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| action | `String`                          | Type of action to broadcast.                                             |
+
+Example:
+
+```js
+client.sendChatAction(CHAT_ID, 'typing');
+```
+
+<br />
+
+### Get API
+
+#### `getMe` - [Official Docs](https://core.telegram.org/bots/api/#getme)
+
+Gets bot's information.
+
+Example:
+
+```js
+client.getMe().then((result) => {
+  console.log(result);
+  // {
+  //   id: 313534466,
+  //   firstName: 'first',
+  //   username: 'a_bot'
+  // }
+});
+```
+
+<br />
+
+#### `getUserProfilePhotos(userId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#getuserprofilephotos)
+
+Gets a list of profile pictures for a user.
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `String` | Unique identifier of the target user. |
+| options | `Object` | Other optional parameters             |
+
+Example:
+
+```js
+client.getUserProfilePhotos(USER_ID, { limit: 1 }).then((result) => {
+  console.log(result);
+  // {
+  //   totalCount: 3,
+  //   photos: [
+  //     [
+  //       {
+  //         fileId:
+  //           'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABHahi76pN-aO0UoDA050',
+  //         fileSize: 14650,
+  //         width: 160,
+  //         height: 160,
+  //       },
+  //       {
+  //         fileId:
+  //           'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABKCfooqTgFUX0EoD5B1C',
+  //         fileSize: 39019,
+  //         width: 320,
+  //         height: 320,
+  //       },
+  //       {
+  //         fileId:
+  //           'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pC9K3UpI0koD1B1C',
+  //         fileSize: 132470,
+  //         width: 640,
+  //         height: 640,
+  //       },
+  //     ],
+  //   ],
+  // }
+});
+```
+
+<br />
+
+#### `getFile(fileId)` - [Official Docs](https://core.telegram.org/bots/api/#getfile)
+
+Gets basic info about a file and prepare it for downloading.
+
+| Param  | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+| fileId | `String` | File identifier to get info about. |
+
+Example:
+
+```js
+client
+  .getFile('UtAqweADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pM4A1UpI0koD65K2')
+  .then((file) => {
+    console.log(file);
+    // {
+    //   fileId: 'UtAqweADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pM4A1UpI0koD65K2',
+    //   fileSize: 106356,
+    //   filePath: 'photos/1068230105874016297.jpg',
+    // }
+  });
+```
+
+<br />
+
+#### `getFileLink(fileId)`
+
+Gets link of the file.
+
+| Param  | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+| fileId | `String` | File identifier to get info about. |
+
+Example:
+
+```js
+client
+  .getFileLink('UtAqweADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pM4A1UpI0koD65K2')
+  .then((link) => {
+    console.log(link);
+    // 'https://api.telegram.org/file/bot<ACCESS_TOKEN>/photos/1068230105874016297.jpg'
+  });
+```
+
+<br />
+
+#### `getChat(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#getchat)
+
+Gets up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.)
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</c

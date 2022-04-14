@@ -848,4 +848,95 @@ client.unbanChatMember(CHAT_ID, USER_ID);
 
 Restricts a user in a supergroup
 
-| Param   | 
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| userId  | `Number`                          | Unique identifier of the target user.                                    |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.restrictChatMember(CHAT_ID, USER_ID, { canSendMessages: true });
+```
+
+<br />
+
+#### `promoteChatMember(chatId, userId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#promotechatmember)
+
+Promotes or demotes a user in a supergroup or a channel.
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| userId  | `Number`                          | Unique identifier of the target user.                                    |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.promoteChatMember(CHAT_ID, USER_ID, {
+  canChangeInfo: true,
+  canInviteUsers: true,
+});
+```
+
+<br />
+
+#### `exportChatInviteLink(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#exportchatinvitelink)
+
+Exports an invite link to a supergroup or a channel.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.exportChatInviteLink(CHAT_ID);
+```
+
+<br />
+
+#### `setChatPhoto(chatId, photo)` - [Official Docs](https://core.telegram.org/bots/api/#setchatphoto)
+
+Sets a new profile photo for the chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| photo  | `String`                          | Pass a file id (recommended) or HTTP URL to send photo.                  |
+
+Example:
+
+```js
+client.setChatPhoto(CHAT_ID, 'https://example.com/image.png');
+```
+
+<br />
+
+#### `deleteChatPhoto(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#deletechatphoto)
+
+Deletes a chat photo.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.deleteChatPhoto(CHAT_ID);
+```
+
+<br />
+
+#### `setChatTitle(chatId, title)` - [Official Docs](https://core.telegram.org/bots/api/#setchattitle)
+
+Changes the title of a chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| title  | `String`                          | New chat title, 1

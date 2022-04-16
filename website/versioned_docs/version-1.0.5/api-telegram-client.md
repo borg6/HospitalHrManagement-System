@@ -1130,4 +1130,116 @@ client.answerPreCheckoutQuery('UNIQUE_ID', true);
 Send answers to an inline query.
 
 | Param         | Type                                                                                                | Description                                               |
-| ------------- | -------------------------------
+| ------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| inlineQueryId | `String`                                                                                            | Unique identifier of the query.                           |
+| results       | <code>Array&lt;[InlineQueryResult](https://core.telegram.org/bots/api#inlinequeryresult)&gt;</code> | Array of object represents one result of an inline query. |
+| options       | `Object`                                                                                            | Additional Telegram query options.                        |
+
+Example:
+
+```js
+client.answerInlineQuery(
+  'INLINE_QUERY_ID',
+  [
+    {
+      type: 'photo',
+      id: 'UNIQUE_ID',
+      photoFileId: 'FILE_ID',
+      title: 'PHOTO_TITLE',
+    },
+    {
+      type: 'audio',
+      id: 'UNIQUE_ID',
+      audioFileId: 'FILE_ID',
+      caption: 'AUDIO_TITLE',
+    },
+  ],
+  {
+    cacheTime: 1000,
+  }
+);
+```
+
+<br />
+
+### Game API
+
+#### `sendGame(chatId, gameShortName [, options])` - [Official Docs](https://core.telegram.org/bots/api#sendgame)
+
+Sends a game.
+
+| Param         | Type                              | Description                                                              |
+| ------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId        | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| gameShortName | String                            | Short name of the game.                                                  |
+| options       | `Object`                          | Additional Telegram query options.                                       |
+
+Example:
+
+```js
+client.sendGame(CHAT_ID, 'Mario Bros.', {
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `setGameScore(userId, score [, options])` - [Official Docs](https://core.telegram.org/bots/api#setgamescore)
+
+Sets the score of the specified user in a game.
+
+| Param   | Type                              | Description                        |
+| ------- | --------------------------------- | ---------------------------------- |
+| userId  | <code>Number &#124; String</code> | User identifier.                   |
+| score   | Number                            | New score, must be non-negative.   |
+| options | `Object`                          | Additional Telegram query options. |
+
+Example:
+
+```js
+client.setGameScore(USER_ID, 999);
+```
+
+<br />
+
+#### `getGameHighScores(userId [, options])` - [Official Docs](https://core.telegram.org/bots/api#getgamehighscores)
+
+Gets data for high score tables.
+
+| Param   | Type                              | Description                        |
+| ------- | --------------------------------- | ---------------------------------- |
+| userId  | <code>Number &#124; String</code> | User identifier.                   |
+| options | `Object`                          | Additional Telegram query options. |
+
+Example:
+
+```js
+client.getGameHighScores(USER_ID).then((scores) => {
+  console.log(scores);
+  // [
+  //   {
+  //     position: 1,
+  //     user: {
+  //       id: 427770117,
+  //       isBot: false,
+  //       firstName: 'first',
+  //     },
+  //     score: 999,
+  //   },
+  // ]
+});
+```
+
+<br />
+
+### Others
+
+#### `forwardMessage(chatId, fromChatId, messageId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#forwardmessage)
+
+Forwards messages of any kind.
+
+| Param      | Type                              | Description                                                                            |
+| ---------- | --------------------------------- | -------------------------------------------------------------------------------------- |
+| chatId     | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target supergroup or channel. |
+| fromChatId | <code>Number &#124; String</code> | Unique identifier for the chat where the original message was sent.                    |
+| messageId  | `Number`           

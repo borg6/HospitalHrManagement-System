@@ -222,4 +222,166 @@ context.sendLocation(
 
 <br />
 
-#### `sendVenue(venue [, options])` - [Official Docs](https://core.telegram.org/
+#### `sendVenue(venue [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvenue)
+
+Sends information about a venue.
+
+| Param           | Type     | Description                               |
+| --------------- | -------- | ----------------------------------------- |
+| venue           | `Object` | Object contains information of the venue. |
+| venue.latitude  | `Number` | Latitude of the venue.                    |
+| venue.longitude | `Number` | Longitude of the venue.                   |
+| venue.title     | `String` | Name of the venue.                        |
+| venue.address   | `String` | Address of the venue.                     |
+| options         | `Object` | Other optional parameters.                |
+
+Example:
+
+```js
+context.sendVenue(
+  {
+    latitude: 30,
+    longitude: 45,
+    title: 'a_title',
+    address: 'an_address',
+  },
+  {
+    disableNotification: true,
+  }
+);
+```
+
+<br />
+
+#### `sendContact(contact [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendcontact)
+
+Sends phone contacts.
+
+| Param               | Type     | Description                                 |
+| ------------------- | -------- | ------------------------------------------- |
+| contact             | `Object` | Object contains information of the contact. |
+| contact.phoneNumber | `String` | Phone number of the contact.                |
+| contact.firstName   | `String` | First name of the contact.                  |
+| options             | `Object` | Other optional parameters.                  |
+
+Example:
+
+```js
+context.sendContact(
+  {
+    phoneNumber: '886123456789',
+    firstName: 'first',
+  },
+  { lastName: 'last' }
+);
+```
+
+<br />
+
+#### `sendChatAction(action)` - [Official Docs](https://core.telegram.org/bots/api/#sendchataction)
+
+Tells the user that something is happening on the bot's side.
+
+| Param  | Type     | Description                  |
+| ------ | -------- | ---------------------------- |
+| action | `String` | Type of action to broadcast. |
+
+Example:
+
+```js
+context.sendChatAction('typing');
+```
+
+<br />
+
+### Get API
+
+#### `getUserProfilePhotos(options)` - [Official Docs](https://core.telegram.org/bots/api/#getuserprofilephotos)
+
+Gets a list of profile pictures for a user.
+
+| Param   | Type     | Description               |
+| ------- | -------- | ------------------------- |
+| options | `Object` | Other optional parameters |
+
+Example:
+
+```js
+context.getUserProfilePhotos().then((result) => {
+  console.log(result);
+  // {
+  //   totalCount: 3,
+  //   photos: [
+  //     [
+  //       {
+  //         fileId: 'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABHahi76pN-aO0UoDA050',
+  //         fileSize: 14650,
+  //         width: 160,
+  //         height: 160,
+  //       },
+  //       {
+  //         fileId: 'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABKCfooqTgFUX0EoD5B1C',
+  //         fileSize: 39019,
+  //         width: 320,
+  //         height: 320,
+  //       },
+  //       {
+  //         fileId: 'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pC9K3UpI0koD1B1C',
+  //         fileSize: 132470,
+  //         width: 640,
+  //         height: 640,
+  //       },
+  //     ],
+  //   ],
+  // }
+});
+```
+
+#### `getChat()` - [Official Docs](https://core.telegram.org/bots/api/#getchat)
+
+Gets up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.)
+
+Example:
+
+```js
+context.getChat().then((result) => {
+  console.log(result);
+  // {
+  //   id: 313534466,
+  //   firstName: 'first',
+  //   lastName: 'last',
+  //   username: 'username',
+  //   type: 'private',
+  // }
+});
+```
+
+<br />
+
+#### `getChatAdministrators()` - [Official Docs](https://core.telegram.org/bots/api/#getchatadministrators)
+
+Gets a list of administrators in the chat.
+
+Example:
+
+```js
+context.getChatAdministrators().then((result) => {
+  console.log(result);
+  // [
+  //   {
+  //     user: {
+  //       id: 313534466,
+  //       firstName: 'first',
+  //       lastName: 'last',
+  //       username: 'username',
+  //       languangeCode: 'zh-TW',
+  //     },
+  //     status: 'creator',
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `getCha

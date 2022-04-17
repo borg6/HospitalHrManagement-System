@@ -384,4 +384,146 @@ context.getChatAdministrators().then((result) => {
 
 <br />
 
-#### `getCha
+#### `getChatMembersCount()` - [Official Docs](https://core.telegram.org/bots/api/#getchatmemberscount)
+
+Gets the number of members in the chat.
+
+Example:
+
+```js
+context.getChatMembersCount().then((result) => {
+  console.log(result);
+  // '6'
+});
+```
+
+<br />
+
+#### `getChatMember(userId)` - [Official Docs](https://core.telegram.org/bots/api/#getchatmember)
+
+Gets information about a member of the chat.
+
+| Param  | Type     | Description                           |
+| ------ | -------- | ------------------------------------- |
+| userId | `Number` | Unique identifier of the target user. |
+
+Example:
+
+```js
+context.getChatMember(USER_ID).then((result) => {
+  console.log(result);
+  // {
+  //   user: {
+  //     id: 313534466,
+  //     firstName: 'first',
+  //     lastName: 'last',
+  //     username: 'username',
+  //     languangeCode: 'zh-TW',
+  //   },
+  //   status: 'creator',
+  // }
+});
+```
+
+<br />
+
+### Updating API
+
+#### `editMessageText(text [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagetext)
+
+Edits text and game messages sent by the bot or via the bot (for inline bots).
+
+| Param   | Type     | Description                |
+| ------- | -------- | -------------------------- |
+| text    | `String` | New text of the message.   |
+| options | `Object` | Other optional parameters. |
+
+Example:
+
+```js
+context.editMessageText('new_text');
+```
+
+<br />
+
+#### `editMessageCaption(caption [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagecaption)
+
+Edits captions of messages sent by the bot or via the bot (for inline bots).
+
+| Param   | Type     | Description                 |
+| ------- | -------- | --------------------------- |
+| caption | `String` | New caption of the message. |
+| options | `Object` | Other optional parameters.  |
+
+Example:
+
+```js
+context.editMessageCaption('new_caption');
+```
+
+<br />
+
+#### `editMessageReplyMarkup(replyMarkup [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagereplymarkup)
+
+Edits only the reply markup of messages sent by the bot or via the bot (for inline bots).
+
+| Param       | Type     | Description                     |
+| ----------- | -------- | ------------------------------- |
+| replyMarkup | `Object` | New replyMarkup of the message. |
+| options     | `Object` | Other optional parameters.      |
+
+Example:
+
+```js
+context.editMessageReplyMarkup({
+  keyboard: [[{ text: 'new_button_1' }, { text: 'new_button_2' }]],
+  resizeKeyboard: true,
+  oneTimeKeyboard: true,
+});
+```
+
+<br />
+
+#### `deleteMessage(messageId)` - [Official Docs](https://core.telegram.org/bots/api/#deletemessage)
+
+Deletes a message, including service messages.
+
+| Param     | Type     | Description                          |
+| --------- | -------- | ------------------------------------ |
+| messageId | `Number` | Identifier of the message to delete. |
+
+Example:
+
+```js
+context.deleteMessage(MESSAGE_ID);
+```
+
+<br />
+
+#### `editMessageLiveLocation(location [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagelivelocation)
+
+Edit live location messages sent by the bot or via the bot (for inline bots).
+
+| Param              | Type     | Description                                 |
+| ------------------ | -------- | ------------------------------------------- |
+| location           | `Object` | Object contains new latitude and longitude. |
+| location.latitude  | `Number` | Latitude of new location.                   |
+| location.longitude | `Number` | Longitude of new location.                  |
+| options            | `Object` | Other optional parameters.                  |
+
+Example:
+
+```js
+context.editMessageLiveLocation({
+  latitude: 30,
+  longitude: 45,
+});
+```
+
+<br />
+
+#### `stopMessageLiveLocation(options)` - [Official Docs](https://core.telegram.org/bots/api/#stopmessagelivelocation)
+
+Stop updating a live location message sent by the bot or via the bot (for inline bots) before _live_period_ expires.
+
+| Param   | Type  

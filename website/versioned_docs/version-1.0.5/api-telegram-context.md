@@ -526,4 +526,163 @@ context.editMessageLiveLocation({
 
 Stop updating a live location message sent by the bot or via the bot (for inline bots) before _live_period_ expires.
 
-| Param   | Type  
+| Param   | Type     | Description                |
+| ------- | -------- | -------------------------- |
+| options | `Object` | Other optional parameters. |
+
+Example:
+
+```js
+context.stopMessageLiveLocation();
+```
+
+### Group API
+
+#### `kickChatMember(userId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#kickchatmember)
+
+Kicks a user from the group, the supergroup or the channel.
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `Number` | Unique identifier of the target user. |
+| options | `Object` | Other optional parameters.            |
+
+Example:
+
+```js
+context.kickChatMember(USER_ID, { untilDate: UNIX_TIME });
+```
+
+<br />
+
+#### `unbanChatMember(userId)` - [Official Docs](https://core.telegram.org/bots/api/#unbanchatmember)
+
+Unbans a previously kicked user in the supergroup or channel.
+
+| Param  | Type     | Description                           |
+| ------ | -------- | ------------------------------------- |
+| userId | `Number` | Unique identifier of the target user. |
+
+Example:
+
+```js
+context.unbanChatMember(USER_ID);
+```
+
+<br />
+
+#### `restrictChatMember(userId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#restrictchatmember)
+
+Restricts a user in the supergroup
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `Number` | Unique identifier of the target user. |
+| options | `Object` | Other optional parameters.            |
+
+Example:
+
+```js
+context.restrictChatMember(USER_ID, { canSendMessages: true });
+```
+
+<br />
+
+#### `promoteChatMember(userId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#promotechatmember)
+
+Promotes or demotes a user in the supergroup or the channel.
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `Number` | Unique identifier of the target user. |
+| options | `Object` | Other optional parameters.            |
+
+Example:
+
+```js
+context.promoteChatMember(USER_ID, {
+  canChangeInfo: true,
+  canInviteUsers: true,
+});
+```
+
+<br />
+
+#### `exportChatInviteLink()` - [Official Docs](https://core.telegram.org/bots/api/#exportchatinvitelink)
+
+Exports an invite link to the supergroup or the channel.
+
+Example:
+
+```js
+context.exportChatInviteLink();
+```
+
+<br />
+
+#### `setChatPhoto(photo)` - [Official Docs](https://core.telegram.org/bots/api/#setchatphoto)
+
+Sets a new profile photo for the chat.
+
+| Param | Type     | Description                                             |
+| ----- | -------- | ------------------------------------------------------- |
+| photo | `String` | Pass a file id (recommended) or HTTP URL to send photo. |
+
+Example:
+
+```js
+context.setChatPhoto('https://example.com/image.png');
+```
+
+<br />
+
+#### `deleteChatPhoto()` - [Official Docs](https://core.telegram.org/bots/api/#deletechatphoto)
+
+Deletes the chat photo.
+
+Example:
+
+```js
+context.deleteChatPhoto();
+```
+
+<br />
+
+#### `setChatTitle(title)` - [Official Docs](https://core.telegram.org/bots/api/#setchattitle)
+
+Changes the title of the chat.
+
+| Param | Type     | Description                       |
+| ----- | -------- | --------------------------------- |
+| title | `String` | New chat title, 1-255 characters. |
+
+Example:
+
+```js
+context.setChatTitle('New Title');
+```
+
+<br />
+
+#### `setChatDescription(description)` - [Official Docs](https://core.telegram.org/bots/api/#setchatdescription)
+
+Changes the description of the supergroup or the channel.
+
+| Param       | Type     | Description                             |
+| ----------- | -------- | --------------------------------------- |
+| description | `String` | New chat description, 0-255 characters. |
+
+Example:
+
+```js
+context.setChatDescription('New Description');
+```
+
+<br />
+
+#### `setChatStickerSet(stickerSetName)` - [Official Docs](https://core.telegram.org/bots/api/#setchatstickerset)
+
+Set a new group sticker set for the supergroup.
+
+| Param          | Type     | Description                                                 |
+| -------------- | -----

@@ -600,4 +600,92 @@ event.callbackQuery;
 
 #### `isPayload`
 
-Determine if the event is a callback query even
+Determine if the event is a callback query event.
+
+Example:
+
+```js
+event.isPayload; // true
+```
+
+#### `payload`
+
+The payload string from Telegram raw event.
+
+Example:
+
+```js
+event.payload; // 'DEVELOPER_DEFINED_PAYLOAD'
+```
+
+#### `isShippingQuery`
+
+Determine if the event is a shipping query event.
+
+Example:
+
+```js
+event.isShippingQuery; // true
+```
+
+#### `shippingQuery`
+
+The shipping query from Telegram raw event.
+
+Example:
+
+```js
+event.shippingQuery;
+// {
+//   id: '123',
+//   from: {
+//     id: 427770117,
+//     is_bot: false,
+//     first_name: 'first',
+//     last_name: 'last',
+//     language_code: 'en',
+//   },
+//   invoice_payload: 'payload',
+//   shipping_address: {
+//     country_code: '...',
+//     state: '...',
+//     city: '...',
+//     street_line1: '...',
+//     street_line2: '...',
+//     post_code: '...',
+//   },
+// }
+```
+
+#### `isPreCheckoutQuery`
+
+Determine if the event is a pre checkout query event.
+
+Example:
+
+```js
+event.isPreCheckoutQuery; // true
+```
+
+#### `preCheckoutQuery`
+
+The pre checkout query from Telegram raw event.
+
+Example:
+
+```js
+event.preCheckoutQuery;
+// {
+//   id: '123',
+//   from: {
+//     id: 427770117,
+//     is_bot: false,
+//     first_name: 'first',
+//     last_name: 'last',
+//     language_code: 'en',
+//   },
+//   currency: 'USD',
+//   total_amount: 100,
+//   invoice_payload: 'payload',
+// }
+```

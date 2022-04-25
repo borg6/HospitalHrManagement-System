@@ -34,4 +34,97 @@ The following sections are step by step tutorials about how to send messages wit
 
 For making your LIFF pages work, your typical workflow should look like this:
 
-- Creating a LINE Login channel in [LINE Developers console](https://developers.line.
+- Creating a LINE Login channel in [LINE Developers console](https://developers.line.biz/console/)
+- Adding a LIFF app in the LINE Login channel
+- Developing the LIFF page
+
+### Creating LINE Login Channel
+
+First of all, you need to open [LINE Developers Console](https://developers.line.biz/console/) to create a LINE Login channel.
+
+For more details about creating a LINE Login channel, please checkout [Creating A Provider and Channel](https://developers.line.biz/en/docs/liff/getting-started/#creating-a-provider-and-channel).
+
+### Adding LIFF in the LINE Login Channel
+
+- Click the "LIFF" tab in the LINE Login Channel you just created.
+- Click the "Add" button
+- Fill in the "Endpoint URL" in this format: `https://{your domain}.ngrok.io/liff`
+- Fill in other values
+
+For more details about registering a LIFF app, please checkout [Registering LIFF App](https://developers.line.biz/en/docs/liff/registering-liff-apps/#registering-liff-app).
+
+> **Note:** [ngrok](https://ngrok.com/) is a well-known service that provides public HTTPS URLs for your local server using the tunnel. When you develop your bot, you may want to use ngrok to get a temporary HTTPS URL.
+
+### Environment Variables Setting
+
+If you are familiar with any official Bottender example, you may already know about how to use the `.env` file to manage your environment variables in your local project.
+
+In this case, you need to add another `LINE_LIFF_ID` env to `.env` file, so there are at least those three LINE related environment variables in your file:
+
+```
+LINE_ACCESS_TOKEN={your LINE access token from LINE Messaging API channel}
+LINE_CHANNEL_SECRET={your LINE channel secret from LINE Messaging API channel}
+LINE_LIFF_ID={your LIFF id from LINE Login channel}
+```
+
+You could find your LIFF ID in the LIFF URL. The format of LIFF URL looks like `line://app/{your LIFF ID}`.
+
+For more details about LIFF ID, please checkout [Registering LIFF App (in step 4)](https://developers.line.biz/en/docs/liff/registering-liff-apps/#registering-liff-app).
+
+### Adding Custom Routes to HTTP Server for LIFF Pages
+
+To serve LIFF webpages, we need to add additional routes to the server. Fortunately, [custom server](advanced-guides-custom-server.md#the-concept) come to the rescue!
+
+You could use express, koa, restify, or whatever you like, but we are going to use express in this guide. Before going down, make sure that you set up correctly according to [this guide](advanced-guides-custom-server.md#express).
+
+After having a custom server, you could add the following two routes into `server.js` to handle requests from LIFF.
+
+```js
+server.get('/send-id', (req, res) => {
+  res.json({ id: process.env.LINE_LIFF_ID });
+});
+
+server.get('/liff', (req, res) => {
+  const filename = path.join(`${__dirname}/liff.html`);
+  res.sendFile(filename);
+});
+```
+
+### Initializing the LIFF Page
+
+Before starting using any feature provided by LIFF, you need to create a `liff.html` file in the root directory of the project and copy the following code into it for LIFF initialization:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOTTENDER LINE LIFF V2 DEMO</title>
+  </head>
+
+  <body>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <script>
+      function initializeLiff(myLiffId) {
+        liff
+          .init({
+            liffId: myLiffId,
+          })
+          .then(() => {
+            alert('LIFF init success!');
+          })
+          .catch((err) => {
+            alert(`error: ${JSON.stringify(err)}`);
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch(`/send-id`)
+          .then((reqResponse) => reqResponse.json())
+          .then((jsonResponse) => {
+            let myLiffId = jsonResponse.id;
+            initializeLiff(myLiffId);
+          })
+          .catch((err) => {
+            alert(`error: ${JSON.stringify

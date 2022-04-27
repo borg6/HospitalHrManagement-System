@@ -29,4 +29,94 @@ const config = {
 
 const app = express();
 app.post('/webhooks/line', line.middleware(config), (req, res) => {
-  Promise.all(req.body.events.map(handleEv
+  Promise.all(req.body.events.map(handleEvent)).then((result) =>
+    res.json(result)
+  );
+});
+
+const client = new line.Client(config);
+function handleEvent(event) {
+  if (event.type !== 'message' || event.message.type !== 'text') {
+    return Promise.resolve(null);
+  }
+
+  return client.replyMessage(event.replyToken, {
+    type: 'text',
+    text: event.message.text,
+  });
+}
+
+app.listen(3000);
+```
+
+If you have experienced in bot projects, you can figure out that 80% of the above code is duplicated from project to project. That's why we need an excellent bot framework, i.e., Bottender, to save your development time from redundant works.
+
+### Create a Bot Project by Bottender
+
+By Bottender, you can make a simple echo bot in the 3 steps:
+
+First, create a LINE Bot project by one-line command:
+
+```sh
+npx create-bottender-app my-app
+```
+
+Finish the LINE project environment setup. Please refer to LINE environment [setup guide](./channel-line-setup.md), if you are not familiar with it.
+
+Finally, add Bot echo feature by editing `src/index.js` file and add one line of code.
+
+```js
+module.exports = function App(context) {
+  await context.sendText(context.event.text);
+};
+```
+
+## Migrate Your LINE SDK Bot Project to Bottender
+
+In the case that you have an existing bot project, you can follow the below steps to migrate your bot from LINE SDK to Bottender.
+
+To begin with, install Bottender and uninstall LINE Bot SDK.
+
+```sh
+// Using npm
+npm install bottender@next
+npm uninstall @line/bot-sdk
+
+// Using yarn
+yarn add bottender@next
+yarn remove @line/bot-sdk
+```
+
+Then, create your Bottender config file.
+
+Edit your `bottender.config.js` file as:
+
+```js
+module.exports = {
+  enabled: true,
+  path: '/webhooks/line',
+  accessToken: process.env.LINE_ACCESS_TOKEN,
+  channelSecret: process.env.LINE_CHANNEL_SECRET,
+};
+```
+
+Create the main logic of your bot project by editing your bot logic in `index.js`:
+
+```js
+module.exports = function App(context) {
+  await context.sendText(context.event.text);
+};
+```
+
+Create an environment file `.env`, and fill in access token and channel secret:
+
+```
+LINE_ACCESS_TOKEN=
+LINE_CHANNEL_SECRET=
+```
+
+Finally, run your bot by the following command:
+
+```sh
+npx bottender start
+```

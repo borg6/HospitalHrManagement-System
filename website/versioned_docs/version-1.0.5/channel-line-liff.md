@@ -127,4 +127,96 @@ Before starting using any feature provided by LIFF, you need to create a `liff.h
             initializeLiff(myLiffId);
           })
           .catch((err) => {
-            alert(`error: ${JSON.stringify
+            alert(`error: ${JSON.stringify(err)}`);
+          });
+      });
+    </script>
+  </body>
+</html>
+```
+
+It is worth mentioning that `liff.init()` and some other `liff` methods return `Promise` as results, so you should handle those asynchronous code carefully.
+
+### Sending Messages from LIFF page
+
+After initializing the LIFF page, we can call `liff.sendMessages` to send messages in the thread imperatively. For example:
+
+```js
+liff.sendMessages([
+  {
+    type: 'text',
+    text: 'Hello, LIFF!',
+  },
+]);
+```
+
+Up to five texts, images, videos, audios, locations, templates (only a URI action can be set as an action), and flex messages are acceptable.
+
+Let's add a click event listener to send messages on click. You could replace the body tag in `liff.html` with the following implementation:
+
+```html
+<body>
+  <button id="button">send test message</button>
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+  <script>
+    function initializeLiff(myLiffId) {
+      liff
+        .init({
+          liffId: myLiffId,
+        })
+        .then(() => {
+          setButtonHandler();
+        })
+        .catch((err) => {
+          alert(`error: ${JSON.stringify(err)}`);
+        });
+    }
+
+    function setButtonHandler() {
+      let button = document.getElementById('button');
+      button.addEventListener('click', () => {
+        window.alert('clicked: sendMessages');
+        liff
+          .sendMessages([
+            {
+              type: 'text',
+              text: 'Hello, LIFF!',
+            },
+          ])
+          .then(() => {
+            alert('message sent');
+            liff.closeWindow();
+          })
+          .catch((err) => {
+            window.alert('Error sending message: ' + err);
+          });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch(`/send-id`)
+        .then((reqResponse) => reqResponse.json())
+        .then((jsonResponse) => {
+          let myLiffId = jsonResponse.id;
+          initializeLiff(myLiffId);
+        })
+        .catch((err) => {
+          alert(`error: ${JSON.stringify(err)}`);
+        });
+    });
+  </script>
+</body>
+```
+
+### Sending LIFF LINK to the User
+
+To test the LIFF page, you could replace the code in `index.js` to send the LIFF URL to the user:
+
+```js
+module.exports = async function App(context) {
+  const liffUrl = `https://liff.line.me/${process.env.LINE_LIFF_ID}`;
+  await context.sendText(liffUrl);
+};
+```
+
+Now, you could execute `yarn dev` or `npm run dev` to start the server, and you have a LINE Bot with a simple LIFF page.

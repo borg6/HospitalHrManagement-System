@@ -136,4 +136,137 @@ await context.sendImage({
 
 ### Video
 
-To send a `Video,` you need to prepare the URL of the video file and the URL of a preview
+To send a `Video,` you need to prepare the URL of the video file and the URL of a preview image. The user can play the video by tapping on the preview image.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680791-38cfac00-1cd4-11ea-8d1f-ea98199ae363.png"/></p>
+
+```js
+await context.sendVideo({
+  originalContentUrl: 'https://example.com/video.mp4',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+> **Note:**
+>
+> - The URLs must use HTTPS over TLS 1.2 or later.
+> - For more info, please refer to LINE's official doc, [`Video Message`](https://developers.line.biz/en/reference/messaging-api/#video-message)
+
+### Audio
+
+To send an `Audio` file, you need to prepare the URL of the file and the duration of the audio.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680776-3705e880-1cd4-11ea-843b-782a95aaa30d.png"/></p>
+
+```js
+await context.sendAudio({
+  originalContentUrl: 'https://example.com/audio.mp3',
+  duration: 240000,
+});
+```
+
+> **Note:**
+>
+> - The URLs must use HTTPS over TLS 1.2 or later.
+> - For more info, please refer to LINE's official doc, [`Audio Message`](https://developers.line.biz/en/reference/messaging-api/#audio-message)
+
+### Location
+
+To send your location information to users, you have to prepare a title, address, and latitude and longitude.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680786-38371580-1cd4-11ea-9755-e8f335183ebd.png"/></p>
+
+```js
+await context.sendLocation({
+  title: 'my location',
+  address: '〒150-0002 東京都渋谷区渋谷２丁目２１−１',
+  latitude: 35.65910807942215,
+  longitude: 139.70372892916203,
+});
+```
+
+> **Note:**
+>
+> - The URLs must use HTTPS over TLS 1.2 or later.
+> - For more info, please refer to LINE's official doc, [`Location Message`](https://developers.line.biz/en/reference/messaging-api/#location-message)
+
+### Imagemap
+
+`Imagemap` offers very flexible and interactive usage. It is an image with multiple tappable areas. When a user taps one of these areas, the user can link to a webpage or send a message on their behalf.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680785-38371580-1cd4-11ea-98ce-c41438379fe8.png"/></p>
+
+```js
+const imagemap = {
+  baseUrl: 'https://example.com/bot/images/rm001',
+  baseSize: {
+    height: 1040,
+    width: 1040,
+  },
+  actions: [
+    {
+      type: 'uri',
+      linkUri: 'https://example.com/',
+      area: {
+        x: 0,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+    {
+      type: 'message',
+      text: 'hello',
+      area: {
+        x: 520,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+  ],
+};
+const altText = 'this is an imagemap';
+await context.sendImagemap(altText, imagemap);
+```
+
+> **Note:**
+> For more info, please refer to LINE's official doc, [`Imagemap Message`](https://developers.line.biz/en/reference/messaging-api/#imagemap-message)
+
+## Sending Template Messages
+
+`Template message` is an interactive gallery composed of image, video, title, subtitle, and buttons.
+
+`Template message` is the key to offer rich media interaction. It is usually used in the scenario of display multiple choices and next actions to the user, e.g., applying coupons, booking a room, making a reservation.
+
+> **Note:**
+> Compared with `Template Message,` we highly depend on [`Flex Message`](./channel-line-flex.md) once it is available. There are two main reasons:
+>
+> - `Flex Message` supports both desktop and mobile devices, while `Template Message` only supports mobile devices.
+> - `Flex Message` is an HTML-like chat UI, which creates a better, engaging user experience.
+
+```js
+const template = {
+  type: 'buttons',
+  thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+  title: 'Menu',
+  text: 'Please select',
+  actions: [
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+};
+const altText = 

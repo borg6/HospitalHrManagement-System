@@ -561,4 +561,156 @@ const quickReply = {
 ```
 
 > **Note:**
-> For more info, please refer to LINE's official doc, [`Message Actions`](https://developers.line.biz/en/reference/messagin
+> For more info, please refer to LINE's official doc, [`Message Actions`](https://developers.line.biz/en/reference/messaging-api/#message-action)
+
+### Postback Quick Replay
+
+When the action is tapped, a postback event is returned via webhook with the specified string in the data property.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+        text: 'Buy',
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+> For more info, please refer to LINE's official doc, [`Postback Actions`](https://developers.line.biz/en/reference/messaging-api/#postback-action)
+
+### URI Quick Reply
+
+The URI opened when the action is performed. The available schemes for URI are `http`, `https,` `line,` and `tel.` For the LINE URL scheme, you can trigger the following actions:
+
+- Opening the camera and camera roll
+- Opening the location screen
+- Sharing your LINE official account
+- Opening your LINE official account's Timeline and account page
+- Sending text messages
+- Opening profile information
+- Opening common LINE screens
+- Opening LINE settings screens
+- Opening the Sticker Shop
+- Opening the Theme Shop
+- Making phone calls with LINE Out
+- Opening a LIFF app
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'uri',
+        label: 'View details',
+        uri: 'http://example.com/page/222',
+        altUri: {
+          desktop: 'http://example.com/pc/page/222',
+        },
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - The altUri.desktop property is supported only when you set URI actions in Flex Messages.
+> - For more information about the LINE URL scheme, see Using the [`LINE URL Scheme`](https://developers.line.biz/en/docs/line-login/using-line-url-scheme/).
+> - For more info, please refer to LINE's official doc, [`URI Actions`](https://developers.line.biz/en/reference/messaging-api/#uri-action)
+
+### Datetime Picker Quick Reply
+
+When a control associated with this action is tapped, a postback event is returned via webhook with the date and time selected by the user from the date and time selection dialog. The `Datetime Picker` action does not support time zones.
+
+There are three different modes:
+
+- date: Pick a date
+- time: Pick time
+- datetime: Pick date and time
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'datetimepicker',
+      label: 'Select date',
+      data: 'storeId=12345',
+      mode: 'datetime',
+      initial: '2017-12-25t00:00',
+      max: '2018-01-24t23:59',
+      min: '2017-12-25t00:00',
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - The datetime picker action is only supported on versions equal to or later than LINE 7.9.0 for iOS and LINE 7.12.0 for Android.
+> - For more info, please refer to LINE's official doc, [`Datatime Picker Actions`](https://developers.line.biz/en/reference/messaging-api/#datetime-picker-action).
+
+### Camera Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the camera screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'camera',
+        label: 'Camera',
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - For more info, please refer to LINE's official doc, [`Camera Actions`](https://developers.line.biz/en/reference/messaging-api/#camera-action)
+
+### Camera Roll Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the camera roll screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'cameraRoll',
+        label: 'Camera roll',
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - For more info, please refer to LINE's official doc, [`Camera Roll Actions`](https://developers.line.biz/en/reference/messaging-api/#camera-roll-action)
+
+### Location Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the location screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'location',
+        label

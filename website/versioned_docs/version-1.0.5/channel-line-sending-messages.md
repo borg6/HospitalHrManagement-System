@@ -412,4 +412,153 @@ await context.sendCarouselTemplate(altText, template);
 <p><img width="300" src="https://user-images.githubusercontent.com/662387/70680783-38371580-1cd4-11ea-888e-336a24e67029.png"/></p>
 
 ```js
-c
+const template = [
+  {
+    imageUrl: 'https://example.com/bot/images/item1.jpg',
+    action: {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=111',
+    },
+  },
+  {
+    imageUrl: 'https://example.com/bot/images/item2.jpg',
+    action: {
+      type: 'message',
+      label: 'Yes',
+      text: 'yes',
+    },
+  },
+  {
+    imageUrl: 'https://example.com/bot/images/item3.jpg',
+    action: {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/222',
+    },
+  },
+];
+const altText = 'this is a image carousel template';
+await context.sendImageCarouselTemplate(altText, template);
+```
+
+> **Note:**
+> For more info, please refer to LINE's official doc, [`Image Carousel Template`](https://developers.line.biz/en/reference/messaging-api/#image-carousel)
+
+## Sending Flex Messages
+
+<p><img width="800" src="https://user-images.githubusercontent.com/662387/70701503-6bdf6300-1d07-11ea-86d6-924d676a1f80.png"/></p>
+
+Since we love [`Flex Message`](./channel-line-flex.md) and inspired by its flexiblity and interactive, we wrote a seperate doc, [`Flex Message`](./channel-line-flex.md).
+
+## Sending with Quick Replies
+
+We would recommend you to treat `Quick Reply` as an alternative to user text input.
+
+When a user receives a message that contains `Quick Reply Buttons` from a LINE official account, those buttons appear at the bottom of the chat screen. The user can tap one of the buttons as a reply.
+
+A `Quick Reply` consists of up to 13 `Quick Reply Buttons.` When the user taps a `Quick Reply Button,` the `Quick Reply` dismissed. Then, the title of the tapped button posts to the conversation as a response. Meanwhile, the user triggers the action bound with the `Quick Reply Button.`
+
+`Quick Reply` can be used in a 1:1 chat with a LINE official account, a group, and a room.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680787-38cfac00-1cd4-11ea-92ea-e7a2379ce9c2.png"/></p>
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'cameraRoll',
+        label: 'Send photo',
+      },
+    },
+    {
+      type: 'action',
+      action: {
+        type: 'camera',
+        label: 'Open camera',
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+> For more info, please refer to LINE's official doc, [`Using Quick Reply`](https://developers.line.biz/en/docs/messaging-api/using-quick-reply/)
+
+### Sending Quick Reply
+
+Since `Quick Reply` works as an alternative of user input, you have to send `Quick Reply` as an attachment of other messages, e.g., `Text Message,` `Template Message,` or `Flex.`
+
+#### Sending Quick Reply with Message
+
+```js
+await context.send([
+  {
+    type: 'text',
+    text: 'hello',
+    quickReply,
+  },
+]);
+```
+
+#### Sending Quick Reply with Text Message
+
+```js
+await context.sendText('hello', { quickReply });
+```
+
+#### Sending Quick Reply with Template Message
+
+```js
+await context.sendTemplate(altText, template, { quickReply });
+```
+
+#### Sending Quick Reply with Buttons Template Message
+
+```js
+await context.sendButtonTemplate(altText, template, { quickReply });
+```
+
+#### Sending Quick Reply with Confirm Template Message
+
+```js
+await context.sendConfirmTemplate(altText, template, { quickReply });
+```
+
+#### Sending Quick Reply with Carousel Template Message
+
+```js
+await context.sendCarouselTemplate(altText, template, { quickReply });
+```
+
+#### Sending Quick Reply with Flex Message
+
+```js
+await context.sendFlex(altText, contents, { quickReply });
+```
+
+In the following sections, you can see various types of `Quick Reply.`
+
+### Text Quick Reply
+
+When this action is tapped, the string in the text property is sent as a message from the user.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'message',
+        label: 'Yes',
+        text: 'Yes',
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+> For more info, please refer to LINE's official doc, [`Message Actions`](https://developers.line.biz/en/reference/messagin

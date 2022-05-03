@@ -157,4 +157,39 @@ Once a role is assigned, either `Primary Receiver` or `Secondary Receiver` app g
 ```js
 {
   recipient: {
- 
+    id: '<PSID>'
+  },
+  timestamp: 1458692752478,
+  appRoles: {
+    123456789: ['primary_receiver'],
+  },
+}
+```
+
+> - For more information, you can refer to Facebook's official doc, [Assign App Roles.](https://developers.facebook.com/docs/messenger-platform/handover-protocol/assign-app-roles)
+
+### messaging_handovers
+
+The messaging_handovers webhook event notifies an app's webhook when the following actions happen:
+
+- Thread control is passed to the app
+- Thread control is taken from the app
+- App role is changed
+
+> - For more information, you can refer to Facebook's official doc, [messaging_handovers](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/messaging_handovers)
+
+### standby
+
+For bots using the handover protocol, this callback occurs when a message has been sent to your page, but your app is not the current thread owner.
+
+> - For more information, you can refer to Facebook's official doc, [standby](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/standby)
+
+### echo
+
+This callback occurs when a message has been sent by your page.
+
+It is helpful when your `Primary Receiver` app, e.g., Bottender code, has passed `Thread Control` to a `Secondary Receiver app`, e.g., `Page Inbox`. However, you want to make sure your bot takes `Thread Control` back after a certain amount of time.
+
+You can subscribe to this callback by selecting the message_echoes field when setting up your webhook.
+
+> - For more information, you can refer to Facebook's official doc, [echo](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/message-echoes)

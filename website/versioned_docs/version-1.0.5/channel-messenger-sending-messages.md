@@ -103,4 +103,125 @@ await context.sendFile(fileBuffer, { filename: 'receipt.pdf' });
 
 ![66362686_447994139365537_8885089546354556928_n](https://user-images.githubusercontent.com/662387/69858886-f5397300-12cd-11ea-888a-c93ec4ca7288.png)
 
-In short, `Template message` is an interactive gallery composed of im
+In short, `Template message` is an interactive gallery composed of image, video, title, subtitle, and buttons.
+
+`Template message` is the key to offer rich media interaction. It usually used in the scenario of display multiple choices and next actions to the user, e.g., applying coupon, booking a room, making a reservation.
+
+> **Note:**
+>
+> - If you are familiar with LINE and Messenger, you can find the difference Chat UI approach. While LINE creates an HTML-like, super flexible chat UI, [`Flex Messages`](./channel-line-flex.md), Messenger tends to focus on common chat UI patterns to offer a consistent user experience.
+
+### Generic Template
+
+![22880422_1740199342956641_1916832982102966272_n (1)](https://user-images.githubusercontent.com/662387/69859663-89f0a080-12cf-11ea-82d4-114745d4724d.png)
+
+In a `Generic Template`, you can create up to 10 items in a row. Each item is composed of a title, subtitle, image, and up to 3 buttons.
+
+> **Note:**
+> Please refer to Messenger's official guide of [`Generic Template`](https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic) to find out the latest specification.
+
+```js
+await context.sendGenericTemplate([
+  {
+    title: "Welcome to Peter's Hats",
+    imageUrl: 'https://petersfancybrownhats.com/company_image.png',
+    subtitle: "We've got the right hat for everyone.",
+    defaultAction: {
+      type: 'web_url',
+      url: 'https://peterssendreceiveapp.ngrok.io/view?item=103',
+      messengerExtensions: true,
+      webviewHeightRatio: 'tall',
+      fallbackUrl: 'https://peterssendreceiveapp.ngrok.io/',
+    },
+    buttons: [
+      {
+        type: 'postback',
+        title: 'Start Chatting',
+        payload: 'DEVELOPER_DEFINED_PAYLOAD',
+      },
+    ],
+  },
+]);
+```
+
+### Button Template
+
+![23204276_131607050888932_1057585862134464512_n (1)](https://user-images.githubusercontent.com/662387/69862063-9dead100-12d4-11ea-88ea-f2aef56b59c8.png)
+
+`Button Template` is similar to `Generic Template`; the only difference is the removal of the item image.
+
+> **Note:**
+> Please refer to Messenger's official guide of [`Button Template`](https://developers.facebook.com/docs/messenger-platform/send-messages/template/button) to find out the latest specification.
+
+```js
+await context.sendButtonTemplate('What do you want to do next?', [
+  {
+    type: 'web_url',
+    url: 'https://petersapparel.parseapp.com',
+    title: 'Show Website',
+  },
+  {
+    type: 'postback',
+    title: 'Start Chatting',
+    payload: 'USER_DEFINED_PAYLOAD',
+  },
+]);
+```
+
+### Receipt Template
+
+![23208289_889588377870772_7170760265053503488_n](https://user-images.githubusercontent.com/662387/69862400-4862f400-12d5-11ea-8786-2e7fa03e8408.png)
+
+`Receipt Template` is a template designed for order confirmation.
+
+> **Note:**
+> Please refer to Messenger's official guide of [`Receipt Template`](https://developers.facebook.com/docs/messenger-platform/send-messages/template/receipt) to find out the latest specification.
+
+```js
+await context.sendReceiptTemplate({
+  recipientName: 'Stephane Crozatier',
+  orderNumber: '12345678902',
+  currency: 'USD',
+  paymentMethod: 'Visa 2345',
+  orderUrl: 'http://petersapparel.parseapp.com/order?order_id=123456',
+  timestamp: '1428444852',
+  elements: [
+    {
+      title: 'Classic White T-Shirt',
+      subtitle: '100% Soft and Luxurious Cotton',
+      quantity: 2,
+      price: 50,
+      currency: 'USD',
+      imageUrl: 'http://petersapparel.parseapp.com/img/whiteshirt.png',
+    },
+    {
+      title: 'Classic Gray T-Shirt',
+      subtitle: '100% Soft and Luxurious Cotton',
+      quantity: 1,
+      price: 25,
+      currency: 'USD',
+      imageUrl: 'http://petersapparel.parseapp.com/img/grayshirt.png',
+    },
+  ],
+  address: {
+    street1: '1 Hacker Way',
+    street2: '',
+    city: 'Menlo Park',
+    postalCode: '94025',
+    state: 'CA',
+    country: 'US',
+  },
+  summary: {
+    subtotal: 75.0,
+    shippingCost: 4.95,
+    totalTax: 6.19,
+    totalCost: 56.14,
+  },
+  adjustments: [
+    {
+      name: 'New Customer Discount',
+      amount: 20,
+    },
+    {
+      name: '$10 Off Coupon',
+      amount:

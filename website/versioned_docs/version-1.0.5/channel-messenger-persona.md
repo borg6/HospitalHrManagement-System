@@ -47,4 +47,63 @@ Successfully create persona <PERSONA_ID>
 The response contains a Persona ID that can be used to send future messages. Please note that this ID is private, and it is unique to a Page.
 
 > **Note:**
-> If you are not familiar with settings of `bottender.config.js
+> If you are not familiar with settings of `bottender.config.js`, please refer to [Messenger Setup](./channel-messenger-setup.md)
+
+### Sending Messages as a Persona
+
+Once you have defined the persona, you can invoke it at any time. Once invoked, a virtual persona shows with its icon and sends messages with annotation of the name of the persona and its belonged Page.
+
+In the following code, you can see how to send a message as a specific `Persona`.
+
+```js
+async function App(context) {
+  await context.sendText('hi', { personaId: '<PERSONA_ID>' });
+}
+```
+
+> **Note:**
+> If you haven't created a persona, please refer to the above section [Create a Persona and Get Persona ID](#create-a-persona-and-get-persona-id)
+
+### Using Sender Actions
+
+When a `Persona` begins processing a message, you might set the typing indicator with `Persona Id` to show them that a response is in-progress from a `Persona`. The example code is as follows.
+
+```js
+async function App(context) {
+  await context.sendSenderAction('typing_on');
+  await context.typingOn({ personaId: '<PERSONA_ID>' });
+  await context.typingOff({ personaId: '<PERSONA_ID>' });
+}
+```
+
+## Different Life Span of Personas
+
+In the above section, we have introduced a long term and global `Persona`. If you need a different life span persona, please refer to the following examples.
+
+### Sharing Persona in Whole Context
+
+In the code below, you can indicate whether `Persona` responds to which context.
+
+```js
+async function App(context) {
+  context.usePersona('<PERSONA_ID>');
+  await context.sendText('hi');
+}
+```
+
+### Creating Persona on the Fly
+
+You can create a persona on the fly. It is handy when you don't want to sync your entire database of agents to the Messenger Platform in advance.
+
+```js
+async function App(context) {
+  const { id: personaId } = await context.client.createPersona({
+    name: 'John Mathew',
+    profilePictureUrl: 'https://facebook.com/john_image.jpg',
+  });
+
+  await context.sendText('hi', { personaId });
+
+  await context.client.deletePersona(personaId);
+}
+```

@@ -315,4 +315,46 @@ await context.sendText('Hi!', {
 
 <img width="382" alt="27807597_203144990422079_3327502058327638016_n" src="https://user-images.githubusercontent.com/662387/69863616-3f275680-12d8-11ea-82b0-d4033f67f03c.png"/>
 
-The `User Email Quick Reply` can be treated as a
+The `User Email Quick Reply` can be treated as an agree button to collect the user's Email.
+
+Messenger automatically pre-fill the displayed quick reply with the Email from the user's profile information. Since many CRM (Customer Relationship Management) use the Email as a unique id, it is handy for future user mapping.
+
+> **Note:**
+> If the user's profile does not have an Email, the quick reply doesn't show up. Also, the bot only receives the Email until the user clicks the quick reply.
+
+```js
+await context.sendText('Hi!', {
+  quickReplies: [
+    {
+      contentType: 'user_email',
+    },
+  ],
+});
+```
+
+## Sending with Persona
+
+To give the customer a clear understanding of whether a human agent or a bot representing the Business Page, the `Persona` API allows a business to introduce a virtual persona into the thread. Please refer to our separate document about `Persona`.
+
+```js
+await context.sendText('Hi!', {
+  personaId: '<PERSONA_ID>',
+});
+```
+
+## Rate Limits
+
+If you are making a bot with sudden high traffic, e.g., a campaign bot for Black Friday, you should deal with `Rate Limits` before you receive [error code 613](https://developers.facebook.com/docs/messenger-platform/reference/send-api/error-codes).
+
+Page Rate limits are in place to prevent malicious behavior and poor user experiences. For Pages with large audiences, Messenger recommends a send rate of 250 requests per second.
+
+`Rate Limits` is various from the size of your Page audience.
+
+```sh
+Calls within 24 hours = 200 * Total Messenger Audience
+```
+
+To prevent from hit `Rate Limits`, Messenger also advises us to architect our system to distribute any sudden high amounts of load over time.
+
+> **Note:**
+> Refer to Messenger's official doc, [Rate Limiting](https://developers.facebook.com/docs/messenger-platform/send-messages#limits) for the latest Messenger policy.

@@ -28,4 +28,22 @@ async function App(context) {
 
 ## Handling Payload Events
 
-Payload events can be triggered by keyboards. To determine whether the event is a payload event, you may use `context.event.isPayload` boolean value to do tha
+Payload events can be triggered by keyboards. To determine whether the event is a payload event, you may use `context.event.isPayload` boolean value to do that:
+
+```js
+async function App(context) {
+  if (context.event.isPayload) {
+    // handling the payload event
+  }
+}
+```
+
+You can get the payload content using `context.event.payload` and use it in the reply:
+
+```js
+async function App(context) {
+  if (context.event.isPayload) {
+    await context.sendText(`received the payload: ${context.event.payload}`);
+  }
+}
+```

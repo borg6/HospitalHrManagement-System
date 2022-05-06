@@ -21,4 +21,7 @@ You can get the text content using `context.event.text` and use it in the reply:
 ```js
 async function App(context) {
   if (context.event.isText) {
-    await context.sendText(`received the text message: ${context.e
+    await context.sendText(`received the text message: ${context.event.text}`);
+  }
+}
+```

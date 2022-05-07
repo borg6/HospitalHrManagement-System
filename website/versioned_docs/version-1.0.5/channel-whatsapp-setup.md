@@ -67,4 +67,29 @@ We highly recommend setting your sensitive config using `process.env`, so you co
 
 Bottender utilizes the [dotenv](https://www.npmjs.com/package/dotenv) package to load your environment variables when developing your app.
 
-To make a WhatsApp bot work, y
+To make a WhatsApp bot work, you must fill the following environment variables in your `.env` file:
+
+```
+# .env
+
+WHATSAPP_ACCOUNT_SID=
+WHATSAPP_AUTH_TOKEN=
+WHATSAPP_PHONE_NUMBER=
+```
+
+> **Note:**
+> The `WHATSAPP_PHONE_NUMBER` variable must be formated as follows: `whatsapp:{phone-number-in-e164-format}`.
+> The phone number must be [e.164](https://www.twilio.com/docs/glossary/what-e164) formatted.
+> As an example: `WHATSAPP_PHONE_NUMBER=whatsapp:+14155552671`
+
+## Setting Webhooks
+
+After configuring your environment variables, you may start the server using the following command:
+
+```sh
+npx bottender dev
+```
+
+Then, you could copy the ngork URL and paste it to the Twilio Sandbox Configuration:
+
+![](https://user-images.githubusercontent.com/3382565/75419069-f8490b80-596f-11ea-99d2-2b2bec96ff7a.png)

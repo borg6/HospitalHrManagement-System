@@ -21,4 +21,21 @@ function App() {
 }
 
 /* Note: You need to implement those functions */
-async function HandleMes
+async function HandleMessage(context) {}
+async function HandleMedia(context) {}
+async function HandleReceived(context) {}
+async function HandleSent(context) {}
+async function HandleDelivered(context) {}
+async function HandleRead(context) {}
+async function HandleWhatsapp(context) {}
+```
+
+All available routes in `whatsapp` that recognize different kind of events:
+
+- `whatsapp.any` - triggers the action when receiving any WhatsApp events.
+- `whatsapp.message` - triggers the action when receiving WhatsApp `received` events. Alias: `whatsapp.received`.
+- `whatsapp.media` - triggers the action when receiving WhatsApp `received` events includes media.
+- `whatsapp.received` - triggers the action when receiving WhatsApp `received` events.
+- `whatsapp.sent` - triggers the action when receiving WhatsApp `sent` events.
+- `whatsapp.delivered` - triggers the action when receiving WhatsApp `delivered` events.
+- `whatsapp.read` - triggers the action when receiving WhatsApp `read` events.

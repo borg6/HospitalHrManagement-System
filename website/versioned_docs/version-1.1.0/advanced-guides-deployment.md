@@ -201,4 +201,145 @@ app.prepare().then(() => {
 
 In the following configuration, you will make a few settings:
 
-- Set ZEIT N
+- Set ZEIT Now to version 2.0
+- Use `@now/node` to bundle `server.js`
+- Put `bottender.config.js` and `index.js` into `includeFiles`. ZEIT Now uses `ncc` and `webpack bundler` under the hood, so we need to tell them to put those two files into the bundle)
+- Route all (/.\*) to `server.js`
+- Add your chat channel specific environment variables from `.env` to env. The number of environment variables various from the chat channel you use.
+- (optional) If you are debugging your app, you may set `DEBUG` env to `bottender*,messaging-api*`
+
+Using a Messenger Bot as an example. your `now.json` is like:
+
+```js
+// now.json
+
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@now/node",
+      "config": {
+        "includeFiles": [
+          "bottender.config.js",
+          "index.js"
+        ],
+        "bundle": true
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "/server.js"
+    }
+  ],
+  "env": {
+    "MESSENGER_PAGE_ID": "xxxxxx",
+    "MESSENGER_ACCESS_TOKEN": "xxxxxx",
+    "MESSENGER_APP_ID": "xxxxxx",
+    "MESSENGER_APP_SECRET": "xxxxxx",
+    "MESSENGER_VERIFY_TOKEN": "xxxxxx",
+    "DEBUG": "bottender*,messaging-api*"
+  }
+}
+```
+
+### Step 5: Update Your `bottender.config.js`
+
+ZEIT Now 2.0 is a serverless hosting service, and serverless functions terminated right after HTTP response. So you have to make Bottender work synchronously, i.e., respond to chat channel right after received an event.
+
+to make the Bottender app executes in the synchronous mode, you must configure chat channels with `sync: true` in `bottender.config.js`.
+
+```js
+// bottender.config.js
+
+module.exports = {
+  // ... skip
+
+  channels: {
+    messenger: {
+      enabled: true,
+      sync: true,
+      // ...skip
+    },
+    line: {
+      enabled: true,
+      sync: true,
+      // ...skip
+    },
+    telegram: {
+      enabled: false,
+      sync: true,
+      // ...skip
+    },
+    slack: {
+      enabled: false,
+      sync: true,
+      // ...skip
+    },
+    viber: {
+      enabled: false,
+      sync: true,
+      // ...skip
+    },
+  },
+};
+```
+
+### Step 6: Update Your `package.json`
+
+Set up Node.js version to `10.x` or `12.x` in the `engines` env to avoid warnings for deprecated node 8.
+
+```js
+// package.json
+{
+ // ...skip
+ "engines": { "node": "12.x" }
+}
+```
+
+### Step 7: Deploy with `now`
+
+After all the settings, you are ready to use the magic word, `now`, for ZEIT Now 2.0 deployment.
+
+```sh
+now
+```
+
+Then you will see something like the screenshot below.
+
+![](https://user-images.githubusercontent.com/662387/72136431-c382f400-33c3-11ea-9745-839c212c1b2e.png)
+
+> **Note:** Your deployed URL would be like `https://<your-app-name>.<your-user-name>.now.sh`
+
+### Step 8: Webhook Setup
+
+If you haven't changed your webhook path in `bottender.config.js`, by default, your Messenger Bot webhook is `https://<your-app-name>.<your-user-name>.now.sh/webhooks/messenger`; your LINE Bot webhook is `https://<your-app-name>.<your-user-name>.now.sh/webhooks/line`, and so on.
+
+There are two basic types of webhook setup:
+
+1. Set up webhook by Developer Console UI, e.g., Messenger, LINE, Slack
+2. Set up webhook by CLI, e.g., Messenger, Telegram, Viber
+
+#### Step 8a: Set Up Webhook by Developer Console UI
+
+Fill in your webhook URL on the developer console of the chat channel.
+
+> **Note:** If you are not familiar with webhook setup, you may refer to Bottender docs, [Messenger Setup](https://bottender.js.org/docs/channel-messenger-setup), [LINE Setup](https://bottender.js.org/docs/channel-line-setup), [Slack Setup](https://bottender.js.org/docs/channel-slack-setup).
+
+#### Step 8b: Set Up Webhook by CLI
+
+Make sure you have the same environment variable settings in your local `.env` file and `now.js`. Then you can use the following command to set up the webhook.
+
+Using a Messenger Bot as an example, your command is like:
+
+```sh
+npx bottender messenger webhook set -w https://<your-app-name>.<your-user-name>.now.sh/webhooks/messenger
+```
+
+### Step 9: Completed!
+
+Congratulations! You have made your Bottender bot production-ready. Share your fantastic bot with your friends!
+
+> **Note:** If you would like to shar

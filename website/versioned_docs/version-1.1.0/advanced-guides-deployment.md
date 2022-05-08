@@ -342,4 +342,4 @@ npx bottender messenger webhook set -w https://<your-app-name>.<your-user-name>.
 
 Congratulations! You have made your Bottender bot production-ready. Share your fantastic bot with your friends!
 
-> **Note:** If you would like to shar
+> **Note:** If you would like to share your Bottender Bot with the community, please feel free to add your project to [Bottender Users](https://bottender.js.org/users).

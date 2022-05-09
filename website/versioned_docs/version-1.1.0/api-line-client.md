@@ -2532,3 +2532,69 @@ client.getLiffApps().then((apps) => {
   //     liffId: '{liffId}',
   //     view: {
   //       type: 'full',
+  //       url: 'https://example.com/myservice',
+  //     },
+  //   },
+  //   {
+  //     liffId: '{liffId}',
+  //     view: {
+  //       type: 'tall',
+  //       url: 'https://example.com/myservice2',
+  //     },
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `deleteLiffApp(liffId)`
+
+Deletes a LIFF app.
+
+| Param  | Type     | Description                       |
+| ------ | -------- | --------------------------------- |
+| liffId | `String` | ID of the LIFF app to be deleted. |
+
+Example:
+
+```js
+client.deleteLiffApp(LIFF_ID);
+```
+
+<br />
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-line
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real LINE server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    line: {
+      enabled: true,
+      path: '/webhooks/line',
+      accessToken: process.env.LINE_ACCESS_TOKEN,
+      channelSecret: process.env.LINE_CHANNEL_SECRET,
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

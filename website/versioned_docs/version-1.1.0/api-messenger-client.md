@@ -2196,3 +2196,680 @@ client
     //         "endTime": "<UTC_TIMESTAMP>"
     //       }
     //     ]
+    //   }
+    // ]
+  });
+```
+
+<br />
+
+#### `getBlockedConversations(options)`
+
+Retrieves the number of conversations with the Page that have been blocked.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getBlockedConversations().then((counts) => {
+  console.log(counts);
+  //   {
+  //     "name": "page_messages_blocked_conversations_unique",
+  //     "period": "day",
+  //     "values": [
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       },
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       }
+  //    ]
+  //   }
+});
+```
+
+<br />
+
+#### `getReportedConversations(options)`
+
+Retrieves the number of conversations from your Page that have been reported by people for reasons such as spam, or containing inappropriate content.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getReportedConversations().then((counts) => {
+  console.log(counts);
+  //   {
+  //     "name": "page_messages_reported_conversations_unique",
+  //     "period": "day",
+  //     "values": [
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       },
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       }
+  //     ]
+  //   }
+});
+```
+
+<br />
+
+#### `getOpenConversations(options)`
+
+**Deprecated**
+
+> `getOpenConversations()` is deprecated on May 11, 2018.
+> Currently this method returns the same result as the replacing method getTotalMessagingConnections()
+
+Retrieves the total number of open conversations between your Page and people in Messenger. This metric excludes blocked conversations.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getOpenConversations().then((result) => {
+  console.log(result);
+  // {
+  //   name: 'page_messages_total_messaging_connections',
+  //   period: 'day',
+  //   values: [
+  //     { value: 1000, endTime: '2018-03-12T07:00:00+0000' },
+  //     { value: 1000, endTime: '2018-03-13T07:00:00+0000' },
+  //   ],
+  //   title: 'Messaging connections',
+  //   description:
+  //     'Daily: The number of people who have sent a message to your business, not including people who have blocked or reported your business on Messenger. (This number only includes connections made since October 2016.)',
+  //   id:
+  //     '1386473101668063/insights/page_messages_total_messaging_connections/day',
+  // }
+});
+```
+
+<br />
+
+#### `getTotalMessagingConnections(options)`
+
+Retrieves the number of people who have sent a message to your business, not including people who have blocked or reported your business on Messenger. (This number only includes connections made since October 2016.)
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getTotalMessagingConnections().then((result) => {
+  console.log(result);
+  // {
+  //   name: 'page_messages_total_messaging_connections',
+  //   period: 'day',
+  //   values: [
+  //     { value: 1000, endTime: '2018-03-12T07:00:00+0000' },
+  //     { value: 1000, endTime: '2018-03-13T07:00:00+0000' },
+  //   ],
+  //   title: 'Messaging connections',
+  //   description:
+  //     'Daily: The number of people who have sent a message to your business, not including people who have blocked or reported your business on Messenger. (This number only includes connections made since October 2016.)',
+  //   id:
+  //     '1386473101668063/insights/page_messages_total_messaging_connections/day',
+  // }
+});
+```
+
+<br />
+
+#### `getNewConversations(options)`
+
+Retrieves the number of messaging conversations on Facebook Messenger that began with people who had never messaged with your business before.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getNewConversations().then((result) => {
+  console.log(result);
+  // {
+  //   name: 'page_messages_new_conversations_unique',
+  //   period: 'day',
+  //   values: [
+  //     { value: 1, endTime: '2018-03-12T07:00:00+0000' },
+  //     { value: 0, endTime: '2018-03-13T07:00:00+0000' },
+  //   ],
+  //   title: 'Daily unique new conversations count',
+  //   description:
+  //     'Daily: The number of messaging conversations on Facebook Messenger that began with people who had never messaged with your business before.',
+  //   id:
+  //     '1386473101668063/insights/page_messages_new_conversations_unique/day',
+  // }
+});
+```
+
+<br />
+
+<a id="built-in-nlp-api" />
+
+### Built-in NLP API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/built-in-nlp)
+
+#### `setNLPConfigs(config)`
+
+Set values of NLP configs.
+
+| Param              | Type      | Description                                                                                                                                                                                                                                                                             |
+| ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| config             | `Object`  | Configuration of NLP.                                                                                                                                                                                                                                                                   |
+| config.nlpEnabled  | `Boolean` | Optional. Either enable NLP or disable NLP for that Page.                                                                                                                                                                                                                               |
+| config.model       | `String`  | Optional. Specifies the NLP model to use. Either one of `{CHINESE, CROATIAN, DANISH, DUTCH, ENGLISH, FRENCH_STANDARD, GERMAN_STANDARD, HEBREW, HUNGARIAN, IRISH, ITALIAN_STANDARD, KOREAN, NORWEGIAN_BOKMAL, POLISH, PORTUGUESE, ROMANIAN, SPANISH, SWEDISH, VIETNAMESE}`, or `CUSTOM`. |
+| config.customToken | `String`  | Optional. Access token from Wit.                                                                                                                                                                                                                                                        |
+| config.verbose     | `Boolean` | Optional. Specifies whether verbose mode if enabled, which returns extra information like the position of the detected entity in the query.                                                                                                                                             |
+| config.nBest       | `Number`  | Optional. The number of entities to return, in descending order of confidence. Minimum 1. Maximum 8. Defaults to 1.                                                                                                                                                                     |
+
+Example:
+
+```js
+client.setNLPConfigs({
+  nlpEnabled: true,
+});
+```
+
+<br />
+
+#### `enableNLP`
+
+Enabling Built-in NLP.
+
+Example:
+
+```js
+client.enableNLP();
+```
+
+<br />
+
+#### `disableNLP`
+
+Disabling Built-in NLP.
+
+Example:
+
+```js
+client.disableNLP();
+```
+
+<br />
+
+<a id="event-logging-api" />
+
+### Event Logging API - [Official Docs](https://developers.facebook.com/docs/app-events/bots-for-messenger#logging-custom-events)
+
+#### `logCustomEvents(activity)`
+
+Log custom events by using the [Application Activities Graph API](https://developers.facebook.com/docs/graph-api/reference/application/activities/) endpoint.
+
+| Param                     | Type            | Description                           |
+| ------------------------- | --------------- | ------------------------------------- |
+| activity                  | `Object`        |
+| activity.appId            | `Number`        | ID of the app.                        |
+| activity.pageId           | `String`        | ID of the page.                       |
+| activity.pageScopedUserId | `String`        | Page-scoped user ID of the recipient. |
+| activity.events           | `Array<Object>` | Custom events.                        |
+
+Example:
+
+```js
+client.logCustomEvents({
+  appId: APP_ID,
+  pageId: PAGE_ID,
+  pageScopedUserId: USER_ID,
+  events: [
+    {
+      _eventName: 'fb_mobile_purchase',
+      _valueToSum: 55.22,
+      _fbCurrency: 'USD',
+    },
+  ],
+});
+```
+
+<a id="id-matching-api" />
+
+### ID Matching API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/identity/id-matching)
+
+#### `getIdsForApps({ userId, appSecret, ...options })`
+
+Given a user ID for an app, retrieve the IDs for other apps owned by the same business
+
+| Param        | Type     | Description                   |
+| ------------ | -------- | ----------------------------- |
+| userId       | `String` | Page-scoped user ID.          |
+| appSecret    | `String` | Secret of the app.            |
+| options.app  | `String` | The app to retrieve the IDs.  |
+| options.page | `String` | The page to retrieve the IDs. |
+
+Example:
+
+```js
+client
+  .getIdsForApps({
+    userId: USER_ID,
+    appSecret: APP_SECRET,
+  })
+  .then((result) => {
+    console.log(result);
+    // {
+    //   data: [
+    //     {
+    //       id: '10152368852405295',
+    //       app: {
+    //         category: 'Business',
+    //         link: 'https://www.facebook.com/games/?app_id=1419232575008550',
+    //         name: "John's Game App",
+    //         id: '1419232575008550',
+    //       },
+    //     },
+    //     {
+    //       id: '645195294',
+    //       app: {
+    //         link: 'https://apps.facebook.com/johnsmovieappns/',
+    //         name: 'JohnsMovieApp',
+    //         namespace: 'johnsmovieappns',
+    //         id: '259773517400382',
+    //       },
+    //     },
+    //   ],
+    //   paging: {
+    //     cursors: {
+    //       before: 'MTQ4OTU4MjQ5Nzc4NjY4OAZDZDA',
+    //       after: 'NDAwMDExOTA3MDM1ODMwA',
+    //     },
+    //   },
+    // };
+  });
+```
+
+<br />
+
+#### `getIdsForPages({ userId, appSecret, ...options })`
+
+Given a user ID for a Page (associated with a bot), retrieve the IDs for other Pages owned by the same business.
+
+| Param        | Type     | Description                   |
+| ------------ | -------- | ----------------------------- |
+| userId       | `String` | Page-scoped user ID.          |
+| appSecret    | `String` | Secret of the app.            |
+| options.app  | `String` | The app to retrieve the IDs.  |
+| options.page | `String` | The page to retrieve the IDs. |
+
+Example:
+
+```js
+client
+  .getIdsForPages({
+    userId: USER_ID,
+    appSecret: APP_SECRET,
+  })
+  .then((result) => {
+    console.log(result);
+    // {
+    //   data: [
+    //     {
+    //       id: '12345123', // The psid for the user for that page
+    //       page: {
+    //         category: 'Musician',
+    //         link:
+    //           'https://www.facebook.com/Johns-Next-Great-Thing-380374449010653/',
+    //         name: "John's Next Great Thing",
+    //         id: '380374449010653',
+    //       },
+    //     },
+    //   ],
+    //   paging: {
+    //     cursors: {
+    //       before: 'MTQ4OTU4MjQ5Nzc4NjY4OAZDZDA',
+    //       after: 'NDAwMDExOTA3MDM1ODMwA',
+    //     },
+    //   },
+    // };
+  });
+```
+
+<br />
+
+<a id="persona-api" />
+
+### Persona API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas)
+
+#### `createPersona(persona)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#create)
+
+Creates a persona.
+
+| Param                     | Type                | Description                     |
+| ------------------------- | ------------------- | ------------------------------- |
+| persona.name              | <code>String</code> | name of the persona.            |
+| persona.profilePictureUrl | <code>String</code> | profile picture of the persona. |
+
+```js
+createPersona({
+  name: 'John Mathew',
+  profilePictureUrl: 'https://facebook.com/john_image.jpg',
+}).then((persona) => {
+  console.log(persona);
+  // {
+  //  "id": "<PERSONA_ID>"
+  // }
+});
+```
+
+<br />
+
+#### `getPersona(personaId)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#get)
+
+Retrieves the name and profile picture of a persona.
+
+| Param     | Type                | Description        |
+| --------- | ------------------- | ------------------ |
+| personaId | <code>String</code> | ID of the persona. |
+
+```js
+getPersona(personaId).then((persona) => {
+  console.log(persona);
+  // {
+  //   "name": "John Mathew",
+  //   "profilePictureUrl": "https://facebook.com/john_image.jpg",
+  //   "id": "<PERSONA_ID>"
+  // }
+});
+```
+
+<br />
+
+#### `getPersonas(cursor?: string)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#retrieve_all)
+
+Retrieves personas associated with a Page using the cursor.
+
+| Param  | Type                | Description        |
+| ------ | ------------------- | ------------------ |
+| cursor | <code>String</code> | pagination cursor. |
+
+```js
+getPersonas(cursor).then((personas) => {
+  console.log(personas);
+  // {
+  //   "data": [
+  //     {
+  //       "name": "John Mathew",
+  //       "profilePictureUrl": "https://facebook.com/john_image.jpg",
+  //       "id": "<PERSONA_ID>"
+  //     },
+  //     {
+  //       "name": "David Mark",
+  //       "profilePictureUrl": "https://facebook.com/david_image.jpg",
+  //       "id": "<PERSONA_ID>"
+  //     }
+  //   ],
+  //   "paging": {
+  //     "cursors": {
+  //       "before": "QVFIUlMtR2ZATQlRtVUZALUlloV1",
+  //       "after": "QVFIUkpnMGx0aTNvUjJNVmJUT0Yw"
+  //     }
+  //   }
+  // }
+});
+```
+
+<br />
+
+#### `getAllPersonas()` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#retrieve_all)
+
+Retrieves all the personas associated with a Page.
+
+```js
+getAllPersonas().then((personas) => {
+  console.log(personas);
+  //   [
+  //     {
+  //       "name": "John Mathew",
+  //       "profilePictureUrl": "https://facebook.com/john_image.jpg",
+  //       "id": "<PERSONA_ID>"
+  //     },
+  //     {
+  //       "name": "David Mark",
+  //       "profilePictureUrl": "https://facebook.com/david_image.jpg",
+  //       "id": "<PERSONA_ID>"
+  //     }
+  //   ]
+});
+```
+
+<br />
+
+#### `deletePersona(personaId)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#remove)
+
+Deletes a persona.
+
+| Param     | Type                | Description        |
+| --------- | ------------------- | ------------------ |
+| personaId | <code>String</code> | ID of the persona. |
+
+```js
+deletePersona(personaId);
+```
+
+<br />
+
+### Others
+
+#### `debugToken` - [Official Docs](https://developers.facebook.com/docs/facebook-login/access-tokens/debugging-and-error-handling)
+
+Gets token information.
+
+Example:
+
+```js
+client.debugToken().then((pageInfo) => {
+  console.log(pageInfo);
+  // {
+  //    appId: '000000000000000',
+  //    application: 'Social Cafe',
+  //    expiresAt: 1352419328,
+  //    isValid: true,
+  //    issuedAt: 1347235328,
+  //    scopes: ['email', 'user_location'],
+  //    userId: 1207059,
+  //  }
+});
+```
+
+#### `createSubscription`
+
+Create new Webhooks subscriptions.
+
+| Param         | Type            | Description                                                                                                                       |
+| ------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| accessToken   | `String`        | App access token.                                                                                                                 |
+| callbackUrl   | `String`        | The URL that will receive the POST request when an update is triggered, and a GET request when attempting this publish operation. |
+| verifyToken   | `String`        | An arbitrary string that can be used to confirm to your server that the request is valid.                                         |
+| fields        | `Array<String>` | One or more of the set of valid fields in this object to subscribe to.                                                            |
+| object        | `String`        | Indicates the object type that this subscription applies to. Defaults to `page`.                                                  |
+| includeValues | `Boolean`       | Indicates if change notifications should include the new values.                                                                  |
+
+Example:
+
+```js
+client.createSubscription({
+  accessToken: APP_ACCESS_TOKEN,
+  callbackUrl: 'https://mycallback.com',
+  fields: ['messages', 'messaging_postbacks', 'messaging_referrals'],
+  verifyToken: VERIFY_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.createSubscription({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+  callbackUrl: 'https://mycallback.com',
+  fields: ['messages', 'messaging_postbacks', 'messaging_referrals'],
+  verifyToken: VERIFY_TOKEN,
+});
+```
+
+Default Fields:
+
+- `messages`
+- `messaging_postbacks`
+- `messaging_optins`
+- `messaging_referrals`
+- `messaging_handovers`
+- `messaging_policy_enforcement`
+
+#### `getSubscriptions`
+
+Get the current Webhook subscriptions set up on your app.
+
+| Param       | Type     | Description       |
+| ----------- | -------- | ----------------- |
+| accessToken | `String` | App access token. |
+
+Example:
+
+```js
+client.getSubscriptions({
+  accessToken: APP_ACCESS_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.getSubscriptions({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+});
+```
+
+#### `getPageSubscription`
+
+Get the current page subscriptions set up on your app.
+
+| Param       | Type     | Description       |
+| ----------- | -------- | ----------------- |
+| accessToken | `String` | App access token. |
+
+Example:
+
+```js
+client.getPageSubscription({
+  accessToken: APP_ACCESS_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.getPageSubscription({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+});
+```
+
+<br />
+
+#### `getPageInfo`
+
+Get page name and page id using Graph API.
+
+Example:
+
+```js
+client.getPageInfo().then((page) => {
+  console.log(page);
+  // {
+  //   name: 'Bot Demo',
+  //   id: '1895382890692546',
+  // }
+});
+```
+
+#### `getMessagingFeatureReview`
+
+Programmatically check the feature submission status of Page-level Platform features.
+
+Example:
+
+```js
+client.getMessagingFeatureReview().then((data) => {
+  console.log(data);
+  // [
+  //   {
+  //     "feature": "subscription_messaging",
+  //     "status": "<pending|rejected|approved|limited>"
+  //   }
+  // ]
+});
+```
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-messenger
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real Messenger server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    messenger: {
+      enabled: true,
+      path: '/webhooks/messenger',
+      pageId: process.env.MESSENGER_PAGE_ID,
+      accessToken: process.env.MESSENGER_ACCESS_TOKEN,
+      appId: process.env.MESSENGER_APP_ID,
+      appSecret: process.env.MESSENGER_APP_SECRET,
+      verifyToken: process.env.MESSENGER_VERIFY_TOKEN,
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

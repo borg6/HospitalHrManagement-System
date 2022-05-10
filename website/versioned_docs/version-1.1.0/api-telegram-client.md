@@ -311,4 +311,81 @@ client.sendVoice(CHAT_ID, 'https://example.com/voice.ogg', {
 
 <br />
 
-#### `sendVideoNote(chatId, videoNote [, options
+#### `sendVideoNote(chatId, videoNote [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvideonote)
+
+Sends video messages. As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long.
+
+| Param     | Type                              | Description                                                              |
+| --------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId    | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| videoNote | `String`                          | Pass a file id (recommended) or HTTP URL to send video note.             |
+| options   | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendVideoNote(CHAT_ID, 'https://example.com/video_note.mp4', {
+  duration: 40,
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendMediaGroup(chatId, media [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendmediagroup)
+
+send a group of photos or videos as an album.
+
+| Param   | Type                                                                                  | Description                                                                              |
+| ------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| chatId  | <code>Number &#124; String</code>                                                     | Unique identifier for the target chat or username of the target channel.                 |
+| media   | <code>Array&lt;[InputMedia](https://core.telegram.org/bots/api#inputmedia)&gt;</code> | A JSON-serialized array describing photos and videos to be sent, must include 2–10 items |
+| options | `Object`                                                                              | Other optional parameters.                                                               |
+
+Example:
+
+```js
+client.sendMediaGroup(CHAT_ID, [
+  { type: 'photo', media: 'BQADBAADApYAAgcZZAfj2-xeidueWwI' },
+]);
+```
+
+<br />
+
+#### `sendLocation(chatId, location [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendlocation)
+
+Sends point on the map.
+
+| Param              | Type                              | Description                                                              |
+| ------------------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId             | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| location           | `Object`                          | Object contains latitude and longitude.                                  |
+| location.latitude  | `Number`                          | Latitude of the location.                                                |
+| location.longitude | `Number`                          | Longitude of the location.                                               |
+| options            | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendLocation(
+  CHAT_ID,
+  {
+    latitude: 30,
+    longitude: 45,
+  },
+  {
+    disableNotification: true,
+  }
+);
+```
+
+<br />
+
+#### `sendVenue(chatId, venue [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvenue)
+
+Sends information about a venue.
+
+| Param           | Type                              | Description                                                              |
+| --------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| venue           | `Object`                          | Object conta

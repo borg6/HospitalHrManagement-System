@@ -213,4 +213,102 @@ Sends audio files.
 
 | Param   | Type                              | Description                                                              |
 | ------- | --------------------------------- | ------------------------------------------------------------------------ |
-| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the tar
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| audio   | `String`                          | Pass a file id (recommended) or HTTP URL to send audio.                  |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendAudio(CHAT_ID, 'https://example.com/audio.mp3', {
+  caption: 'gooooooodAudio',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendDocument(chatId, document [, options])` - [Official Docs](https://core.telegram.org/bots/api/#senddocument)
+
+Sends general files.
+
+| Param    | Type                              | Description                                                              |
+| -------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId   | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| document | `String`                          | Pass a file id (recommended) or HTTP URL to send document.               |
+| options  | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendDocument(CHAT_ID, 'https://example.com/doc.gif', {
+  caption: 'gooooooodDocument',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendSticker(chatId, sticker [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendsticker)
+
+Sends `.webp` stickers.
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| sticker | `String`                          | Pass a file id (recommended) or HTTP URL to send sticker.                |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendSticker(CHAT_ID, 'CAADAgADQAADyIsGAAE7MpzFPFQX5QI', {
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendVideo(chatId, video [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvideo)
+
+Sends video files, Telegram clients support `mp4` videos (other formats may be sent as Document).
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| video   | `String`                          | Pass a file id (recommended) or HTTP URL to send video.                  |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendVideo(CHAT_ID, 'https://example.com/video.mp4', {
+  caption: 'gooooooodVideo',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendVoice(chatId, voice [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvoice)
+
+Sends audio files.
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| voice   | `String`                          | Pass a file id (recommended) or HTTP URL to send voice.                  |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendVoice(CHAT_ID, 'https://example.com/voice.ogg', {
+  caption: 'gooooooodVoice',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendVideoNote(chatId, videoNote [, options

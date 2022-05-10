@@ -32,4 +32,46 @@ If you send message with `attachments`, `messaging-api-slack` will automatically
 context.postMessage(
   {
     text: 'Hello!',
-    at
+    attachments: [
+      {
+        text: 'Choose a game to play',
+        fallback: 'You are unable to choose a game',
+        callbackId: 'wopr_game',
+        color: '#3AA3E3',
+        attachmentType: 'default',
+        actions: [
+          {
+            name: 'game',
+            text: 'Chess',
+            type: 'button',
+            value: 'chess',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    asUser: true,
+  }
+);
+```
+
+<br />
+
+#### `postEphemeral(message [, options])` - [Official docs](https://api.slack.com/methods/chat.postEphemeral)
+
+Sends an ephemeral message to the user.
+
+| Param   | Type                              | Description                                                        |
+| ------- | --------------------------------- | ------------------------------------------------------------------ |
+| message | <code>String &#124; Object</code> | The message to be sent, can be text message or attachment message. |
+| options | `Object`                          | Other optional parameters.                                         |
+
+Example:
+
+```js
+context.postEphemeral({ text: 'Hello!' });
+context.postEphemeral({ attachments: [someAttachments] });
+context.postEphemeral('Hello!');
+context.postEphemeral('Hello!', { asUser: true });
+```

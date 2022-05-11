@@ -388,4 +388,122 @@ Sends information about a venue.
 | Param           | Type                              | Description                                                              |
 | --------------- | --------------------------------- | ------------------------------------------------------------------------ |
 | chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
-| venue           | `Object`                          | Object conta
+| venue           | `Object`                          | Object contains information of the venue.                                |
+| venue.latitude  | `Number`                          | Latitude of the venue.                                                   |
+| venue.longitude | `Number`                          | Longitude of the venue.                                                  |
+| venue.title     | `String`                          | Name of the venue.                                                       |
+| venue.address   | `String`                          | Address of the venue.                                                    |
+| options         | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendVenue(
+  CHAT_ID,
+  {
+    latitude: 30,
+    longitude: 45,
+    title: 'a_title',
+    address: 'an_address',
+  },
+  {
+    disableNotification: true,
+  }
+);
+```
+
+<br />
+
+#### `sendContact(chatId, contact [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendcontact)
+
+Sends phone contacts.
+
+| Param               | Type                              | Description                                                              |
+| ------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId              | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| contact             | `Object`                          | Object contains information of the contact.                              |
+| contact.phoneNumber | `String`                          | Phone number of the contact.                                             |
+| contact.firstName   | `String`                          | First name of the contact.                                               |
+| options             | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendContact(
+  CHAT_ID,
+  {
+    phoneNumber: '886123456789',
+    firstName: 'first',
+  },
+  { lastName: 'last' }
+);
+```
+
+<br />
+
+#### `sendChatAction(chatId, action)` - [Official Docs](https://core.telegram.org/bots/api/#sendchataction)
+
+Tells the user that something is happening on the bot's side.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| action | `String`                          | Type of action to broadcast.                                             |
+
+Example:
+
+```js
+client.sendChatAction(CHAT_ID, 'typing');
+```
+
+<br />
+
+### Get API
+
+#### `getMe` - [Official Docs](https://core.telegram.org/bots/api/#getme)
+
+Gets bot's information.
+
+Example:
+
+```js
+client.getMe().then((result) => {
+  console.log(result);
+  // {
+  //   id: 313534466,
+  //   firstName: 'first',
+  //   username: 'a_bot'
+  // }
+});
+```
+
+<br />
+
+#### `getUserProfilePhotos(userId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#getuserprofilephotos)
+
+Gets a list of profile pictures for a user.
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `String` | Unique identifier of the target user. |
+| options | `Object` | Other optional parameters             |
+
+Example:
+
+```js
+client.getUserProfilePhotos(USER_ID, { limit: 1 }).then((result) => {
+  console.log(result);
+  // {
+  //   totalCount: 3,
+  //   photos: [
+  //     [
+  //       {
+  //         fileId:
+  //           'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABHahi76pN-aO0UoDA050',
+  //         fileSize: 14650,
+  //         width: 160,
+  //         height: 160,
+  //       },
+  //       {
+  //         fileId:
+  //           'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABKCfooqTgFUX0EoD5B1

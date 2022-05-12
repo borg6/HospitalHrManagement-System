@@ -723,4 +723,80 @@ Edits only the reply markup of messages sent by the bot or via the bot (for inli
 | Param                   | Type                              | Description                                                              |
 | ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
 | replyMarkup             | `Object`                          | New replyMarkup of the message.                                          |
-| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.   
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| options.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| options.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| options.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.editMessageReplyMarkup(
+  {
+    keyboard: [[{ text: 'new_button_1' }, { text: 'new_button_2' }]],
+    resizeKeyboard: true,
+    oneTimeKeyboard: true,
+  },
+  { messageId: MESSAGE_ID }
+);
+```
+
+<br />
+
+#### `deleteMessage(chatId, messageId)` - [Official Docs](https://core.telegram.org/bots/api/#deletemessage)
+
+Deletes a message, including service messages.
+
+| Param     | Type                              | Description                                                              |
+| --------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId    | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| messageId | `Number`                          | Identifier of the message to delete.                                     |
+
+Example:
+
+```js
+client.deleteMessage(CHAT_ID, MESSAGE_ID);
+```
+
+<br />
+
+#### `editMessageLiveLocation(location [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagelivelocation)
+
+Edit live location messages sent by the bot or via the bot (for inline bots).
+
+| Param                   | Type                              | Description                                                              |
+| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| location                | `Object`                          | Object contains new latitude and longitude.                              |
+| location.latitude       | `Number`                          | Latitude of new location.                                                |
+| location.longitude      | `Number`                          | Longitude of new location.                                               |
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| options.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| options.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| options.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.editMessageLiveLocation(
+  {
+    latitude: 30,
+    longitude: 45,
+  },
+  {
+    messageId: MESSAGE_ID,
+  }
+);
+```
+
+<br />
+
+#### `stopMessageLiveLocation(options)` - [Official Docs](https://core.telegram.org/bots/api/#stopmessagelivelocation)
+
+Stop updating a live location message sent by the bot or via the bot (for inline bots) before _live_period_ expires.
+
+| Param                      | Type                              | Description                                                              |
+| -------------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| identifier                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| identifier.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| identifier.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| identifier.inlineMessageId | `String`                   

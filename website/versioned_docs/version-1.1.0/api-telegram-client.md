@@ -649,4 +649,78 @@ client.getChatMembersCount(CHAT_ID).then((count) => {
 
 Gets information about a member of a chat.
 
-| Param  | Type                              | Description                   
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| userId | `Number`                          | Unique identifier of the target user.                                    |
+
+Example:
+
+```js
+client.getChatMember(CHAT_ID, USER_ID).then((member) => {
+  console.log(member);
+  // {
+  //   user: {
+  //     id: 313534466,
+  //     firstName: 'first',
+  //     lastName: 'last',
+  //     username: 'username',
+  //     languangeCode: 'zh-TW',
+  //   },
+  //   status: 'creator',
+  // }
+});
+```
+
+<br />
+
+### Updating API
+
+#### `editMessageText(text [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagetext)
+
+Edits text and game messages sent by the bot or via the bot (for inline bots).
+
+| Param                   | Type                              | Description                                                              |
+| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| text                    | `String`                          | New text of the message.                                                 |
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| options.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| options.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| options.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.editMessageText('new_text', { messageId: MESSAGE_ID });
+```
+
+<br />
+
+#### `editMessageCaption(caption [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagecaption)
+
+Edits captions of messages sent by the bot or via the bot (for inline bots).
+
+| Param                   | Type                              | Description                                                              |
+| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| caption                 | `String`                          | New caption of the message.                                              |
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| options.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| options.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| options.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.editMessageCaption('new_caption', { messageId: MESSAGE_ID });
+```
+
+<br />
+
+#### `editMessageReplyMarkup(replyMarkup [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagereplymarkup)
+
+Edits only the reply markup of messages sent by the bot or via the bot (for inline bots).
+
+| Param                   | Type                              | Description                                                              |
+| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| replyMarkup             | `Object`                          | New replyMarkup of the message.                                          |
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.   

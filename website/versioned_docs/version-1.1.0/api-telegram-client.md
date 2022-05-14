@@ -989,4 +989,86 @@ Delete a group sticker set from a supergroup.
 
 | Param  | Type                              | Description                                                              |
 | ------ | --------------------------------- | ------------------------------------------------------------------------ |
-| chatId | <code>Number &#124; String</code> | Unique identifier for the targ
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.deleteChatStickerSet(CHAT_ID);
+```
+
+<br />
+
+#### `pinChatMessage(chatId, messageId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#pinchatmessage)
+
+Pins a message in a supergroup.
+
+| Param     | Type                              | Description                                                              |
+| --------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId    | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| messageId | `Number`                          | Identifier of a message to pin.                                          |
+| options   | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.pinChatMessage(CHAT_ID, MESSAGE_ID, { disableNotification: true });
+```
+
+<br />
+
+#### `unpinChatMessage(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#unpinchatmessage)
+
+Unpins a message in a supergroup chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.unpinChatMessage(CHAT_ID);
+```
+
+<br />
+
+#### `leaveChat(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#leavechat)
+
+Leaves a group, supergroup or channel.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.leaveChat(CHAT_ID);
+```
+
+<br />
+
+### Payments API
+
+#### `sendInvoice(chatId, product [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendinvoice)
+
+Sends invoice.
+
+| Param                  | Type                              | Description                                                              |
+| ---------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId                 | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| product                | `Object`                          | Object of the product.                                                   |
+| product.title          | `String`                          | Product name.                                                            |
+| product.description    | `String`                          | Product description.                                                     |
+| product.payload        | `String`                          | Bot defined invoice payload.                                             |
+| product.providerToken  | `String`                          | Payments provider token.                                                 |
+| product.startParameter | `String`                          | Deep-linking parameter.                                                  |
+| product.currency       | `String`                          | Three-letter ISO 4217 currency code.                                     |
+| product.prices         | `Array<Object>`                   | Breakdown of prices.                                                     |
+| options                | `Object`                          | Additional Telegram query options.                                       |
+
+Example:
+
+```js
+client.sendInvoice(CHA

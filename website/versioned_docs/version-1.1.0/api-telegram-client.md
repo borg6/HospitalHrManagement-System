@@ -889,4 +889,104 @@ Exports an invite link to a supergroup or a channel.
 
 | Param  | Type                              | Description                                                              |
 | ------ | --------------------------------- | ------------------------------------------------------------------------ |
-| chatId | <code>Number &#124; String</code> | Unique identifier for the targe
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.exportChatInviteLink(CHAT_ID);
+```
+
+<br />
+
+#### `setChatPhoto(chatId, photo)` - [Official Docs](https://core.telegram.org/bots/api/#setchatphoto)
+
+Sets a new profile photo for the chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| photo  | `String`                          | Pass a file id (recommended) or HTTP URL to send photo.                  |
+
+Example:
+
+```js
+client.setChatPhoto(CHAT_ID, 'https://example.com/image.png');
+```
+
+<br />
+
+#### `deleteChatPhoto(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#deletechatphoto)
+
+Deletes a chat photo.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.deleteChatPhoto(CHAT_ID);
+```
+
+<br />
+
+#### `setChatTitle(chatId, title)` - [Official Docs](https://core.telegram.org/bots/api/#setchattitle)
+
+Changes the title of a chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| title  | `String`                          | New chat title, 1-255 characters.                                        |
+
+Example:
+
+```js
+client.setChatTitle(CHAT_ID, 'New Title');
+```
+
+<br />
+
+#### `setChatDescription(chatId, description)` - [Official Docs](https://core.telegram.org/bots/api/#setchatdescription)
+
+Changes the description of a supergroup or a channel.
+
+| Param       | Type                              | Description                                                              |
+| ----------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId      | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| description | `String`                          | New chat description, 0-255 characters.                                  |
+
+Example:
+
+```js
+client.setChatDescription(CHAT_ID, 'New Description');
+```
+
+<br />
+
+#### `setChatStickerSet(chatId, stickerSetName)` - [Official Docs](https://core.telegram.org/bots/api/#setchatstickerset)
+
+Set a new group sticker set for a supergroup.
+
+| Param          | Type                              | Description                                                              |
+| -------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId         | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| stickerSetName | `String`                          | Name of the sticker set to be set as the group sticker set.              |
+
+Example:
+
+```js
+client.setChatStickerSet(CHAT_ID, 'Sticker Set Name');
+```
+
+<br />
+
+#### `deleteChatStickerSet(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#deletechatstickerset)
+
+Delete a group sticker set from a supergroup.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the targ

@@ -1071,4 +1071,117 @@ Sends invoice.
 Example:
 
 ```js
-client.sendInvoice(CHA
+client.sendInvoice(CHAT_ID, {
+  title: 'product name',
+  description: 'product description',
+  payload: 'bot-defined invoice payload',
+  providerToken: 'PROVIDER_TOKEN',
+  startParameter: 'pay',
+  currency: 'USD',
+  prices: [
+    { label: 'product', amount: 11000 },
+    { label: 'tax', amount: 11000 },
+  ],
+});
+```
+
+<br />
+
+#### `answerShippingQuery(shippingQueryId, ok [, options])` - [Official Docs](https://core.telegram.org/bots/api/#answershippingquery)
+
+Reply to shipping queries.
+
+| Param           | Type      | Description                                     |
+| --------------- | --------- | ----------------------------------------------- |
+| shippingQueryId | `String`  | Unique identifier for the query to be answered. |
+| ok              | `Boolean` | Specify if delivery of the product is possible. |
+| options         | `Object`  | Additional Telegram query options.              |
+
+Example:
+
+```js
+client.answerShippingQuery('UNIQUE_ID', true);
+```
+
+<br />
+
+#### `answerPreCheckoutQuery(preCheckoutQueryId, ok [, options])` - [Official Docs](https://core.telegram.org/bots/api/#answerprecheckoutquery)
+
+Respond to such pre-checkout queries.
+
+| Param              | Type      | Description                                     |
+| ------------------ | --------- | ----------------------------------------------- |
+| preCheckoutQueryId | `String`  | Unique identifier for the query to be answered. |
+| ok                 | `Boolean` | Specify if delivery of the product is possible. |
+| options            | `Object`  | Additional Telegram query options.              |
+
+Example:
+
+```js
+client.answerPreCheckoutQuery('UNIQUE_ID', true);
+```
+
+<br />
+
+### Inline mode API
+
+#### `answerInlineQuery(inlineQueryId, results [, options])` - [Official Docs](https://core.telegram.org/bots/api/#answerinlinequery)
+
+Send answers to an inline query.
+
+| Param         | Type                                                                                                | Description                                               |
+| ------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| inlineQueryId | `String`                                                                                            | Unique identifier of the query.                           |
+| results       | <code>Array&lt;[InlineQueryResult](https://core.telegram.org/bots/api#inlinequeryresult)&gt;</code> | Array of object represents one result of an inline query. |
+| options       | `Object`                                                                                            | Additional Telegram query options.                        |
+
+Example:
+
+```js
+client.answerInlineQuery(
+  'INLINE_QUERY_ID',
+  [
+    {
+      type: 'photo',
+      id: 'UNIQUE_ID',
+      photoFileId: 'FILE_ID',
+      title: 'PHOTO_TITLE',
+    },
+    {
+      type: 'audio',
+      id: 'UNIQUE_ID',
+      audioFileId: 'FILE_ID',
+      caption: 'AUDIO_TITLE',
+    },
+  ],
+  {
+    cacheTime: 1000,
+  }
+);
+```
+
+<br />
+
+### Game API
+
+#### `sendGame(chatId, gameShortName [, options])` - [Official Docs](https://core.telegram.org/bots/api#sendgame)
+
+Sends a game.
+
+| Param         | Type                              | Description                                                              |
+| ------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId        | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| gameShortName | String                            | Short name of the game.                                                  |
+| options       | `Object`                          | Additional Telegram query options.                                       |
+
+Example:
+
+```js
+client.sendGame(CHAT_ID, 'Mario Bros.', {
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `setGameScore(userId, score [, options

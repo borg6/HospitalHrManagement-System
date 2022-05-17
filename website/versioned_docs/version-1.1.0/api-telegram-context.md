@@ -283,4 +283,174 @@ context.sendContact(
 Tells the user that something is happening on the bot's side.
 
 | Param  | Type     | Description                  |
-| ------ | -------- | ---------------------------
+| ------ | -------- | ---------------------------- |
+| action | `String` | Type of action to broadcast. |
+
+Example:
+
+```js
+context.sendChatAction('typing');
+```
+
+<br />
+
+### Get API
+
+#### `getUserProfilePhotos(options)` - [Official Docs](https://core.telegram.org/bots/api/#getuserprofilephotos)
+
+Gets a list of profile pictures for a user.
+
+| Param   | Type     | Description               |
+| ------- | -------- | ------------------------- |
+| options | `Object` | Other optional parameters |
+
+Example:
+
+```js
+context.getUserProfilePhotos().then((result) => {
+  console.log(result);
+  // {
+  //   totalCount: 3,
+  //   photos: [
+  //     [
+  //       {
+  //         fileId: 'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABHahi76pN-aO0UoDA050',
+  //         fileSize: 14650,
+  //         width: 160,
+  //         height: 160,
+  //       },
+  //       {
+  //         fileId: 'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABKCfooqTgFUX0EoD5B1C',
+  //         fileSize: 39019,
+  //         width: 320,
+  //         height: 320,
+  //       },
+  //       {
+  //         fileId: 'AgADBAADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pC9K3UpI0koD1B1C',
+  //         fileSize: 132470,
+  //         width: 640,
+  //         height: 640,
+  //       },
+  //     ],
+  //   ],
+  // }
+});
+```
+
+#### `getChat()` - [Official Docs](https://core.telegram.org/bots/api/#getchat)
+
+Gets up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.)
+
+Example:
+
+```js
+context.getChat().then((result) => {
+  console.log(result);
+  // {
+  //   id: 313534466,
+  //   firstName: 'first',
+  //   lastName: 'last',
+  //   username: 'username',
+  //   type: 'private',
+  // }
+});
+```
+
+<br />
+
+#### `getChatAdministrators()` - [Official Docs](https://core.telegram.org/bots/api/#getchatadministrators)
+
+Gets a list of administrators in the chat.
+
+Example:
+
+```js
+context.getChatAdministrators().then((result) => {
+  console.log(result);
+  // [
+  //   {
+  //     user: {
+  //       id: 313534466,
+  //       firstName: 'first',
+  //       lastName: 'last',
+  //       username: 'username',
+  //       languangeCode: 'zh-TW',
+  //     },
+  //     status: 'creator',
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `getChatMembersCount()` - [Official Docs](https://core.telegram.org/bots/api/#getchatmemberscount)
+
+Gets the number of members in the chat.
+
+Example:
+
+```js
+context.getChatMembersCount().then((result) => {
+  console.log(result);
+  // '6'
+});
+```
+
+<br />
+
+#### `getChatMember(userId)` - [Official Docs](https://core.telegram.org/bots/api/#getchatmember)
+
+Gets information about a member of the chat.
+
+| Param  | Type     | Description                           |
+| ------ | -------- | ------------------------------------- |
+| userId | `Number` | Unique identifier of the target user. |
+
+Example:
+
+```js
+context.getChatMember(USER_ID).then((result) => {
+  console.log(result);
+  // {
+  //   user: {
+  //     id: 313534466,
+  //     firstName: 'first',
+  //     lastName: 'last',
+  //     username: 'username',
+  //     languangeCode: 'zh-TW',
+  //   },
+  //   status: 'creator',
+  // }
+});
+```
+
+<br />
+
+### Updating API
+
+#### `editMessageText(text [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagetext)
+
+Edits text and game messages sent by the bot or via the bot (for inline bots).
+
+| Param   | Type     | Description                |
+| ------- | -------- | -------------------------- |
+| text    | `String` | New text of the message.   |
+| options | `Object` | Other optional parameters. |
+
+Example:
+
+```js
+context.editMessageText('new_text');
+```
+
+<br />
+
+#### `editMessageCaption(caption [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagecaption)
+
+Edits captions of messages sent by the bot or via the bot (for inline bots).
+
+| Param   | Type     | Description                 |
+| ------- | -------- | --------------------------- |
+| caption | `String` | New caption of the message. |
+| option

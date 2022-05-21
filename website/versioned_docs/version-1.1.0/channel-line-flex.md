@@ -118,4 +118,38 @@ async function App(context) {
           action: {
             type: 'uri',
             label: 'WEBSITE',
-            uri: 
+            uri: 'https://linecorp.com',
+          },
+        },
+      ],
+    },
+  });
+}
+```
+
+> **Note: When it comes to complicated Flex Messages, it is recommended to check your code by the Flex Message Simulator.**
+>
+> - [Flex Message Simulator](https://developers.line.biz/console/fx/)
+> - [Flex Message Simulator(Beta)](https://developers.line.biz/console/fx-beta/)
+
+### A Carousel Type Flex Message
+
+You can send carousel Flex Messages by using the `carousel` as the top-level container. It is handy when you are displaying multiple choices, e.g., clothes, restaurants, tourism for the user to choose.
+
+```js
+async function App(context) {
+  const bubbleContent = {
+    type: 'bubble',
+    // ...other attributes
+  };
+  await context.sendFlex('This is a carousel flex', {
+    type: 'carousel',
+    contents: [
+      // put multiple bubbles in your carousel
+      bubbleContent,
+      bubbleContent,
+      bubbleContent,
+    ],
+  });
+}
+```

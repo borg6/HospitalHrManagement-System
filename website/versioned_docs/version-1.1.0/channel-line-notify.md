@@ -34,4 +34,86 @@ Official API document：https://notify-bot.line.me/doc/en/
 
 If you are familiar with any official Bottender example, you may already know about how to use the `.env` file to manage your environment variables in your local project.
 
-In this case, you need to add `LINE_NOTIFY_CLIENT_ID`, `
+In this case, you need to add `LINE_NOTIFY_CLIENT_ID`, `LINE_NOTIFY_CLIENT_SECRET` and `ROOT_PATH` to the `.env` file, so your file has those LINE related environment variables:
+
+```
+LINE_ACCESS_TOKEN={your LINE access token from LINE Messaging API channel}
+LINE_CHANNEL_SECRET={your LINE channel secret from LINE Messaging API channel}
+
+LINE_NOTIFY_CLIENT_ID={your LINE Notify client id}
+LINE_NOTIFY_CLIENT_SECRET={your LINE Notify client secret}
+ROOT_PATH={the ngrok public link}
+```
+
+### Preparing the LINE Notify Instance
+
+LINE Notify uses OAuth2 as the authorization mechanism. The minimum flow is as follows:
+
+1. Guide users to the LINE Notify authorization page.
+2. Receive the authorization code from LINE Notify redirect.
+3. Exchange an access token with the authorization code.
+4. Send a notification by the access token.
+
+Bottender provides a class `LineNotify` to help you deal with LINE Notify APIs. You can create an instance of `LINENotify` for later use.
+
+Create a `lineNotify.js` file in the root directory of the project and copy the following code into it:
+
+```js
+const { LineNotify } = require('bottender');
+
+export default new LineNotify({
+  clientId: process.env.LINE_NOTIFY_CLIENT_ID,
+  clientSecret: process.env.LINE_NOTIFY_CLIENT_SECRET,
+  redirectUri: `${process.env.ROOT_PATH}/notify/redirect`,
+});
+```
+
+### Guiding Users to the LINE Notify Authorization Page
+
+To serve webpages, we need to add additional routes to the server. Fortunately, [custom server](advanced-guides-custom-server.md#the-concept) come to the rescue!
+
+You could use express, koa, restify, or whatever you like, but we are going to use express in this guide. Before going down, make sure that you set up correctly according to [this guide](advanced-guides-custom-server.md#express).
+
+Modify `src/index.js` to send the authorization link to your users:
+
+```js
+const lineNotify = require('../lineNotify');
+
+module.exports = async function App(context) {
+  const url = lineNotify.getAuthLink('test');
+  await context.sendText(url);
+};
+```
+
+### Receiving Authorization Code from Redirect and Send Notification by Access Token
+
+Add the following code snippet into `server.js` to handle redirects from LINE Notify.
+
+```js
+const lineNotify = require('../lineNotify');
+// ...
+
+app.prepare().then(() => {
+  //...
+
+  server.get('/notify/redirect', async function (req, res) {
+    const code = req.query.code;
+    const token = await lineNotify.getToken(code);
+    await lineNotify.sendNotify(token, 'Hello bottender!');
+    res.send('Subscribe successfully. Please close this page.');
+  });
+
+  // routes for webhook request
+  // ...
+});
+```
+
+You can find all your subscriptions on the [Connected Services](https://notify-bot.line.me/my/) page.
+
+> **Note:** You should store access tokens for sending notifications in the future. We don't store them here, because it helps us simplify this demo.
+
+## Limitations
+
+1. The message format only allows text, image, and basic sticker, so you can't send, for example, a message with some buttons.
+2. You can't have more than 1000 characters in a single text message.
+3. The rate limit is 1000 messages per token per hour.

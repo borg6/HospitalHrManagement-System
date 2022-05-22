@@ -51,4 +51,105 @@ For more details about creating a LINE Login channel, please checkout [Creating 
 - Fill in the "Endpoint URL" in this format: `https://{your domain}.ngrok.io/liff`
 - Fill in other values
 
-For more details about registering a LIF
+For more details about registering a LIFF app, please checkout [Registering LIFF App](https://developers.line.biz/en/docs/liff/registering-liff-apps/#registering-liff-app).
+
+> **Note:** [ngrok](https://ngrok.com/) is a well-known service that provides public HTTPS URLs for your local server using the tunnel. When you develop your bot, you may want to use ngrok to get a temporary HTTPS URL.
+
+### Environment Variables Setting
+
+If you are familiar with any official Bottender example, you may already know about how to use the `.env` file to manage your environment variables in your local project.
+
+In this case, you need to add another `LINE_LIFF_ID` env to `.env` file, so there are at least those three LINE related environment variables in your file:
+
+```
+LINE_ACCESS_TOKEN={your LINE access token from LINE Messaging API channel}
+LINE_CHANNEL_SECRET={your LINE channel secret from LINE Messaging API channel}
+LINE_LIFF_ID={your LIFF id from LINE Login channel}
+```
+
+You could find your LIFF ID in the LIFF URL. The format of LIFF URL looks like `line://app/{your LIFF ID}`.
+
+For more details about LIFF ID, please checkout [Registering LIFF App (in step 4)](https://developers.line.biz/en/docs/liff/registering-liff-apps/#registering-liff-app).
+
+### Adding Custom Routes to HTTP Server for LIFF Pages
+
+To serve LIFF webpages, we need to add additional routes to the server. Fortunately, [custom server](advanced-guides-custom-server.md#the-concept) come to the rescue!
+
+You could use express, koa, restify, or whatever you like, but we are going to use express in this guide. Before going down, make sure that you set up correctly according to [this guide](advanced-guides-custom-server.md#express).
+
+After having a custom server, you could add the following two routes into `server.js` to handle requests from LIFF.
+
+```js
+server.get('/send-id', (req, res) => {
+  res.json({ id: process.env.LINE_LIFF_ID });
+});
+
+server.get('/liff', (req, res) => {
+  const filename = path.join(`${__dirname}/liff.html`);
+  res.sendFile(filename);
+});
+```
+
+### Initializing the LIFF Page
+
+Before starting using any feature provided by LIFF, you need to create a `liff.html` file in the root directory of the project and copy the following code into it for LIFF initialization:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOTTENDER LINE LIFF V2 DEMO</title>
+  </head>
+
+  <body>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <script>
+      function initializeLiff(myLiffId) {
+        liff
+          .init({
+            liffId: myLiffId,
+          })
+          .then(() => {
+            alert('LIFF init success!');
+          })
+          .catch((err) => {
+            alert(`error: ${JSON.stringify(err)}`);
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        fetch(`/send-id`)
+          .then((reqResponse) => reqResponse.json())
+          .then((jsonResponse) => {
+            let myLiffId = jsonResponse.id;
+            initializeLiff(myLiffId);
+          })
+          .catch((err) => {
+            alert(`error: ${JSON.stringify(err)}`);
+          });
+      });
+    </script>
+  </body>
+</html>
+```
+
+It is worth mentioning that `liff.init()` and some other `liff` methods return `Promise` as results, so you should handle those asynchronous code carefully.
+
+### Sending Messages from LIFF page
+
+After initializing the LIFF page, we can call `liff.sendMessages` to send messages in the thread imperatively. For example:
+
+```js
+liff.sendMessages([
+  {
+    type: 'text',
+    text: 'Hello, LIFF!',
+  },
+]);
+```
+
+Up to five texts, images, videos, audios, locations, templates (only a URI action can be set as an action), and flex messages are acceptable.
+
+Let's add a click event listener to send messages on click. You could replace the body tag in `liff.html` with the following implementati

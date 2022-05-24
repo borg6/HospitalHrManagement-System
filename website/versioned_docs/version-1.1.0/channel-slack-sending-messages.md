@@ -141,4 +141,44 @@ Slack owns a built-in message scheduling system. For other chat channels, you pr
 
 ### Scheduling Messages
 
-![im
+![image](https://user-images.githubusercontent.com/662387/70310573-efeaa400-184a-11ea-8f24-2cae4b644d08.png)
+
+Schedules a message to be sent to a channel.
+
+```js
+await context.chat.scheduleMessage({
+  text: 'Hello world!',
+  postAt: '299876400',
+});
+```
+
+> **Note:**
+>
+> - The `postAt` parameter in the code above follows Unix EPOCH timestamp.
+> - For more info, please refer to Slack's official doc, [`chat.scheduleMessage`](https://api.slack.com/methods/chat.scheduleMessage)
+
+### Getting a List of Scheduled Messages
+
+You can get a list of scheduled messages by the following code.
+
+```js
+await context.chat.scheduledMessages.list();
+```
+
+> **Note:**
+>
+> - For more info, please refer to Slack's official doc, [`chat.scheduledMessages.list`](https://api.slack.com/methods/chat.scheduledMessages.list)
+
+### Deleting Pending Scheduled Messages
+
+First, you have to use `chat.scheduledMessages.list` to figure out the `<SCHEDULED_MESSAGE_ID>` you want to delete. Then you can use the below method to delete a scheduled message.
+
+```js
+await context.chat.deleteScheduledMessage({
+  scheduledMessageId: '<SCHEDULED_MESSAGE_ID>',
+});
+```
+
+> **Note:**
+>
+> - For more info, please refer to Slack's official doc, [`chat.deleteScheduledMessage`](https://api.slack.com/methods/chat.deleteScheduledMessage)

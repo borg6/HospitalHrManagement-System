@@ -38,4 +38,14 @@ async function App(context) {
 }
 ```
 
-You can get the command from `context.event.command
+You can get the command from `context.event.command` and its arguments from `context.event.text` and use them in the reply:
+
+```js
+async function App(context) {
+  if (context.event.isCommand) {
+    await context.sendText(
+      `I received slash command '${context.event.command}' with arguments: '${context.event.text}'`
+    );
+  }
+}
+```

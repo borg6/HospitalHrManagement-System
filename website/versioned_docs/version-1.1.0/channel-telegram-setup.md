@@ -89,4 +89,32 @@ When you run bottender in development mode, Bottender automatically run up a Ngr
 ```
 App has started
 telegram webhook url: https://42bbf602.ngrok.io/webhooks/telegram
-server is running on 5
+server is running on 5000 port...
+```
+
+Then, you can open a new tab in the terminal and finish the webhook setting by the below command:
+
+```sh
+npx bottender telegram webhook set
+```
+
+Finally, press `Y` to allow Bottender set `ngrok` temporary URL as the webhook. Now you are ready to interact with your bot on Telegram :)
+
+#### Set Up Webhook for Production
+
+Before setting the webhook, please make sure you have set your access token correctly as the environment variable.
+
+Then, you can run Bottender on your hosting by the following command:
+
+```sh
+# in production
+npm start
+```
+
+By the following command, you can finish the Telegram webhook setting. (If you deployed your bot with the default webhook setting, you webhook for Telegram bot supposed to be `https://example.com/webhooks/telegram` )
+
+```sh
+npx bottender telegram webhook set -w https://example.com/webhooks/telegram
+```
+
+Now you are ready to interact with your bot on Telegram :)

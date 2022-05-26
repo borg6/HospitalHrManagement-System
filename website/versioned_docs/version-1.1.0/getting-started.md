@@ -64,4 +64,4 @@ And the application will be restarted automatically.
 
 That's it!
 
-You can learn more about Create Bottender App [from its README](https://github.com/Yoctol/bottender/tree/master/package
+You can learn more about Create Bottender App [from its README](https://github.com/Yoctol/bottender/tree/master/packages/create-bottender-app/README.md).

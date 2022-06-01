@@ -49,3 +49,30 @@ context.postMessage(
           },
         ],
       },
+    ],
+  },
+  {
+    asUser: true,
+  }
+);
+```
+
+<br />
+
+#### `postEphemeral(message [, options])` - [Official docs](https://api.slack.com/methods/chat.postEphemeral)
+
+Sends an ephemeral message to the user.
+
+| Param   | Type                              | Description                                                        |
+| ------- | --------------------------------- | ------------------------------------------------------------------ |
+| message | <code>String &#124; Object</code> | The message to be sent, can be text message or attachment message. |
+| options | `Object`                          | Other optional parameters.                                         |
+
+Example:
+
+```js
+context.postEphemeral({ text: 'Hello!' });
+context.postEphemeral({ attachments: [someAttachments] });
+context.postEphemeral('Hello!');
+context.postEphemeral('Hello!', { asUser: true });
+```

@@ -319,3 +319,356 @@ client.sendSticker(USER_ID, 46105);
 ```
 
 <br />
+
+#### `sendCarouselContent(receiver, richMedia [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#carousel-content-message)
+
+Sending a carousel content message to a user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481917-5f1b43b4-aeeb-11e7-8557-e25951d69b53.jpg" width="300" />
+
+| Param                         | Type            | Description                                                                              |
+| ----------------------------- | --------------- | ---------------------------------------------------------------------------------------- |
+| receiver                      | `String`        | Unique Viber user id.                                                                    |
+| richMedia.ButtonsGroupColumns | `Number`        | Number of columns per carousel content block. Default 6 columns. Possible values: 1 - 6. |
+| richMedia.ButtonsGroupRows    | `Number`        | Number of rows per carousel content block. Default 7 rows. Possible values: 1 - 7.       |
+| richMedia.Buttons             | `Array<Object>` | Array of buttons. Max of 6 _ ButtonsGroupColumns _ ButtonsGroupRows.                     |
+| options                       | `Object`        | Other optional parameters.                                                               |
+
+Example:
+
+```js
+client.sendCarouselContent(USER_ID, {
+  type: 'rich_media',
+  buttonsGroupColumns: 6,
+  buttonsGroupRows: 7,
+  bgColor: '#FFFFFF',
+  buttons: [
+    {
+      columns: 6,
+      rows: 3,
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      image: 'http://html-test:8080/myweb/guy/assets/imageRMsmall2.png',
+    },
+    {
+      columns: 6,
+      rows: 2,
+      text: '<font color=#323232><b>Headphones with Microphone, On-ear Wired earphones</b></font><font color=#777777><br/>Sound Intone </font><font color=#6fc133>$17.99</font>',
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      textSize: 'medium',
+      textVAlign: 'middle',
+      textHAlign: 'left',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#ffffff>Buy</font>',
+      textSize: 'large',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+      image: 'https://s14.postimg.org/4mmt4rw1t/Button.png',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#8367db>MORE DETAILS</font>',
+      textSize: 'small',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+    },
+    {
+      columns: 6,
+      rows: 3,
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      image: 'https://s16.postimg.org/wi8jx20wl/image_RMsmall2.png',
+    },
+    {
+      columns: 6,
+      rows: 2,
+      text: "<font color=#323232><b>Hanes Men's Humor Graphic T-Shirt</b></font><font color=#777777><br/>Hanes</font><font color=#6fc133>$10.99</font>",
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      textSize: 'medium',
+      textVAlign: 'middle',
+      textHAlign: 'left',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#ffffff>Buy</font>',
+      textSize: 'large',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+      image: 'https://s14.postimg.org/4mmt4rw1t/Button.png',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#8367db>MORE DETAILS</font>',
+      textSize: 'small',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+    },
+  ],
+});
+```
+
+<br />
+
+<a id="keyboards" />
+
+### Keyboards - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#keyboards)
+
+The Viber API allows sending a custom keyboard using the send message API, to supply the user with a set of predefined replies or actions. Keyboards can be attached to any message type and be sent and displayed together. To attach a keyboard to a message simply add the keyboard’s parameters to the options:
+
+```js
+client.sendText(USER_ID, 'Hello', {
+  keyboard: {
+    defaultHeight: true,
+    bgColor: '#FFFFFF',
+    buttons: [
+      {
+        columns: 6,
+        rows: 1,
+        bgColor: '#2db9b9',
+        bgMediaType: 'gif',
+        bgMedia: 'http://www.url.by/test.gif',
+        bgLoop: true,
+        actionType: 'open-url',
+        actionBody: 'www.tut.by',
+        image: 'www.tut.by/img.jpg',
+        text: 'Key text',
+        textVAlign: 'middle',
+        textHAlign: 'center',
+        textOpacity: 60,
+        textSize: 'regular',
+      },
+    ],
+  },
+});
+```
+
+Which in turn will look like this:
+
+<img src="https://developers.viber.com/docs/img/example_keyboard.png" width="300" />
+
+<br />
+
+<a id="broadcast-api" />
+
+### Broadcast API - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#broadcast-message)
+
+Those API methods use the same parameters as the send methods with a few variations described below. You should specify a list of receivers instead of a single receiver.
+
+- `broadcastMessage(broadcastList, message)`
+- `broadcastText(broadcastList, text [, options])`
+- `broadcastPicture(broadcastList, picture [, options])`
+- `broadcastVideo(broadcastList, video [, options])`
+- `broadcastFile(broadcastList, file [, options])`
+- `broadcastContact(broadcastList, contact [, options])`
+- `broadcastLocation(broadcastList, location [, options])`
+- `broadcastURL(broadcastList, url [, options])`
+- `broadcastSticker(broadcastList, stickerId [, options])`
+- `broadcastCarouselContent(broadcastList, richMedia [, options])`
+
+| Param         | Type            | Description                                                                                                                                                        |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| broadcastList | `Array<String>` | This mandatory parameter defines the recipients for the message. Every user must be subscribed and have a valid user id. The maximum list length is 300 receivers. |
+
+Example:
+
+```js
+client
+  .broadcastText(
+    [
+      'pttm25kSGUo1919sBORWyA==',
+      '2yBSIsbzs7sSrh4oLm2hdQ==',
+      'EGAZ3SZRi6zW1D0uNYhQHg==',
+      'kBQYX9LrGyF5mm8JTxdmpw==',
+    ],
+    'a broadcast to everybody'
+  )
+  .then((result) => {
+    console.log(result);
+    // {
+    //   messageToken: 40808912438712,
+    //   status: 0,
+    //   statusMessage: 'ok',
+    //   failedList: [
+    //     {
+    //       receiver: 'pttm25kSGUo1919sBORWyA==',
+    //       status: 6,
+    //       statusMessage: 'Not subscribed',
+    //     },
+    //     {
+    //       receiver: 'EGAZ3SZRi6zW1D0uNYhQHg==',
+    //       status: 5,
+    //       statusMessage: 'Not found',
+    //     },
+    //   ],
+    // }
+  });
+```
+
+<br />
+
+### Get Account Info
+
+#### `getAccountInfo()` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-account-info)
+
+It will fetch the account’s details as registered in Viber.
+
+Example:
+
+```js
+client.getAccountInfo().then((info) => {
+  console.log(info);
+  // {
+  //   status: 0,
+  //   statusMessage: 'ok',
+  //   id: 'pa:75346594275468546724',
+  //   name: 'account name',
+  //   uri: 'accountUri',
+  //   icon: 'http://example.com',
+  //   background: 'http://example.com',
+  //   category: 'category',
+  //   subcategory: 'sub category',
+  //   location: {
+  //     lon: 0.1,
+  //     lat: 0.2,
+  //   },
+  //   country: 'UK',
+  //   webhook: 'https://my.site.com',
+  //   eventTypes: ['delivered', 'seen'],
+  //   subscribersCount: 35,
+  //   members: [
+  //     {
+  //       id: '01234567890A=',
+  //       name: 'my name',
+  //       avatar: 'http://example.com',
+  //       role: 'admin',
+  //     },
+  //   ],
+  // }
+});
+```
+
+<br />
+
+### Get User Details
+
+#### `getUserDetails(id)` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-user-details)
+
+It will fetch the details of a specific Viber user based on his unique user ID.
+
+| Param | Type     | Description           |
+| ----- | -------- | --------------------- |
+| id    | `String` | Unique Viber user id. |
+
+Example:
+
+```js
+client.getUserDetails('01234567890A=').then((user) => {
+  console.log(user);
+  // {
+  //   id: '01234567890A=',
+  //   name: 'John McClane',
+  //   avatar: 'http://avatar.example.com',
+  //   country: 'UK',
+  //   language: 'en',
+  //   primaryDeviceOs: 'android 7.1',
+  //   apiVersion: 1,
+  //   viberVersion: '6.5.0',
+  //   mcc: 1,
+  //   mnc: 1,
+  //   deviceType: 'iPhone9,4',
+  // };
+});
+```
+
+<br />
+
+### Get Online
+
+#### `getOnlineStatus(ids)` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-online)
+
+It will fetch the online status of a given subscribed account members.
+
+| Param | Type            | Description                                         |
+| ----- | --------------- | --------------------------------------------------- |
+| id    | `Array<String>` | Array of unique Viber user id. 100 ids per request. |
+
+Example:
+
+```js
+client
+  .getOnlineStatus(['01234567890=', '01234567891=', '01234567893='])
+  .then((status) => {
+    console.log(status);
+    // [
+    //   {
+    //     id: '01234567890=',
+    //     onlineStatus: 0,
+    //     onlineStatusMessage: 'online',
+    //   },
+    //   {
+    //     id: '01234567891=',
+    //     onlineStatus: 1,
+    //     onlineStatusMessage: 'offline',
+    //     lastOnline: 1457764197627,
+    //   },
+    //   {
+    //     id: '01234567893=',
+    //     onlineStatus: 3,
+    //     onlineStatusMessage: 'tryLater',
+    //   },
+    // ];
+  });
+```
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-viber
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real Viber server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    viber: {
+      enabled: true,
+      path: '/webhooks/viber',
+      accessToken: process.env.VIBER_ACCESS_TOKEN,
+      sender: {
+        name: 'Sender Name',
+      },
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

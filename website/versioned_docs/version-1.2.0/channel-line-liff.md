@@ -205,4 +205,21 @@ Let's add a click event listener to send messages on click. You could replace th
         })
         .catch((err) => {
           alert(`error: ${JSON.stringify(err)}`);
-        })
+        });
+    });
+  </script>
+</body>
+```
+
+### Sending LIFF LINK to the User
+
+To test the LIFF page, you could replace the code in `index.js` to send the LIFF URL to the user:
+
+```js
+module.exports = async function App(context) {
+  const liffUrl = `https://liff.line.me/${process.env.LINE_LIFF_ID}`;
+  await context.sendText(liffUrl);
+};
+```
+
+Now, you could execute `yarn dev` or `npm run dev` to start the server, and you will have a LINE Bot with a simple LIFF page.

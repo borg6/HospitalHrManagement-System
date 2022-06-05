@@ -111,4 +111,12 @@ module.exports = function App(context) {
 Create an environment file `.env`, and fill in access token and channel secret:
 
 ```
-LINE_ACCESS_
+LINE_ACCESS_TOKEN=
+LINE_CHANNEL_SECRET=
+```
+
+Finally, run your bot by the following command:
+
+```sh
+npx bottender start
+```

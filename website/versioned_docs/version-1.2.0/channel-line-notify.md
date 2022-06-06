@@ -77,4 +77,43 @@ You could use express, koa, restify, or whatever you like, but we are going to u
 Modify `src/index.js` to send the authorization link to your users:
 
 ```js
-const lineNo
+const lineNotify = require('../lineNotify');
+
+module.exports = async function App(context) {
+  const url = lineNotify.getAuthLink('test');
+  await context.sendText(url);
+};
+```
+
+### Receiving Authorization Code from Redirect and Send Notification by Access Token
+
+Add the following code snippet into `server.js` to handle redirects from LINE Notify.
+
+```js
+const lineNotify = require('../lineNotify');
+// ...
+
+app.prepare().then(() => {
+  //...
+
+  server.get('/notify/redirect', async function (req, res) {
+    const code = req.query.code;
+    const token = await lineNotify.getToken(code);
+    await lineNotify.sendNotify(token, 'Hello bottender!');
+    res.send('Subscribe successfully. Please close this page.');
+  });
+
+  // routes for webhook request
+  // ...
+});
+```
+
+You can find all your subscriptions on the [Connected Services](https://notify-bot.line.me/my/) page.
+
+> **Note:** You should store access tokens for sending notifications in the future. We don't store them here, because it helps us simplify this demo.
+
+## Limitations
+
+1. The message format only allows text, image, and basic sticker, so you can't send, for example, a message with some buttons.
+2. You can't have more than 1000 characters in a single text message.
+3. The rate limit is 1000 messages per token per hour.

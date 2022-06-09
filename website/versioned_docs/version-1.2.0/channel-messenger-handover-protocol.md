@@ -177,4 +177,20 @@ The messaging_handovers webhook event notifies an app's webhook when the followi
 - Thread control is taken from the app
 - App role is changed
 
-> - For more info, you can refer to Facebook's official doc, [messaging_handovers](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/messa
+> - For more info, you can refer to Facebook's official doc, [messaging_handovers](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/messaging_handovers)
+
+### standby
+
+For bots using the handover protocol, this callback occurs when a message has been sent to your page, but your application is not the current thread owner.
+
+> - For more info, you can refer to Facebook's official doc, [standby](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/standby)
+
+### echo
+
+This callback occurs when a message has been sent by your page.
+
+It is helpful when your `Primary Receiver` app, e.g., Bottender code, has passed `Thread Control` to a `Secondary Receiver app`, e.g., `Page Inbox`. However, you want to make sure your bot takes `Thread Control` back after a certain amount of time.
+
+You can subscribe to this callback by selecting the message_echoes field when setting up your webhook.
+
+> - For more info, you can refer to Facebook's official doc, [echo](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/message-echoes)

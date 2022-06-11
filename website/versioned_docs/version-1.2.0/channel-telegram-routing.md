@@ -70,4 +70,6 @@ All available routes in `telegram` that recognize different kind of events:
 - `telegram.inlineQuery` - matches when receiving telegram `inlineQuery` events.
 - `telegram.chosenInlineResult` - matches when receiving telegram `chosenInlineResult` events.
 - `telegram.callbackQuery` - matches when receiving telegram `callbackQuery` events.
-- `telegram.shippingQuery
+- `telegram.shippingQuery` - matches when receiving telegram `shippingQuery` events.
+- `telegram.preCheckoutQuery` - matches when receiving telegram `preCheckoutQuery` events.
+- `telegram.poll` - matches when receiving telegram `poll` events.

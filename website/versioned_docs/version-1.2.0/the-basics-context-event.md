@@ -4,4 +4,16 @@ title: Context and Event
 original_id: the-basics-context-event
 ---
 
-## Contex
+## Context
+
+```js
+async function App(context) {}
+```
+
+## Event
+
+```js
+async function App(context) {
+  context.event;
+}
+```

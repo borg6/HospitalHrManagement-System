@@ -121,4 +121,137 @@ release: echo "Y" | npx bottender messenger webhook set -w https://<your-heroku-
 > **Note:**
 >
 > - The `echo "Y"` aims to answer the first interactive CLI prompt
-> - If you haven't changed your webhook path in `bottender.config.js
+> - If you haven't changed your webhook path in `bottender.config.js`, by default, your Messenger Bot webhook is `https://<your-heroku-app-name>.herokuapp.com/webhooks/messenger`; your LINE Bot webhook is `https://<your-heroku-app-name>.herokuapp.com/webhooks/line`, and so on.
+
+Finally, You can use Heroku CLI by Git push to complete the deployment and let Heroku runs the `Procfile` to help you finish the webhook setup.
+
+```sh
+heroku git:remote -a <your-heroku-app-name>
+git push heroku master
+```
+
+### Step 6: Completed!
+
+Congratulations! You have made your Bottender bot production-ready. Share your fantastic bot with your friends!
+
+> **Note:** If you would like to share your Bottender Bot with the community, please feel free to add your project to [Bottender Users](https://bottender.js.org/users).
+
+## ZEIT Now 2.0
+
+<p><img width="1000" src="https://user-images.githubusercontent.com/662387/72130872-acd5a080-33b5-11ea-8c6c-ae06dd250be6.png"/></p>
+
+ZEIT Now 2.0 is a super developer-friendly hosting service. It is famous for its one-word magic command `now` in the deployment of static web hosting.
+
+However, it needs a bit configuration to deploy a Bottender app and make it works serverless. In the following sections, you can see the necessary steps of ZEIT Now 2.0 deployment:
+
+### Step 1: Create a ZEIT Account
+
+First, [create](https://ZEIT.co/signup) a ZEIT Account if you haven't.
+
+### Step 2: Install ZEIT Now CLI
+
+We love to deploy with CLI! Install ZEIT Now CLI with npm by:
+
+```sh
+npm install -g now
+```
+
+### Step 3: Create a `server.js`
+
+ZEIT Now 2.0 doesn't support `npm` scripts, so we need a `server.js` as the entry point.
+
+```js
+// server.js
+
+const bodyParser = require('body-parser');
+const express = require('express');
+const { bottender } = require('bottender');
+
+const app = bottender({
+  dev: process.env.NODE_ENV !== 'production',
+});
+
+const port = Number(process.env.PORT) || 5000;
+
+const handle = app.getRequestHandler();
+
+app.prepare().then(() => {
+  const server = express();
+
+  server.use(
+    bodyParser.json({
+      verify: (req, _, buf) => {
+        req.rawBody = buf.toString();
+      },
+    })
+  );
+
+  server.all('*', (req, res) => {
+    return handle(req, res);
+  });
+
+  server.listen(port, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+});
+```
+
+### Step 4: Update Your `now.json`
+
+In the following configuration, you will make a few settings:
+
+- Set ZEIT Now to version 2.0
+- Use `@now/node` to bundle `server.js`
+- Put `bottender.config.js` and `index.js` into `includeFiles`. ZEIT Now uses `ncc` and `webpack bundler` under the hood, so we need to tell them to put those two files into the bundle)
+- Route all (/.\*) to `server.js`
+- Add your chat channel specific environment variables from `.env` to env. The number of environment variables various from the chat channel you use.
+- (optional) If you are debugging your app, you may set `DEBUG` env to `bottender*,messaging-api*`
+
+Using a Messenger Bot as an example. your `now.json` is like:
+
+```js
+// now.json
+
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@now/node",
+      "config": {
+        "includeFiles": [
+          "bottender.config.js",
+          "index.js"
+        ],
+        "bundle": true
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "/server.js"
+    }
+  ],
+  "env": {
+    "MESSENGER_PAGE_ID": "xxxxxx",
+    "MESSENGER_ACCESS_TOKEN": "xxxxxx",
+    "MESSENGER_APP_ID": "xxxxxx",
+    "MESSENGER_APP_SECRET": "xxxxxx",
+    "MESSENGER_VERIFY_TOKEN": "xxxxxx",
+    "DEBUG": "bottender*,messaging-api*"
+  }
+}
+```
+
+### Step 5: Update Your `bottender.config.js`
+
+ZEIT Now 2.0 is a serverless hosting service, and serverless functions terminated right after HTTP response. So you have to make Bottender work synchronously, i.e., respond to chat channel right after received an event.
+
+to make the Bottender app executes in the synchronous mode, you must configure chat channels with `sync: true` in `bottender.config.js`.
+
+```js
+// bottender.config.js
+
+module.exports = {

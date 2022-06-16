@@ -140,4 +140,87 @@ Responds text message using specified reply token.
 
 <img src="https://user-images.githubusercontent.com/563929/82649893-77d33780-9c4c-11ea-9075-f11848d92850.png" width="250px" />
 
-You can include LINE original emoji in text messages using character codes. For a list of LINE emoji that can be sen
+You can include LINE original emoji in text messages using character codes. For a list of LINE emoji that can be sent in LINE chats, see the [emoji list](https://developers.line.me/media/messaging-api/emoji-list.pdf).
+
+<img src="https://user-images.githubusercontent.com/563929/82650108-cbde1c00-9c4c-11ea-8510-b2909bc93d8d.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| text                     | `String` | Text of the message to be sent.              |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replyText(REPLY_TOKEN, 'Hello!');
+```
+
+<br />
+
+#### `replyImage(token, image, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#image-message)
+
+Responds image message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82650545-64749c00-9c4d-11ea-8038-0ac0dd817a02.png" width="250px" />
+<img src="https://user-images.githubusercontent.com/563929/82650588-75251200-9c4d-11ea-955d-30ba9458ffd3.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| image.originalContentUrl | `String` | Image URL.                                   |
+| image.previewImageUrl    | `String` | Preview image URL.                           |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replyImage(REPLY_TOKEN, {
+  originalContentUrl: 'https://example.com/original.jpg',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `replyVideo(token, video, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#video-message)
+
+Responds video message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82650704-a69ddd80-9c4d-11ea-9e86-8e2c5294d97f.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| video.originalContentUrl | `String` | URL of video file.                           |
+| video.previewImageUrl    | `String` | URL of preview image.                        |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replyVideo(REPLY_TOKEN, {
+  originalContentUrl: 'https://example.com/original.mp4',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `replyAudio(token, audio, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#audio-message)
+
+Responds audio message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82651012-26c44300-9c4e-11ea-8c25-aade44dbe4f8.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| audio.originalContentUrl | `String` | URL of audio file.                           |
+| audio.duration           | `Number` | 

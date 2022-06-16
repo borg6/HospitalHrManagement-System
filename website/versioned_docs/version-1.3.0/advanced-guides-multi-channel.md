@@ -156,4 +156,35 @@ async function LineAction(context) {
 }
 
 async function MessengerAction(context) {
-  await context.sendButtonTemplate('This is a messenge
+  await context.sendButtonTemplate('This is a messenger-specific message!', [
+    {
+      type: 'postback',
+      title: 'Hello',
+      payload: 'Hello',
+    },
+    {
+      type: 'postback',
+      title: 'World',
+      payload: 'World',
+    },
+  ]);
+}
+
+module.exports = async function App(context) {
+  return router([
+    platform('line', LineAction),
+    platform('messenger', MessengerAction),
+  ]);
+};
+```
+
+### Using `Platform Specific Routes` to Manage Cross-Platform Events
+
+By Bottender 1.1+, you can use `Platform Specific Routes` as an alternative to organize events from various chat channels. To learn more about the details of those specific routes, check out their documentation:
+
+- [Messenger Routes](channel-messenger-routing.md)
+- [WhatsApp Routes](channel-whatsapp-routing.md)
+- [LINE Routes](channel-line-routing.md)
+- [Slack Routes](channel-slack-routing.md)
+- [Telegram Routes](channel-telegram-routing.md)
+- [Viber Routes](channel-viber-routing.md)

@@ -223,4 +223,86 @@ Responds audio message using specified reply token.
 | ------------------------ | -------- | -------------------------------------------- |
 | token                    | `String` | `replyToken` received via webhook.           |
 | audio.originalContentUrl | `String` | URL of audio file.                           |
-| audio.duration           | `Number` | 
+| audio.duration           | `Number` | Length of audio file (milliseconds).         |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replyAudio(REPLY_TOKEN, {
+  originalContentUrl: 'https://example.com/original.m4a',
+  duration: 240000,
+});
+```
+
+<br />
+
+#### `replyLocation(token, location, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#location-message)
+
+Responds location message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82651104-478c9880-9c4e-11ea-8fdf-cb6d8a10bf9a.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| location                 | `Object` | Object contains location's parameters.       |
+| location.title           | `String` | Title of the location.                       |
+| location.address         | `String` | Address of the location.                     |
+| location.latitude        | `Number` | Latitude of the location.                    |
+| location.longitude       | `Number` | Longitude of the location.                   |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replyLocation(REPLY_TOKEN, {
+  title: 'my location',
+  address: '〒150-0002 東京都渋谷区渋谷２丁目２１−１',
+  latitude: 35.65910807942215,
+  longitude: 139.70372892916203,
+});
+```
+
+<br />
+
+#### `replySticker(token, sticker, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#sticker-message)
+
+Responds sticker message using specified reply token.
+<br />
+For a list of stickers that can be sent with the Messaging API, see the [sticker list](https://developers.line.me/media/messaging-api/messages/sticker_list.pdf).
+
+<img src="https://user-images.githubusercontent.com/563929/82651371-a7833f00-9c4e-11ea-9041-46dcb962b0c7.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| sticker.packageId        | `String` | Package ID.                                  |
+| sticker.stickerId        | `String` | Sticker ID.                                  |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replySticker(REPLY_TOKEN, { packageId: '1', stickerId: '1' });
+```
+
+<br />
+
+### Reply Imagemap Messages
+
+#### `replyImagemap(token, altText, imagemap, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#imagemap-message)
+
+Responds imagemap message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82651489-cc77b200-9c4e-11ea-860a-2f7f1ecaa5b5.png" width="250px" />
+
+| Param                               | Type            | Description                                                                                 |
+| ----------------------------------- | --------------- | ------------------------------------------------------------------------------------------- |
+| token                               | `String`        | `replyToken` received via webhook.                                                  

@@ -440,4 +440,97 @@ client.replyButtonTemplate(REPLY_TOKEN, 'this is a template', {
   title: 'Menu',
   text: 'Please select',
   actions: [
-  
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `replyConfirmTemplate(token, altText, confirmTemplate, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#confirm)
+
+Responds confirm template message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82651801-398b4780-9c4f-11ea-986c-b8cadee4349b.png" width="250px" />
+
+| Param                    | Type            | Description                                   |
+| ------------------------ | --------------- | --------------------------------------------- |
+| token                    | `String`        | `replyToken` received via webhook.            |
+| altText                  | `String`        | Alternative text.                             |
+| confirmTemplate          | `Object`        | Object contains confirmTemplate's parameters. |
+| confirmTemplate.text     | `String`        | Message text of confirmTemplate.              |
+| confirmTemplate.actions  | `Array<Object>` | Action when tapped.                           |
+| options                  | `Object`        | Optional options.                             |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.  |
+| options.quickReply.items | `Array`         | Quick reply items.                            |
+
+Example:
+
+```js
+client.replyConfirmTemplate(REPLY_TOKEN, 'this is a confirm template', {
+  text: 'Are you sure?',
+  actions: [
+    {
+      type: 'message',
+      label: 'Yes',
+      text: 'yes',
+    },
+    {
+      type: 'message',
+      label: 'No',
+      text: 'no',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `replyCarouselTemplate(token, altText, carouselItems, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#carousel)
+
+Responds carousel template message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82651957-735c4e00-9c4f-11ea-8147-2fae91afb62e.png" width="250px" />
+
+| Param                    | Type            | Description                                                                           |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------- |
+| token                    | `String`        | `replyToken` received via webhook.                                                    |
+| altText                  | `String`        | Alternative text.                                                                     |
+| carouselItems            | `Array<Object>` | Array of columns which contains object for carousel.                                  |
+| options                  | `Object`        | Object contains options.                                                              |
+| options.imageAspectRatio | `String`        | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square` |
+| options.imageSize        | `String`        | Size of the image. Specify one of the following values: `cover`, `contain`            |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.                                          |
+| options.quickReply.items | `Array`         | Quick reply items.                                                                    |
+
+Example:
+
+```js
+client.replyCarouselTemplate(REPLY_TOKEN, 'this is a carousel template', [
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+      {
+        type: 'postback',
+       

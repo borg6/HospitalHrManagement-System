@@ -899,4 +899,105 @@ Sends imagemap message using ID of the receiver.
 | imagemap.video.area.y               | `Number`        | Vertical position of the video area relative to the top-left corner of the imagemap area.   |
 | imagemap.video.area.width           | `Number`        | Width of the video area.                                                                    |
 | imagemap.video.area.height          | `Number`        | Height of the video area.                                                                   |
-| imagemap.video.exter
+| imagemap.video.externalLink.linkUri | `String`        | Webpage URL. Called when the label displayed after the video is tapped.                     |
+| imagemap.video.externalLink.label   | `String`        | Label. Displayed after the video is finished.                                               |
+| imagemap.actions                    | `Array<Object>` | Action when tapped.                                                                         |
+| options                             | `Object`        | Optional options.                                                                           |
+| options.quickReply                  | `Object`        | Quick reply object to attach to the message.                                                |
+| options.quickReply.items            | `Array`         | Quick reply items.                                                                          |
+
+Example:
+
+```js
+client.pushImagemap(USER_ID, 'this is an imagemap', {
+  baseUrl: 'https://example.com/bot/images/rm001',
+  baseSize: {
+    width: 1040,
+    height: 1040,
+  },
+  actions: [
+    {
+      type: 'uri',
+      linkUri: 'https://example.com/',
+      area: {
+        x: 0,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+    {
+      type: 'message',
+      text: 'hello',
+      area: {
+        x: 520,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+  ],
+});
+```
+
+<br />
+
+### Push Template Messages
+
+#### `pushTemplate(userId, altText, template, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#template-messages)
+
+Sends template message using ID of the receiver.
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| altText                  | `String` | Alternative text.                            |
+| template                 | `Object` | Object with the contents of the template.    |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushTemplate(USER_ID, 'this is a template', {
+  type: 'buttons',
+  thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+  title: 'Menu',
+  text: 'Please select',
+  actions: [
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `pushButtonTemplate(userId, altText, buttonTemplate, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#buttons)
+
+Alias: `pushButtonsTemplate`.
+
+Sends button template message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82654518-735e4d00-9c53-11ea-9299-34eb4e3fb853.png" width="250px" />
+
+| Param                               | Type            | Description                                                                                   |
+| ----------------------------------- | --------------- | --------------------------------------------------------------------------------------------- |
+| userId                              | `String`        | ID of the receiver.                                                                           |
+| altText                             | `String`        | Alternative text.                                                                             |
+| buttonTemplate                      | `Object`        | Object contains buttonTemplate's parameters.                                                  |
+| buttonTemplate.thumbnailImageUrl    | `String`   

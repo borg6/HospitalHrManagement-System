@@ -754,4 +754,100 @@ Sends image message using ID of the receiver.
 | image.previewImageUrl    | `String` | Preview image URL.                           |
 | options                  | `Object` | Optional options.                            |
 | options.quickReply       | `Object` | Quick reply object to attach to the message. |
-| options.quickReply.items | `Array`  | Quick reply items.                 
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushImage(USER_ID, {
+  originalContentUrl: 'https://example.com/original.jpg',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `pushVideo(userId, video, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#video-message)
+
+Sends video message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82653198-6c363f80-9c51-11ea-9acd-28677530a3b3.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| video.originalContentUrl | `String` | URL of video file.                           |
+| video.previewImageUrl    | `String` | URL of preview image.                        |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushVideo(USER_ID, {
+  originalContentUrl: 'https://example.com/original.mp4',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `pushAudio(userId, audio, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#audio-message)
+
+Sends audio message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82653904-7dcc1700-9c52-11ea-9023-4ad89e76bb05.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| audio.originalContentUrl | `String` | URL of audio file.                           |
+| audio.duration           | `Number` | Length of audio file (milliseconds).         |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushAudio(USER_ID, {
+  originalContentUrl: 'https://example.com/original.m4a',
+  duration: 240000,
+});
+```
+
+<br />
+
+#### `pushLocation(userId, location, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#location-message)
+
+Sends location message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82654102-c97ec080-9c52-11ea-94ef-5f26e52d78a1.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| location                 | `Object` | Object contains location's parameters.       |
+| location.title           | `String` | Title of the location.                       |
+| location.address         | `String` | Address of the location.                     |
+| location.latitude        | `Number` | Latitude of the location.                    |
+| location.longitude       | `Number` | Longitude of the location.                   |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushLocation(USER_ID, {
+  title: 'my location',
+  address: '〒150-0002 東京都渋谷区渋谷２丁目２１−１',
+  latitude: 35.65910807942215,
+  longitude: 139.70372892916203,
+});
+```
+
+<br />
+
+#### `pushSt

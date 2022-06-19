@@ -637,4 +637,121 @@ Responds flex message using specified reply token.
 | contents                 | `Object` | Flex Message [container](https://developers.line.me/en/mreference/essaging-api/#container) object. |
 | options                  | `Object` | Optional options.                                                                                  |
 | options.quickReply       | `Object` | Quick reply object to attach to the message.                                                       |
-| options.quickReply.items | `Array`  | Quic
+| options.quickReply.items | `Array`  | Quick reply items.                                                                                 |
+
+Example:
+
+```js
+client.replyFlex(REPLY_TOKEN, 'this is a flex', {
+  type: 'bubble',
+  header: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Header text',
+      },
+    ],
+  },
+  hero: {
+    type: 'image',
+    url: 'https://example.com/flex/images/image.jpg',
+  },
+  body: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Body text',
+      },
+    ],
+  },
+  footer: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Footer text',
+      },
+    ],
+  },
+  styles: {
+    comment: 'See the example of a bubble style object',
+  },
+});
+```
+
+<br />
+
+<a id="push-api" />
+
+### Push API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#send-push-message)
+
+Sends messages to a user, group, or room at any time.
+
+#### `push(userId, messages)`
+
+Sends messages using ID of the receiver.
+
+| Param    | Type            | Description                                                             |
+| -------- | --------------- | ----------------------------------------------------------------------- |
+| userId   | `String`        | ID of the receiver.                                                     |
+| messages | `Array<Object>` | Array of objects which contains the contents of the message to be sent. |
+
+Example:
+
+```js
+client.push(USER_ID, [
+  {
+    type: 'text',
+    text: 'Hello!',
+  },
+]);
+```
+
+<br />
+
+#### `pushText(userId, text, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#text-message)
+
+Sends text message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82652318-01383900-9c50-11ea-8199-cb7c8f6362dc.png" width="250px" />
+
+You can include LINE original emoji in text messages using character codes. For a list of LINE emoji that can be sent in LINE chats, see the [emoji list](https://developers.line.me/media/messaging-api/emoji-list.pdf).
+
+<img src="https://user-images.githubusercontent.com/563929/82652521-52e0c380-9c50-11ea-829a-36cd706823e0.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| text                     | `String` | Text of the message to be sent.              |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushText(USER_ID, 'Hello!');
+```
+
+<br />
+
+#### `pushImage(userId, image, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#image-message)
+
+Sends image message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82652911-021d9a80-9c51-11ea-9f6e-a6c18d0a87e5.png" width="250px" />
+<img src="https://user-images.githubusercontent.com/563929/82652981-1cf00f00-9c51-11ea-89ba-7da7e74e5def.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| image.originalContentUrl | `String` | Image URL.                                   |
+| image.previewImageUrl    | `String` | Preview image URL.                           |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                 

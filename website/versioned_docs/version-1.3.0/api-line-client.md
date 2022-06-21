@@ -1471,4 +1471,70 @@ Sends imagemap message to multiple users.
 
 | Param                               | Type            | Description                                                                                 |
 | ----------------------------------- | --------------- | ------------------------------------------------------------------------------------------- |
-| userIds                             | `Array<String>` | IDs of the receivers.             
+| userIds                             | `Array<String>` | IDs of the receivers.                                                                       |
+| altText                             | `String`        | Alternative text.                                                                           |
+| imagemap                            | `Object`        | Object contains imagemap's parameters.                                                      |
+| imagemap.baseUrl                    | `String`        | Base URL of image.                                                                          |
+| imagemap.baseSize                   | `Object`        | Base size object.                                                                           |
+| imagemap.baseSize.width             | `Number`        | Width of base image.                                                                        |
+| imagemap.baseSize.height            | `Number`        | Height of base image.                                                                       |
+| imagemap.video                      | `Object`        | Video object.                                                                               |
+| imagemap.video.originalContentUrl   | `String`        | URL of the video file (Max: 1000 characters).                                               |
+| imagemap.video.previewImageUrl      | `String`        | URL of the preview image (Max: 1000 characters).                                            |
+| imagemap.video.area.x               | `Number`        | Horizontal position of the video area relative to the top-left corner of the imagemap area. |
+| imagemap.video.area.y               | `Number`        | Vertical position of the video area relative to the top-left corner of the imagemap area.   |
+| imagemap.video.area.width           | `Number`        | Width of the video area.                                                                    |
+| imagemap.video.area.height          | `Number`        | Height of the video area.                                                                   |
+| imagemap.video.externalLink.linkUri | `String`        | Webpage URL. Called when the label displayed after the video is tapped.                     |
+| imagemap.video.externalLink.label   | `String`        | Label. Displayed after the video is finished.                                               |
+| imagemap.actions                    | `Array<Object>` | Action when tapped.                                                                         |
+| options                             | `Object`        | Optional options.                                                                           |
+| options.quickReply                  | `Object`        | Quick reply object to attach to the message.                                                |
+| options.quickReply.items            | `Array`         | Quick reply items.                                                                          |
+
+Example:
+
+```js
+client.multicastImagemap([USER_ID], 'this is an imagemap', {
+  baseUrl: 'https://example.com/bot/images/rm001',
+  baseSize: {
+    width: 1040,
+    height: 1040,
+  },
+  actions: [
+    {
+      type: 'uri',
+      linkUri: 'https://example.com/',
+      area: {
+        x: 0,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+    {
+      type: 'message',
+      text: 'hello',
+      area: {
+        x: 520,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+  ],
+});
+```
+
+<br />
+
+### Multicast Template Messages
+
+#### `multicastTemplate(userIds, altText, template, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#template-messages)
+
+Sends template message to multiple users.
+
+| Param                    | Type            | Description                                  |
+| ------------------------ | --------------- | -------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                        |
+| al

@@ -1703,4 +1703,108 @@ client.multicastCarouselTemplate([USER_ID], 'this is a carousel template', [
         data: 'action=add&itemid=111',
       },
       {
-      
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/111',
+      },
+    ],
+  },
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item2.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=222',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=222',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    ],
+  },
+]);
+```
+
+<br />
+
+#### `multicastImageCarouselTemplate(userIds, altText, carouselItems, options)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#image-carousel)
+
+Sends image carousel template message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82652055-971f9400-9c4f-11ea-878a-23dcabb430dc.png" width="250px" />
+
+| Param                    | Type            | Description                                                |
+| ------------------------ | --------------- | ---------------------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                                      |
+| altText                  | `String`        | Alternative text.                                          |
+| carouselItems            | `Array<Object>` | Array of columns which contains object for image carousel. |
+| options                  | `Object`        | Optional options.                                          |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.               |
+| options.quickReply.items | `Array`         | Quick reply items.                                         |
+
+Example:
+
+```js
+client.multicastImageCarouselTemplate(
+  [USER_ID],
+  'this is an image carousel template',
+  [
+    {
+      imageUrl: 'https://example.com/bot/images/item1.jpg',
+      action: {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+    },
+    {
+      imageUrl: 'https://example.com/bot/images/item2.jpg',
+      action: {
+        type: 'message',
+        label: 'Yes',
+        text: 'yes',
+      },
+    },
+    {
+      imageUrl: 'https://example.com/bot/images/item3.jpg',
+      action: {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    },
+  ]
+);
+```
+
+<br />
+
+### Multicast Flex Messages
+
+#### `multicastFlex(userIds, altText, contents, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#flex-message)
+
+Sends flex message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82652147-b6b6bc80-9c4f-11ea-96dc-3a1b5ca9d582.png" />
+
+| Param                    | Type            | Description                                                                                        |
+| ------------------------ | --------------- | -------------------------------------------------------------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                                                                              |
+| altText                  | `String`        | Alternative text.                                                                                  |
+| contents                 | `Object`        | Flex Message [container](https://developers.line.me/en/mreference/essaging-api/#container) object. |
+| options                  | `Object`        | Optional options.                                                                                  |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.                                                       |
+| options.quickReply.items | `Array`         | Quick reply items.                                                                                 |
+
+Example:
+
+```js

@@ -1808,3 +1808,175 @@ Sends flex message to multiple users.
 Example:
 
 ```js
+client.multicastFlex([USER_ID], 'this is a flex', {
+  type: 'bubble',
+  header: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Header text',
+      },
+    ],
+  },
+  hero: {
+    type: 'image',
+    url: 'https://example.com/flex/images/image.jpg',
+  },
+  body: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Body text',
+      },
+    ],
+  },
+  footer: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Footer text',
+      },
+    ],
+  },
+  styles: {
+    comment: 'See the example of a bubble style object',
+  },
+});
+```
+
+<br />
+
+<a id="quick-replies" />
+
+### Quick Replies - [Official Docs](https://developers.line.me/en/reference/messaging-api/#quick-reply)
+
+Sends message with buttons appear at the bottom of the chat screen.
+
+<img src="https://user-images.githubusercontent.com/563929/82657377-d7831000-9c57-11ea-9b22-593944a4e670.png" width="250px" />
+
+```js
+context.replyText(
+  REPLY_TOKEN,
+  'Select your favorite food category or send me your location!',
+  {
+    quickReply: {
+      items: [
+        {
+          type: 'action',
+          imageUrl: 'https://example.com/sushi.png',
+          action: {
+            type: 'message',
+            label: 'Sushi',
+            text: 'Sushi',
+          },
+        },
+        {
+          type: 'action',
+          imageUrl: 'https://example.com/tempura.png',
+          action: {
+            type: 'message',
+            label: 'Tempura',
+            text: 'Tempura',
+          },
+        },
+        {
+          type: 'action',
+          action: {
+            type: 'location',
+            label: 'Send location',
+          },
+        },
+      ],
+    },
+  }
+);
+```
+
+<br />
+
+<a id="content-api" />
+
+### Content API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-content)
+
+#### `getMessageContent(messageId)`
+
+Retrieves image, video, and audio data sent in specified message.
+
+| Param     | Type     | Description |
+| --------- | -------- | ----------- |
+| messageId | `String` | Message ID. |
+
+Example:
+
+```js
+client.getMessageContent(MESSAGE_ID).then((buffer) => {
+  console.log(buffer);
+  // <Buffer 61 61 73 64 ...>
+});
+```
+
+<br />
+
+<a id="profile-api" />
+
+### Profile API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-profile)
+
+#### `getUserProfile(userId)`
+
+Gets user profile information.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| userId | `String` | ID of the user. |
+
+Example:
+
+```js
+client.getUserProfile(USER_ID).then((profile) => {
+  console.log(profile);
+  // {
+  //   displayName: 'LINE taro',
+  //   userId: USER_ID,
+  //   pictureUrl: 'http://obs.line-apps.com/...',
+  //   statusMessage: 'Hello, LINE!',
+  // }
+});
+```
+
+<br />
+
+<a id="grouproom-member-profile-api" />
+
+### Group/Room Member Profile API - [Official Docs](https://developers.line.me/en/messaging-api/group-chats/#getting-a-user-profile-of-a-member-of-a-group-or-room)
+
+#### `getGroupMemberProfile(groupId, userId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#get-group-member-profile)
+
+Gets the user profile of a member of a group that the bot is in. This includes the user IDs of users who has not added the bot as a friend or has blocked the bot.
+
+| Param   | Type     | Description      |
+| ------- | -------- | ---------------- |
+| groupId | `String` | ID of the group. |
+| userId  | `String` | ID of the user.  |
+
+Example:
+
+```js
+client.getGroupMemberProfile(GROUP_ID, USER_ID).then((member) => {
+  console.log(member);
+  // {
+  //   "displayName":"LINE taro",
+  //   "userId":"Uxxxxxxxxxxxxxx...",
+  //   "pictureUrl":"http://obs.line-apps.com/..."
+  // }
+});
+```
+
+<br />
+
+#### `getRoomMemberProfile(roomId, userId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api

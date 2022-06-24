@@ -2457,3 +2457,143 @@ Issues a link token used for the [account link](https://developers.line.me/en/me
 
 Example:
 
+```js
+client.issueLinkToken(USER_ID).then((result) => {
+  console.log(result);
+  // {
+  //   linkToken: 'NMZTNuVrPTqlr2IF8Bnymkb7rXfYv5EY',
+  // }
+});
+```
+
+<a id="liff-api" />
+
+### LINE Front-end Framework API - [Official Docs](https://developers.line.me/en/liff/reference/)
+
+#### `createLiffApp(view)`
+
+Adds an app to LIFF. You can add up to 10 LIFF apps on one channel.
+
+| Param     | Type     | Description                                 |
+| --------- | -------- | ------------------------------------------- |
+| view.type | `String` | Size of the LIFF app view.                  |
+| view.url  | `String` | URL of the LIFF app. Must start with HTTPS. |
+
+Example:
+
+```js
+client.createLiffApp({
+  type: 'compact',
+  url: 'https://example.com/liff-app',
+});
+```
+
+View type can be specified one of the following values:
+
+- `compact`: 50% of the screen height of the device. This size can be specified only for the chat screen.
+- `tall`: 80% of the screen height of the device. This size can be specified only for the chat screen.
+- `full`: 100% of the screen height of the device. This size can be specified for any screens in the LINE app.
+
+<br />
+
+#### `updateLiffApp(liffId, view)`
+
+Updates LIFF app settings.
+
+| Param     | Type     | Description                                 |
+| --------- | -------- | ------------------------------------------- |
+| liffId    | `String` | ID of the LIFF app to be updated.           |
+| view.type | `String` | Size of the LIFF app view.                  |
+| view.url  | `String` | URL of the LIFF app. Must start with HTTPS. |
+
+Example:
+
+```js
+client.updateLiffApp(LIFF_ID, {
+  type: 'compact',
+  url: 'https://example.com/liff-app',
+});
+```
+
+<br />
+
+#### `getLiffAppList`
+
+Gets information on all the LIFF apps registered in the channel.
+
+Example:
+
+```js
+client.getLiffApps().then((apps) => {
+  console.log(apps);
+  // [
+  //   {
+  //     liffId: '{liffId}',
+  //     view: {
+  //       type: 'full',
+  //       url: 'https://example.com/myservice',
+  //     },
+  //   },
+  //   {
+  //     liffId: '{liffId}',
+  //     view: {
+  //       type: 'tall',
+  //       url: 'https://example.com/myservice2',
+  //     },
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `deleteLiffApp(liffId)`
+
+Deletes a LIFF app.
+
+| Param  | Type     | Description                       |
+| ------ | -------- | --------------------------------- |
+| liffId | `String` | ID of the LIFF app to be deleted. |
+
+Example:
+
+```js
+client.deleteLiffApp(LIFF_ID);
+```
+
+<br />
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-line
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real LINE server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    line: {
+      enabled: true,
+      path: '/webhooks/line',
+      accessToken: process.env.LINE_ACCESS_TOKEN,
+      channelSecret: process.env.LINE_CHANNEL_SECRET,
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

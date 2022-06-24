@@ -2129,4 +2129,184 @@ client.getAllRoomMemberIds(ROOM_ID).then((ids) => {
 
 Leave a group.
 
-|
+| Param   | Type     | Description      |
+| ------- | -------- | ---------------- |
+| groupId | `String` | ID of the group. |
+
+Example:
+
+```js
+client.leaveGroup(GROUP_ID);
+```
+
+<br />
+
+#### `leaveRoom(roomId)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#leave-room)
+
+Leave a room.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| roomId | `String` | ID of the room. |
+
+Example:
+
+```js
+client.leaveRoom(ROOM_ID);
+```
+
+<br />
+
+<a id="rich-menu-api" />
+
+### Rich Menu API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#rich-menu)
+
+#### `getRichMenuList()` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-rich-menu-list)
+
+Gets a list of all uploaded rich menus.
+
+Example:
+
+```js
+client.getRichMenuList().then((richMenus) => {
+  console.log(richMenus);
+  // [
+  //   {
+  //     richMenuId: 'RICH_MENU_ID',
+  //     size: {
+  //       width: 2500,
+  //       height: 1686,
+  //     },
+  //     selected: false,
+  //     name: 'Nice richmenu',
+  //     chatBarText: 'Tap here',
+  //     areas: [
+  //       {
+  //         bounds: {
+  //           x: 0,
+  //           y: 0,
+  //           width: 2500,
+  //           height: 1686,
+  //         },
+  //         action: {
+  //           type: 'postback',
+  //           data: 'action=buy&itemid=123',
+  //         },
+  //       },
+  //     ],
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `getRichMenu(richMenuId)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-rich-menu)
+
+Gets a rich menu via a rich menu ID.
+
+| Param      | Type     | Description                  |
+| ---------- | -------- | ---------------------------- |
+| richMenuId | `String` | ID of an uploaded rich menu. |
+
+Example:
+
+```js
+client.getRichMenu(RICH_MENU_ID).then((richMenu) => {
+  console.log(richMenu);
+  // {
+  //   richMenuId: 'RICH_MENU_ID',
+  //   size: {
+  //     width: 2500,
+  //     height: 1686,
+  //   },
+  //   selected: false,
+  //   name: 'Nice richmenu',
+  //   chatBarText: 'Tap here',
+  //   areas: [
+  //     {
+  //       bounds: {
+  //         x: 0,
+  //         y: 0,
+  //         width: 2500,
+  //         height: 1686,
+  //       },
+  //       action: {
+  //         type: 'postback',
+  //         data: 'action=buy&itemid=123',
+  //       },
+  //     },
+  //   ],
+  // }
+});
+```
+
+<br />
+
+#### `createRichMenu(richMenu)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#create-rich-menu)
+
+Creates a rich menu.
+
+| Param    | Type       | Description                                                                                    |
+| -------- | ---------- | ---------------------------------------------------------------------------------------------- |
+| richMenu | `RichMenu` | A [rich menu object](https://developers.line.me/en/reference/messaging-api/#rich-menu-object). |
+
+Example:
+
+```js
+client
+  .createRichMenu({
+    size: {
+      width: 2500,
+      height: 1686,
+    },
+    selected: false,
+    name: 'Nice richmenu',
+    chatBarText: 'Tap here',
+    areas: [
+      {
+        bounds: {
+          x: 0,
+          y: 0,
+          width: 2500,
+          height: 1686,
+        },
+        action: {
+          type: 'postback',
+          data: 'action=buy&itemid=123',
+        },
+      },
+    ],
+  })
+  .then((richMenu) => {
+    console.log(richMenu);
+    // {
+    //   richMenuId: "{richMenuId}"
+    // }
+  });
+```
+
+<br />
+
+#### `deleteRichMenu(richMenuId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#delete-rich-menu)
+
+Deletes a rich menu.
+
+| Param      | Type     | Description                  |
+| ---------- | -------- | ---------------------------- |
+| richMenuId | `String` | ID of an uploaded rich menu. |
+
+Example:
+
+```js
+client.deleteRichMenu(RICH_MENU_ID);
+```
+
+<br />
+
+#### `getLinkedRichMenu(userId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#get-rich-menu-id-of-user)
+
+Gets the ID of the rich menu linked to a user.
+
+| Param  | Type     | Description     |
+| ------ | -------- | -

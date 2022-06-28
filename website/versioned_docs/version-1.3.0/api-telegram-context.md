@@ -142,4 +142,121 @@ Sends audio files.
 
 | Param   | Type     | Description                                             |
 | ------- | -------- | ------------------------------------------------------- |
-| voic
+| voice   | `String` | Pass a file id (recommended) or HTTP URL to send voice. |
+| options | `Object` | Other optional parameters.                              |
+
+Example:
+
+```js
+context.sendVoice('https://example.com/voice.ogg', {
+  caption: 'gooooooodVoice',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendVideoNote(videoNote [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvideonote)
+
+Sends video messages. As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long.
+
+| Param     | Type     | Description                                                  |
+| --------- | -------- | ------------------------------------------------------------ |
+| videoNote | `String` | Pass a file id (recommended) or HTTP URL to send video note. |
+| options   | `Object` | Other optional parameters.                                   |
+
+Example:
+
+```js
+context.sendVideoNote('https://example.com/video_note.mp4', {
+  duration: 40,
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendMediaGroup(media [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendmediagroup)
+
+send a group of photos or videos as an album.
+
+| Param   | Type                                                          | Description                                                                              |
+| ------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| media   | [InputMedia](https://core.telegram.org/bots/api#inputmedia)[] | A JSON-serialized array describing photos and videos to be sent, must include 2–10 items |
+| options | `Object`                                                      | Other optional parameters.                                                               |
+
+Example:
+
+```js
+context.sendMediaGroup([
+  { type: 'photo', media: 'BQADBAADApYAAgcZZAfj2-xeidueWwI' },
+]);
+```
+
+<br />
+
+#### `sendLocation(location [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendlocation)
+
+Sends point on the map.
+
+| Param              | Type     | Description                             |
+| ------------------ | -------- | --------------------------------------- |
+| location           | `Object` | Object contains latitude and longitude. |
+| location.latitude  | `Number` | Latitude of the location.               |
+| location.longitude | `Number` | Longitude of the location.              |
+| options            | `Object` | Other optional parameters.              |
+
+Example:
+
+```js
+context.sendLocation(
+  {
+    latitude: 30,
+    longitude: 45,
+  },
+  {
+    disableNotification: true,
+  }
+);
+```
+
+<br />
+
+#### `sendVenue(venue [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvenue)
+
+Sends information about a venue.
+
+| Param           | Type     | Description                               |
+| --------------- | -------- | ----------------------------------------- |
+| venue           | `Object` | Object contains information of the venue. |
+| venue.latitude  | `Number` | Latitude of the venue.                    |
+| venue.longitude | `Number` | Longitude of the venue.                   |
+| venue.title     | `String` | Name of the venue.                        |
+| venue.address   | `String` | Address of the venue.                     |
+| options         | `Object` | Other optional parameters.                |
+
+Example:
+
+```js
+context.sendVenue(
+  {
+    latitude: 30,
+    longitude: 45,
+    title: 'a_title',
+    address: 'an_address',
+  },
+  {
+    disableNotification: true,
+  }
+);
+```
+
+<br />
+
+#### `sendContact(contact [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendcontact)
+
+Sends phone contacts.
+
+| Param               | Type     | Description                                 |
+| ------------------- | -------- | ------------------------------------------- |
+| contact 

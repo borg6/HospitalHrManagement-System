@@ -575,4 +575,166 @@ context.unbanChatMember(USER_ID);
 
 Restricts a user in the supergroup
 
-| Param   | Type     | Description      
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `Number` | Unique identifier of the target user. |
+| options | `Object` | Other optional parameters.            |
+
+Example:
+
+```js
+context.restrictChatMember(USER_ID, { canSendMessages: true });
+```
+
+<br />
+
+#### `promoteChatMember(userId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#promotechatmember)
+
+Promotes or demotes a user in the supergroup or the channel.
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `Number` | Unique identifier of the target user. |
+| options | `Object` | Other optional parameters.            |
+
+Example:
+
+```js
+context.promoteChatMember(USER_ID, {
+  canChangeInfo: true,
+  canInviteUsers: true,
+});
+```
+
+<br />
+
+#### `exportChatInviteLink()` - [Official Docs](https://core.telegram.org/bots/api/#exportchatinvitelink)
+
+Exports an invite link to the supergroup or the channel.
+
+Example:
+
+```js
+context.exportChatInviteLink();
+```
+
+<br />
+
+#### `setChatPhoto(photo)` - [Official Docs](https://core.telegram.org/bots/api/#setchatphoto)
+
+Sets a new profile photo for the chat.
+
+| Param | Type     | Description                                             |
+| ----- | -------- | ------------------------------------------------------- |
+| photo | `String` | Pass a file id (recommended) or HTTP URL to send photo. |
+
+Example:
+
+```js
+context.setChatPhoto('https://example.com/image.png');
+```
+
+<br />
+
+#### `deleteChatPhoto()` - [Official Docs](https://core.telegram.org/bots/api/#deletechatphoto)
+
+Deletes the chat photo.
+
+Example:
+
+```js
+context.deleteChatPhoto();
+```
+
+<br />
+
+#### `setChatTitle(title)` - [Official Docs](https://core.telegram.org/bots/api/#setchattitle)
+
+Changes the title of the chat.
+
+| Param | Type     | Description                       |
+| ----- | -------- | --------------------------------- |
+| title | `String` | New chat title, 1-255 characters. |
+
+Example:
+
+```js
+context.setChatTitle('New Title');
+```
+
+<br />
+
+#### `setChatDescription(description)` - [Official Docs](https://core.telegram.org/bots/api/#setchatdescription)
+
+Changes the description of the supergroup or the channel.
+
+| Param       | Type     | Description                             |
+| ----------- | -------- | --------------------------------------- |
+| description | `String` | New chat description, 0-255 characters. |
+
+Example:
+
+```js
+context.setChatDescription('New Description');
+```
+
+<br />
+
+#### `setChatStickerSet(stickerSetName)` - [Official Docs](https://core.telegram.org/bots/api/#setchatstickerset)
+
+Set a new group sticker set for the supergroup.
+
+| Param          | Type     | Description                                                 |
+| -------------- | -------- | ----------------------------------------------------------- |
+| stickerSetName | `String` | Name of the sticker set to be set as the group sticker set. |
+
+Example:
+
+```js
+context.setChatStickerSet('Sticker Set Name');
+```
+
+<br />
+
+#### `deleteChatStickerSet()` - [Official Docs](https://core.telegram.org/bots/api/#deletechatstickerset)
+
+Delete a group sticker set from the supergroup.
+
+Example:
+
+```js
+context.deleteChatStickerSet();
+```
+
+<br />
+
+#### `pinChatMessage(messageId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#pinChatMessage)
+
+Pins a message in the supergroup.
+
+| Param     | Type     | Description                     |
+| --------- | -------- | ------------------------------- |
+| messageId | `Number` | Identifier of a message to pin. |
+| options   | `Object` | Other optional parameters.      |
+
+Example:
+
+```js
+context.pinChatMessage(MESSAGE_ID, { disableNotification: true });
+```
+
+<br />
+
+#### `unpinChatMessage()` - [Official Docs](https://core.telegram.org/bots/api/#unpinchatmessage)
+
+Unpins a message in the supergroup chat.
+
+Example:
+
+```js
+context.unpinChatMessage();
+```
+
+<br />
+
+#### `leaveChat()` - [Official Docs](https://core.telegram.org/bo

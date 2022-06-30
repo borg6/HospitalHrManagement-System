@@ -737,4 +737,135 @@ context.unpinChatMessage();
 
 <br />
 
-#### `leaveChat()` - [Official Docs](https://core.telegram.org/bo
+#### `leaveChat()` - [Official Docs](https://core.telegram.org/bots/api/#leavechat)
+
+Leaves the group, supergroup or channel.
+
+Example:
+
+```js
+context.leaveChat();
+```
+
+<br />
+
+### Payments API
+
+#### `sendInvoice(product [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendinvoice)
+
+Sends invoice.
+
+| Param                  | Type       | Description                          |
+| ---------------------- | ---------- | ------------------------------------ |
+| product                | `Object`   | Object of the product.               |
+| product.title          | `String`   | Product name.                        |
+| product.description    | `String`   | Product description.                 |
+| product.payload        | `String`   | Bot defined invoice payload.         |
+| product.providerToken  | `String`   | Payments provider token.             |
+| product.startParameter | `String`   | Deep-linking parameter.              |
+| product.currency       | `String`   | Three-letter ISO 4217 currency code. |
+| product.prices         | `Object[]` | Breakdown of prices.                 |
+| options                | `Object`   | Additional Telegram query options.   |
+
+Example:
+
+```js
+context.sendInvoice({
+  title: 'product name',
+  description: 'product description',
+  payload: 'bot-defined invoice payload',
+  providerToken: 'PROVIDER_TOKEN',
+  startParameter: 'pay',
+  currency: 'USD',
+  prices: [
+    { label: 'product', amount: 11000 },
+    { label: 'tax', amount: 11000 },
+  ],
+});
+```
+
+<br />
+
+#### `answerShippingQuery(ok [, options])` - [Official Docs](https://core.telegram.org/bots/api/#answershippingquery)
+
+Reply to the shipping query.
+
+| Param   | Type      | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| ok      | `Boolean` | Specify if delivery of the product is possible. |
+| options | `Object`  | Additional Telegram query options.              |
+
+Example:
+
+```js
+context.answerShippingQuery(true);
+```
+
+<br />
+
+#### `answerPreCheckoutQuery(ok [, options])` - [Official Docs](https://core.telegram.org/bots/api/#answerprecheckoutquery)
+
+Respond to the pre-checkout query.
+
+| Param   | Type      | Description                                     |
+| ------- | --------- | ----------------------------------------------- |
+| ok      | `Boolean` | Specify if delivery of the product is possible. |
+| options | `Object`  | Additional Telegram query options.              |
+
+Example:
+
+```js
+context.answerPreCheckoutQuery(true);
+```
+
+<br />
+
+### Inline mode API
+
+#### `answerInlineQuery(results [, options])` - [Official Docs](https://core.telegram.org/bots/api/#answerinlinequery)
+
+Send answers to the inline query.
+
+| Param   | Type                                                                        | Description                                               |
+| ------- | --------------------------------------------------------------------------- | --------------------------------------------------------- |
+| results | [InlineQueryResult](https://core.telegram.org/bots/api#inlinequeryresult)[] | Array of object represents one result of an inline query. |
+| options | `Object`                                                                    | Additional Telegram query options.                        |
+
+Example:
+
+```js
+context.answerInlineQuery(
+  [
+    {
+      type: 'photo',
+      id: 'UNIQUE_ID',
+      photoFileId: 'FILE_ID',
+      title: 'PHOTO_TITLE',
+    },
+    {
+      type: 'audio',
+      id: 'UNIQUE_ID',
+      audioFileId: 'FILE_ID',
+      caption: 'AUDIO_TITLE',
+    },
+  ],
+  {
+    cacheTime: 1000,
+  }
+);
+```
+
+<br />
+
+### Game API
+
+#### `sendGame(gameShortName [, options])` - [Official Docs](https://core.telegram.org/bots/api#sendgame)
+
+Sends a game.
+
+| Param         | Type     | Description                        |
+| ------------- | -------- | ---------------------------------- |
+| gameShortName | String   | Short name of the game.            |
+| options       | `Object` | Additional Telegram query options. |
+
+Example:

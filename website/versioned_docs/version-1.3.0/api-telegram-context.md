@@ -869,3 +869,82 @@ Sends a game.
 | options       | `Object` | Additional Telegram query options. |
 
 Example:
+
+```js
+context.sendGame('Mario Bros.', {
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `setGameScore(score [, options])` - [Official Docs](https://core.telegram.org/bots/api#setgamescore)
+
+Sets the score of the specified user in a game.
+
+| Param   | Type     | Description                        |
+| ------- | -------- | ---------------------------------- |
+| score   | Number   | New score, must be non-negative.   |
+| options | `Object` | Additional Telegram query options. |
+
+Example:
+
+```js
+context.setGameScore(999);
+```
+
+<br />
+
+#### `getGameHighScores()` - [Official Docs](https://core.telegram.org/bots/api#getgamehighscores)
+
+Gets data for high score tables.
+
+| Param   | Type     | Description                        |
+| ------- | -------- | ---------------------------------- |
+| options | `Object` | Additional Telegram query options. |
+
+Example:
+
+```js
+context.getGameHighScores();
+```
+
+<br />
+
+### Others
+
+#### `forwardMessageFrom(fromChatId, messageId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#forwardmessage)
+
+Forwards messages of any kind.
+
+| Param      | Type                              | Description                                                         |
+| ---------- | --------------------------------- | ------------------------------------------------------------------- |
+| fromChatId | <code>Number &#124; String</code> | Unique identifier for the chat where the original message was sent. |
+| messageId  | `Number`                          | Message identifier in the chat specified in fromChatId.             |
+| options    | `Object`                          | Other optional parameters.                                          |
+
+Example:
+
+```js
+context.forwardMessageFrom(CHAT_ID, MESSAGE_ID, {
+  disableNotification: true,
+});
+```
+
+#### `forwardMessageTo(toChatId, messageId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#forwardmessage)
+
+Forwards messages of any kind.
+
+| Param     | Type                              | Description                                                              |
+| --------- | --------------------------------- | ------------------------------------------------------------------------ |
+| toChatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| messageId | `Number`                          | Message identifier in the chat specified in fromChatId.                  |
+| options   | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+context.forwardMessageTo(CHAT_ID, MESSAGE_ID, {
+  disableNotification: true,
+});
+```

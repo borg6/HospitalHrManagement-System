@@ -110,4 +110,10 @@ app.prepare().then(() => {
 
 You can find all your subscriptions on the [Connected Services](https://notify-bot.line.me/my/) page.
 
-> **Note:** You should st
+> **Note:** You should store access tokens for sending notifications in the future. We don't store them here, because it helps us simplify this demo.
+
+## Limitations
+
+1. The message format only allows text, image, and basic sticker, so you can't send, for example, a message with some buttons.
+2. You can't have more than 1000 characters in a single text message.
+3. The rate limit is 1000 messages per token per hour.

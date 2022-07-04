@@ -317,4 +317,138 @@ const template = {
     {
       type: 'postback',
       label: 'Buy',
-     
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+};
+const altText = 'this is a button template';
+await context.sendButtonTemplate(altText, template);
+```
+
+> **Note:**
+>
+> - Depending on the character width, the message text may not fully be displayed due to the height limitation of the text area.
+> - For more info, please refer to LINE's official doc, [`Buttons Template`](https://developers.line.biz/en/reference/messaging-api/#buttons)
+
+### Carousel Template
+
+A `Carousel Template` is an upgraded version of `Buttons Template.` For each `Buttons Template,` you can have an image, title, text, and multiple action buttons.
+
+You can have up to 10 `Buttons Template` in a row to compose a `Carousel Template.`
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680778-3705e880-1cd4-11ea-8bcd-7e38aa45f74e.png"/></p>
+
+```js
+const template = [
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=111',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/111',
+      },
+    ],
+  },
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item2.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=222',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=222',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    ],
+  },
+];
+const altText = 'this is a carousel template';
+await context.sendCarouselTemplate(altText, template);
+```
+
+> **Note:**
+>
+> - Depending on the character width, the message text may not fully be displayed due to the height limitation of the text area.
+> - You have to keep the number of actions consistent for all columns.
+> - For more info, please refer to LINE's official doc, [`Carousel Template`](https://developers.line.biz/en/reference/messaging-api/#carousel)
+
+### Image Carousel Template
+
+`Image Carousel Template` has multiple images that can be cycled like a carousel. Users can scroll the images horizontally to browse possible choices. Without the bother of buttons, it helps your user focus on the product images.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680783-38371580-1cd4-11ea-888e-336a24e67029.png"/></p>
+
+```js
+const template = [
+  {
+    imageUrl: 'https://example.com/bot/images/item1.jpg',
+    action: {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=111',
+    },
+  },
+  {
+    imageUrl: 'https://example.com/bot/images/item2.jpg',
+    action: {
+      type: 'message',
+      label: 'Yes',
+      text: 'yes',
+    },
+  },
+  {
+    imageUrl: 'https://example.com/bot/images/item3.jpg',
+    action: {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/222',
+    },
+  },
+];
+const altText = 'this is a image carousel template';
+await context.sendImageCarouselTemplate(altText, template);
+```
+
+> **Note:**
+> For more info, please refer to LINE's official doc, [`Image Carousel Template`](https://developers.line.biz/en/reference/messaging-api/#image-carousel)
+
+## Sending Flex Messages
+
+<p><img width="800" src="https://user-images.githubusercontent.com/662387/70701503-6bdf6300-1d07-11ea-86d6-924d676a1f80.png"/></p>
+
+Since we love [`Flex Message`](./channel-line-flex.md) and inspired by its flexibility and interactive, we wrote a separate doc, [`Flex Message`](./channel-line-flex.md).
+
+## Sen

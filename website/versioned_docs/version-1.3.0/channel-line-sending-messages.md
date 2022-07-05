@@ -602,3 +602,140 @@ The URI opened when the action is performed. The available schemes for URI are `
 - Opening the Theme Shop
 - Making phone calls with LINE Out
 - Opening a LIFF app
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'uri',
+        label: 'View details',
+        uri: 'http://example.com/page/222',
+        altUri: {
+          desktop: 'http://example.com/pc/page/222',
+        },
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - The altUri.desktop property is supported only when you set URI actions in Flex Messages.
+> - For more information about the LINE URL scheme, see Using the [`LINE URL Scheme`](https://developers.line.biz/en/docs/line-login/using-line-url-scheme/).
+> - For more info, please refer to LINE's official doc, [`URI Actions`](https://developers.line.biz/en/reference/messaging-api/#uri-action)
+
+### Datetime Picker Quick Reply
+
+When a control associated with this action is tapped, a postback event is returned via webhook with the date and time selected by the user from the date and time selection dialog. The `Datetime Picker` action does not support time zones.
+
+There are three different modes:
+
+- date: Pick a date
+- time: Pick time
+- datetime: Pick date and time
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'datetimepicker',
+      label: 'Select date',
+      data: 'storeId=12345',
+      mode: 'datetime',
+      initial: '2017-12-25t00:00',
+      max: '2018-01-24t23:59',
+      min: '2017-12-25t00:00',
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - The datetime picker action is only supported on versions equal to or later than LINE 7.9.0 for iOS and LINE 7.12.0 for Android.
+> - For more info, please refer to LINE's official doc, [`Datatime Picker Actions`](https://developers.line.biz/en/reference/messaging-api/#datetime-picker-action).
+
+### Camera Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the camera screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'camera',
+        label: 'Camera',
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - For more info, please refer to LINE's official doc, [`Camera Actions`](https://developers.line.biz/en/reference/messaging-api/#camera-action)
+
+### Camera Roll Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the camera roll screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'cameraRoll',
+        label: 'Camera roll',
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - For more info, please refer to LINE's official doc, [`Camera Roll Actions`](https://developers.line.biz/en/reference/messaging-api/#camera-roll-action)
+
+### Location Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the location screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'location',
+        label: 'Location',
+      },
+    },
+  ],
+};
+```
+
+> **Note:**
+>
+> - For more info, please refer to LINE's official doc, [`Location Action`](https://developers.line.biz/en/reference/messaging-api/#location-action)
+
+## Thinking in Bottender: Send Messages, Reply Messages & Push Messages
+
+Bottender aims to offer better abstract concepts for multiple chat channels support. Apart from LINE's unique `Reply API` and `Push API,` Bottender offers `Send API` as a configurable middleware.
+
+For example, If you don't want to pay extra fee for bot response, in `bottender.config.js,` you can config your `Send API` sending messages by `Reply API.` However, if you want to send more than 5 `Message Objects` in one reply, you can also ask Bottender use `Push API` to send every message by `Send API.`
+
+```js
+// bottender.config.js
+module.exports = {
+  channels: {
+    line: {
+      enabled: true,
+      // sendMethod can be either "push" or "reply"
+      sendMethod: 'reply',
+      accessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN

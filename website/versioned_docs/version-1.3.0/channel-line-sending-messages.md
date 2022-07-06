@@ -738,4 +738,91 @@ module.exports = {
       enabled: true,
       // sendMethod can be either "push" or "reply"
       sendMethod: 'reply',
-      accessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN
+      accessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
+      channelSecret: process.env.LINE_CHANNEL_SECRET,
+    },
+  },
+};
+```
+
+### Send Messages
+
+Bottender offers the following `Send API:`
+
+- send
+- sendText
+- sendSticker
+- sendImage
+- sendAudio
+- sendVideo
+- sendLocation
+- sendImagemap
+- sendFlex
+- sendTemplate
+- sendBottonTemplate
+- sendConfirmTemplate
+- sendCarouselTemplate
+- sendImageCarouselTemplate
+
+### Reply Messages
+
+If you are confident that all you need is `Reply API,` you can use the following `Reply API.` Bottender helps you manage the reply token, so you don't have to manage it by yourself.
+
+Bottender offers the following `Reply API:`
+
+- reply
+- replyText
+- replySticker
+- replyImage
+- replyAudio
+- replyVideo
+- replyLocation
+- replyImagemap
+- replyFlex
+- replyTemplate
+- replyBottonTemplate
+- replyConfirmTemplate
+- replyCarouselTemplate
+- replyImageCarouselTemplate
+
+> **Note:**
+> For sample code, please refer to Bottender's API doc, [Reply API](https://bottender.js.org/docs/api-line-context#reply-api)
+
+### Push Messages
+
+If messaging cost is not an issue to you, you may focus on `Push API.`
+
+Bottender offers the following `Push API:`
+
+- push
+- pushText
+- pushSticker
+- pushImage
+- pushAudio
+- pushVideo
+- pushLocation
+- pushImagemap
+- pushFlex
+- pushTemplate
+- pushBottonTemplate
+- pushConfirmTemplate
+- pushCarouselTemplate
+- pushImageCarouselTemplate
+
+> **Note:**
+> For sample code, please refer to Bottender's API doc, [Push API](https://bottender.js.org/docs/api-line-context#push-api)
+
+## Rate Limits
+
+Just like many chat channels, LINE has rate limits for each endpoint. If you continue to send requests exceeding the rate limit for an extended period, your bot might stop responding. It is because LINE blocks incoming requests to your bot.
+
+You have to take care `Rate Limits` if you attempt to build a campaign bot with massive sudden traffic, e.g., super discount for Black Friday.
+
+### Send API
+
+For `Send API,` you have to follow the below `Rate Limits`:
+100,000 requests per minute
+1,700 requests per second
+
+> **Note:**
+> For more info, please refer to LINE's API doc, [Rate Limits](https://developers.line.biz/en/reference/messaging-api/#rate-limits)

@@ -105,4 +105,9 @@ All available routes in `messenger` that recognize different kind of events:
 - `messenger.optin` - matches when receiving messenger `optin` events.
 - `messenger.policyEnforcement` - matches when receiving messenger `policy_enforcement` events.
 - `messenger.postback` - matches when receiving messenger `postback` events.
-- `messenger.preCheckout` - matches 
+- `messenger.preCheckout` - matches when receiving messenger `pre_checkout` events.
+- `messenger.read` - matches when receiving messenger `read` events.
+- `messenger.referral` - matches when receiving messenger `referral` events.
+- `messenger.standby` - matches when receiving messenger `standby` events.
+
+> **Note:** You must subscribe corresponding events for your page to receive the events.

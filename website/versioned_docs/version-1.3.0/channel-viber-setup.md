@@ -52,4 +52,36 @@ To make Viber bots work, you have to set up the following values:
 
 ### Viber Access Token
 
-`bottender.config.js` looks up `.env` for access token, which could be found in 
+`bottender.config.js` looks up `.env` for access token, which could be found in Viber Admin Panel (see Viber's official document, [Authentication Token](https://developers.viber.com/docs/api/rest-bot-api/#authentication-token) for more information). Then, paste your Viber bot token to the following field in `.env`.
+
+```
+VIBER_ACCESS_TOKEN=
+```
+
+### Webhook
+
+After finishing above settings, you can start your server with Viber webhook event listening using following commands:
+
+```sh
+# in production mode
+npm start
+
+# or in development mode
+npm run dev
+```
+
+When you run bottender in development mode, Bottender automatically run up a Ngrok client, and then you can get the information of webhook URL from the console like this:
+
+```
+App has started
+viber webhook url: https://42bbf602.ngrok.io/webhooks/viber
+server is running on 5000 port...
+```
+
+Then, you can finish your Viber webhook setting with the following command.
+
+```sh
+npx bottender viber webhook set
+```
+
+Now you are ready to interact with your bot on Viber :)

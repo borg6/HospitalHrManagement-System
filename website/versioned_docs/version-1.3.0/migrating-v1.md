@@ -207,4 +207,11 @@ const {
   LineHandler,
   SlackHandler,
   TelegramHandler,
-  ViberHandle
+  ViberHandler,
+- } = require('bottender');
++ } = require('@bottender/handlers');
+```
+
+## Change Log
+
+You can find [v1 changelog here](https://github.com/Yoctol/bottender/releases/tag/v1.0.0).

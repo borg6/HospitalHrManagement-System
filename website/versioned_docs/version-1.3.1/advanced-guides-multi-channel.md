@@ -133,4 +133,61 @@ Different platforms provide different advanced events for better user experience
 
 To better organize bot actions, you can use `router` and `platform` functions from `bottender/router` to handle routing among different platforms.
 
-In the example app, you can see two additional actions to leverage the platform-specific eve
+In the example app, you can see two additional actions to leverage the platform-specific events.
+
+```js
+import { platform, router } from 'bottender/router';
+
+async function LineAction(context) {
+  await context.sendFlex('This is a line-specific message!', {
+    type: 'bubble',
+    body: {
+      type: 'box',
+      layout: 'horizontal',
+      contents: [
+        {
+          type: 'text',
+          text: 'Hello,',
+        },
+        {
+          type: 'text',
+          text: 'World',
+        },
+      ],
+    },
+  });
+}
+
+async function MessengerAction(context) {
+  await context.sendButtonTemplate('This is a messenger-specific message!', [
+    {
+      type: 'postback',
+      title: 'Hello',
+      payload: 'Hello',
+    },
+    {
+      type: 'postback',
+      title: 'World',
+      payload: 'World',
+    },
+  ]);
+}
+
+module.exports = async function App(context) {
+  return router([
+    platform('line', LineAction),
+    platform('messenger', MessengerAction),
+  ]);
+};
+```
+
+### Using Platform Specific Routes to Manage Cross-Platform Events
+
+By Bottender 1.1+, you can use platform specific routes as an alternative to organize events from various chat channels. To learn more about the details of those specific routes, check out their documentation:
+
+- [Messenger Routes](channel-messenger-routing.md)
+- [WhatsApp Routes](channel-whatsapp-routing.md)
+- [LINE Routes](channel-line-routing.md)
+- [Slack Routes](channel-slack-routing.md)
+- [Telegram Routes](channel-telegram-routing.md)
+- [Viber Routes](channel-viber-routing.md)

@@ -156,4 +156,117 @@ module.exports = async function App() {
 
 ### Step 1: LUIS Setup
 
-To build a bot integrated with [LUIS (Language Unde
+To build a bot integrated with [LUIS (Language Understanding Intelligent Service)](https://luis.ai/), you have to create a new app in the LUIS portal following the [Official Setup Guide](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/get-started-portal-build-app) and fill the three values: `LUIS_APP_ID`, `LUIS_APP_KEY`, and `LUIS_APP_ENDPOINT` into the `.env` file.
+
+```
+# .env
+
+LUIS_APP_ID=
+LUIS_APP_KEY=
+LUIS_APP_ENDPOINT=
+```
+
+### Step 2: Train and Publish Your LUIS Project
+
+In this example, you create an intent with the intent name `greeting`. You can set your training phrases on the LUIS console for this intent. And then you have to train the model and publish it.
+
+### Step 3: Connect Bottender with LUIS by `bottender/luis`
+
+To make the bot development enjoyable, we made a [`bottender/luis`](https://github.com/Yoctol/bottender/tree/master/packages/bottender-luis) package. You can install the package with `npm` or `yarn`.
+
+With `npm`:
+
+```sh
+npm install @bottender/luis
+```
+
+Or with `yarn`:
+
+```sh
+yarn add @bottender/luis
+```
+
+In the following sample code, you can see how elegant it is to integrate Bottender with LUIS. All you need to do is to fill in your environment variables, and score threshold, then write a map between `intents` (e.g., `greeting`) and corresponding `functions` (e.g., `SayHello`).
+
+```js
+const { chain } = require('bottender');
+const luis = require('@bottender/luis');
+
+async function SayHello(context) {
+  await context.sendText('Hello!');
+}
+
+async function Unknown(context) {
+  await context.sendText('Sorry, I don’t know what you say.');
+}
+
+const Luis = luis({
+  appId: process.env.LUIS_APP_ID,
+  appKey: process.env.LUIS_APP_KEY,
+  endpoint: 'https://westus.api.cognitive.microsoft.com',
+  actions: {
+    greeting: SayHello,
+  },
+  scoreThreshold: 0.7,
+});
+
+module.exports = async function App() {
+  return chain([
+    Luis, //
+    Unknown,
+  ]);
+};
+```
+
+For the full example code, please refer to Bottender example, [With LUIS.ai](https://github.com/Yoctol/bottender/tree/master/examples/with-luis.ai).
+
+## Building with Rasa NLU
+
+If you're finding an on-premises NLU solution, you may choose Rasa NLU.
+
+### Step 1: Rasa NLU Setup
+
+To build a bot integrated with [Rasa NLU](https://rasa.com/docs/rasa/nlu/about/), you have to install Rasa first following the [Official Installation Guide](https://rasa.com/docs/rasa/user-guide/installation/). Next, you can train your NLU model by running:
+
+```sh
+rasa train nlu
+```
+
+This command looks for the training data files in the data/ directory and saves the model in the models/ directory. For information about how to generate training data, you can see Rasa's document, [Training Data Format](https://rasa.com/docs/rasa/nlu/training-data-format/).
+
+After you get your NLU model ready, you can run the following command:
+
+```sh
+rasa run --enable-api -m models/nlu-your-model-id.tar.gz
+```
+
+This command starts a server with your NLU model locally on port 5005. Next, you can request predictions from your model by calling the `/model/parse` endpoint. You can see [here](https://rasa.com/docs/rasa/api/http-api/#operation/parseModelMessage) for the document of this API.
+
+### Step 2: Connect Bottender with Rasa by `bottender/rasa`
+
+To make the bot development enjoyable, we made a [`bottender/rasa`](https://github.com/Yoctol/bottender/tree/master/packages/bottender-rasa) package. You can install the package with `npm` or `yarn`.
+
+With `npm`:
+
+```sh
+npm install @bottender/rasa
+```
+
+Or with `yarn`:
+
+```sh
+yarn add @bottender/rasa
+```
+
+In the following sample code, you can see how elegant it is to integrate Bottender with Rasa. All you need to do is to set up the origin URL, and confidence threshold, then write a map between `intents` (e.g., `greeting`) and corresponding `functions` (e.g., `SayHello`).
+
+```js
+const { chain } = require('bottender');
+const rasa = require('@bottender/rasa');
+
+async function SayHello(context) {
+  await context.sendText('Hello!');
+}
+
+async function Unknown(context) {
+  await context.sendText('Sorry, I don’t know what you

@@ -269,4 +269,23 @@ async function SayHello(context) {
 }
 
 async function Unknown(context) {
-  await context.sendText('Sorry, I don’t know what you
+  await context.sendText('Sorry, I don’t know what you say.');
+}
+
+const Rasa = rasa({
+  origin: 'http://localhost:5005',
+  actions: {
+    greeting: SayHello,
+  },
+  confidenceThreshold: 0.7,
+});
+
+module.exports = async function App() {
+  return chain([
+    Rasa, //
+    Unknown,
+  ]);
+};
+```
+
+For the full example code, please refer to Bottender example, [With Rasa](https://github.com/Yoctol/bottender/tree/master/examples/with-rasa).

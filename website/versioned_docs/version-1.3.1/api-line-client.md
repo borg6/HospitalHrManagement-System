@@ -189,4 +189,91 @@ client.replyImage(REPLY_TOKEN, {
 
 #### `replyVideo(token, video, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#video-message)
 
-Responds video message using sp
+Responds video message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82650704-a69ddd80-9c4d-11ea-9e86-8e2c5294d97f.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| video.originalContentUrl | `String` | URL of video file.                           |
+| video.previewImageUrl    | `String` | URL of preview image.                        |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replyVideo(REPLY_TOKEN, {
+  originalContentUrl: 'https://example.com/original.mp4',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `replyAudio(token, audio, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#audio-message)
+
+Responds audio message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82651012-26c44300-9c4e-11ea-8c25-aade44dbe4f8.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| audio.originalContentUrl | `String` | URL of audio file.                           |
+| audio.duration           | `Number` | Length of audio file (milliseconds).         |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replyAudio(REPLY_TOKEN, {
+  originalContentUrl: 'https://example.com/original.m4a',
+  duration: 240000,
+});
+```
+
+<br />
+
+#### `replyLocation(token, location, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#location-message)
+
+Responds location message using specified reply token.
+
+<img src="https://user-images.githubusercontent.com/563929/82651104-478c9880-9c4e-11ea-8fdf-cb6d8a10bf9a.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| token                    | `String` | `replyToken` received via webhook.           |
+| location                 | `Object` | Object contains location's parameters.       |
+| location.title           | `String` | Title of the location.                       |
+| location.address         | `String` | Address of the location.                     |
+| location.latitude        | `Number` | Latitude of the location.                    |
+| location.longitude       | `Number` | Longitude of the location.                   |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.replyLocation(REPLY_TOKEN, {
+  title: 'my location',
+  address: '〒150-0002 東京都渋谷区渋谷２丁目２１−１',
+  latitude: 35.65910807942215,
+  longitude: 139.70372892916203,
+});
+```
+
+<br />
+
+#### `replySticker(token, sticker, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#sticker-message)
+
+Responds sticker message using specified reply token.
+<br />
+For a list of stickers that can be sent with the Messaging API, see the [sticker list](https://developers.line.me/media/messaging-api/messages/sticker_list.pdf).
+
+<img src="https://user-images.githubuse

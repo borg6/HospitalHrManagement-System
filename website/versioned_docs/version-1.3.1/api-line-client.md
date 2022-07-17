@@ -726,4 +726,90 @@ You can include LINE original emoji in text messages using character codes. For 
 
 | Param                    | Type     | Description                                  |
 | ------------------------ | -------- | -------------------------------------------- |
-| userId                   | `String` | ID of the receiver.                   
+| userId                   | `String` | ID of the receiver.                          |
+| text                     | `String` | Text of the message to be sent.              |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushText(USER_ID, 'Hello!');
+```
+
+<br />
+
+#### `pushImage(userId, image, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#image-message)
+
+Sends image message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82652911-021d9a80-9c51-11ea-9f6e-a6c18d0a87e5.png" width="250px" />
+<img src="https://user-images.githubusercontent.com/563929/82652981-1cf00f00-9c51-11ea-89ba-7da7e74e5def.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| image.originalContentUrl | `String` | Image URL.                                   |
+| image.previewImageUrl    | `String` | Preview image URL.                           |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushImage(USER_ID, {
+  originalContentUrl: 'https://example.com/original.jpg',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `pushVideo(userId, video, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#video-message)
+
+Sends video message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82653198-6c363f80-9c51-11ea-9acd-28677530a3b3.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| video.originalContentUrl | `String` | URL of video file.                           |
+| video.previewImageUrl    | `String` | URL of preview image.                        |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushVideo(USER_ID, {
+  originalContentUrl: 'https://example.com/original.mp4',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+<br />
+
+#### `pushAudio(userId, audio, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#audio-message)
+
+Sends audio message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82653904-7dcc1700-9c52-11ea-9023-4ad89e76bb05.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| audio.originalContentUrl | `String` | URL of audio file.                           |
+| audio.duration           | `Number` | Length of audio file (milliseconds).         |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushAudio(USER_ID, {
+  originalContentUrl: 'http

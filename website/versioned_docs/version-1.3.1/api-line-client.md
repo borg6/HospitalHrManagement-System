@@ -812,4 +812,80 @@ Example:
 
 ```js
 client.pushAudio(USER_ID, {
-  originalContentUrl: 'http
+  originalContentUrl: 'https://example.com/original.m4a',
+  duration: 240000,
+});
+```
+
+<br />
+
+#### `pushLocation(userId, location, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#location-message)
+
+Sends location message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82654102-c97ec080-9c52-11ea-94ef-5f26e52d78a1.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| location                 | `Object` | Object contains location's parameters.       |
+| location.title           | `String` | Title of the location.                       |
+| location.address         | `String` | Address of the location.                     |
+| location.latitude        | `Number` | Latitude of the location.                    |
+| location.longitude       | `Number` | Longitude of the location.                   |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushLocation(USER_ID, {
+  title: 'my location',
+  address: '〒150-0002 東京都渋谷区渋谷２丁目２１−１',
+  latitude: 35.65910807942215,
+  longitude: 139.70372892916203,
+});
+```
+
+<br />
+
+#### `pushSticker(userId, sticker, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#sticker-message)
+
+Sends sticker message using ID of the receiver.
+<br />
+For a list of stickers that can be sent with the Messaging API, see the [sticker list](https://developers.line.me/media/messaging-api/messages/sticker_list.pdf).
+
+<img src="https://user-images.githubusercontent.com/563929/82654187-ec10d980-9c52-11ea-9a81-dd8469d75e08.png" width="250px" />
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| sticker.packageId        | `String` | Package ID.                                  |
+| sticker.stickerId        | `String` | Sticker ID.                                  |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushSticker(USER_ID, { packageId: '1', stickerId: '1' });
+```
+
+<br />
+
+### Push Imagemap Messages
+
+#### `pushImagemap(userId, altText, imagemap, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#imagemap-message)
+
+Sends imagemap message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82654362-309c7500-9c53-11ea-9252-c12dd84ae003.png" width="250px" />
+
+| Param                               | Type            | Description                                                                                 |
+| ----------------------------------- | --------------- | ------------------------------------------------------------------------------------------- |
+| userId                              | `String`        | ID of the receiver.                                                                         |
+| altText                             | `String`        | Alternative text.                                                                           |
+| imagemap                            | `Object`        | Object contains imagemap's parameters.                                                      |
+| imagemap.baseUrl    

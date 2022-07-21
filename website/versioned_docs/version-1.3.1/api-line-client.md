@@ -1433,4 +1433,55 @@ client.multicastLocation([USER_ID], {
 
 <br />
 
-#### `multicastSticker(userIds, sticker, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#sti
+#### `multicastSticker(userIds, sticker, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#sticker-message)
+
+Sends sticker message to multiple users.
+<br />
+For a list of stickers that can be sent with the Messaging API, see the [sticker list](https://developers.line.me/media/messaging-api/messages/sticker_list.pdf).
+
+<img src="https://user-images.githubusercontent.com/563929/82651371-a7833f00-9c4e-11ea-9041-46dcb962b0c7.png" width="250px" />
+
+| Param                    | Type            | Description                                  |
+| ------------------------ | --------------- | -------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                        |
+| sticker.packageId        | `String`        | Package ID.                                  |
+| sticker.stickerId        | `String`        | Sticker ID.                                  |
+| options                  | `Object`        | Optional options.                            |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`         | Quick reply items.                           |
+
+Example:
+
+```js
+client.multicastSticker([USER_ID], {
+  packageId: '1',
+  stickerId: '1',
+});
+```
+
+<br />
+
+### Multicast Imagemap Messages
+
+#### `multicastImagemap(userIds, altText, imagemap, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#imagemap-message)
+
+Sends imagemap message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82651489-cc77b200-9c4e-11ea-860a-2f7f1ecaa5b5.png" width="250px" />
+
+| Param                               | Type            | Description                                                                                 |
+| ----------------------------------- | --------------- | ------------------------------------------------------------------------------------------- |
+| userIds                             | `Array<String>` | IDs of the receivers.                                                                       |
+| altText                             | `String`        | Alternative text.                                                                           |
+| imagemap                            | `Object`        | Object contains imagemap's parameters.                                                      |
+| imagemap.baseUrl                    | `String`        | Base URL of image.                                                                          |
+| imagemap.baseSize                   | `Object`        | Base size object.                                                                           |
+| imagemap.baseSize.width             | `Number`        | Width of base image.                                                                        |
+| imagemap.baseSize.height            | `Number`        | Height of base image.                                                                       |
+| imagemap.video                      | `Object`        | Video object.                                                                               |
+| imagemap.video.originalContentUrl   | `String`        | URL of the video file (Max: 1000 characters).                                               |
+| imagemap.video.previewImageUrl      | `String`        | URL of the preview image (Max: 1000 characters).                                            |
+| imagemap.video.area.x               | `Number`        | Horizontal position of the video area relative to the top-left corner of the imagemap area. |
+| imagemap.video.area.y               | `Number`        | Vertical position of the video area relative to the top-left corner of the imagemap area.   |
+| imagemap.video.area.width           | `Number`        | Width of the video area.                                                                    |
+| imagemap.video.area.height          | `Number`        | Height of the vid

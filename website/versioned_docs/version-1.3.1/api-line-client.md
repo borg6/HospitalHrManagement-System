@@ -2381,4 +2381,147 @@ client.downloadRichMenuImage(RICH_MENU_ID).then((imageBuffer) => {
 
 Uploads and attaches an image to a rich menu.
 
-| Param      | Type     | Description                            
+| Param      | Type     | Description                                    |
+| ---------- | -------- | ---------------------------------------------- |
+| richMenuId | `String` | ID of an uploaded rich menu.                   |
+| buffer     | `Buffer` | Image buffer which must be jpeg or png format. |
+
+Example:
+
+```js
+const fs = require('fs');
+
+client.uploadRichMenuImage(RICH_MENU_ID, fs.readFileSync('image.png'));
+```
+
+<br />
+
+#### `getDefaultRichMenu()` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-default-rich-menu-id)
+
+Gets the ID of the default rich menu set with the Messaging API.
+
+Example:
+
+```js
+client.getDefaultRichMenu().then((richMenu) => {
+  console.log(richMenu);
+  // {
+  //   "richMenuId": "{richMenuId}"
+  // }
+});
+```
+
+<br />
+
+#### `setDefaultRichMenu(richMenuId)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#set-default-rich-menu)
+
+Sets the default rich menu. The default rich menu is displayed to all users who have added your bot as a friend and are not linked to any per-user rich menu.
+
+| Param      | Type     | Description                  |
+| ---------- | -------- | ---------------------------- |
+| richMenuId | `String` | ID of an uploaded rich menu. |
+
+Example:
+
+```js
+client.setDefaultRichMenu('{richMenuId}');
+```
+
+> The rich menu is displayed in the following order of priority (highest to lowest): The per-user rich menu set with the Messaging API, the default rich menu set with the Messaging API, and the default rich menu set with LINE@ Manager.
+
+<br />
+
+#### `deleteDefaultRichMenu()` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#cancel-default-rich-menu)
+
+Cancels the default rich menu set with the Messaging API.
+
+Example:
+
+```js
+client.deleteDefaultRichMenu();
+```
+
+<br />
+
+<a id="account-link-api" />
+
+### Account Link API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#account-link)
+
+#### `issueLinkToken(userId)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#issue-link-token)
+
+Issues a link token used for the [account link](https://developers.line.me/en/messaging-api/linking-accounts/) feature.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| userId | `String` | ID of the user. |
+
+Example:
+
+```js
+client.issueLinkToken(USER_ID).then((result) => {
+  console.log(result);
+  // {
+  //   linkToken: 'NMZTNuVrPTqlr2IF8Bnymkb7rXfYv5EY',
+  // }
+});
+```
+
+<a id="liff-api" />
+
+### LINE Front-end Framework API - [Official Docs](https://developers.line.me/en/liff/reference/)
+
+#### `createLiffApp(view)`
+
+Adds an app to LIFF. You can add up to 10 LIFF apps on one channel.
+
+| Param     | Type     | Description                                 |
+| --------- | -------- | ------------------------------------------- |
+| view.type | `String` | Size of the LIFF app view.                  |
+| view.url  | `String` | URL of the LIFF app. Must start with HTTPS. |
+
+Example:
+
+```js
+client.createLiffApp({
+  type: 'compact',
+  url: 'https://example.com/liff-app',
+});
+```
+
+View type can be specified one of the following values:
+
+- `compact`: 50% of the screen height of the device. This size can be specified only for the chat screen.
+- `tall`: 80% of the screen height of the device. This size can be specified only for the chat screen.
+- `full`: 100% of the screen height of the device. This size can be specified for any screens in the LINE app.
+
+<br />
+
+#### `updateLiffApp(liffId, view)`
+
+Updates LIFF app settings.
+
+| Param     | Type     | Description                                 |
+| --------- | -------- | ------------------------------------------- |
+| liffId    | `String` | ID of the LIFF app to be updated.           |
+| view.type | `String` | Size of the LIFF app view.                  |
+| view.url  | `String` | URL of the LIFF app. Must start with HTTPS. |
+
+Example:
+
+```js
+client.updateLiffApp(LIFF_ID, {
+  type: 'compact',
+  url: 'https://example.com/liff-app',
+});
+```
+
+<br />
+
+#### `getLiffAppList`
+
+Gets information on all the LIFF apps registered in the channel.
+
+Example:
+
+```js
+client.getLiffApps().then((apps) => 

@@ -1,0 +1,24 @@
+---
+id: api-messenger-client
+title: MessengerClient
+---
+
+- [Usage](#usage)
+- [Methods](#methods)
+  - [Send API](#send-api)
+    - [Content Types](#content-types)
+    - [Templates](#templates)
+    - [Quick Replies](#quick-replies)
+    - [Sender Actions](#sender-actions)
+    - [Attachment Upload API](#attachment-upload-api)
+    - [Message Batching](#message-batching)
+  - [User Profile API](#user-profile-api)
+  - [Messenger Profile API](#messenger-profile-api)
+    - [Persistent Menu](#persistent-menu)
+    - [Get Started Button](#get-started-button)
+    - [Greeting Text](#greeting-text)
+    - [Whitelisted Domains](#domain-whitelist)
+    - [Account Linking URL](#account-linking-url)
+    - [Target Audience](#target-audience)
+    - [Chat Extension Home URL](#chat-extension-home-url)
+  - [Handover Protocol 

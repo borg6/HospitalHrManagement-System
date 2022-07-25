@@ -242,4 +242,85 @@ Send images to specified user by uploading them or sharing a URL using the [Send
 | userId           | <code>String &#124; Object</code>                                            | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
 | image            | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The image to be sent.                                                                                                                             |
 | options          | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
-| options.filename | `String`                                                                     | Required when upload from buffer.                      
+| options.filename | `String`                                                                     | Required when upload from buffer.                                                                                                                 |
+
+Example:
+
+- Send image using a URL string:
+
+```js
+client.sendImage(USER_ID, 'https://example.com/vr.jpg');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+client.sendImage(USER_ID, { attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+client.sendImage(USER_ID, fs.createReadStream('vr.jpg'));
+```
+
+- Use `Buffer` to send attachment:
+
+```js
+client.sendImage(USER_ID, buffer, { filename: 'vr.jpg' });
+```
+
+<br />
+
+#### `sendVideo(userId, video [, options])`
+
+Send videos to specified user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param            | Type                                                                         | Description                                                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId           | <code>String &#124; Object</code>                                            | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| video            | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The video to be sent.                                                                                                                             |
+| options          | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+| options.filename | `String`                                                                     | Required when upload from buffer.                                                                                                                 |
+
+Example:
+
+- Send video using a URL string:
+
+```js
+client.sendVideo(USER_ID, 'https://example.com/video.mp4');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+client.sendVideo(USER_ID, { attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+client.sendVideo(USER_ID, fs.createReadStream('video.mp4'));
+```
+
+- Use `Buffer` to send attachment:
+
+```js
+client.sendVideo(USER_ID, buffer, { filename: 'video.mp4' });
+```
+
+<br />
+
+#### `sendFile(userId, file [, options])`
+
+Send files to specified user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param            | Type                                                                         | Description                                                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId           | <code>String &#124; Object</code>                                            | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| file             | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The file to be sent.                                                                                                                              |
+| options          | `Object`                                                                     | Other optional parameters. For example, [messaging 

@@ -571,4 +571,129 @@ client.sendReceiptTemplate(USER_ID, {
     subtotal: 75.0,
     shippingCost: 4.95,
     totalTax: 6.19,
-    totalCo
+    totalCost: 56.14,
+  },
+  adjustments: [
+    {
+      name: 'New Customer Discount',
+      amount: 20,
+    },
+    {
+      name: '$10 Off Coupon',
+      amount: 10,
+    },
+  ],
+});
+```
+
+<br />
+
+#### `sendAirlineBoardingPassTemplate(userId, attributes [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-boardingpass-template)
+
+Send airline boarding pass message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410966-a5fb1542-27dc-11e8-9d23-e3a090b0cdeb.png" alt="sendAirlineBoardingPassTemplate" width="600" />
+
+| Param      | Type                              | Description                                                                                                                                        |
+| ---------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId     | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.  |
+| attributes | `Object`                          | [payload](https://developers.facebook.com/docs/messenger-platform/send-messages/template/airline-boarding-pass#payload) of boarding pass template. |
+| options    | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types).  |
+
+Example:
+
+```js
+client.sendAirlineBoardingPassTemplate(RECIPIENT_ID, {
+  introMessage: 'You are checked in.',
+  locale: 'en_US',
+  boardingPass: [
+    {
+      passengerName: 'SMITH/NICOLAS',
+      pnrNumber: 'CG4X7U',
+      travelClass: 'business',
+      seat: '74J',
+      auxiliaryFields: [
+        {
+          label: 'Terminal',
+          value: 'T1',
+        },
+        {
+          label: 'Departure',
+          value: '30OCT 19:05',
+        },
+      ],
+      secondaryFields: [
+        {
+          label: 'Boarding',
+          value: '18:30',
+        },
+        {
+          label: 'Gate',
+          value: 'D57',
+        },
+        {
+          label: 'Seat',
+          value: '74J',
+        },
+        {
+          label: 'Sec.Nr.',
+          value: '003',
+        },
+      ],
+      logoImageUrl: 'https://www.example.com/en/logo.png',
+      headerImageUrl: 'https://www.example.com/en/fb/header.png',
+      qrCode: 'M1SMITH/NICOLAS  CG4X7U nawouehgawgnapwi3jfa0wfh',
+      aboveBarCodeImageUrl: 'https://www.example.com/en/PLAT.png',
+      flightInfo: {
+        flightNumber: 'KL0642',
+        departureAirport: {
+          airportCode: 'JFK',
+          city: 'New York',
+          terminal: 'T1',
+          gate: 'D57',
+        },
+        arrivalAirport: {
+          airportCode: 'AMS',
+          city: 'Amsterdam',
+        },
+        flightSchedule: {
+          departureTime: '2016-01-02T19:05',
+          arrivalTime: '2016-01-05T17:30',
+        },
+      },
+    },
+    {
+      passengerName: 'JONES/FARBOUND',
+      pnrNumber: 'CG4X7U',
+      travelClass: 'business',
+      seat: '74K',
+      auxiliaryFields: [
+        {
+          label: 'Terminal',
+          value: 'T1',
+        },
+        {
+          label: 'Departure',
+          value: '30OCT 19:05',
+        },
+      ],
+      secondaryFields: [
+        {
+          label: 'Boarding',
+          value: '18:30',
+        },
+        {
+          label: 'Gate',
+          value: 'D57',
+        },
+        {
+          label: 'Seat',
+          value: '74K',
+        },
+        {
+          label: 'Sec.Nr.',
+          value: '004',
+        },
+      ],
+      logoImageUrl: 'https://www.example.com/en/logo.png',
+      headerImageUrl: 'https://www.example.com/en/fb/head

@@ -919,4 +919,107 @@ Send airline flight update message templates to specified user using the [Send A
 
 | Param      | Type                              | Description                                                                                                                                       |
 | ---------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| userId     | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://devel
+| userId     | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| attributes | `Object`                          | [payload](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-update-template#payload) of update template.         |
+| options    | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+```js
+client.sendAirlineUpdateTemplate(USER_ID, {
+  introMessage: 'Your flight is delayed',
+  updateType: 'delay',
+  locale: 'en_US',
+  pnrNumber: 'CF23G2',
+  updateFlightInfo: {
+    flightNumber: 'KL123',
+    departureAirport: {
+      airportCode: 'SFO',
+      city: 'San Francisco',
+      terminal: 'T4',
+      gate: 'G8',
+    },
+    arrivalAirport: {
+      airportCode: 'AMS',
+      city: 'Amsterdam',
+      terminal: 'T4',
+      gate: 'G8',
+    },
+    flightSchedule: {
+      boardingTime: '2015-12-26T10:30',
+      departureTime: '2015-12-26T11:30',
+      arrivalTime: '2015-12-27T07:30',
+    },
+  },
+});
+```
+
+<br />
+
+<a id="quick-replies" />
+
+### Quick Replies - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/quick-replies)
+
+<img src="https://user-images.githubusercontent.com/3382565/37411344-91c8ad54-27dd-11e8-82fc-fd9adf896301.png" alt="Quick Replies" width="750" />
+
+To send messages with quick replies to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request), pass `quickReplies` option to send message methods, for example, with `sendText`:
+
+```js
+client.sendText(USER_ID, 'Pick a color:', {
+  quickReplies: [
+    {
+      contentType: 'text',
+      title: 'Red',
+      payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED',
+    },
+  ],
+});
+```
+
+with `sendImage`:
+
+```js
+client.sendImage(USER_ID, 'https://example.com/vr.jpg', {
+  quickReplies: [
+    {
+      contentType: 'text',
+      title: 'Red',
+      payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED',
+    },
+  ],
+});
+```
+
+It works with all of send message methods.
+
+<br />
+
+<a id="sender-actions" />
+
+### Sender Actions - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/sender-actions)
+
+<img src="https://user-images.githubusercontent.com/3382565/37411363-9b65ecaa-27dd-11e8-8f51-7aac7fd0bd2f.png" alt="Sender Actions" width="250" />
+
+#### `sendSenderAction(userId, action)`
+
+Send sender actions to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request), to let users know you are processing their request.
+
+| Param  | Type                              | Description                                                                                                                                       |
+| ------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| action | `String`                          | Name of the action.                                                                                                                               |
+
+Example:
+
+```js
+client.sendSenderAction(USER_ID, 'typing_on');
+```
+
+<br />
+
+#### `markSeen(userId)`
+
+Mark last message as read for specified user.
+
+| Param  | Type                              | Description                                                                                                                                       |
+| ------ | --------------------------------- | -------------------------------------------------------------------------------------------------

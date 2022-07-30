@@ -1449,4 +1449,118 @@ client.getLabelList().then((result) => {
   //     },
   //     {
   //       name: 'myOtherLabel',
-  /
+  //       id: '1001200005002',
+  //     },
+  //   ],
+  //   paging: {
+  //     cursors: {
+  //       before:
+  //         'QVFIUmx1WTBpMGpJWXprYzVYaVhabW55dVpycko4U2xURGE5ODNtNFZAPal94a1hTUnNVMUtoMVVoTzlzSDktUkMtQkUzWEFLSXlMS3ZALYUw3TURLelZAPOGVR',
+  //       after:
+  //         'QVFIUmItNkpTbjVzakxFWGRydzdaVUFNNnNPaUl0SmwzVHN5ZAWZAEQ3lZANDAzTXFIM0NHbHdYSkQ5OG1GaEozdjkzRmxpUFhxTDl4ZAlBibnE4LWt1eGlTa3Bn',
+  //     },
+  //   },
+  // }
+});
+```
+
+<br />
+
+#### `deleteLabel(labelId)`
+
+Deleting a Label.
+
+| Param   | Type     | Description             |
+| ------- | -------- | ----------------------- |
+| labelId | `String` | ID of the custom label. |
+
+Example:
+
+```js
+client.deleteLabel(LABEL_ID);
+```
+
+<br />
+
+<a id="user-profile-api" />
+
+### User Profile API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/user-profile)
+
+#### `getUserProfile(userId, options)`
+
+Retrieving a Person's Profile.
+
+| Param          | Type            | Description                                                                                                                                                                      |
+| -------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId         | `String`        | Page-scoped user ID of the recipient.                                                                                                                                            |
+| options.fields | `Array<String>` | Value must be among `id`, `name`, `first_name`, `last_name`, `profile_pic`, `locale`, `timezone`, `gender`, default with `id`, `name`, `first_name`, `last_name`, `profile_pic`, |
+
+Example:
+
+```js
+client.getUserProfile(USER_ID).then((user) => {
+  console.log(user);
+  // {
+  //   id: '5566'
+  //   firstName: 'Johnathan',
+  //   lastName: 'Jackson',
+  //   profilePic: 'https://example.com/pic.png',
+  // }
+});
+```
+
+<br />
+
+<a id="messenger-profile-api" />
+
+### Messenger Profile API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile)
+
+#### `getMessengerProfile(fields)`
+
+Retrieves the current value of one or more Messenger Profile properties by name.
+
+| Param  | Type            | Description                                                                                                                                    |
+| ------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| fields | `Array<String>` | Value must be among `account_linking_url`, `persistent_menu`, `get_started`, `greeting`, `whitelisted_domains`, `target_audience`, `home_url`. |
+
+Example:
+
+```js
+client
+  .getMessengerProfile(['get_started', 'persistent_menu'])
+  .then((profile) => {
+    console.log(profile);
+    // [
+    //   {
+    //     getStarted: {
+    //       payload: 'GET_STARTED',
+    //     },
+    //   },
+    //   {
+    //     persistentMenu: [
+    //       {
+    //         locale: 'default',
+    //         composerInputDisabled: true,
+    //         callToActions: [
+    //           {
+    //             type: 'postback',
+    //             title: 'Restart Conversation',
+    //             payload: 'RESTART',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // ]
+  });
+```
+
+<br />
+
+#### `setMessengerProfile(profile)`
+
+Sets the values of one or more Messenger Profile properties. Only properties set in the request body will be overwritten.
+
+| Param   | Type     | Description                                                                                                                      |
+| ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| profile | `Object` | Object of [Profile](https://developers.facebook.

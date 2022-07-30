@@ -1563,4 +1563,154 @@ Sets the values of one or more Messenger Profile properties. Only properties set
 
 | Param   | Type     | Description                                                                                                                      |
 | ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| profile | `Object` | Object of [Profile](https://developers.facebook.
+| profile | `Object` | Object of [Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api#profile_properties). |
+
+Example:
+
+```js
+client.setMessengerProfile({
+  getStarted: {
+    payload: 'GET_STARTED',
+  },
+  persistentMenu: [
+    {
+      locale: 'default',
+      composerInputDisabled: true,
+      callToActions: [
+        {
+          type: 'postback',
+          title: 'Restart Conversation',
+          payload: 'RESTART',
+        },
+      ],
+    },
+  ],
+});
+```
+
+<br />
+
+#### `deleteMessengerProfile(fields)`
+
+Deletes one or more Messenger Profile properties. Only properties specified in the fields array will be deleted.
+
+| Param  | Type            | Description                                                                                                                                    |
+| ------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| fields | `Array<String>` | Value must be among `account_linking_url`, `persistent_menu`, `get_started`, `greeting`, `whitelisted_domains`, `target_audience`, `home_url`. |
+
+Example:
+
+```js
+client.deleteMessengerProfile(['get_started', 'persistent_menu']);
+```
+
+<br />
+
+<a id="persistent-menu" />
+
+### Persistent Menu - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/persistent-menu)
+
+![](https://scontent-tpe1-1.xx.fbcdn.net/v/t39.2365-6/16686128_804279846389859_443648268883197952_n.png?oh=adde03b0bc7dd524a58cf46016e0267d&oe=59FC90D6)
+
+#### `getPersistentMenu`
+
+Retrieves the current value of persistent menu.
+
+Example:
+
+```js
+client.getPersistentMenu().then((menu) => {
+  console.log(menu);
+  // [
+  //   {
+  //     locale: 'default',
+  //     composerInputDisabled: true,
+  //     callToActions: [
+  //       {
+  //         type: 'postback',
+  //         title: 'Restart Conversation',
+  //         payload: 'RESTART',
+  //       },
+  //       {
+  //         type: 'web_url',
+  //         title: 'Powered by ALOHA.AI, Yoctol',
+  //         url: 'https://www.yoctol.com/',
+  //       },
+  //     ],
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `setPersistentMenu(menu)`
+
+Sets the values of persistent menu.
+
+| Param | Type            | Description                                                                                                                          |
+| ----- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| menu  | `Array<Object>` | Array of [menu](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/persistent-menu#properties). |
+
+Example:
+
+```js
+client.setPersistentMenu([
+  {
+    locale: 'default',
+    callToActions: [
+      {
+        title: 'Play Again',
+        type: 'postback',
+        payload: 'RESTART',
+      },
+      {
+        title: 'Language Setting',
+        type: 'nested',
+        callToActions: [
+          {
+            title: '中文',
+            type: 'postback',
+            payload: 'CHINESE',
+          },
+          {
+            title: 'English',
+            type: 'postback',
+            payload: 'ENGLISH',
+          },
+        ],
+      },
+      {
+        title: 'Explore D',
+        type: 'nested',
+        callToActions: [
+          {
+            title: 'Explore',
+            type: 'web_url',
+            url: 'https://www.youtube.com/watch?v=v',
+            webviewHeightRatio: 'tall',
+          },
+          {
+            title: 'W',
+            type: 'web_url',
+            url: 'https://www.facebook.com/w',
+            webviewHeightRatio: 'tall',
+          },
+          {
+            title: 'Powered by YOCTOL',
+            type: 'web_url',
+            url: 'https://www.yoctol.com/',
+            webviewHeightRatio: 'tall',
+          },
+        ],
+      },
+    ],
+  },
+]);
+```
+
+> Note: You must set a get started button to use the persistent menu.
+
+<br />
+
+#### `deletePersistentM

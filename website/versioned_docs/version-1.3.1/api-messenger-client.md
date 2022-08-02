@@ -2145,4 +2145,112 @@ client.getSecondaryReceivers().then((receivers) => {
   //     "name": "David's Composer"
   //   },
   //   {
-  //     "id":
+  //     "id": "23456789101",
+  //     "name": "Messenger Rocks"
+  //   }
+  // ]
+});
+```
+
+<br />
+
+<a id="page-messaging-insights-api" />
+
+### Page Messaging Insights API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/insights/page-messaging)
+
+Requirements for insights API:
+
+- Page token must have `read_insights` permission.
+- Insights are only generated for a Facebook Page that has more than `30` people that like it.
+
+#### `getInsights(metrics, options)`
+
+Retrieves the insights of your Facebook Page.
+
+| Param         | Type     | Description                                                                                                                         |
+| ------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| metrics       | `Array`  | [The metrics](https://developers.facebook.com/docs/messenger-platform/reference/messaging-insights-api/#metrics) you want to check. |
+| options       | `Object` | Optional arguments.                                                                                                                 |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for.                                                                   |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.                                                                     |
+
+Example:
+
+```js
+client
+  .getInsights(['page_messages_reported_conversations_unique'])
+  .then((counts) => {
+    console.log(counts);
+    // [
+    //   {
+    //     "name": "page_messages_reported_conversations_unique",
+    //     "period": "day",
+    //     "values": [
+    //       {
+    //         "value": "<VALUE>",
+    //         "endTime": "<UTC_TIMESTAMP>"
+    //       },
+    //       {
+    //         "value": "<VALUE>",
+    //         "endTime": "<UTC_TIMESTAMP>"
+    //       }
+    //     ]
+    //   }
+    // ]
+  });
+```
+
+<br />
+
+#### `getBlockedConversations(options)`
+
+Retrieves the number of conversations with the Page that have been blocked.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getBlockedConversations().then((counts) => {
+  console.log(counts);
+  //   {
+  //     "name": "page_messages_blocked_conversations_unique",
+  //     "period": "day",
+  //     "values": [
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       },
+  //       {
+  //         "value": "<VALUE>",
+  //         "endTime": "<UTC_TIMESTAMP>"
+  //       }
+  //    ]
+  //   }
+});
+```
+
+<br />
+
+#### `getReportedConversations(options)`
+
+Retrieves the number of conversations from your Page that have been reported by people for reasons such as spam, or containing inappropriate content.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getReportedConversations().then((counts) => {
+  console.log(counts);
+  //   {
+  //     "name": "page_messages_reported_conversations_unique",
+  

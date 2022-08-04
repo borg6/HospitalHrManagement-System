@@ -2713,4 +2713,162 @@ Create new Webhooks subscriptions.
 
 | Param         | Type            | Description                                                                                                                       |
 | ------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| accessToken   | `String`        | App access token.                                                                
+| accessToken   | `String`        | App access token.                                                                                                                 |
+| callbackUrl   | `String`        | The URL that will receive the POST request when an update is triggered, and a GET request when attempting this publish operation. |
+| verifyToken   | `String`        | An arbitrary string that can be used to confirm to your server that the request is valid.                                         |
+| fields        | `Array<String>` | One or more of the set of valid fields in this object to subscribe to.                                                            |
+| object        | `String`        | Indicates the object type that this subscription applies to. Defaults to `page`.                                                  |
+| includeValues | `Boolean`       | Indicates if change notifications should include the new values.                                                                  |
+
+Example:
+
+```js
+client.createSubscription({
+  accessToken: APP_ACCESS_TOKEN,
+  callbackUrl: 'https://mycallback.com',
+  fields: ['messages', 'messaging_postbacks', 'messaging_referrals'],
+  verifyToken: VERIFY_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.createSubscription({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+  callbackUrl: 'https://mycallback.com',
+  fields: ['messages', 'messaging_postbacks', 'messaging_referrals'],
+  verifyToken: VERIFY_TOKEN,
+});
+```
+
+Default Fields:
+
+- `messages`
+- `messaging_postbacks`
+- `messaging_optins`
+- `messaging_referrals`
+- `messaging_handovers`
+- `messaging_policy_enforcement`
+
+#### `getSubscriptions`
+
+Get the current Webhook subscriptions set up on your app.
+
+| Param       | Type     | Description       |
+| ----------- | -------- | ----------------- |
+| accessToken | `String` | App access token. |
+
+Example:
+
+```js
+client.getSubscriptions({
+  accessToken: APP_ACCESS_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.getSubscriptions({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+});
+```
+
+#### `getPageSubscription`
+
+Get the current page subscriptions set up on your app.
+
+| Param       | Type     | Description       |
+| ----------- | -------- | ----------------- |
+| accessToken | `String` | App access token. |
+
+Example:
+
+```js
+client.getPageSubscription({
+  accessToken: APP_ACCESS_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.getPageSubscription({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+});
+```
+
+<br />
+
+#### `getPageInfo`
+
+Get page name and page id using Graph API.
+
+Example:
+
+```js
+client.getPageInfo().then((page) => {
+  console.log(page);
+  // {
+  //   name: 'Bot Demo',
+  //   id: '1895382890692546',
+  // }
+});
+```
+
+#### `getMessagingFeatureReview`
+
+Programmatically check the feature submission status of Page-level Platform features.
+
+Example:
+
+```js
+client.getMessagingFeatureReview().then((data) => {
+  console.log(data);
+  // [
+  //   {
+  //     "feature": "subscription_messaging",
+  //     "status": "<pending|rejected|approved|limited>"
+  //   }
+  // ]
+});
+```
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-messenger
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real Messenger server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    messenger: {
+      enabled: true,
+      path: '/webhooks/messenger',
+      pageId: process.env.MESSENGER_PAGE_ID,
+      accessToken: process.env.MESSENGER_ACCESS_TOKEN,
+      appId: process.env.MESSENGER_APP_ID,
+      appSecret: process.env.MESSENGER_APP_SECRET,
+      verifyToken: process.env.MESSENGER_VERIFY_TOKEN,
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

@@ -288,4 +288,166 @@ Retrieve information about a conversation.
 | ------------------- | -------- | ----------------------------------- |
 | channelId           | `String` | Channel to get info on.             |
 | options             | `Object` | Other optional parameters.          |
-| options.accessToken | `S
+| options.accessToken | `String` | Custom access token of the request. |
+
+Example:
+
+```js
+client.getConversationInfo(channelId).then((res) => {
+  console.log(res);
+  // {
+  //   id: 'C8763',
+  //   name: 'fun',
+  //   ...
+  // }
+});
+```
+
+<br />
+
+#### `getConversationMembers(channelId, options?)` - [Official docs](https://api.slack.com/methods/conversations.members)
+
+Retrieve members of a conversation.
+
+| Param               | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| channelId           | `String` | Channel to get info on.             |
+| options             | `Object` | Optional arguments.                 |
+| options.accessToken | `String` | Custom access token of the request. |
+
+Example:
+
+```js
+client.getConversationMembers(channelId, { cursor: 'xxx' });
+client.getConversationMembers(channelId).then((res) => {
+  console.log(res);
+  // {
+  //   members: ['U061F7AUR', 'U0C0NS9HN'],
+  //   next: 'cursor',
+  // }
+});
+```
+
+<br />
+
+#### `getAllConversationMembers(channelId, options?)` - [Official docs](https://api.slack.com/methods/conversations.members)
+
+Recursively retrieve members of a conversation using cursor.
+
+| Param               | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| channelId           | `String` | Channel to get info on.             |
+| options             | `Object` | Other optional parameters.          |
+| options.accessToken | `String` | Custom access token of the request. |
+
+Example:
+
+```js
+client.getAllConversationMembers(channelId).then((res) => {
+  console.log(res);
+  // ['U061F7AUR', 'U0C0NS9HN', ...]
+});
+```
+
+<br />
+
+#### `getConversationList(options?)` - [Official docs](https://api.slack.com/methods/conversations.list)
+
+Lists all channels in a Slack team.
+
+| Param               | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| options             | `Object` | Optional arguments.                 |
+| options.accessToken | `String` | Custom access token of the request. |
+
+Example:
+
+```js
+client.getConversationList({ cursor: 'xxx' });
+client.getConversationList().then((res) => {
+  console.log(res);
+  // {
+  //   channels: [
+  //     {
+  //       id: 'C012AB3CD',
+  //       name: 'general',
+  //       ...
+  //     },
+  //     {
+  //       id: 'C012AB3C5',
+  //       name: 'random',
+  //       ...
+  //     },
+  //   ],
+  //   next: 'cursor',
+  // }
+});
+```
+
+<br />
+
+#### `getAllConversationList(options?)` - [Official docs](https://api.slack.com/methods/conversations.list)
+
+Recursively lists all channels in a Slack team using cursor.
+
+| Param               | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| options             | `Object` | Optional arguments.                 |
+| options.accessToken | `String` | Custom access token of the request. |
+
+Example:
+
+```js
+client.getAllConversationList().then((res) => {
+  console.log(res);
+  // [
+  //   {
+  //     id: 'C012AB3CD',
+  //     name: 'general',
+  //     ...
+  //   },
+  //   {
+  //     id: 'C012AB3C5',
+  //     name: 'random',
+  //     ...
+  //   },
+  // ],
+});
+```
+
+<br />
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-slack
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real Slack server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    viber: {
+      enabled: true,
+      path: '/webhooks/slack',
+      accessToken: process.env.SLACK_ACCESS_TOKEN,
+      signingSecret: process.env.SLACK_SIGNING_SECRET,
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

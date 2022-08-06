@@ -1208,3 +1208,82 @@ client.setGameScore(USER_ID, 999);
 Gets data for high score tables.
 
 | Param   | Type                              | Description                        |
+| ------- | --------------------------------- | ---------------------------------- |
+| userId  | <code>Number &#124; String</code> | User identifier.                   |
+| options | `Object`                          | Additional Telegram query options. |
+
+Example:
+
+```js
+client.getGameHighScores(USER_ID).then((scores) => {
+  console.log(scores);
+  // [
+  //   {
+  //     position: 1,
+  //     user: {
+  //       id: 427770117,
+  //       isBot: false,
+  //       firstName: 'first',
+  //     },
+  //     score: 999,
+  //   },
+  // ]
+});
+```
+
+<br />
+
+### Others
+
+#### `forwardMessage(chatId, fromChatId, messageId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#forwardmessage)
+
+Forwards messages of any kind.
+
+| Param      | Type                              | Description                                                                            |
+| ---------- | --------------------------------- | -------------------------------------------------------------------------------------- |
+| chatId     | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target supergroup or channel. |
+| fromChatId | <code>Number &#124; String</code> | Unique identifier for the chat where the original message was sent.                    |
+| messageId  | `Number`                          | Message identifier in the chat specified in fromChatId.                                |
+| options    | `Object`                          | Other optional parameters.                                                             |
+
+Example:
+
+```js
+client.forwardMessage(CHAT_ID, USER_ID, MESSAGE_ID, {
+  disableNotification: true,
+});
+```
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-telegram
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real Telegram server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    telegram: {
+      enabled: true,
+      path: '/webhooks/telegram',
+      accessToken: process.env.TELEGRAM_ACCESS_TOKEN,
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

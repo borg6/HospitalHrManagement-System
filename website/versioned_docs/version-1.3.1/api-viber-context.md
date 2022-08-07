@@ -30,3 +30,85 @@ context.sendMessage({
 
 > **Note:** Maximum total JSON size of the request is 30kb.
 
+<br />
+
+#### `sendText(text [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#text-message)
+
+Sending a text message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481925-61e46008-aeeb-11e7-842f-79fee8066c6a.jpg" width="300" />
+
+| Param   | Type     | Description                |
+| ------- | -------- | -------------------------- |
+| text    | `String` | The text of the message.   |
+| options | `Object` | Other optional parameters. |
+
+Example:
+
+```js
+context.sendText('Hello');
+```
+
+<br />
+
+#### `sendPicture(picture [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#picture-message)
+
+Sending a picture message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481916-5ec6cdac-aeeb-11e7-878b-6c8c4211a760.jpg" width="300" />
+
+| Param             | Type     | Description                                                                                                                                                       |
+| ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| picture           | `Object` |
+| picture.text      | `String` | Description of the photo. Can be an empty string if irrelevant. Max 120 characters.                                                                               |
+| picture.media     | `String` | URL of the image (JPEG). Max size 1 MB. Only JPEG format is supported. Other image formats as well as animated GIFs can be sent as URL messages or file messages. |
+| picture.thumbnail | `String` | URL of a reduced size image (JPEG). Max size 100 kb. Recommended: 400x400. Only JPEG format is supported.                                                         |
+| options           | `Object` | Other optional parameters.                                                                                                                                        |
+
+Example:
+
+```js
+context.sendPicture({
+  text: 'Photo description',
+  media: 'http://www.images.com/img.jpg',
+  thumbnail: 'http://www.images.com/thumb.jpg',
+});
+```
+
+<br />
+
+#### `sendVideo(video [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#video-message)
+
+Sending a video message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481918-5fa12074-aeeb-11e7-8287-830197d93b5b.jpg" width="300" />
+
+| Param           | Type     | Description                                                                                               |
+| --------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| video           | `Object` |
+| video.media     | `String` | URL of the video (MP4, H264). Max size 50 MB. Only MP4 and H264 are supported.                            |
+| video.size      | `Number` | Size of the video in bytes.                                                                               |
+| video.duration  | `Number` | Video duration in seconds; will be displayed to the receiver. Max 180 seconds.                            |
+| video.thumbnail | `String` | URL of a reduced size image (JPEG). Max size 100 kb. Recommended: 400x400. Only JPEG format is supported. |
+| options         | `Object` | Other optional parameters.                                                                                |
+
+Example:
+
+```js
+context.sendVideo({
+  media: 'http://www.images.com/video.mp4',
+  size: 10000,
+  thumbnail: 'http://www.images.com/thumb.jpg',
+  duration: 10,
+});
+```
+
+<br />
+
+#### `sendFile(file [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#file-message)
+
+Sending a file message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481919-600f437e-aeeb-11e7-9f13-7269a055cb86.jpg" width="300" />
+
+| Param         | Type     | Description                                                                                            

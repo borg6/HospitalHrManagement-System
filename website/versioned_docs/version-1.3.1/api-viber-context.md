@@ -206,4 +206,123 @@ Sending a sticker message to the user.
 
 | Param     | Type     | Description                                                                                                          |
 | --------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| stickerId | `Number` | Unique Viber sticker ID. For examples visit the [sticker IDs
+| stickerId | `Number` | Unique Viber sticker ID. For examples visit the [sticker IDs](https://viber.github.io/docs/tools/sticker-ids/) page. |
+| options   | `Object` | Other optional parameters.                                                                                           |
+
+Example:
+
+```js
+context.sendSticker(46105);
+```
+
+<br />
+
+#### `sendCarouselContent(richMedia [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#carousel-content-message)
+
+Sending a carousel content message to the user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481917-5f1b43b4-aeeb-11e7-8557-e25951d69b53.jpg" width="300" />
+
+| Param                         | Type       | Description                                                                              |
+| ----------------------------- | ---------- | ---------------------------------------------------------------------------------------- |
+| richMedia.buttonsGroupColumns | `Number`   | Number of columns per carousel content block. Default 6 columns. Possible values: 1 - 6. |
+| richMedia.buttonsGroupRows    | `Number`   | Number of rows per carousel content block. Default 7 rows. Possible values: 1 - 7.       |
+| richMedia.buttons             | `Object[]` | Array of buttons. Max of 6 _ ButtonsGroupColumns _ ButtonsGroupRows.                     |
+| options                       | `Object`   | Other optional parameters.                                                               |
+
+Example:
+
+```js
+context.sendCarouselContent({
+  type: 'rich_media',
+  buttonsGroupColumns: 6,
+  buttonsGroupRows: 7,
+  bgColor: '#FFFFFF',
+  buttons: [
+    {
+      columns: 6,
+      rows: 3,
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      image: 'http://html-test:8080/myweb/guy/assets/imageRMsmall2.png',
+    },
+    {
+      columns: 6,
+      rows: 2,
+      text: '<font color=#323232><b>Headphones with Microphone, On-ear Wired earphones</b></font><font color=#777777><br/>Sound Intone </font><font color=#6fc133>$17.99</font>',
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      textSize: 'medium',
+      textVAlign: 'middle',
+      textHAlign: 'left',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#ffffff>Buy</font>',
+      textSize: 'large',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+      image: 'https://s14.postimg.org/4mmt4rw1t/Button.png',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#8367db>MORE DETAILS</font>',
+      textSize: 'small',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+    },
+    {
+      columns: 6,
+      rows: 3,
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      image: 'https://s16.postimg.org/wi8jx20wl/image_RMsmall2.png',
+    },
+    {
+      columns: 6,
+      rows: 2,
+      text: "<font color=#323232><b>Hanes Men's Humor Graphic T-Shirt</b></font><font color=#777777><br/>Hanes</font><font color=#6fc133>$10.99</font>",
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      textSize: 'medium',
+      textVAlign: 'middle',
+      textHAlign: 'left',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#ffffff>Buy</font>',
+      textSize: 'large',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+      image: 'https://s14.postimg.org/4mmt4rw1t/Button.png',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#8367db>MORE DETAILS</font>',
+      textSize: 'small',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+    },
+  ],
+});
+```
+
+<br />
+
+<a id="keyboards" />
+
+### Keyboards - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#keyboards)
+
+The Viber API allows sending a custom keyboard using the send_message API, to supply the user with a set of predefined replies o

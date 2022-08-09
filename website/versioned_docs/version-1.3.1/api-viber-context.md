@@ -325,4 +325,88 @@ context.sendCarouselContent({
 
 ### Keyboards - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#keyboards)
 
-The Viber API allows sending a custom keyboard using the send_message API, to supply the user with a set of predefined replies o
+The Viber API allows sending a custom keyboard using the send_message API, to supply the user with a set of predefined replies or actions. Keyboards can be attached to any message type and be sent and displayed together. To attach a keyboard to a message simply add the keyboard’s parameters to the options:
+
+```js
+context.sendText('Hello', {
+  keyboard: {
+    defaultHeight: true,
+    bgColor: '#FFFFFF',
+    buttons: [
+      {
+        columns: 6,
+        rows: 1,
+        bgColor: '#2db9b9',
+        bgMediaType: 'gif',
+        bgMedia: 'http://www.url.by/test.gif',
+        bgLoop: true,
+        actionType: 'open-url',
+        actionBody: 'www.tut.by',
+        image: 'www.tut.by/img.jpg',
+        text: 'Key text',
+        textVAlign: 'middle',
+        textHAlign: 'center',
+        textOpacity: 60,
+        textSize: 'regular',
+      },
+    ],
+  },
+});
+```
+
+Which in turn will look like this:
+
+<img src="https://developers.viber.com/docs/img/example_keyboard.png" width="300" />
+
+<br />
+
+### Get User Details
+
+#### `getUserDetails()` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-user-details)
+
+It will fetch the details of the user.
+
+Example:
+
+```js
+context.getUserDetails().then((user) => {
+  console.log(user);
+  // {
+  //   id: '01234567890A=',
+  //   name: 'John McClane',
+  //   avatar: 'http://avatar.example.com',
+  //   country: 'UK',
+  //   language: 'en',
+  //   primaryDeviceOs: 'android 7.1',
+  //   apiVersion: 1,
+  //   viberVersion: '6.5.0',
+  //   mcc: 1,
+  //   mnc: 1,
+  //   deviceType: 'iPhone9,4',
+  // };
+});
+```
+
+-->
+
+<br />
+
+### Get Online
+
+#### `getOnlineStatus()` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-online)
+
+It will fetch the online status of the user.
+
+Example:
+
+```js
+context.getOnlineStatus().then((status) => {
+  console.log(status);
+  // {
+  //   id: '01234567891=',
+  //   onlineStatus: 1,
+  //   onlineStatusMessage: 'offline',
+  //   lastOnline: 1457764197627,
+  // }
+});
+```

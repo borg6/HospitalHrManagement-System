@@ -136,3 +136,23 @@ For more information, see [Flex Message Elements](https://developers.line.biz/en
 A [carousel](https://developers.line.biz/en/docs/messaging-api/flex-message-elements/#carousel) is a container that contains multiple bubble elements. Users can browse the bubbles in the carousel by scrolling horizontally. Carousels are helpful when you are displaying multiple choices, e.g., clothes, restaurants, tourism for the user to choose.
 
 ![](https://user-images.githubusercontent.com/3382565/77495528-d44feb80-6e83-11ea-9300-ac5dae922c0d.png)
+
+To send carousel flex messages, use the `carousel` as the top-level container:
+
+```js
+async function App(context) {
+  const bubbleContent = {
+    type: 'bubble',
+    // ...other attributes
+  };
+  await context.sendFlex('This is a carousel flex', {
+    type: 'carousel',
+    contents: [
+      // put multiple bubbles in your carousel
+      bubbleContent,
+      bubbleContent,
+      bubbleContent,
+    ],
+  });
+}
+```

@@ -91,4 +91,30 @@ Edit your `bottender.config.js` file as follows:
 
 ```js
 module.exports = {
-  e
+  enabled: true,
+  path: '/webhooks/line',
+  accessToken: process.env.LINE_ACCESS_TOKEN,
+  channelSecret: process.env.LINE_CHANNEL_SECRET,
+};
+```
+
+Create the main logic of your bot project by editing your bot logic in the `index.js` file:
+
+```js
+module.exports = function App(context) {
+  await context.sendText(context.event.text);
+};
+```
+
+Create an environment file `.env`, and fill in access token and channel secret:
+
+```
+LINE_ACCESS_TOKEN=
+LINE_CHANNEL_SECRET=
+```
+
+Finally, run your bot by the following command:
+
+```sh
+npx bottender start
+```

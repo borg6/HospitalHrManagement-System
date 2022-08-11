@@ -213,4 +213,189 @@ In addition to using only one image as our rich menu, we can use multiple images
 
 ### Prepare Rich Menu Images
 
-Here are the three rich menu images we use to create a rich menu with two submenus. The logic is pretty simple: when we click the option on the main menu, we will get to the corresponding submenu. And when we cl
+Here are the three rich menu images we use to create a rich menu with two submenus. The logic is pretty simple: when we click the option on the main menu, we will get to the corresponding submenu. And when we click the back option on the submenu, we will go back to the main menu.
+
+`Main Menu`
+![main menu](https://user-images.githubusercontent.com/32091985/70420536-ebb8c380-1aa2-11ea-9ad5-48c2c9599f84.jpg)
+
+`Submenu A`
+![submenu A](https://user-images.githubusercontent.com/32091985/70420537-ec515a00-1aa2-11ea-9d40-ddb1bff0cd53.jpg)
+
+`Submenu B`
+![submenu B](https://user-images.githubusercontent.com/32091985/70420538-ec515a00-1aa2-11ea-89e8-6570c25a464e.jpg)
+
+### Create and Upload Rich Menu
+
+Next, we have to create three rich menu objects using the images we have above.
+
+Here are the example requests for creating the main menu and its submenus:
+
+Main Menu:
+
+```sh
+curl --request POST \
+  --url https://api.line.me/v2/bot/richmenu \
+  --header 'authorization: Bearer {channel access token}' \
+  --header 'content-type: application/json' \
+  --data '{
+    "size":{
+        "width":2500,
+        "height":1686
+    },
+    "selected":false,
+    "name":"Controller",
+    "chatBarText":"Controller",
+    "areas":[
+        {
+          "bounds":{
+              "x":0,
+              "y":0,
+              "width":1250,
+              "height":1686
+          },
+          "action":{
+              "type":"message",
+              "text":"A"
+          }
+        },
+				{
+          "bounds":{
+              "x":1250,
+              "y":0,
+              "width":1250,
+              "height":1686
+          },
+          "action":{
+              "type":"message",
+              "text":"B"
+          }
+        }
+
+    ]
+  }'
+```
+
+Submenu A:
+
+```sh
+curl --request POST \
+  --url https://api.line.me/v2/bot/richmenu \
+  --header 'authorization: Bearer {channel access token}' \
+  --header 'content-type: application/json' \
+  --data '{
+    "size":{
+        "width":2500,
+        "height":1686
+    },
+    "selected":false,
+    "name":"Controller",
+    "chatBarText":"Controller",
+    "areas":[
+        {
+          "bounds":{
+              "x":0,
+              "y":0,
+              "width":2500,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"Back"
+          }
+        },
+				{
+          "bounds":{
+              "x":0,
+              "y":843,
+              "width":1250,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"A1"
+          }
+        },
+				{
+          "bounds":{
+              "x":1250,
+              "y":843,
+              "width":1250,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"A2"
+          }
+        }
+
+    ]
+  }'
+```
+
+Submenu B:
+
+```sh
+curl --request POST \
+  --url https://api.line.me/v2/bot/richmenu \
+  --header 'authorization: Bearer {channel access token}' \
+  --header 'content-type: application/json' \
+  --data '{
+    "size":{
+        "width":2500,
+        "height":1686
+    },
+    "selected":false,
+    "name":"Controller",
+    "chatBarText":"Controller",
+    "areas":[
+        {
+          "bounds":{
+              "x":0,
+              "y":0,
+              "width":2500,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"Back"
+          }
+        },
+				{
+          "bounds":{
+              "x":0,
+              "y":843,
+              "width":1250,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"B1"
+          }
+        },
+				{
+          "bounds":{
+              "x":1250,
+              "y":843,
+              "width":1250,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"B2"
+          }
+        }
+
+    ]
+  }'
+```
+
+If you successfully create these rich menu objects, you will get three rich menu IDs in their responses. Then we can upload the rich menu images according to these IDs.
+
+```sh
+curl -v -X POST https://api-data.line.me/v2/bot/richmenu/{richMenuId}/content \
+-H "Authorization: Bearer {channel access token}" \
+-H "Content-Type: image/jpeg" \
+-T rich_menu_image.jpg
+```
+
+##

@@ -78,4 +78,139 @@ curl -v -X POST https://api.line.me/v2/bot/richmenu \
         {
           "bounds":{
               "x":551,
-           
+              "y":972,
+              "width":321,
+              "height":321
+          },
+          "action":{
+              "type":"message",
+              "text":"down"
+          }
+        },
+        {
+          "bounds":{
+              "x":225,
+              "y":651,
+              "width":321,
+              "height":321
+          },
+          "action":{
+              "type":"message",
+              "text":"left"
+          }
+        },
+        {
+          "bounds":{
+              "x":1433,
+              "y":657,
+              "width":367,
+              "height":367
+          },
+          "action":{
+              "type":"message",
+              "text":"btn b"
+          }
+        },
+        {
+          "bounds":{
+              "x":1907,
+              "y":657,
+              "width":367,
+              "height":367
+          },
+          "action":{
+              "type":"message",
+              "text":"btn a"
+          }
+        }
+    ]
+  }'
+```
+
+If you successfully create a rich menu, you get a response with a rich menu ID.
+
+## Upload the Rich Menu Image
+
+Next, you can upload the rich menu image you prepared in the first step. Again, you upload the image by sending an HTTP POST request to the `https://api-data.line.me/v2/bot/richmenu/{richMenuId}/content` endpoint. Specify the rich menu ID you just got in the `richMenuId` path parameter.
+
+Here's an example request:
+
+```sh
+curl -v -X POST https://api-data.line.me/v2/bot/richmenu/{richMenuId}/content \
+-H "Authorization: Bearer {channel access token}" \
+-H "Content-Type: image/jpeg" \
+-T rich_menu.jpg
+```
+
+## Link the Rich Menu to Users
+
+In the above three steps, you have finished all the set up for a rich menu. Now, you can link the menu to the users. You can either set a rich menu as the default rich menu for all the users or link a rich menu to an individual user.
+
+### Set the Default Rich Menu
+
+To set the default rich menu, you can send an HTTP POST request to the `https://api.line.me/v2/bot/user/all/richmenu/{richMenuId}` endpoint.
+
+Here's an example request:
+
+```sh
+curl -v -X POST https://api.line.me/v2/bot/user/all/richmenu/{richMenuId} \
+-H "Authorization: Bearer {channel access token}"
+```
+
+### Link a Rich Menu to an Individual User
+
+To link a rich menu to an individual user, you can do it using Bottender when handling a user's event:
+
+```js
+await context.linkRichMenu('rich-menu-id');
+```
+
+And to unlink a rich menu from a user, you can use:
+
+```js
+await context.unlinkRichMenu();
+```
+
+Still, you can link and unlink a rich menu by sending an HTTP POST request to the `https://api.line.me/v2/bot/user/{userId}/richmenu/{richMenuId}` and `https://api.line.me/v2/bot/richmenu/bulk/unlink` endpoints.
+
+Here're example requests:
+
+`link`
+
+```sh
+curl -v -X POST https://api.line.me/v2/bot/user/{userId}/richmenu/{richMenuId} \
+-H "Authorization: Bearer {channel access token}"
+```
+
+`unlink`
+
+```sh
+curl -v -X POST https://api.line.me/v2/bot/richmenu/bulk/unlink \
+-H "Authorization: Bearer {channel access token}" \
+-H "Content-Type: application/json" \
+-d '{
+  "userIds":["{userId1}","{userId2}"]
+}'
+```
+
+After you linked a rich menu to a user, you can get the rich menu ID later using Bottender:
+
+```js
+async function App(context) {
+  const richMenu = await context.getLinkedRichMenu();
+  console.log(richMenu);
+  // {
+  //   richMenuId: "rich-menu-id"
+  // }
+}
+```
+
+You can check out the full example [Here](https://github.com/Yoctol/bottender/tree/master/examples/line-rich-menu).
+
+## Set Up Submenu
+
+In addition to using only one image as our rich menu, we can use multiple images to create a rich menu with several submenus. We can implement this by creating multiple rich menu objects and link them to the user dynamically with Bottender. Here, we have an example that defines two submenus under a main rich menu.
+
+### Prepare Rich Menu Images
+
+Here are the three rich menu images we use to create a rich menu with two submenus. The logic is pretty simple: when we click the option on the main menu, we will get to the corresponding submenu. And when we cl

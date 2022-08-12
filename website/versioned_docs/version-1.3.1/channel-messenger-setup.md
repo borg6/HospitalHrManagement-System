@@ -56,4 +56,98 @@ module.exports = {
 
 Make sure to set the `channels.messenger.enabled` field to `true`.
 
-By default, the Bottender server listens to the Messenger requests on the `/
+By default, the Bottender server listens to the Messenger requests on the `/webhooks/messenger` path. However, you can overwrite the path by assigning the preferred webhook path in the `channels.messenger.path` field.
+
+We highly recommend setting your sensitive config using `process.env`, so you could avoid any credentials get exposed.
+
+## Environment Configuration
+
+When you run a Bottender app, Bottender loads environment variables in the config file, `bottender.config.js`. Then, `bottender.config.js` loads sensitive or environment-dependent variables in `.env`.
+
+To make a Messenger Bot works, you have to fill in the below environment variables in `.env`.
+
+```
+# .env
+
+MESSENGER_PAGE_ID=
+MESSENGER_ACCESS_TOKEN=
+MESSENGER_APP_ID=
+MESSENGER_APP_SECRET=
+MESSENGER_VERIFY_TOKEN=
+```
+
+### Prepare `MESSENGER_APP_ID` and `MESSENGER_APP_SECRET`
+
+Traverse to [Your Facebook Apps](https://developers.facebook.com/apps) → \${Your App Page} → Settings → Basic.
+
+You can see your App ID and App Secret. Facebook will ask your Facebook password again before display your App Secret. Fill these two values to `MESSENGER_APP_ID` and `MESSENGER_APP_SECRET` in `.env`.
+
+![](https://user-images.githubusercontent.com/662387/71390359-fe9ecc80-263a-11ea-9a3a-e7188992e471.png)
+
+### Prepare `MESSENGER_PAGE_ID` and `MESSENGER_ACCESS_TOKEN`
+
+First, please make sure that you have added `Messenger` as a product of your Facebook App.
+
+![](https://user-images.githubusercontent.com/662387/71392717-19297380-2644-11ea-9bea-4362d0cc72c3.png)
+
+Traverse to [Your Facebook Apps](https://developers.facebook.com/apps) → \${Your App Page} → Messenger → Settings → Access Tokens. Add your Facebook Page to your Facebook App.
+
+![](https://user-images.githubusercontent.com/662387/71392720-19c20a00-2644-11ea-9961-97b39fef24c2.png)
+
+Once you have added your Facebook Page for your App, you can find the `Facebook ID`. Click the `Generate Token` button to generate `Messenger Access Token.`
+
+![](https://user-images.githubusercontent.com/662387/71392721-19c20a00-2644-11ea-8b61-ea3f97296b5e.png)
+
+Facebook has a strict security policy. You can only have one chance to save your `Access Token.` Remember to have your access token copied before closing the `Token Generated` pop up. If you forgot or lost your `Access Token,` the only thing you can do is to revoke a new one.
+
+![](https://user-images.githubusercontent.com/662387/71392723-1a5aa080-2644-11ea-874d-0d21b1e0da17.png)
+
+### Prepare `MESSENGER_VERIFY_TOKEN`
+
+You can define your `Verify Token` in the filed of `MESSENGER_VERIFY_TOKEN` in `.env`. This token is for Facebook to confirm the origin of the response is from your bot server.
+
+![](https://user-images.githubusercontent.com/662387/71392880-cb613b00-2644-11ea-928f-7941a6d955d0.png)
+
+## Prepare `Webhook`, and `Subscriptions`
+
+Before going further, please make sure you have filled in the following fields: `MESSENGER_PAGE_ID,` `MESSENGER_ACCESS_TOKEN,` `MESSENGER_APP_ID,` `MESSENGER_APP_SECRET,` `MESSENGER_VERIFY_TOKEN.`
+
+### In Development
+
+You can run your Bottender project by the following commands.
+
+```sh
+npm run dev
+```
+
+Then you can run the following commands to set webhook and enable bot related Messenger subscriptions.
+
+```sh
+npx bottender messenger webhook set
+```
+
+Finally, you are ready to test your bot on Messenger.
+
+### In Production
+
+Run your Bottender project on your hosting by the following commands.
+
+```sh
+npm start
+```
+
+If you deployed your bot on `https://example.com/`, your Messenger Bot webhook is `https://example.com/webhooks/messenger` with the default settings.
+
+### Set Up Webhook and Enable Subscriptions by Command
+
+You can set your webhook by the command below.
+
+```sh
+npx bottender telegram webhook set -w https://example.com/webhooks/messenger
+```
+
+### Set Up Webhook and Enable Subscriptions on Facebook App Page
+
+However, there are many more options and information on Facebook App page. You can also set up your webhook on Facebook App Page.
+
+Traverse to [Your Facebook Apps](https://developers.facebook.com/apps) → \${Your App Page} → Messenger → Settings → Webhook. Click button `Add Call

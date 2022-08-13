@@ -150,4 +150,16 @@ npx bottender telegram webhook set -w https://example.com/webhooks/messenger
 
 However, there are many more options and information on Facebook App page. You can also set up your webhook on Facebook App Page.
 
-Traverse to [Your Facebook Apps](https://developers.facebook.com/apps) → \${Your App Page} → Messenger → Settings → Webhook. Click button `Add Call
+Traverse to [Your Facebook Apps](https://developers.facebook.com/apps) → \${Your App Page} → Messenger → Settings → Webhook. Click button `Add Callback URL.`
+
+![](https://user-images.githubusercontent.com/662387/71392724-1a5aa080-2644-11ea-9293-37f9570e5ac7.png)
+
+Fill your webhook URL in the `Callback URL` and copy your `MESSENGER_VERIFY_TOKEN` from `.env` and paste to `Verify Token.`
+
+![](https://user-images.githubusercontent.com/662387/71392725-1a5aa080-2644-11ea-8e80-10ea96d19379.png)
+
+Please make sure that you have enabled `Subscriptions` you need by clicking `Edit` Button. We usually recommend developers to enable the following subscriptions: `messages, messaging_postbacks, messaging_optins, messaging_referrals, messaging_handovers, messaging_policy_enforcement.`
+
+![](https://user-images.githubusercontent.com/662387/71398058-3c5f1d80-265a-11ea-98ff-1bc8035ead60.png)
+
+Last but not least, let's echo again about Messenger's strict security policy. Before you release your bot to the public, you have to submit your App to Facebook to get relevant permissions, e.g., `pages_message`. For more information, see Facebook's official document, [Submitting Your Messenger App](https://developers.facebook.com/docs/messenger-platform/app-review/).

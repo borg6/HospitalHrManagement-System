@@ -118,4 +118,46 @@ SLACK_SIGNING_SECRET=<YOUR SLACK SIGNING SECRET>
 
 We recommend using signing secret instead of verification token, but we also support verification token.
 
-You can find 
+You can find Slack verification token in [Slack Developer Console](https://api.slack.com/apps) → \${YourApp} → Basic Information → Verification Token.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/662387/71443865-668f0900-2748-11ea-9637-158575626c53.png"/></p>
+
+After you get your **Slack Verification Token**, paste the value into the `SLACK_VERIFICATION_TOKEN` field in your `.env` file:
+
+```
+# .env
+
+# SLACK_VERIFICATION_TOKEN=<YOUR SLACK VERIFICATION TOKEN> # deprecated, use `SLACK_SIGNING_SECRET` instead
+```
+
+## Webhook
+
+After finishing the above settings, you can start your server with Slack webhook event listening using the following commands:
+
+```sh
+# in production mode
+npm start
+
+# or in development mode
+npm run dev
+```
+
+When you run bottender in development mode, Bottender automatically run up a ngrok client, and then you can get the information of webhook URL from the console like this:
+
+```
+App has started
+slack webhook URL: https://42bbf602.ngrok.io/webhooks/slack
+server is running on 5000 port...
+```
+
+Then, you have to copy your Slack webhook URL to [Slack Developer Console](https://api.slack.com/apps) → \${YourApp} → Event Subscriptions, where you can pick which bot events to subscribe.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/662387/71443867-668f0900-2748-11ea-9d4c-be7574f770e2.png"/></p>
+
+<p><img width="800" src="https://user-images.githubusercontent.com/662387/71443868-668f0900-2748-11ea-883e-bdd38111c485.png"/></p>
+
+<p><img width="800" src="https://user-images.githubusercontent.com/662387/71443869-67279f80-2748-11ea-82cb-16c0ac8668de.png"/></p>
+
+For more information about Slack Events, please refer to Slack's official doc, [API Event Types](https://api.slack.com/events)
+
+> **Note:** If your bot doesn't respond after webhook settings, please take a closer look at bot events you subscribed to. Slack doesn't pick any bot events subscription by default. The first bot event you may subscribe to is `message.im`, which is the event whenever a user posts a direct message to your bot.

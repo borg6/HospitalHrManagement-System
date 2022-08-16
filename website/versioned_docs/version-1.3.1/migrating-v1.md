@@ -80,3 +80,141 @@ module.exports = {
   channels: {
     messenger: {
       enabled: true, // Modify this boolean value to enable or disable
+      path: '/webhooks/messenger',
+      pageId: process.env.MESSENGER_PAGE_ID,
+      accessToken: process.env.MESSENGER_ACCESS_TOKEN,
+      appId: process.env.MESSENGER_APP_ID,
+      appSecret: process.env.MESSENGER_APP_SECRET,
+      verifyToken: process.env.MESSENGER_VERIFY_TOKEN,
+    },
+  },
+};
+```
+
+Also, you can put your environment variables into the `.env` file:
+
+```
+# .env
+MESSENGER_PAGE_ID=
+MESSENGER_ACCESS_TOKEN=
+MESSENGER_APP_ID=
+MESSENGER_APP_SECRET=
+MESSENGER_VERIFY_TOKEN=
+```
+
+And your `index.js` file can focus on the core logic of the bot:
+
+```js
+// index.js
+module.exports = async function App(context) {
+  await context.sendText('Hello World');
+};
+```
+
+## Unify Cases to Camel Case
+
+The JavaScript communities embrace camel case keys on objects, while Messenger, Slack, Telegram, and Viber usually use snake case string as object keys. The mixed-use of camel case and snake case is error-prone.
+
+In Bottender v1, you can use the camel case consistently. Bottender handles the case transform automatically for you.
+
+### v0.x
+
+In Bottender v0.x, object keys represent in the snake case in Messenger:
+
+```js
+context.sendGenericTemplate([
+  {
+    title: "Welcome to Peter's Hats",
+    image_url: 'https://petersfancybrownhats.com/company_image.png',
+    subtitle: "We've got the right hat for everyone.",
+    default_action: {
+      type: 'web_url',
+      url: 'https://peterssendreceiveapp.ngrok.io/view?item=103',
+      messenger_extensions: true,
+      webview_height_ratio: 'tall',
+      fallback_url: 'https://peterssendreceiveapp.ngrok.io/',
+    },
+    buttons: [
+      {
+        type: 'postback',
+        title: 'Start Chatting',
+        payload: 'DEVELOPER_DEFINED_PAYLOAD',
+      },
+    ],
+  },
+]);
+```
+
+### v1
+
+In Bottender v1, object keys represent in the camel case in Messenger:
+
+```js
+context.sendGenericTemplate([
+  {
+    title: "Welcome to Peter's Hats",
+    imageUrl: 'https://petersfancybrownhats.com/company_image.png',
+    subtitle: "We've got the right hat for everyone.",
+    defaultAction: {
+      type: 'web_url',
+      url: 'https://peterssendreceiveapp.ngrok.io/view?item=103',
+      messengerExtensions: true,
+      webviewHeightRatio: 'tall',
+      fallbackUrl: 'https://peterssendreceiveapp.ngrok.io/',
+    },
+    buttons: [
+      {
+        type: 'postback',
+        title: 'Start Chatting',
+        payload: 'DEVELOPER_DEFINED_PAYLOAD',
+      },
+    ],
+  },
+]);
+```
+
+### Migrate to v1 by `bottender-codemod`
+
+[`bottender-codemod`](https://github.com/bottenderjs/bottender-codemod) is a command-line tool to help you modify your snake case code into the camel case for Bottender v1. This tool helps you migrate the majority of your code.
+
+> **Note:** Please make sure to commit your unmodified code before running [`bottender-codemod`](https://github.com/bottenderjs/bottender-codemod).
+
+```js
+npx bottender-codemod camelcase <your_file_path>
+```
+
+If you want to try it without files changed, you may dry run and print the result out with the `--dry` and `--print` options:
+
+```js
+npx bottender-codemod camelcase <your_file_path> --dry --print
+```
+
+## Replace Middleware and Handlers with Router and Chain
+
+Using the `middleware` function and the `Handler` classes together are very difficult. So, we are deprecating those APIs in favor of the new APIs: [Routing](the-basics-routing.md) and [Chain](the-basics-chain.md). If you prefer the `middleware` function and the `Handler` classes, you can still use them by installing the `@bottender/handlers` package:
+
+```js
+npm install @bottender/handlers
+
+// or using yarn:
+yarn add @bottender/handlers
+```
+
+Then, apply the following changes to your import statements:
+
+```diff
+const {
+  middleware,
+  Handler,
+  MessengerHandler,
+  LineHandler,
+  SlackHandler,
+  TelegramHandler,
+  ViberHandler,
+- } = require('bottender');
++ } = require('@bottender/handlers');
+```
+
+## Change Log
+
+For more information, see [v1 changelog](https://github.com/Yoctol/bottender/releases/tag/v1.0.0).

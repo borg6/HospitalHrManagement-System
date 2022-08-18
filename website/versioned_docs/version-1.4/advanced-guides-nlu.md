@@ -240,4 +240,52 @@ After you get your NLU model ready, you can run the following command:
 rasa run --enable-api -m models/nlu-your-model-id.tar.gz
 ```
 
-This command starts a server with your NLU model locally on port 5005. Next, you can request predictions from your model by calling the `/model/parse` endpoint. You ca
+This command starts a server with your NLU model locally on port 5005. Next, you can request predictions from your model by calling the `/model/parse` endpoint. You can see [here](https://rasa.com/docs/rasa/api/http-api/#operation/parseModelMessage) for the document of this API.
+
+### Step 2: Connect Bottender with Rasa by `bottender/rasa`
+
+To make the bot development enjoyable, we made a [`bottender/rasa`](https://github.com/Yoctol/bottender/tree/master/packages/bottender-rasa) package. You can install the package with `npm` or `yarn`.
+
+With `npm`:
+
+```sh
+npm install @bottender/rasa
+```
+
+Or with `yarn`:
+
+```sh
+yarn add @bottender/rasa
+```
+
+In the following sample code, you can see how elegant it is to integrate Bottender with Rasa. All you need to do is to set up the origin URL, and confidence threshold, then write a map between `intents` (e.g., `greeting`) and corresponding `functions` (e.g., `SayHello`).
+
+```js
+const { chain } = require('bottender');
+const rasa = require('@bottender/rasa');
+
+async function SayHello(context) {
+  await context.sendText('Hello!');
+}
+
+async function Unknown(context) {
+  await context.sendText('Sorry, I don’t know what you say.');
+}
+
+const Rasa = rasa({
+  origin: 'http://localhost:5005',
+  actions: {
+    greeting: SayHello,
+  },
+  confidenceThreshold: 0.7,
+});
+
+module.exports = async function App() {
+  return chain([
+    Rasa, //
+    Unknown,
+  ]);
+};
+```
+
+For the full example code, please refer to Bottender example, [With Rasa](https://github.com/Yoctol/bottender/tree/master/examples/with-rasa).

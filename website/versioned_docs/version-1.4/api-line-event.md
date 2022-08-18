@@ -369,4 +369,73 @@ The date string from LINE postback event.
 Example:
 
 ```js
-event.date; // '201
+event.date; // '2017-09-06'
+```
+
+#### `time`
+
+The time string from LINE postback event.
+
+Example:
+
+```js
+event.time; // '12:30'
+```
+
+#### `datetime`
+
+The datetime string from LINE postback event.
+
+Example:
+
+```js
+event.datetime; // '2017-09-06T12:30'
+```
+
+#### `isBeacon`
+
+Determine if the event is a beacon event.
+
+Example:
+
+```js
+event.isBeacon; // true
+```
+
+#### `beacon`
+
+The beacon object from LINE raw event.
+
+Example:
+
+```js
+event.beacon;
+// {
+//   hwid: 'd41d8cd98f',
+//   type: 'enter',
+// }
+```
+
+#### `isAccountLink`
+
+Determine if the event is an accountLink event.
+
+Example:
+
+```js
+event.isAccountLink; // true
+```
+
+#### `accountLink`
+
+The link object from LINE raw event.
+
+Example:
+
+```js
+event.accountLink;
+// {
+//   result: 'ok',
+//   nonce: 'xxxxxxxxxxxxxxx',
+// }
+```

@@ -109,4 +109,68 @@ client.sendRawBody({
 
 Send messages to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
 
-| Param   | Type                              | Des
+| Param   | Type                              | Description                                                                                                                                                                                                                       |
+| ------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId  | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                 |
+| message | `Object`                          | [message](https://developers.facebook.com/docs/messenger-platform/reference/send-api#message) object.                                                                                                                             |
+| options | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+client.sendMessage(USER_ID, {
+  text: 'Hello!',
+});
+```
+
+You can specify [messaging type](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) using options. If `messagingType` and `tag` is not provided, `UPDATE` will be used as default messaging type.
+
+Example:
+
+```js
+client.sendMessage(
+  USER_ID,
+  {
+    text: 'Hello!',
+  },
+  {
+    messagingType: 'RESPONSE',
+  }
+);
+```
+
+Available messaging types:
+
+- `UPDATE` as default
+- `RESPONSE` using `{ messagingType: 'RESPONSE' }` options
+- `MESSAGE_TAG` using `{ tag: 'ANY_TAG' }` options
+
+<br />
+
+<a id="content-types" />
+
+### Content Types - [Content types](https://developers.facebook.com/docs/messenger-platform/send-api-reference/contenttypes)
+
+#### `sendText(userId, text [, options])`
+
+Send plain text messages to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param   | Type                              | Description                                                                                                                                                                                                                       |
+| ------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId  | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                 |
+| text    | `String`                          | Text of the message to be sent.                                                                                                                                                                                                   |
+| options | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+client.sendText(USER_ID, 'Hello!', { tag: 'CONFIRMED_EVENT_UPDATE' });
+```
+
+<br />
+
+#### `sendAttachment(userId, attachment [, options])`
+
+Send attachment messages to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param            | Type                              | Description                                                                                     

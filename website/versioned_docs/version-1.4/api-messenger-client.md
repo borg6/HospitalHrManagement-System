@@ -369,4 +369,65 @@ Send structured message templates to specified user using the [Send API](https:/
 | -------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | userId   | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                 |
 | template | `Object`                          | Object of the template.                                                                                                                                                                                                           |
-| options  |
+| options  | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+client.sendTemplate(USER_ID, {
+  templateType: 'button',
+  text: 'title',
+  buttons: [
+    {
+      type: 'postback',
+      title: 'Start Chatting',
+      payload: 'USER_DEFINED_PAYLOAD',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `sendButtonTemplate(userId, title, buttons [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template)
+
+Send button message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410664-0b80b080-27dc-11e8-8854-4408d6f32fdf.png" alt="sendButtonTemplate" width="250" />
+
+| Param   | Type                              | Description                                                                                                                                                         |
+| ------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId  | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                   |
+| title   | `String`                          | Text that appears above the buttons.                                                                                                                                |
+| buttons | `Array<Object>`                   | Array of [button](https://developers.facebook.com/docs/messenger-platform/send-messages/template/button#button). Set of 1-3 buttons that appear as call-to-actions. |
+| options | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types).                   |
+
+Example:
+
+```js
+client.sendButtonTemplate(USER_ID, 'What do you want to do next?', [
+  {
+    type: 'web_url',
+    url: 'https://petersapparel.parseapp.com',
+    title: 'Show Website',
+  },
+  {
+    type: 'postback',
+    title: 'Start Chatting',
+    payload: 'USER_DEFINED_PAYLOAD',
+  },
+]);
+```
+
+<br />
+
+#### `sendGenericTemplate(userId, elements [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template)
+
+Send generic message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410502-bf948426-27db-11e8-8c9d-7fd6158d0cc2.png" alt="sendGenericTemplate" width="750" />
+
+| Param    | Type                              | Description                                                                                                                                                                                                                                       |
+| -------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId   | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                                 |
+| elements | `Array<Object>`                   | Array of [element](https://developers.facebook.com/docs/messenger-plat

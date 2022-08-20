@@ -526,4 +526,101 @@ Send receipt message templates to specified user using the [Send API](https://de
 
 <img src="https://user-images.githubusercontent.com/3382565/37410909-8b72001e-27dc-11e8-94ae-555cb4ae93c9.png" alt="sendReceiptTemplate" width="250" />
 
-| Param   | Type                              | Description                                                                                                                            
+| Param   | Type                              | Description                                                                                                                                       |
+| ------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId  | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| receipt | `Object`                          | [payload](https://developers.facebook.com/docs/messenger-platform/send-messages/template/receipt#payload) of receipt template.                    |
+| options | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+```js
+client.sendReceiptTemplate(USER_ID, {
+  recipientName: 'Stephane Crozatier',
+  orderNumber: '12345678902',
+  currency: 'USD',
+  paymentMethod: 'Visa 2345',
+  orderUrl: 'http://petersapparel.parseapp.com/order?order_id=123456',
+  timestamp: '1428444852',
+  elements: [
+    {
+      title: 'Classic White T-Shirt',
+      subtitle: '100% Soft and Luxurious Cotton',
+      quantity: 2,
+      price: 50,
+      currency: 'USD',
+      imageUrl: 'http://petersapparel.parseapp.com/img/whiteshirt.png',
+    },
+    {
+      title: 'Classic Gray T-Shirt',
+      subtitle: '100% Soft and Luxurious Cotton',
+      quantity: 1,
+      price: 25,
+      currency: 'USD',
+      imageUrl: 'http://petersapparel.parseapp.com/img/grayshirt.png',
+    },
+  ],
+  address: {
+    street1: '1 Hacker Way',
+    street2: '',
+    city: 'Menlo Park',
+    postalCode: '94025',
+    state: 'CA',
+    country: 'US',
+  },
+  summary: {
+    subtotal: 75.0,
+    shippingCost: 4.95,
+    totalTax: 6.19,
+    totalCost: 56.14,
+  },
+  adjustments: [
+    {
+      name: 'New Customer Discount',
+      amount: 20,
+    },
+    {
+      name: '$10 Off Coupon',
+      amount: 10,
+    },
+  ],
+});
+```
+
+<br />
+
+#### `sendAirlineBoardingPassTemplate(userId, attributes [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-boardingpass-template)
+
+Send airline boarding pass message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410966-a5fb1542-27dc-11e8-9d23-e3a090b0cdeb.png" alt="sendAirlineBoardingPassTemplate" width="600" />
+
+| Param      | Type                              | Description                                                                                                                                        |
+| ---------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId     | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.  |
+| attributes | `Object`                          | [payload](https://developers.facebook.com/docs/messenger-platform/send-messages/template/airline-boarding-pass#payload) of boarding pass template. |
+| options    | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types).  |
+
+Example:
+
+```js
+client.sendAirlineBoardingPassTemplate(RECIPIENT_ID, {
+  introMessage: 'You are checked in.',
+  locale: 'en_US',
+  boardingPass: [
+    {
+      passengerName: 'SMITH/NICOLAS',
+      pnrNumber: 'CG4X7U',
+      travelClass: 'business',
+      seat: '74J',
+      auxiliaryFields: [
+        {
+          label: 'Terminal',
+          value: 'T1',
+        },
+        {
+          label: 'Departure',
+          value: '30OCT 19:05',
+        },
+      ],
+      secondaryFields

@@ -623,4 +623,126 @@ client.sendAirlineBoardingPassTemplate(RECIPIENT_ID, {
           value: '30OCT 19:05',
         },
       ],
-      secondaryFields
+      secondaryFields: [
+        {
+          label: 'Boarding',
+          value: '18:30',
+        },
+        {
+          label: 'Gate',
+          value: 'D57',
+        },
+        {
+          label: 'Seat',
+          value: '74J',
+        },
+        {
+          label: 'Sec.Nr.',
+          value: '003',
+        },
+      ],
+      logoImageUrl: 'https://www.example.com/en/logo.png',
+      headerImageUrl: 'https://www.example.com/en/fb/header.png',
+      qrCode: 'M1SMITH/NICOLAS  CG4X7U nawouehgawgnapwi3jfa0wfh',
+      aboveBarCodeImageUrl: 'https://www.example.com/en/PLAT.png',
+      flightInfo: {
+        flightNumber: 'KL0642',
+        departureAirport: {
+          airportCode: 'JFK',
+          city: 'New York',
+          terminal: 'T1',
+          gate: 'D57',
+        },
+        arrivalAirport: {
+          airportCode: 'AMS',
+          city: 'Amsterdam',
+        },
+        flightSchedule: {
+          departureTime: '2016-01-02T19:05',
+          arrivalTime: '2016-01-05T17:30',
+        },
+      },
+    },
+    {
+      passengerName: 'JONES/FARBOUND',
+      pnrNumber: 'CG4X7U',
+      travelClass: 'business',
+      seat: '74K',
+      auxiliaryFields: [
+        {
+          label: 'Terminal',
+          value: 'T1',
+        },
+        {
+          label: 'Departure',
+          value: '30OCT 19:05',
+        },
+      ],
+      secondaryFields: [
+        {
+          label: 'Boarding',
+          value: '18:30',
+        },
+        {
+          label: 'Gate',
+          value: 'D57',
+        },
+        {
+          label: 'Seat',
+          value: '74K',
+        },
+        {
+          label: 'Sec.Nr.',
+          value: '004',
+        },
+      ],
+      logoImageUrl: 'https://www.example.com/en/logo.png',
+      headerImageUrl: 'https://www.example.com/en/fb/header.png',
+      qrCode: 'M1JONES/FARBOUND  CG4X7U nawouehgawgnapwi3jfa0wfh',
+      aboveBarCodeImageUrl: 'https://www.example.com/en/PLAT.png',
+      flightInfo: {
+        flightNumber: 'KL0642',
+        departureAirport: {
+          airportCode: 'JFK',
+          city: 'New York',
+          terminal: 'T1',
+          gate: 'D57',
+        },
+        arrivalAirport: {
+          airportCode: 'AMS',
+          city: 'Amsterdam',
+        },
+        flightSchedule: {
+          departureTime: '2016-01-02T19:05',
+          arrivalTime: '2016-01-05T17:30',
+        },
+      },
+    },
+  ],
+});
+```
+
+<br />
+
+#### `sendAirlineCheckinTemplate(userId, attributes [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-checkin-template)
+
+Send airline checkin message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37411010-bfb3d8a2-27dc-11e8-91de-30653cf2d62c.png" alt="sendAirlineCheckinTemplate" width="250" />
+
+| Param      | Type                              | Description                                                                                                                                       |
+| ---------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId     | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| attributes | `Object`                          | [payload](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-checkin-template#payload) of checkin template.       |
+| options    | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+```js
+client.sendAirlineCheckinTemplate(USER_ID, {
+  introMessage: 'Check-in is available now.',
+  locale: 'en_US',
+  pnrNumber: 'ABCDEF',
+  flightInfo: [
+    {
+      flightNumber: '

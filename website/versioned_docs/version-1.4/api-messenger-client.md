@@ -999,4 +999,82 @@ It works with all of send message methods.
 
 ### Sender Actions - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/sender-actions)
 
-<img src="https://user-images.githubusercontent.com/3382565/37411363-9b65ecaa-27dd-11e8-8f51-7aac7fd0bd2f.
+<img src="https://user-images.githubusercontent.com/3382565/37411363-9b65ecaa-27dd-11e8-8f51-7aac7fd0bd2f.png" alt="Sender Actions" width="250" />
+
+#### `sendSenderAction(userId, action)`
+
+Send sender actions to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request), to let users know you are processing their request.
+
+| Param  | Type                              | Description                                                                                                                                       |
+| ------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| action | `String`                          | Name of the action.                                                                                                                               |
+
+Example:
+
+```js
+client.sendSenderAction(USER_ID, 'typing_on');
+```
+
+<br />
+
+#### `markSeen(userId)`
+
+Mark last message as read for specified user.
+
+| Param  | Type                              | Description                                                                                                                                       |
+| ------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+
+Example:
+
+```js
+client.markSeen(USER_ID);
+```
+
+<br />
+
+#### `typingOn(userId)`
+
+Turn typing indicators on for specified user.
+
+| Param  | Type                              | Description                                                                                                                                       |
+| ------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+
+Example:
+
+```js
+client.typingOn(USER_ID);
+```
+
+<br />
+
+#### `typingOff(userId)`
+
+Turn typing indicators off for specified user.
+
+| Param  | Type                              | Description                                                                                                                                       |
+| ------ | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+
+Example:
+
+```js
+client.typingOff(USER_ID);
+```
+
+<br />
+
+<a id="attachment-upload-api" />
+
+### Attachment Upload API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/attachment-upload)
+
+> Note: Only attachments that were uploaded with the `isReusable` property set to `true` can be sent to other message recipients.
+
+#### `uploadAttachment(type, attachment, options)`
+
+Upload specified type attachment using URL address, buffer, or stream.
+
+| Param              | Type                                                                                             | Description                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------ | -----------------------------

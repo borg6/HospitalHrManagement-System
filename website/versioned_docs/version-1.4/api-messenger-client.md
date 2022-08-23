@@ -1521,4 +1521,133 @@ client.getUserProfile(USER_ID).then((user) => {
 Retrieves the current value of one or more Messenger Profile properties by name.
 
 | Param  | Type            | Description                                                                                                                                    |
-| ------ | --------------- | --------
+| ------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| fields | `Array<String>` | Value must be among `account_linking_url`, `persistent_menu`, `get_started`, `greeting`, `whitelisted_domains`, `target_audience`, `home_url`. |
+
+Example:
+
+```js
+client
+  .getMessengerProfile(['get_started', 'persistent_menu'])
+  .then((profile) => {
+    console.log(profile);
+    // [
+    //   {
+    //     getStarted: {
+    //       payload: 'GET_STARTED',
+    //     },
+    //   },
+    //   {
+    //     persistentMenu: [
+    //       {
+    //         locale: 'default',
+    //         composerInputDisabled: true,
+    //         callToActions: [
+    //           {
+    //             type: 'postback',
+    //             title: 'Restart Conversation',
+    //             payload: 'RESTART',
+    //           },
+    //         ],
+    //       },
+    //     ],
+    //   },
+    // ]
+  });
+```
+
+<br />
+
+#### `setMessengerProfile(profile)`
+
+Sets the values of one or more Messenger Profile properties. Only properties set in the request body will be overwritten.
+
+| Param   | Type     | Description                                                                                                                      |
+| ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| profile | `Object` | Object of [Profile](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api#profile_properties). |
+
+Example:
+
+```js
+client.setMessengerProfile({
+  getStarted: {
+    payload: 'GET_STARTED',
+  },
+  persistentMenu: [
+    {
+      locale: 'default',
+      composerInputDisabled: true,
+      callToActions: [
+        {
+          type: 'postback',
+          title: 'Restart Conversation',
+          payload: 'RESTART',
+        },
+      ],
+    },
+  ],
+});
+```
+
+<br />
+
+#### `deleteMessengerProfile(fields)`
+
+Deletes one or more Messenger Profile properties. Only properties specified in the fields array will be deleted.
+
+| Param  | Type            | Description                                                                                                                                    |
+| ------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| fields | `Array<String>` | Value must be among `account_linking_url`, `persistent_menu`, `get_started`, `greeting`, `whitelisted_domains`, `target_audience`, `home_url`. |
+
+Example:
+
+```js
+client.deleteMessengerProfile(['get_started', 'persistent_menu']);
+```
+
+<br />
+
+<a id="persistent-menu" />
+
+### Persistent Menu - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/persistent-menu)
+
+![](https://scontent-tpe1-1.xx.fbcdn.net/v/t39.2365-6/16686128_804279846389859_443648268883197952_n.png?oh=adde03b0bc7dd524a58cf46016e0267d&oe=59FC90D6)
+
+#### `getPersistentMenu`
+
+Retrieves the current value of persistent menu.
+
+Example:
+
+```js
+client.getPersistentMenu().then((menu) => {
+  console.log(menu);
+  // [
+  //   {
+  //     locale: 'default',
+  //     composerInputDisabled: true,
+  //     callToActions: [
+  //       {
+  //         type: 'postback',
+  //         title: 'Restart Conversation',
+  //         payload: 'RESTART',
+  //       },
+  //       {
+  //         type: 'web_url',
+  //         title: 'Powered by ALOHA.AI, Yoctol',
+  //         url: 'https://www.yoctol.com/',
+  //       },
+  //     ],
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `setPersistentMenu(menu)`
+
+Sets the values of persistent menu.
+
+| Param | Type            | Description                                                                                                                          |
+| ----- | --------------- | ---------------------------------------------------------------------------------------------

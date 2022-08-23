@@ -1650,4 +1650,166 @@ client.getPersistentMenu().then((menu) => {
 Sets the values of persistent menu.
 
 | Param | Type            | Description                                                                                                                          |
-| ----- | --------------- | ---------------------------------------------------------------------------------------------
+| ----- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| menu  | `Array<Object>` | Array of [menu](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/persistent-menu#properties). |
+
+Example:
+
+```js
+client.setPersistentMenu([
+  {
+    locale: 'default',
+    callToActions: [
+      {
+        title: 'Play Again',
+        type: 'postback',
+        payload: 'RESTART',
+      },
+      {
+        title: 'Language Setting',
+        type: 'nested',
+        callToActions: [
+          {
+            title: '中文',
+            type: 'postback',
+            payload: 'CHINESE',
+          },
+          {
+            title: 'English',
+            type: 'postback',
+            payload: 'ENGLISH',
+          },
+        ],
+      },
+      {
+        title: 'Explore D',
+        type: 'nested',
+        callToActions: [
+          {
+            title: 'Explore',
+            type: 'web_url',
+            url: 'https://www.youtube.com/watch?v=v',
+            webviewHeightRatio: 'tall',
+          },
+          {
+            title: 'W',
+            type: 'web_url',
+            url: 'https://www.facebook.com/w',
+            webviewHeightRatio: 'tall',
+          },
+          {
+            title: 'Powered by YOCTOL',
+            type: 'web_url',
+            url: 'https://www.yoctol.com/',
+            webviewHeightRatio: 'tall',
+          },
+        ],
+      },
+    ],
+  },
+]);
+```
+
+> Note: You must set a get started button to use the persistent menu.
+
+<br />
+
+#### `deletePersistentMenu`
+
+Deletes persistent menu.
+
+Example:
+
+```js
+client.deletePersistentMenu();
+```
+
+<a id="get-started-button" />
+
+### Get Started Button - [Official Docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/get-started-button)
+
+<img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t39.2365-6/14302685_243106819419381_1314180151_n.png?oh=9487042d8c0067eb2fda1efa45d0e17b&oe=59F7185C" alt="Get Started Button" width="500" />
+
+#### `getGetStarted`
+
+Retrieves the current value of get started button.
+
+Example:
+
+```js
+client.getGetStarted().then((getStarted) => {
+  console.log(getStarted);
+  // {
+  //   payload: 'GET_STARTED',
+  // }
+});
+```
+
+<br />
+
+#### `setGetStarted(payload)`
+
+Sets the values of get started button.
+
+| Param   | Type     | Description                                                                                                 |
+| ------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| payload | `String` | Payload sent back to your webhook in a `messaging_postbacks` event when the 'Get Started' button is tapped. |
+
+Example:
+
+```js
+client.setGetStarted('GET_STARTED');
+```
+
+<br />
+
+#### `deleteGetStarted`
+
+Deletes get started button.
+
+Example:
+
+```js
+client.deleteGetStarted();
+```
+
+<a id="greeting-text" />
+
+### Greeting Text - [Officail docs](https://developers.facebook.com/docs/messenger-platform/messenger-profile/greeting-text)
+
+<img src="https://scontent-tpe1-1.xx.fbcdn.net/v/t39.2365-6/14287888_188235318253964_1078929636_n.png?oh=a1171ab50f04d3a244ed703eafd2dbef&oe=59F01AF5" alt="Greeting Text" width="250" />
+
+#### `getGreeting`
+
+Retrieves the current value of greeting text.
+
+Example:
+
+```js
+client.getGreeting().then((greeting) => {
+  console.log(greeting);
+  // [
+  //   {
+  //     locale: 'default',
+  //     text: 'Hello!',
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `setGreeting(greeting)`
+
+Sets the values of greeting text.
+
+| Param    | Type            | Description                                                                                                                       |
+| -------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| greeting | `Array<Object>` | Array of [greeting](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/greeting#properties). |
+
+Example:
+
+```js
+client.setGreeting([
+  {
+    locale: 'defa

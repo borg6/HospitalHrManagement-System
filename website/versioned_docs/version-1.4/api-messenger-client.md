@@ -2523,4 +2523,152 @@ Given a user ID for a Page (associated with a bot), retrieve the IDs for other P
 
 | Param        | Type     | Description                   |
 | ------------ | -------- | ----------------------------- |
-| userId       | `String` | Page-scoped user
+| userId       | `String` | Page-scoped user ID.          |
+| appSecret    | `String` | Secret of the app.            |
+| options.app  | `String` | The app to retrieve the IDs.  |
+| options.page | `String` | The page to retrieve the IDs. |
+
+Example:
+
+```js
+client
+  .getIdsForPages({
+    userId: USER_ID,
+    appSecret: APP_SECRET,
+  })
+  .then((result) => {
+    console.log(result);
+    // {
+    //   data: [
+    //     {
+    //       id: '12345123', // The psid for the user for that page
+    //       page: {
+    //         category: 'Musician',
+    //         link:
+    //           'https://www.facebook.com/Johns-Next-Great-Thing-380374449010653/',
+    //         name: "John's Next Great Thing",
+    //         id: '380374449010653',
+    //       },
+    //     },
+    //   ],
+    //   paging: {
+    //     cursors: {
+    //       before: 'MTQ4OTU4MjQ5Nzc4NjY4OAZDZDA',
+    //       after: 'NDAwMDExOTA3MDM1ODMwA',
+    //     },
+    //   },
+    // };
+  });
+```
+
+<br />
+
+<a id="persona-api" />
+
+### Persona API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas)
+
+#### `createPersona(persona)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#create)
+
+Creates a persona.
+
+| Param                     | Type                | Description                     |
+| ------------------------- | ------------------- | ------------------------------- |
+| persona.name              | <code>String</code> | name of the persona.            |
+| persona.profilePictureUrl | <code>String</code> | profile picture of the persona. |
+
+```js
+createPersona({
+  name: 'John Mathew',
+  profilePictureUrl: 'https://facebook.com/john_image.jpg',
+}).then((persona) => {
+  console.log(persona);
+  // {
+  //  "id": "<PERSONA_ID>"
+  // }
+});
+```
+
+<br />
+
+#### `getPersona(personaId)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#get)
+
+Retrieves the name and profile picture of a persona.
+
+| Param     | Type                | Description        |
+| --------- | ------------------- | ------------------ |
+| personaId | <code>String</code> | ID of the persona. |
+
+```js
+getPersona(personaId).then((persona) => {
+  console.log(persona);
+  // {
+  //   "name": "John Mathew",
+  //   "profilePictureUrl": "https://facebook.com/john_image.jpg",
+  //   "id": "<PERSONA_ID>"
+  // }
+});
+```
+
+<br />
+
+#### `getPersonas(cursor?: string)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#retrieve_all)
+
+Retrieves personas associated with a Page using the cursor.
+
+| Param  | Type                | Description        |
+| ------ | ------------------- | ------------------ |
+| cursor | <code>String</code> | pagination cursor. |
+
+```js
+getPersonas(cursor).then((personas) => {
+  console.log(personas);
+  // {
+  //   "data": [
+  //     {
+  //       "name": "John Mathew",
+  //       "profilePictureUrl": "https://facebook.com/john_image.jpg",
+  //       "id": "<PERSONA_ID>"
+  //     },
+  //     {
+  //       "name": "David Mark",
+  //       "profilePictureUrl": "https://facebook.com/david_image.jpg",
+  //       "id": "<PERSONA_ID>"
+  //     }
+  //   ],
+  //   "paging": {
+  //     "cursors": {
+  //       "before": "QVFIUlMtR2ZATQlRtVUZALUlloV1",
+  //       "after": "QVFIUkpnMGx0aTNvUjJNVmJUT0Yw"
+  //     }
+  //   }
+  // }
+});
+```
+
+<br />
+
+#### `getAllPersonas()` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#retrieve_all)
+
+Retrieves all the personas associated with a Page.
+
+```js
+getAllPersonas().then((personas) => {
+  console.log(personas);
+  //   [
+  //     {
+  //       "name": "John Mathew",
+  //       "profilePictureUrl": "https://facebook.com/john_image.jpg",
+  //       "id": "<PERSONA_ID>"
+  //     },
+  //     {
+  //       "name": "David Mark",
+  //       "profilePictureUrl": "https://facebook.com/david_image.jpg",
+  //       "id": "<PERSONA_ID>"
+  //     }
+  //   ]
+});
+```
+
+<br />
+
+#### `deletePersona(personaId)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send

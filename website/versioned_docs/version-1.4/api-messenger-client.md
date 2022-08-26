@@ -2671,4 +2671,146 @@ getAllPersonas().then((personas) => {
 
 <br />
 
-#### `deletePersona(personaId)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send
+#### `deletePersona(personaId)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/personas/#remove)
+
+Deletes a persona.
+
+| Param     | Type                | Description        |
+| --------- | ------------------- | ------------------ |
+| personaId | <code>String</code> | ID of the persona. |
+
+```js
+deletePersona(personaId);
+```
+
+<br />
+
+### Others
+
+#### `debugToken` - [Official Docs](https://developers.facebook.com/docs/facebook-login/access-tokens/debugging-and-error-handling)
+
+Gets token information.
+
+Example:
+
+```js
+client.debugToken().then((pageInfo) => {
+  console.log(pageInfo);
+  // {
+  //    appId: '000000000000000',
+  //    application: 'Social Cafe',
+  //    expiresAt: 1352419328,
+  //    isValid: true,
+  //    issuedAt: 1347235328,
+  //    scopes: ['email', 'user_location'],
+  //    userId: 1207059,
+  //  }
+});
+```
+
+#### `createSubscription`
+
+Create new Webhooks subscriptions.
+
+| Param         | Type            | Description                                                                                                                       |
+| ------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| accessToken   | `String`        | App access token.                                                                                                                 |
+| callbackUrl   | `String`        | The URL that will receive the POST request when an update is triggered, and a GET request when attempting this publish operation. |
+| verifyToken   | `String`        | An arbitrary string that can be used to confirm to your server that the request is valid.                                         |
+| fields        | `Array<String>` | One or more of the set of valid fields in this object to subscribe to.                                                            |
+| object        | `String`        | Indicates the object type that this subscription applies to. Defaults to `page`.                                                  |
+| includeValues | `Boolean`       | Indicates if change notifications should include the new values.                                                                  |
+
+Example:
+
+```js
+client.createSubscription({
+  accessToken: APP_ACCESS_TOKEN,
+  callbackUrl: 'https://mycallback.com',
+  fields: ['messages', 'messaging_postbacks', 'messaging_referrals'],
+  verifyToken: VERIFY_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.createSubscription({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+  callbackUrl: 'https://mycallback.com',
+  fields: ['messages', 'messaging_postbacks', 'messaging_referrals'],
+  verifyToken: VERIFY_TOKEN,
+});
+```
+
+Default Fields:
+
+- `messages`
+- `messaging_postbacks`
+- `messaging_optins`
+- `messaging_referrals`
+- `messaging_handovers`
+- `messaging_policy_enforcement`
+
+#### `getSubscriptions`
+
+Get the current Webhook subscriptions set up on your app.
+
+| Param       | Type     | Description       |
+| ----------- | -------- | ----------------- |
+| accessToken | `String` | App access token. |
+
+Example:
+
+```js
+client.getSubscriptions({
+  accessToken: APP_ACCESS_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.getSubscriptions({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+});
+```
+
+#### `getPageSubscription`
+
+Get the current page subscriptions set up on your app.
+
+| Param       | Type     | Description       |
+| ----------- | -------- | ----------------- |
+| accessToken | `String` | App access token. |
+
+Example:
+
+```js
+client.getPageSubscription({
+  accessToken: APP_ACCESS_TOKEN,
+});
+```
+
+Or provide app id and app secret instead of app access token:
+
+```js
+client.getPageSubscription({
+  accessToken: `${APP_ID}|${APP_SECRET}`,
+});
+```
+
+<br />
+
+#### `getPageInfo`
+
+Get page name and page id using Graph API.
+
+Example:
+
+```js
+client.getPageInfo().then((page) => {
+  console.log(page);
+  // {
+  //   name: 'Bot Demo',
+  //   id: '1895382890692546',

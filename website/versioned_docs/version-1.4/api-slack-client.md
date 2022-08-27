@@ -136,4 +136,112 @@ Send an ephemeral message to a user in a channel.
 | Param               | Type                              | Description                                                                                                                     |
 | ------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | channel             | `String`                          | Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name.                                      |
-| user                | `String`                          | `id` 
+| user                | `String`                          | `id` of the user who will receive the ephemeral message. The user should be in the channel specified by the `channel` argument. |
+| message             | <code>String &#124; Object</code> | The message to be sent, can be text message or attachment message.                                                              |
+| options             | `Object`                          | Other optional parameters.                                                                                                      |
+| options.accessToken | `String`                          | Custom access token of the request.                                                                                             |
+
+Example:
+
+```js
+client.postEphemeral('C8763', 'U56781234', { text: 'Hello!' });
+client.postEphemeral('C8763', 'U56781234', { attachments: [someAttachments] });
+client.postEphemeral('C8763', 'U56781234', 'Hello!');
+client.postEphemeral('C8763', 'U56781234', 'Hello!', { asUser: true });
+```
+
+<br />
+
+### Users API
+
+#### `getUserList(options?)` - [Official docs](https://api.slack.com/methods/users.list)
+
+Lists all users in a Slack team.
+
+| Param               | Type     | Description                                                                                                                                             |
+| ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| options             | `Object` | Other optional parameters.                                                                                                                              |
+| options.cursor      | `String` | Paginate through collections of data by setting the `cursor` parameter to a `nextCursor` attribute returned by a previous request's `responseMetadata`. |
+| options.accessToken | `String` | Custom access token of the request.                                                                                                                     |
+
+Example:
+
+```js
+client.getUserList({ cursor }).then((res) => {
+  console.log(res);
+  // {
+  //   members: [
+  //     { ... },
+  //     { ... },
+  //   ],
+  //   next: 'abcdefg',
+  // }
+});
+```
+
+<br />
+
+#### `getAllUserList(options?)` - [Official docs](https://api.slack.com/methods/users.list)
+
+Recursively lists all users in a Slack team using cursor.
+
+| Param               | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| options             | `Object` | Other optional parameters.          |
+| options.accessToken | `String` | Custom access token of the request. |
+
+Example:
+
+```js
+client.getAllUserList().then((res) => {
+  console.log(res);
+  // [
+  //   { ... },
+  //   { ... },
+  // ]
+});
+```
+
+<br />
+
+#### `getUserInfo(userId, options?)` - [Official docs](https://api.slack.com/methods/users.info)
+
+Gets information about an user.
+
+| Param               | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| userId              | `String` | User to get info on.                |
+| options             | `Object` | Other optional parameters.          |
+| options.accessToken | `String` | Custom access token of the request. |
+
+Example:
+
+```js
+client.getUserInfo(userId).then((res) => {
+  console.log(res);
+  // {
+  //   id: 'U123456',
+  //   name: 'bobby',
+  //   ...
+  // }
+});
+```
+
+<br />
+
+### Channels API
+
+#### `getChannelList(options?)` - [Official docs](https://api.slack.com/methods/channels.list)
+
+| Param               | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| options             | `Object` | Other optional parameters.          |
+| options.accessToken | `String` | Custom access token of the request. |
+
+Lists all channels in a Slack team.
+
+Example:
+
+```js
+client.getChannelList().then((res) => {
+  console.log(

@@ -150,4 +150,108 @@ client.setWebhook('https://4a16faff.ngrok.io/');
 
 <br />
 
-#### `deleteWebhook` - [Official Docs](https://c
+#### `deleteWebhook` - [Official Docs](https://core.telegram.org/bots/api#deletewebhook)
+
+Removes webhook integration.
+
+Example:
+
+```js
+client.deleteWebhook();
+```
+
+<br />
+
+<a id="send-api" />
+
+### Send API - [Official Docs](https://core.telegram.org/bots/api#available-methods)
+
+#### `sendMessage(chatId, text [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendmessage)
+
+Sends text messages.
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| text    | `String`                          | Text of the message to be sent.                                          |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendMessage(CHAT_ID, 'hi', {
+  disableWebPagePreview: true,
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendPhoto(chatId, photo [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendphoto)
+
+Sends photos.
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| photo   | `String`                          | Pass a file id (recommended) or HTTP URL to send photo.                  |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendPhoto(CHAT_ID, 'https://example.com/image.png', {
+  caption: 'gooooooodPhoto',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendAudio(chatId, audio [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendaudio)
+
+Sends audio files.
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| audio   | `String`                          | Pass a file id (recommended) or HTTP URL to send audio.                  |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendAudio(CHAT_ID, 'https://example.com/audio.mp3', {
+  caption: 'gooooooodAudio',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendDocument(chatId, document [, options])` - [Official Docs](https://core.telegram.org/bots/api/#senddocument)
+
+Sends general files.
+
+| Param    | Type                              | Description                                                              |
+| -------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId   | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| document | `String`                          | Pass a file id (recommended) or HTTP URL to send document.               |
+| options  | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendDocument(CHAT_ID, 'https://example.com/doc.gif', {
+  caption: 'gooooooodDocument',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendSticker(chatId, sticker [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendsticker)
+
+Sends `.webp` stickers.
+
+| Param   | Type                              | Description          

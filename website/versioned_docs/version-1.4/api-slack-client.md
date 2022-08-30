@@ -389,4 +389,66 @@ client.getConversationList().then((res) => {
 
 #### `getAllConversationList(options?)` - [Official docs](https://api.slack.com/methods/conversations.list)
 
-Recursively
+Recursively lists all channels in a Slack team using cursor.
+
+| Param               | Type     | Description                         |
+| ------------------- | -------- | ----------------------------------- |
+| options             | `Object` | Optional arguments.                 |
+| options.accessToken | `String` | Custom access token of the request. |
+
+Example:
+
+```js
+client.getAllConversationList().then((res) => {
+  console.log(res);
+  // [
+  //   {
+  //     id: 'C012AB3CD',
+  //     name: 'general',
+  //     ...
+  //   },
+  //   {
+  //     id: 'C012AB3C5',
+  //     name: 'random',
+  //     ...
+  //   },
+  // ],
+});
+```
+
+<br />
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-slack
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real Slack server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    viber: {
+      enabled: true,
+      path: '/webhooks/slack',
+      accessToken: process.env.SLACK_ACCESS_TOKEN,
+      signingSecret: process.env.SLACK_SIGNING_SECRET,
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

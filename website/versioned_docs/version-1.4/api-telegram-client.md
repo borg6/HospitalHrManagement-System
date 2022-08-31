@@ -254,4 +254,88 @@ client.sendDocument(CHAT_ID, 'https://example.com/doc.gif', {
 
 Sends `.webp` stickers.
 
-| Param   | Type                              | Description          
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| sticker | `String`                          | Pass a file id (recommended) or HTTP URL to send sticker.                |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendSticker(CHAT_ID, 'CAADAgADQAADyIsGAAE7MpzFPFQX5QI', {
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendVideo(chatId, video [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvideo)
+
+Sends video files, Telegram clients support `mp4` videos (other formats may be sent as Document).
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| video   | `String`                          | Pass a file id (recommended) or HTTP URL to send video.                  |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendVideo(CHAT_ID, 'https://example.com/video.mp4', {
+  caption: 'gooooooodVideo',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendVoice(chatId, voice [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvoice)
+
+Sends audio files.
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| voice   | `String`                          | Pass a file id (recommended) or HTTP URL to send voice.                  |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendVoice(CHAT_ID, 'https://example.com/voice.ogg', {
+  caption: 'gooooooodVoice',
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendVideoNote(chatId, videoNote [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvideonote)
+
+Sends video messages. As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long.
+
+| Param     | Type                              | Description                                                              |
+| --------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId    | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| videoNote | `String`                          | Pass a file id (recommended) or HTTP URL to send video note.             |
+| options   | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendVideoNote(CHAT_ID, 'https://example.com/video_note.mp4', {
+  duration: 40,
+  disableNotification: true,
+});
+```
+
+<br />
+
+#### `sendMediaGroup(chatId, media [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendmediagroup)
+
+send a group of photos or videos as an album.
+
+| Param   | Type                                                                                  | Description                                                                              |
+| ------- | -----------------------------------------------

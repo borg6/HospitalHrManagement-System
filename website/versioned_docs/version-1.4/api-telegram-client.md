@@ -338,4 +338,87 @@ client.sendVideoNote(CHAT_ID, 'https://example.com/video_note.mp4', {
 send a group of photos or videos as an album.
 
 | Param   | Type                                                                                  | Description                                                                              |
-| ------- | -----------------------------------------------
+| ------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| chatId  | <code>Number &#124; String</code>                                                     | Unique identifier for the target chat or username of the target channel.                 |
+| media   | <code>Array&lt;[InputMedia](https://core.telegram.org/bots/api#inputmedia)&gt;</code> | A JSON-serialized array describing photos and videos to be sent, must include 2–10 items |
+| options | `Object`                                                                              | Other optional parameters.                                                               |
+
+Example:
+
+```js
+client.sendMediaGroup(CHAT_ID, [
+  { type: 'photo', media: 'BQADBAADApYAAgcZZAfj2-xeidueWwI' },
+]);
+```
+
+<br />
+
+#### `sendLocation(chatId, location [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendlocation)
+
+Sends point on the map.
+
+| Param              | Type                              | Description                                                              |
+| ------------------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId             | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| location           | `Object`                          | Object contains latitude and longitude.                                  |
+| location.latitude  | `Number`                          | Latitude of the location.                                                |
+| location.longitude | `Number`                          | Longitude of the location.                                               |
+| options            | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendLocation(
+  CHAT_ID,
+  {
+    latitude: 30,
+    longitude: 45,
+  },
+  {
+    disableNotification: true,
+  }
+);
+```
+
+<br />
+
+#### `sendVenue(chatId, venue [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendvenue)
+
+Sends information about a venue.
+
+| Param           | Type                              | Description                                                              |
+| --------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| venue           | `Object`                          | Object contains information of the venue.                                |
+| venue.latitude  | `Number`                          | Latitude of the venue.                                                   |
+| venue.longitude | `Number`                          | Longitude of the venue.                                                  |
+| venue.title     | `String`                          | Name of the venue.                                                       |
+| venue.address   | `String`                          | Address of the venue.                                                    |
+| options         | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.sendVenue(
+  CHAT_ID,
+  {
+    latitude: 30,
+    longitude: 45,
+    title: 'a_title',
+    address: 'an_address',
+  },
+  {
+    disableNotification: true,
+  }
+);
+```
+
+<br />
+
+#### `sendContact(chatId, contact [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendcontact)
+
+Sends phone contacts.
+
+| Param               | Type                              | Description                                                              |
+| ------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId              | <code>Number &

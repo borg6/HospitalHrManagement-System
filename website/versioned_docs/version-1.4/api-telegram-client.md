@@ -750,4 +750,82 @@ Deletes a message, including service messages.
 
 | Param     | Type                              | Description                                                              |
 | --------- | --------------------------------- | ------------------------------------------------------------------------ |
-| chatId    | <code>Number &#124; String</code> | U
+| chatId    | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| messageId | `Number`                          | Identifier of the message to delete.                                     |
+
+Example:
+
+```js
+client.deleteMessage(CHAT_ID, MESSAGE_ID);
+```
+
+<br />
+
+#### `editMessageLiveLocation(location [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagelivelocation)
+
+Edit live location messages sent by the bot or via the bot (for inline bots).
+
+| Param                   | Type                              | Description                                                              |
+| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| location                | `Object`                          | Object contains new latitude and longitude.                              |
+| location.latitude       | `Number`                          | Latitude of new location.                                                |
+| location.longitude      | `Number`                          | Longitude of new location.                                               |
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| options.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| options.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| options.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.editMessageLiveLocation(
+  {
+    latitude: 30,
+    longitude: 45,
+  },
+  {
+    messageId: MESSAGE_ID,
+  }
+);
+```
+
+<br />
+
+#### `stopMessageLiveLocation(options)` - [Official Docs](https://core.telegram.org/bots/api/#stopmessagelivelocation)
+
+Stop updating a live location message sent by the bot or via the bot (for inline bots) before _live_period_ expires.
+
+| Param                      | Type                              | Description                                                              |
+| -------------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| identifier                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| identifier.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| identifier.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| identifier.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.stopMessageLiveLocation({ messageId: MESSAGE_ID });
+```
+
+### Group API
+
+#### `kickChatMember(chatId, userId [, options])` - [Official Docs](https://core.telegram.org/bots/api/#kickchatmember)
+
+Kicks a user from a group, a supergroup or a channel.
+
+| Param   | Type                              | Description                                                              |
+| ------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId  | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| userId  | `Number`                          | Unique identifier of the target user.                                    |
+| options | `Object`                          | Other optional parameters.                                               |
+
+Example:
+
+```js
+client.kickChatMember(CHAT_ID, USER_ID, { untilDate: UNIX_TIME });
+```
+
+<br />
+
+#### `unbanChatMember(chatId, userId)` - [Official Docs](https://core.telegram.org/bot

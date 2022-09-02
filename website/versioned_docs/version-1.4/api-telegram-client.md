@@ -682,4 +682,72 @@ client.getChatMember(CHAT_ID, USER_ID).then((member) => {
 Edits text and game messages sent by the bot or via the bot (for inline bots).
 
 | Param                   | Type                              | Description                                                              |
-| ----------------------- | --------------------------------- | --------------
+| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| text                    | `String`                          | New text of the message.                                                 |
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| options.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| options.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| options.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.editMessageText('new_text', { messageId: MESSAGE_ID });
+```
+
+<br />
+
+#### `editMessageCaption(caption [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagecaption)
+
+Edits captions of messages sent by the bot or via the bot (for inline bots).
+
+| Param                   | Type                              | Description                                                              |
+| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| caption                 | `String`                          | New caption of the message.                                              |
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| options.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| options.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| options.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.editMessageCaption('new_caption', { messageId: MESSAGE_ID });
+```
+
+<br />
+
+#### `editMessageReplyMarkup(replyMarkup [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagereplymarkup)
+
+Edits only the reply markup of messages sent by the bot or via the bot (for inline bots).
+
+| Param                   | Type                              | Description                                                              |
+| ----------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| replyMarkup             | `Object`                          | New replyMarkup of the message.                                          |
+| options                 | `Object`                          | One of `chatId`, `messageId` or `inlineMessageId` is required.           |
+| options.chatId          | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| options.messageId       | `Number`                          | Identifier of the sent message.                                          |
+| options.inlineMessageId | `String`                          | Identifier of the inline message.                                        |
+
+Example:
+
+```js
+client.editMessageReplyMarkup(
+  {
+    keyboard: [[{ text: 'new_button_1' }, { text: 'new_button_2' }]],
+    resizeKeyboard: true,
+    oneTimeKeyboard: true,
+  },
+  { messageId: MESSAGE_ID }
+);
+```
+
+<br />
+
+#### `deleteMessage(chatId, messageId)` - [Official Docs](https://core.telegram.org/bots/api/#deletemessage)
+
+Deletes a message, including service messages.
+
+| Param     | Type                              | Description                                                              |
+| --------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId    | <code>Number &#124; String</code> | U

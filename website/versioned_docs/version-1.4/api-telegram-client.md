@@ -558,4 +558,128 @@ Gets link of the file.
 
 | Param  | Type     | Description                        |
 | ------ | -------- | ---------------------------------- |
-| fileId | `String` | File identifi
+| fileId | `String` | File identifier to get info about. |
+
+Example:
+
+```js
+client
+  .getFileLink('UtAqweADGTo4Gz8cZAeR-ouu4XBx78EeqRkABPL_pM4A1UpI0koD65K2')
+  .then((link) => {
+    console.log(link);
+    // 'https://api.telegram.org/file/bot<ACCESS_TOKEN>/photos/1068230105874016297.jpg'
+  });
+```
+
+<br />
+
+#### `getChat(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#getchat)
+
+Gets up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.)
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.getChat(CHAT_ID).then((chat) => {
+  console.log(chat);
+  // {
+  //   id: 313534466,
+  //   firstName: 'first',
+  //   lastName: 'last',
+  //   username: 'username',
+  //   type: 'private',
+  // }
+});
+```
+
+<br />
+
+#### `getChatAdministrators(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#getchatadministrators)
+
+Gets a list of administrators in a chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.getChatAdministrators(CHAT_ID).then((admins) => {
+  console.log(admins);
+  // [
+  //   {
+  //     user: {
+  //       id: 313534466,
+  //       firstName: 'first',
+  //       lastName: 'last',
+  //       username: 'username',
+  //       languangeCode: 'zh-TW',
+  //     },
+  //     status: 'creator',
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `getChatMembersCount(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#getchatmemberscount)
+
+Gets the number of members in a chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.getChatMembersCount(CHAT_ID).then((count) => {
+  console.log(count); // '6'
+});
+```
+
+<br />
+
+#### `getChatMember(chatId, userId)` - [Official Docs](https://core.telegram.org/bots/api/#getchatmember)
+
+Gets information about a member of a chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| userId | `Number`                          | Unique identifier of the target user.                                    |
+
+Example:
+
+```js
+client.getChatMember(CHAT_ID, USER_ID).then((member) => {
+  console.log(member);
+  // {
+  //   user: {
+  //     id: 313534466,
+  //     firstName: 'first',
+  //     lastName: 'last',
+  //     username: 'username',
+  //     languangeCode: 'zh-TW',
+  //   },
+  //   status: 'creator',
+  // }
+});
+```
+
+<br />
+
+### Updating API
+
+#### `editMessageText(text [, options])` - [Official Docs](https://core.telegram.org/bots/api/#editmessagetext)
+
+Edits text and game messages sent by the bot or via the bot (for inline bots).
+
+| Param                   | Type                              | Description                                                              |
+| ----------------------- | --------------------------------- | --------------

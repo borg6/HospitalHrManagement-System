@@ -1018,4 +1018,94 @@ client.pinChatMessage(CHAT_ID, MESSAGE_ID, { disableNotification: true });
 
 <br />
 
-#### `unpinChatMessage(chatId)` - [
+#### `unpinChatMessage(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#unpinchatmessage)
+
+Unpins a message in a supergroup chat.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.unpinChatMessage(CHAT_ID);
+```
+
+<br />
+
+#### `leaveChat(chatId)` - [Official Docs](https://core.telegram.org/bots/api/#leavechat)
+
+Leaves a group, supergroup or channel.
+
+| Param  | Type                              | Description                                                              |
+| ------ | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+
+Example:
+
+```js
+client.leaveChat(CHAT_ID);
+```
+
+<br />
+
+### Payments API
+
+#### `sendInvoice(chatId, product [, options])` - [Official Docs](https://core.telegram.org/bots/api/#sendinvoice)
+
+Sends invoice.
+
+| Param                  | Type                              | Description                                                              |
+| ---------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| chatId                 | <code>Number &#124; String</code> | Unique identifier for the target chat or username of the target channel. |
+| product                | `Object`                          | Object of the product.                                                   |
+| product.title          | `String`                          | Product name.                                                            |
+| product.description    | `String`                          | Product description.                                                     |
+| product.payload        | `String`                          | Bot defined invoice payload.                                             |
+| product.providerToken  | `String`                          | Payments provider token.                                                 |
+| product.startParameter | `String`                          | Deep-linking parameter.                                                  |
+| product.currency       | `String`                          | Three-letter ISO 4217 currency code.                                     |
+| product.prices         | `Array<Object>`                   | Breakdown of prices.                                                     |
+| options                | `Object`                          | Additional Telegram query options.                                       |
+
+Example:
+
+```js
+client.sendInvoice(CHAT_ID, {
+  title: 'product name',
+  description: 'product description',
+  payload: 'bot-defined invoice payload',
+  providerToken: 'PROVIDER_TOKEN',
+  startParameter: 'pay',
+  currency: 'USD',
+  prices: [
+    { label: 'product', amount: 11000 },
+    { label: 'tax', amount: 11000 },
+  ],
+});
+```
+
+<br />
+
+#### `answerShippingQuery(shippingQueryId, ok [, options])` - [Official Docs](https://core.telegram.org/bots/api/#answershippingquery)
+
+Reply to shipping queries.
+
+| Param           | Type      | Description                                     |
+| --------------- | --------- | ----------------------------------------------- |
+| shippingQueryId | `String`  | Unique identifier for the query to be answered. |
+| ok              | `Boolean` | Specify if delivery of the product is possible. |
+| options         | `Object`  | Additional Telegram query options.              |
+
+Example:
+
+```js
+client.answerShippingQuery('UNIQUE_ID', true);
+```
+
+<br />
+
+#### `answerPreCheckoutQuery(preCheckoutQueryId, ok [, options])` - [Official Docs](https://core.telegram.org/bots/api/#answerprecheckoutquery)
+
+Respond to such pre-chec

@@ -145,3 +145,69 @@ Example:
 client.sendText(USER_ID, 'Hello');
 ```
 
+<br />
+
+#### `sendPicture(receiver, picture [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#picture-message)
+
+Sending a picture message to a user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481916-5ec6cdac-aeeb-11e7-878b-6c8c4211a760.jpg" width="300" />
+
+| Param             | Type     | Description                                                                                                                                                       |
+| ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| receiver          | `String` | Unique Viber user id.                                                                                                                                             |
+| picture           | `Object` |
+| picture.text      | `String` | Description of the photo. Can be an empty string if irrelevant. Max 120 characters.                                                                               |
+| picture.media     | `String` | URL of the image (JPEG). Max size 1 MB. Only JPEG format is supported. Other image formats as well as animated GIFs can be sent as URL messages or file messages. |
+| picture.thumbnail | `String` | URL of a reduced size image (JPEG). Max size 100 kb. Recommended: 400x400. Only JPEG format is supported.                                                         |
+| options           | `Object` | Other optional parameters.                                                                                                                                        |
+
+Example:
+
+```js
+client.sendPicture(USER_ID, {
+  text: 'Photo description',
+  media: 'http://www.images.com/img.jpg',
+  thumbnail: 'http://www.images.com/thumb.jpg',
+});
+```
+
+<br />
+
+#### `sendVideo(receiver, video [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#video-message)
+
+Sending a video message to a user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481918-5fa12074-aeeb-11e7-8287-830197d93b5b.jpg" width="300" />
+
+| Param           | Type     | Description                                                                                               |
+| --------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| receiver        | `String` | Unique Viber user id.                                                                                     |
+| video           | `Object` |
+| video.media     | `String` | URL of the video (MP4, H264). Max size 50 MB. Only MP4 and H264 are supported.                            |
+| video.size      | `Number` | Size of the video in bytes.                                                                               |
+| video.duration  | `Number` | Video duration in seconds; will be displayed to the receiver. Max 180 seconds.                            |
+| video.thumbnail | `String` | URL of a reduced size image (JPEG). Max size 100 kb. Recommended: 400x400. Only JPEG format is supported. |
+| options         | `Object` | Other optional parameters.                                                                                |
+
+Example:
+
+```js
+client.sendVideo(USER_ID, {
+  media: 'http://www.images.com/video.mp4',
+  size: 10000,
+  thumbnail: 'http://www.images.com/thumb.jpg',
+  duration: 10,
+});
+```
+
+<br />
+
+#### `sendFile(receiver, file [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#file-message)
+
+Sending a file message to a user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481919-600f437e-aeeb-11e7-9f13-7269a055cb86.jpg" width="300" />
+
+| Param         | Type     | Description                                                                                                                                                         |
+| ------------- | -------- | --------------------------------

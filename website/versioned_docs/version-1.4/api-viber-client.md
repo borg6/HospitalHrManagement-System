@@ -531,4 +531,144 @@ It will fetch the account’s details as registered in Viber.
 Example:
 
 ```js
-client.getAccountInf
+client.getAccountInfo().then((info) => {
+  console.log(info);
+  // {
+  //   status: 0,
+  //   statusMessage: 'ok',
+  //   id: 'pa:75346594275468546724',
+  //   name: 'account name',
+  //   uri: 'accountUri',
+  //   icon: 'http://example.com',
+  //   background: 'http://example.com',
+  //   category: 'category',
+  //   subcategory: 'sub category',
+  //   location: {
+  //     lon: 0.1,
+  //     lat: 0.2,
+  //   },
+  //   country: 'UK',
+  //   webhook: 'https://my.site.com',
+  //   eventTypes: ['delivered', 'seen'],
+  //   subscribersCount: 35,
+  //   members: [
+  //     {
+  //       id: '01234567890A=',
+  //       name: 'my name',
+  //       avatar: 'http://example.com',
+  //       role: 'admin',
+  //     },
+  //   ],
+  // }
+});
+```
+
+<br />
+
+### Get User Details
+
+#### `getUserDetails(id)` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-user-details)
+
+It will fetch the details of a specific Viber user based on his unique user ID.
+
+| Param | Type     | Description           |
+| ----- | -------- | --------------------- |
+| id    | `String` | Unique Viber user id. |
+
+Example:
+
+```js
+client.getUserDetails('01234567890A=').then((user) => {
+  console.log(user);
+  // {
+  //   id: '01234567890A=',
+  //   name: 'John McClane',
+  //   avatar: 'http://avatar.example.com',
+  //   country: 'UK',
+  //   language: 'en',
+  //   primaryDeviceOs: 'android 7.1',
+  //   apiVersion: 1,
+  //   viberVersion: '6.5.0',
+  //   mcc: 1,
+  //   mnc: 1,
+  //   deviceType: 'iPhone9,4',
+  // };
+});
+```
+
+<br />
+
+### Get Online
+
+#### `getOnlineStatus(ids)` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-online)
+
+It will fetch the online status of a given subscribed account members.
+
+| Param | Type            | Description                                         |
+| ----- | --------------- | --------------------------------------------------- |
+| id    | `Array<String>` | Array of unique Viber user id. 100 ids per request. |
+
+Example:
+
+```js
+client
+  .getOnlineStatus(['01234567890=', '01234567891=', '01234567893='])
+  .then((status) => {
+    console.log(status);
+    // [
+    //   {
+    //     id: '01234567890=',
+    //     onlineStatus: 0,
+    //     onlineStatusMessage: 'online',
+    //   },
+    //   {
+    //     id: '01234567891=',
+    //     onlineStatus: 1,
+    //     onlineStatusMessage: 'offline',
+    //     lastOnline: 1457764197627,
+    //   },
+    //   {
+    //     id: '01234567893=',
+    //     onlineStatus: 3,
+    //     onlineStatusMessage: 'tryLater',
+    //   },
+    // ];
+  });
+```
+
+## Debug Tips
+
+### Log Requests Details
+
+To enable default request debugger, use following `DEBUG` env variable:
+
+```sh
+DEBUG=messaging-api-viber
+```
+
+## Test
+
+### Send Requests to Your Dummy Server
+
+To avoid sending requests to the real Viber server, provide the `origin` option in your `bottender.js.config` file:
+
+```js
+module.exports = {
+  channels: {
+    viber: {
+      enabled: true,
+      path: '/webhooks/viber',
+      accessToken: process.env.VIBER_ACCESS_TOKEN,
+      sender: {
+        name: 'Sender Name',
+      },
+      origin:
+        process.env.NODE_ENV === 'test'
+          ? 'https://mydummytestserver.com'
+          : undefined,
+    },
+  },
+};
+```
+
+> **Warning:** Don't do this on the production server.

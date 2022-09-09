@@ -210,4 +210,98 @@ Sending a file message to a user.
 <img src="https://user-images.githubusercontent.com/3382565/31481919-600f437e-aeeb-11e7-9f13-7269a055cb86.jpg" width="300" />
 
 | Param         | Type     | Description                                                                                                                                                         |
-| ------------- | -------- | --------------------------------
+| ------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| receiver      | `String` | Unique Viber user id.                                                                                                                                               |
+| file          | `Object` |
+| file.media    | `String` | URL of the file. Max size 50 MB. See [forbidden file formats](https://developers.viber.com/docs/api/rest-bot-api/#forbiddenFileFormats) for unsupported file types. |
+| file.size     | `Number` | Size of the file in bytes.                                                                                                                                          |
+| file.fileName | `String` | Name of the file. File name should include extension. Max 256 characters (including file extension).                                                                |
+| options       | `Object` | Other optional parameters.                                                                                                                                          |
+
+Example:
+
+```js
+client.sendFile(USER_ID, {
+  media: 'http://www.images.com/file.doc',
+  size: 10000,
+  fileName: 'name_of_file.doc',
+});
+```
+
+<br />
+
+#### `sendContact(receiver, contact [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#contact-message)
+
+Sending a contact message to a user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481924-615ce8b2-aeeb-11e7-8425-2d3bfa115fc1.jpg" width="300" />
+
+| Param               | Type     | Description                                     |
+| ------------------- | -------- | ----------------------------------------------- |
+| receiver            | `String` | Unique Viber user id.                           |
+| contact             | `Object` |
+| contact.name        | `String` | Name of the contact. Max 28 characters.         |
+| contact.phoneNumber | `String` | Phone number of the contact. Max 18 characters. |
+| options             | `Object` | Other optional parameters.                      |
+
+Example:
+
+```js
+client.sendContact(USER_ID, {
+  name: 'Itamar',
+  phoneNumber: '+972511123123',
+});
+```
+
+<br />
+
+#### `sendLocation(receiver, location [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#location-message)
+
+Sending a location message to a user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481923-61199a9e-aeeb-11e7-8a25-e3813eceb25b.jpg" width="300" />
+
+| Param        | Type     | Description                            |
+| ------------ | -------- | -------------------------------------- |
+| receiver     | `String` | Unique Viber user id.                  |
+| location     | `Object` |
+| location.lat | `String` | Latitude (±90°) within valid ranges.   |
+| location.lon | `String` | Longitude (±180°) within valid ranges. |
+| options      | `Object` | Other optional parameters.             |
+
+Example:
+
+```js
+client.sendLocation(USER_ID, {
+  lat: '37.7898',
+  lon: '-122.3942',
+});
+```
+
+<br />
+
+#### `sendURL(receiver, url [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#url-message)
+
+Sending an URL message to a user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481921-6069f346-aeeb-11e7-97bf-83a17da0bc7a.jpg" width="300" />
+
+| Param    | Type     | Description                |
+| -------- | -------- | -------------------------- |
+| receiver | `String` | Unique Viber user id.      |
+| url      | `String` | URL. Max 2,000 characters. |
+| options  | `Object` | Other optional parameters. |
+
+Example:
+
+```js
+client.sendURL(USER_ID, 'http://developers.viber.com');
+```
+
+<br />
+
+#### `sendSticker(receiver, stickerId [, options])` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#sticker-message)
+
+Sending a sticker message to a user.
+
+<img src="https://user-images.githubusercontent.com/3382565/31481922-60c2c444-aeeb-11e7-

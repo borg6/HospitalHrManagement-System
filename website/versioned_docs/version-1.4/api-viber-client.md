@@ -402,4 +402,133 @@ client.sendCarouselContent(USER_ID, {
       columns: 6,
       rows: 1,
       actionType: 'reply',
-      actio
+      actionBody: 'https://www.google.com',
+      text: '<font color=#ffffff>Buy</font>',
+      textSize: 'large',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+      image: 'https://s14.postimg.org/4mmt4rw1t/Button.png',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#8367db>MORE DETAILS</font>',
+      textSize: 'small',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+    },
+  ],
+});
+```
+
+<br />
+
+<a id="keyboards" />
+
+### Keyboards - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#keyboards)
+
+The Viber API allows sending a custom keyboard using the send message API, to supply the user with a set of predefined replies or actions. Keyboards can be attached to any message type and be sent and displayed together. To attach a keyboard to a message simply add the keyboard’s parameters to the options:
+
+```js
+client.sendText(USER_ID, 'Hello', {
+  keyboard: {
+    defaultHeight: true,
+    bgColor: '#FFFFFF',
+    buttons: [
+      {
+        columns: 6,
+        rows: 1,
+        bgColor: '#2db9b9',
+        bgMediaType: 'gif',
+        bgMedia: 'http://www.url.by/test.gif',
+        bgLoop: true,
+        actionType: 'open-url',
+        actionBody: 'www.tut.by',
+        image: 'www.tut.by/img.jpg',
+        text: 'Key text',
+        textVAlign: 'middle',
+        textHAlign: 'center',
+        textOpacity: 60,
+        textSize: 'regular',
+      },
+    ],
+  },
+});
+```
+
+Which in turn will look like this:
+
+<img src="https://developers.viber.com/docs/img/example_keyboard.png" width="300" />
+
+<br />
+
+<a id="broadcast-api" />
+
+### Broadcast API - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#broadcast-message)
+
+Those API methods use the same parameters as the send methods with a few variations described below. You should specify a list of receivers instead of a single receiver.
+
+- `broadcastMessage(broadcastList, message)`
+- `broadcastText(broadcastList, text [, options])`
+- `broadcastPicture(broadcastList, picture [, options])`
+- `broadcastVideo(broadcastList, video [, options])`
+- `broadcastFile(broadcastList, file [, options])`
+- `broadcastContact(broadcastList, contact [, options])`
+- `broadcastLocation(broadcastList, location [, options])`
+- `broadcastURL(broadcastList, url [, options])`
+- `broadcastSticker(broadcastList, stickerId [, options])`
+- `broadcastCarouselContent(broadcastList, richMedia [, options])`
+
+| Param         | Type            | Description                                                                                                                                                        |
+| ------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| broadcastList | `Array<String>` | This mandatory parameter defines the recipients for the message. Every user must be subscribed and have a valid user id. The maximum list length is 300 receivers. |
+
+Example:
+
+```js
+client
+  .broadcastText(
+    [
+      'pttm25kSGUo1919sBORWyA==',
+      '2yBSIsbzs7sSrh4oLm2hdQ==',
+      'EGAZ3SZRi6zW1D0uNYhQHg==',
+      'kBQYX9LrGyF5mm8JTxdmpw==',
+    ],
+    'a broadcast to everybody'
+  )
+  .then((result) => {
+    console.log(result);
+    // {
+    //   messageToken: 40808912438712,
+    //   status: 0,
+    //   statusMessage: 'ok',
+    //   failedList: [
+    //     {
+    //       receiver: 'pttm25kSGUo1919sBORWyA==',
+    //       status: 6,
+    //       statusMessage: 'Not subscribed',
+    //     },
+    //     {
+    //       receiver: 'EGAZ3SZRi6zW1D0uNYhQHg==',
+    //       status: 5,
+    //       statusMessage: 'Not found',
+    //     },
+    //   ],
+    // }
+  });
+```
+
+<br />
+
+### Get Account Info
+
+#### `getAccountInfo()` - [Official Docs](https://developers.viber.com/docs/api/rest-bot-api/#get-account-info)
+
+It will fetch the account’s details as registered in Viber.
+
+Example:
+
+```js
+client.getAccountInf

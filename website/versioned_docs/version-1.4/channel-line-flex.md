@@ -76,4 +76,83 @@ async function App(context) {
         {
           type: 'text',
           text: 'Brown Cafe',
-      
+          weight: 'bold',
+          size: 'xl',
+        },
+        {
+          type: 'box',
+          layout: 'vertical',
+          margin: 'lg',
+          contents: [
+            {
+              type: 'box',
+              layout: 'baseline',
+              contents: [
+                {
+                  type: 'text',
+                  text: 'Place',
+                  color: '#aaaaaa',
+                  size: 'sm',
+                  flex: 1,
+                },
+                {
+                  type: 'text',
+                  text: 'Miraina Tower, 4-1-6 Shinjuku, Tokyo',
+                  wrap: true,
+                  color: '#666666',
+                  size: 'sm',
+                  flex: 5,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    footer: {
+      type: 'box',
+      layout: 'vertical',
+      contents: [
+        {
+          type: 'button',
+          action: {
+            type: 'uri',
+            label: 'WEBSITE',
+            uri: 'https://linecorp.com',
+          },
+        },
+      ],
+    },
+  });
+}
+```
+
+For more information, see [Flex Message Elements](https://developers.line.biz/en/docs/messaging-api/flex-message-elements/).
+
+> **Note:** When your flex messages are complicated, we recommend checking your code by [Flex Message Simulator](https://developers.line.biz/flex-simulator).
+
+## Carousel Type Flex Messages
+
+A [carousel](https://developers.line.biz/en/docs/messaging-api/flex-message-elements/#carousel) is a container that contains multiple bubble elements. Users can browse the bubbles in the carousel by scrolling horizontally. Carousels are helpful when you are displaying multiple choices, e.g., clothes, restaurants, tourism for the user to choose.
+
+![](https://user-images.githubusercontent.com/3382565/77495528-d44feb80-6e83-11ea-9300-ac5dae922c0d.png)
+
+To send carousel flex messages, use the `carousel` as the top-level container:
+
+```js
+async function App(context) {
+  const bubbleContent = {
+    type: 'bubble',
+    // ...other attributes
+  };
+  await context.sendFlex('This is a carousel flex', {
+    type: 'carousel',
+    contents: [
+      // put multiple bubbles in your carousel
+      bubbleContent,
+      bubbleContent,
+      bubbleContent,
+    ],
+  });
+}
+```

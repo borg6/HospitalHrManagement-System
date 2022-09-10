@@ -368,3 +368,34 @@ event.seen;
 // {
 //   event: 'seen',
 //   timestamp: 1457764197627,
+//   message_token: 4912661846655238145,
+//   user_id: '01234567890A=',
+// }
+```
+
+#### `isFailed`
+
+Determine if the event is a failed event.
+
+Example:
+
+```js
+event.isFailed; // true
+```
+
+#### `failed`
+
+The failed payload from Viber raw event.
+
+Example:
+
+```js
+event.failed;
+// {
+//   event: 'failed',
+//   timestamp: 1457764197627,
+//   message_token: 4912661846655238145,
+//   user_id: '01234567890A=',
+//   desc: 'failure description',
+// }
+```

@@ -31,4 +31,144 @@ Also, remember your rich menu image must follow these requirements:
 
 ## Create a Rich Menu
 
-Before you create a rich menu, you have to create a [rich menu object](https://develop
+Before you create a rich menu, you have to create a [rich menu object](https://developers.line.biz/en/reference/messaging-api/#rich-menu-object) which defines the menu's size, tappable areas, etc.
+
+Next, you can create a rich menu by sending an HTTP POST request to the `https://api.line.me/v2/bot/richmenu` endpoint. You have to put your rich menu object in the body and your channel access token in the `Authorization` header.
+
+Here's an example request:
+
+```sh
+curl -v -X POST https://api.line.me/v2/bot/richmenu \
+  -H 'Authorization: Bearer {channel access token}' \
+  -H 'Content-Type:application/json' \
+  -d \
+  '{
+    "size":{
+        "width":2500,
+        "height":1686
+    },
+    "selected":false,
+    "name":"Controller",
+    "chatBarText":"Controller",
+    "areas":[
+        {
+          "bounds":{
+              "x":551,
+              "y":325,
+              "width":321,
+              "height":321
+          },
+          "action":{
+              "type":"message",
+              "text":"up"
+          }
+        },
+        {
+          "bounds":{
+              "x":876,
+              "y":651,
+              "width":321,
+              "height":321
+          },
+          "action":{
+              "type":"message",
+              "text":"right"
+          }
+        },
+        {
+          "bounds":{
+              "x":551,
+              "y":972,
+              "width":321,
+              "height":321
+          },
+          "action":{
+              "type":"message",
+              "text":"down"
+          }
+        },
+        {
+          "bounds":{
+              "x":225,
+              "y":651,
+              "width":321,
+              "height":321
+          },
+          "action":{
+              "type":"message",
+              "text":"left"
+          }
+        },
+        {
+          "bounds":{
+              "x":1433,
+              "y":657,
+              "width":367,
+              "height":367
+          },
+          "action":{
+              "type":"message",
+              "text":"btn b"
+          }
+        },
+        {
+          "bounds":{
+              "x":1907,
+              "y":657,
+              "width":367,
+              "height":367
+          },
+          "action":{
+              "type":"message",
+              "text":"btn a"
+          }
+        }
+    ]
+  }'
+```
+
+If you successfully create a rich menu, you get a response with a rich menu ID.
+
+## Upload the Rich Menu Image
+
+Next, you can upload the rich menu image you prepared in the first step. Again, you upload the image by sending an HTTP POST request to the `https://api-data.line.me/v2/bot/richmenu/{richMenuId}/content` endpoint. Specify the rich menu ID you just got in the `richMenuId` path parameter.
+
+Here's an example request:
+
+```sh
+curl -v -X POST https://api-data.line.me/v2/bot/richmenu/{richMenuId}/content \
+-H "Authorization: Bearer {channel access token}" \
+-H "Content-Type: image/jpeg" \
+-T rich_menu.jpg
+```
+
+## Link the Rich Menu to Users
+
+In the above three steps, you have finished all the set up for a rich menu. Now, you can link the menu to the users. You can either set a rich menu as the default rich menu for all the users or link a rich menu to an individual user.
+
+### Set the Default Rich Menu
+
+To set the default rich menu, you can send an HTTP POST request to the `https://api.line.me/v2/bot/user/all/richmenu/{richMenuId}` endpoint.
+
+Here's an example request:
+
+```sh
+curl -v -X POST https://api.line.me/v2/bot/user/all/richmenu/{richMenuId} \
+-H "Authorization: Bearer {channel access token}"
+```
+
+### Link a Rich Menu to an Individual User
+
+To link a rich menu to an individual user, you can do it using Bottender when handling a user's event:
+
+```js
+await context.linkRichMenu('rich-menu-id');
+```
+
+And to unlink a rich menu from a user, you can use:
+
+```js
+await context.unlinkRichMenu();
+```
+
+Still, you can link and unlink a rich menu by sending an HTTP POST request to the `https://api.line.me/v2/bot/user/{userId}/richmenu/{richMenuId}` and `https://api.line.me/v2/bot/richmen

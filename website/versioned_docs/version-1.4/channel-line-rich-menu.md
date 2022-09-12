@@ -325,4 +325,109 @@ curl --request POST \
           "action":{
               "type":"message",
               "text":"A2"
-        
+          }
+        }
+
+    ]
+  }'
+```
+
+Submenu B:
+
+```sh
+curl --request POST \
+  --url https://api.line.me/v2/bot/richmenu \
+  --header 'authorization: Bearer {channel access token}' \
+  --header 'content-type: application/json' \
+  --data '{
+    "size":{
+        "width":2500,
+        "height":1686
+    },
+    "selected":false,
+    "name":"Controller",
+    "chatBarText":"Controller",
+    "areas":[
+        {
+          "bounds":{
+              "x":0,
+              "y":0,
+              "width":2500,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"Back"
+          }
+        },
+				{
+          "bounds":{
+              "x":0,
+              "y":843,
+              "width":1250,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"B1"
+          }
+        },
+				{
+          "bounds":{
+              "x":1250,
+              "y":843,
+              "width":1250,
+              "height":843
+          },
+          "action":{
+              "type":"message",
+              "text":"B2"
+          }
+        }
+
+    ]
+  }'
+```
+
+If you successfully create these rich menu objects, you will get three rich menu IDs in their responses. Then we can upload the rich menu images according to these IDs.
+
+```sh
+curl -v -X POST https://api-data.line.me/v2/bot/richmenu/{richMenuId}/content \
+-H "Authorization: Bearer {channel access token}" \
+-H "Content-Type: image/jpeg" \
+-T rich_menu_image.jpg
+```
+
+### Switch Between the Main Menu and Submenus
+
+Now we set up three rich menus and get their rich menu ID. We first put each menu ID into the `.env` file in our Bottender project.
+
+`.env`
+
+```
+LINE_ACCESS_TOKEN=
+LINE_CHANNEL_SECRET=
+MAIN_RICH_MENU_ID=
+SUB_RICH_MENU_A_ID=
+SUB_RICH_MENU_B_ID=
+```
+
+Next, we can check which button on our rich has been clicked by the user and switch between the main rich menu and its submenu using `context.linkRichMenu(RICH_MENU_ID)`.
+
+```js
+module.exports = async function App(context) {
+  if (context.event.text === 'A') {
+    await context.linkRichMenu(process.env.SUB_RICH_MENU_A_ID);
+  } else if (context.event.text === 'B') {
+    await context.linkRichMenu(process.env.SUB_RICH_MENU_B_ID);
+  } else if (context.event.text === 'Back') {
+    await context.linkRichMenu(process.env.MAIN_RICH_MENU_ID);
+  } else {
+    await context.sendText(`User have clicked ${context.event.text}`);
+  }
+};
+```
+
+By doing so, we successfully create a rich menu with multiple submenus. You can set up a more complicated submenu using the same method.
+
+For the full submenu example, checked out [LINE Rich Menu Submenu Example](https://github.com/Yoctol/bottender/tree/master/examples/line-rich-menu-submenu).

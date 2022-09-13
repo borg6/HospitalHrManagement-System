@@ -156,4 +156,22 @@ async function App(context) {
 }
 ```
 
-> **N
+> **Note:** You must enable events - `message_reads` and `message_deliveries`.
+
+## Sticker Events
+
+A proper response of `Sticker Event` would make your bot more human-like. For example, you can define a set of stickers that your bots understand as a shortcut (or secret code). It offers an alternative way for your user to interact with your bot.
+
+In the following example, you can see an example of the famous `Like Sticker` (a growing big thumb up).
+
+```js
+async function App(context) {
+  if (context.event.isLikeSticker) {
+    await context.sendText('Good to know you like us!');
+  }
+}
+```
+
+## Handling Events with Router
+
+Bottender offers a bunch of helpers to route within your Messenger or multi-platform app. To learn more about how to use those Messenger particular routes with router, check out [Messenger Routing](channel-messenger-routing.md).

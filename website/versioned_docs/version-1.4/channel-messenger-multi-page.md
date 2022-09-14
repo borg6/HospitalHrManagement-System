@@ -58,4 +58,70 @@ If you only need your bot to apply to a fixed set of Facebook Pages, you may che
 function mapPageToAccessToken(pageId) {
   switch (pageId) {
     case PAGE_1_PAGE_ID:
-      return PAGE_1_ACC
+      return PAGE_1_ACCESS_TOKEN;
+    case PAGE_2_PAGE_ID:
+      return PAGE_2_ACCESS_TOKEN;
+  }
+}
+```
+
+For more information, you can check the Bottender example, [Messenger Multi-pages Example](https://github.com/Yoctol/bottender/tree/master/examples/messenger-multi-pages).
+
+### Fetching Token Dynamically
+
+We assume that an advanced developer like you might need to support more Facebook Pages dynamically. Plus, you don't want to modify the `mapPageToAccessToken` function every time you add your bot to a new Page.
+
+In this case, you may dynamically load tokens from SQL Database, MongoDB, Redis, REST API, or whatever you want:
+
+```js
+async function mapPageToAccessToken(pageId) {
+  return fetchTokenFromSomewhere(pageId);
+}
+```
+
+## Manage `Facebook Page Subscriptions Fields` Your Bot Needs
+
+Facebook has dedicated permission controls; please remember to subscribe `Facebook Page Subscriptions Fields` you need.
+
+We recommend you at least enable the following fields:
+
+- `messages`
+- `messaging_postbacks`
+- `messaging_optins`
+- `messaging_referrals`
+- `messaging_policy_enforcement`
+
+### Subscribe `Facebook Page Subscriptions Fields`
+
+We assume that you might need to add your bot to a Facebook Pages dynamically. In the following code, you can see how to subscribe `Facebook Page Subscriptions Fields` your bot needs.
+
+```js
+const { getClient } = require('bottender');
+
+const messenger = getClient('messenger');
+
+// subscribe app for page
+await messenger.axios.post(
+  `/${pageId}/subscribed_apps?access_token=${accessToken}`,
+  {
+    subscribedFields: [
+      'messages',
+      'messaging_postbacks',
+      'messaging_optins',
+      'messaging_referrals',
+      'messaging_policy_enforcement',
+    ].join(','),
+  }
+);
+```
+
+### Unsubscribe `Facebook Page Subscriptions Fields`
+
+We assume that you might need to remove your bot from Facebook Pages dynamically. In the following code, you can see how to unsubscribe `Facebook Page Subscriptions Fields` your bot have subscribed.
+
+```js
+// unsubscribe app for page
+await messenger.axios.delete(
+  `/${pageId}/subscribed_apps?access_token=${accessToken}`
+);
+```

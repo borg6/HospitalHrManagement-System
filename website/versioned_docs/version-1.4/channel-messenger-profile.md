@@ -189,4 +189,64 @@ For example:
 
 ## Setting Ice Breakers
 
-[Ice Breakers](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/ice-breakers) provide a way for users to start a conversation with a busines
+[Ice Breakers](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/ice-breakers) provide a way for users to start a conversation with a business with a list of frequently asked questions.
+
+![](https://user-images.githubusercontent.com/3382565/68740032-273bab80-0625-11ea-8341-aaaf95202efb.png)
+
+This can be set by using `channels.messenger.profile.iceBreakers` fields in `bottender.config.js`:
+
+```js
+// bottender.config.js
+module.exports = {
+  channels: {
+    messenger: {
+      // Omission here...
+      profile: {
+        iceBreakers: [
+          {
+            question: '<QUESTION>',
+            payload: '<PAYLOAD>',
+          },
+          {
+            question: '<QUESTION>',
+            payload: '<PAYLOAD>',
+          },
+        ],
+      },
+    },
+  },
+};
+```
+
+`question` will be posted on the thread as the user asking the question and `payload` will be returned as a postback webhook event.
+
+> **Note:** Some of the profile elements like Ice Breakers and Get Started button are incompatible with each other. So when both are set, one will take precedence over the other. Here is the priority from highest to lowest:
+>
+> - API Ice Breakers
+> - Get Started button
+> - Custom Questions set via the Page Inbox UI
+
+## Setting Domain Whitelist
+
+The [whitelisted domains](https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/domain-whitelisting) of your bot's Messenger profile specifies a list of third-party domains that are accessible in the Messenger webview for use with the **Messenger Extensions SDK**, the **Checkbox Plugin**, and the **Customer Chat Plugin**.
+
+This can be set by using `channels.messenger.profile.whitelistedDomains` fields in `bottender.config.js`:
+
+```js
+// bottender.config.js
+module.exports = {
+  channels: {
+    messenger: {
+      // Omission here...
+      profile: {
+        whitelistedDomains: ['<WHITELISTED_DOMAIN>', '<WHITELISTED_DOMAIN>'],
+      },
+    },
+  },
+};
+```
+
+> **Note:** Domains must meet the following requirements to be whitelisted:
+>
+> - Served over **HTTPS**
+> - Use a fully qualified domain name, such as https://www.messenger.com/. IP addresses and localhost are not supported for whitelisting.

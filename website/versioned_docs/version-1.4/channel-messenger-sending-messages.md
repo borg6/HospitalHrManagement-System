@@ -105,4 +105,136 @@ In a `Generic Template`, you can create up to 10 items in a row. Each item is co
 ```js
 await context.sendGenericTemplate([
   {
-    title: 
+    title: "Welcome to Peter's Hats",
+    imageUrl: 'https://petersfancybrownhats.com/company_image.png',
+    subtitle: "We've got the right hat for everyone.",
+    defaultAction: {
+      type: 'web_url',
+      url: 'https://peterssendreceiveapp.ngrok.io/view?item=103',
+      messengerExtensions: true,
+      webviewHeightRatio: 'tall',
+      fallbackUrl: 'https://peterssendreceiveapp.ngrok.io/',
+    },
+    buttons: [
+      {
+        type: 'postback',
+        title: 'Start Chatting',
+        payload: 'DEVELOPER_DEFINED_PAYLOAD',
+      },
+    ],
+  },
+]);
+```
+
+### Button Template
+
+![23204276_131607050888932_1057585862134464512_n (1)](https://user-images.githubusercontent.com/662387/69862063-9dead100-12d4-11ea-88ea-f2aef56b59c8.png)
+
+`Button Template` is similar to `Generic Template`; the only difference is the removal of the item image.
+
+> **Note:** Please refer to Messenger's official guide of [`Button Template`](https://developers.facebook.com/docs/messenger-platform/send-messages/template/button) to find out the latest specification.
+
+```js
+await context.sendButtonTemplate('What do you want to do next?', [
+  {
+    type: 'web_url',
+    url: 'https://petersapparel.parseapp.com',
+    title: 'Show Website',
+  },
+  {
+    type: 'postback',
+    title: 'Start Chatting',
+    payload: 'USER_DEFINED_PAYLOAD',
+  },
+]);
+```
+
+### Receipt Template
+
+![23208289_889588377870772_7170760265053503488_n](https://user-images.githubusercontent.com/662387/69862400-4862f400-12d5-11ea-8786-2e7fa03e8408.png)
+
+`Receipt Template` is a template designed for order confirmation.
+
+> **Note:** Please refer to Messenger's official guide of [`Receipt Template`](https://developers.facebook.com/docs/messenger-platform/send-messages/template/receipt) to find out the latest specification.
+
+```js
+await context.sendReceiptTemplate({
+  recipientName: 'Stephane Crozatier',
+  orderNumber: '12345678902',
+  currency: 'USD',
+  paymentMethod: 'Visa 2345',
+  orderUrl: 'http://petersapparel.parseapp.com/order?order_id=123456',
+  timestamp: '1428444852',
+  elements: [
+    {
+      title: 'Classic White T-Shirt',
+      subtitle: '100% Soft and Luxurious Cotton',
+      quantity: 2,
+      price: 50,
+      currency: 'USD',
+      imageUrl: 'http://petersapparel.parseapp.com/img/whiteshirt.png',
+    },
+    {
+      title: 'Classic Gray T-Shirt',
+      subtitle: '100% Soft and Luxurious Cotton',
+      quantity: 1,
+      price: 25,
+      currency: 'USD',
+      imageUrl: 'http://petersapparel.parseapp.com/img/grayshirt.png',
+    },
+  ],
+  address: {
+    street1: '1 Hacker Way',
+    street2: '',
+    city: 'Menlo Park',
+    postalCode: '94025',
+    state: 'CA',
+    country: 'US',
+  },
+  summary: {
+    subtotal: 75.0,
+    shippingCost: 4.95,
+    totalTax: 6.19,
+    totalCost: 56.14,
+  },
+  adjustments: [
+    {
+      name: 'New Customer Discount',
+      amount: 20,
+    },
+    {
+      name: '$10 Off Coupon',
+      amount: 10,
+    },
+  ],
+});
+```
+
+### Media Template
+
+![23666967_188506161716866_2869776016224550912_n](https://user-images.githubusercontent.com/662387/69862411-4c8f1180-12d5-11ea-84a7-1a07b10e15c4.png)
+![23065701_1942345712696886_5686788878908784640_n](https://user-images.githubusercontent.com/662387/69862818-4483a180-12d6-11ea-8575-96f976551963.png)
+
+You can find the simplicity and elegance of `Media Template`. Try it if you agree with "A picture is worth a thousand words." The difference between it and `Generic Template` is the removal of title and subtitle.
+
+> **Note:** Please refer to Messenger's official guide of [`Media Template`](https://developers.facebook.com/docs/messenger-platform/send-messages/template/media) to find out the latest specification.
+
+```js
+await context.sendMediaTemplate([
+  {
+    mediaType: 'image',
+    attachmentId: '1854626884821032',
+    buttons: [
+      {
+        type: 'web_url',
+        url: 'https://en.wikipedia.org/wiki/Rickrolling',
+        title: 'View Website',
+      },
+    ],
+  },
+]);
+```
+
+## Sending with Quick Reply
+
+![64375249_668002483666648_541982039046356992_n

@@ -323,4 +323,16 @@ await context.sendText('Hi!', {
 
 ## Rate Limits
 
-If you are making a bot with sudden high traffic, e.g., a campaign bot for Black Friday, you sh
+If you are making a bot with sudden high traffic, e.g., a campaign bot for Black Friday, you should deal with `Rate Limits` before you receive [error code 613](https://developers.facebook.com/docs/messenger-platform/reference/send-api/error-codes).
+
+Page Rate limits are in place to prevent malicious behavior and poor user experiences. For Pages with large audiences, Messenger recommends a send rate of 250 requests per second.
+
+`Rate Limits` is various from the size of your Page audience.
+
+```
+Calls within 24 hours = 200 * Total Messenger Audience
+```
+
+To prevent from hit `Rate Limits`, Messenger also advises us to architect our system to distribute any sudden high amounts of load over time.
+
+> **Note:** Refer to Messenger's official doc, [Rate Limiting](https://developers.facebook.com/docs/messenger-platform/send-messages#limits) for the latest Messenger policy.

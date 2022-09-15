@@ -237,4 +237,90 @@ await context.sendMediaTemplate([
 
 ## Sending with Quick Reply
 
-![64375249_668002483666648_541982039046356992_n
+![64375249_668002483666648_541982039046356992_n (1)](https://user-images.githubusercontent.com/662387/69863622-42224700-12d8-11ea-9202-cd55011a62d0.png)
+
+We would recommend you to treat `Quick Reply` as an alternative to user text input.
+
+A `Quick Reply` consists of up to 13 `Quick Reply Buttons`. When the user taps a `Quick Reply Button`, the `Quick Reply` dismissed. Then, the title of the tapped button is posted to the conversation as a message. Meanwhile, a messages event sends to your webhook that contains the button title and an optional payload.
+
+In the following sections, you can see three different types of `Quick Reply`.
+
+> **Note:**
+>
+> - When we met `Quick Reply` first time, we were confused about the best practice of using `Quick Reply` or `Button`. Finally, we found out `Quick Reply` is the best solution to guide the user to keep interacting with the bot, while a `URL Button` brings user outside bot.
+>   What's more, the `Quick Reply` disappears when one of `Quick Reply Buttons` is tapped, which keeps `Quick Reply` only live under the present context, while a `Button` can be triggered even it is in the chat history.
+> - Please refer to Messenger's official guide of [`Quick Replies`](https://developers.facebook.com/docs/messenger-platform/send-messages/quick-replies) to find out the latest specification.
+
+### Text Quick Reply
+
+![27690048_220332918537125_7991605536967622656_n](https://user-images.githubusercontent.com/662387/69863608-3c2c6600-12d8-11ea-97c0-e82992175a24.png)
+
+You can send up to 13 `Text Quick Reply Buttons` in a `Quick Reply`. Each `Text Quick Reply` can add one optional icon next to the button title.
+
+```js
+await context.sendText('Hi!', {
+  quickReplies: [
+    {
+      contentType: 'text',
+      title: '<BUTTON_TEXT>',
+      payload: '<DEVELOPER_DEFINED_PAYLOAD>',
+    },
+  ],
+});
+```
+
+### User Phone Number Quick Reply
+
+![23417458_1117232598379764_7436715136921894912_n](https://user-images.githubusercontent.com/662387/69863631-48182800-12d8-11ea-8d6c-f8140829163d.png)
+
+The `User Phone Number Quick Reply` can be treated as an agree button to collect the user's phone number.
+
+Messenger automatically pre-fill the displayed quick reply with the phone number from the user's profile information. Since many CRM (Customer Relationship Management) use the phone number as a unique id, it is handy for future user mapping.
+
+> **Note:**
+> If the user's profile does not have a phone number, the quick reply doesn't show up. Also, the bot only receives the phone number until the user clicks the quick reply.
+
+```js
+await context.sendText('Hi!', {
+  quickReplies: [
+    {
+      contentType: 'user_phone_number',
+    },
+  ],
+});
+```
+
+### User Email Quick Reply
+
+<img width="382" alt="27807597_203144990422079_3327502058327638016_n" src="https://user-images.githubusercontent.com/662387/69863616-3f275680-12d8-11ea-82b0-d4033f67f03c.png"/>
+
+The `User Email Quick Reply` can be treated as an agree button to collect the user's Email.
+
+Messenger automatically pre-fill the displayed quick reply with the Email from the user's profile information. Since many CRM (Customer Relationship Management) use the Email as a unique id, it is handy for future user mapping.
+
+> **Note:**
+> If the user's profile does not have an Email, the quick reply doesn't show up. Also, the bot only receives the Email until the user clicks the quick reply.
+
+```js
+await context.sendText('Hi!', {
+  quickReplies: [
+    {
+      contentType: 'user_email',
+    },
+  ],
+});
+```
+
+## Sending with Persona
+
+To give the customer a clear understanding of whether a human agent or a bot representing the Business Page, the `Persona` API allows a business to introduce a virtual persona into the thread. Please refer to our separate document about `Persona`.
+
+```js
+await context.sendText('Hi!', {
+  personaId: '<PERSONA_ID>',
+});
+```
+
+## Rate Limits
+
+If you are making a bot with sudden high traffic, e.g., a campaign bot for Black Friday, you sh

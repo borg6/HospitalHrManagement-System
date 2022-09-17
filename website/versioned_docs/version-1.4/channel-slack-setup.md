@@ -171,3 +171,52 @@ npm run dev
 When you run bottender in development mode, Bottender automatically run up a ngrok client, and then you can get the information of webhook URL from the console like this:
 
 ```
+App has started
+slack webhook URL: https://42bbf602.ngrok.io/webhooks/slack
+server is running on 5000 port...
+```
+
+Then, you have to copy your Slack webhook URL to [Slack Developer Console](https://api.slack.com/apps) → \${YourApp} → Event Subscriptions, where you can pick which bot events to subscribe.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82586277-e58a4f80-9bc9-11ea-9d72-748685aed912.png"/></p>
+
+Turn on the switch.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82586465-2a15eb00-9bca-11ea-86ad-2a198e8f3ca1.png"/></p>
+
+Fill the Request URL field with your Slack webhook URL.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82586596-65b0b500-9bca-11ea-83eb-db2a032e5205.png"/></p>
+
+You can see the word `Verified` after setting the webhook URL.
+
+Now, open the `Subscribe to bot events` block to subscribe some events.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82587023-1454f580-9bcb-11ea-89ef-896f9c5fbac9.png"/></p>
+
+Add the following events to receive the corresponding webhook requests:
+
+- message.im: A message was posted in a direct message channel.
+- message.groups: A message was posted to a private channel.
+- message.channels: A message was posted to a public channel.
+- message.mpim: A message was posted in a multiparty direct message channel.
+
+For more information about Slack Events, please refer to Slack's official doc, [API Event Types](https://api.slack.com/events)
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82587693-38650680-9bcc-11ea-8767-3ef0c7540ca9.png"/></p>
+
+Click the `Save Changes` button.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82587787-5df21000-9bcc-11ea-8718-d27bd3809053.png"/></p>
+
+Reinstall your app.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/563929/82587889-88dc6400-9bcc-11ea-86e2-ecf091f68f7a.png"/></p>
+
+Now, you can see the slack app require more permissions.
+
+Click the `Allow` button. Now you can chat with the slack bot in direct message channel or in any channel the slack bot in.
+
+The next thing you can do is [teaching your bot to echo](https://bottender.js.org/docs#teaching-your-bot-to-echo).
+
+> **Note:** If your bot doesn't respond after webhook settings, please take a closer look at bot events you subscribed to. Slack doesn't pick any bot events subscription by default. The first bot event you may subscribe to is `message.im`, which is the event whenever a user posts a direct message to your bot.

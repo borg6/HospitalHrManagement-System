@@ -45,4 +45,23 @@ module.exports = async function App(context) {
 };
 ```
 
-Whenever Bottender invokes the `App` function, the `App` function alwa
+Whenever Bottender invokes the `App` function, the `App` function always calls `context.sendText()` to reply with the "Welcome to Bottender".
+
+To make the bot send back what it receives, open the `src/index.js` file in your preferred code editor and apply the following changes to the code:
+
+```diff
+module.exports = async function App(context) {
+- await context.sendText('Welcome to Bottender');
++ if (context.event.isText) {
++   await context.sendText(context.event.text);
++ }
+});
+```
+
+After applying the changes, Bottender restarts the app automatically.
+
+![](https://user-images.githubusercontent.com/3382565/67745488-57991c80-fa5f-11e9-91d2-659b65df2c58.png)
+
+That's it! Now, you get a bot that can reply with what it receives to your console.
+
+For more information about Create Bottender App, see [the README file of Create Bottender App](https://github.com/Yoctol/bottender/tree/master/packages/create-bottender-app/README.md).

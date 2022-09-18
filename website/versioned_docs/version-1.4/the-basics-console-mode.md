@@ -31,4 +31,38 @@ To send a text message event, enter your message text into your console:
 You > MY_TEXT
 ```
 
-To send a payload event, enter your payload wit
+To send a payload event, enter your payload with the `/payload` prefix:
+
+```
+You > /payload MY_PAYLOAD
+```
+
+## Receiving the Responses
+
+Every response you receive from the bot prefixes by the Bot > indicator, for example:
+
+```
+Bot > Hi!
+```
+
+Bottender displays response types as the name and arguments of the invoked method, except text message responses:
+
+```
+Bot > sendSticker with args:
+[
+  {
+    "packageId": "11537",
+    "stickerId": "52002744"
+  }
+]
+```
+
+This helpful trick lets you test your bots with many different types of responses in the console.
+
+## Exiting Console Mode
+
+To exit Console Mode, press `ctrl + c` twice or enter the following command:
+
+```
+/exit
+```

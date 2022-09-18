@@ -92,4 +92,83 @@ async function Command(
 
 ## Fallback Routes
 
-By using the `*` as the first argument of the `text` function, you may define a route for the unhandled text message events. The route triggers whenever no other route matches the incoming text event. Meanwhile, handling unhandled text message 
+By using the `*` as the first argument of the `text` function, you may define a route for the unhandled text message events. The route triggers whenever no other route matches the incoming text event. Meanwhile, handling unhandled text message events is a chance to guide your users by sending a fallback message or a user's manual. For example:
+
+```js
+async function Unknown(context) {
+  await context.sendText('Sorry. I do not understand what you say.');
+}
+
+async function App(context) {
+  return router([
+    text(/^(hi|hello)$/i, SayHi),
+    // return the `Unknown` action when when no other route matches the incoming text message
+    text('*', Unknown),
+  ]);
+}
+```
+
+Besides all unhandled text message events, you can fallback all kind of events by using `route('*', ...)` instead:
+
+```js
+const { router, route, text } = require('bottender/router');
+
+async function App(context) {
+  return router([
+    text(/^(hi|hello)$/i, SayHi),
+    // return the `Unknown` action when no other route matches the incoming event
+    route('*', Unknown),
+  ]);
+}
+```
+
+> **Note:** The fallback route must be the last route in your router.
+
+## Payload Routes
+
+Payload events typically happen when users send payload data by clicking buttons, selecting menus, or clicking keyboards. For example, you may catch `GET_STARTED` payload that sends by clicking the button and respond with the `SayHi` action:
+
+```js
+const { router, payload } = require('bottender/router');
+
+async function App(context) {
+  return router([
+    payload('GET_STARTED', SayHi),
+    // return the `Unknown` action when no other route matches the incoming event
+    route('*', Unknown),
+  ]);
+}
+```
+
+## Custom Routes
+
+If you prefer to use your route predicate, you may use the `route` function to create your route wrapper. The `route` function takes a function that returns a boolean as the first argument:
+
+```js
+const { router, route } = require('bottender/router');
+
+function sayHiTo(name, Action) {
+  return route((context) => context.event.text === `Hi ${name}`, Action);
+}
+
+async function App(context) {
+  return router([
+    sayHiTo('Bottender', SayHi),
+    // return the `Unknown` action when no other route matches the incoming event
+    route('*', Unknown),
+  ]);
+}
+```
+
+In the above example, the custom route matches the "Hi Bottender" text messages and returns the `SayHi` action.
+
+## Platform Specific Routes
+
+Bottender includes a bunch of helpers to route within your multi-platform app. To learn more about the details of those specific routes, check out their documentation accordingly:
+
+- [Messenger Routes](channel-messenger-routing.md)
+- [WhatsApp Routes](channel-whatsapp-routing.md)
+- [LINE Routes](channel-line-routing.md)
+- [Slack Routes](channel-slack-routing.md)
+- [Telegram Routes](channel-telegram-routing.md)
+- [Viber Routes](channel-viber-routing.md)

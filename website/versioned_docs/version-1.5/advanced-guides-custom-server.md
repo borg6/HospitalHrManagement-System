@@ -166,4 +166,72 @@ app.prepare().then(() => {
     "start": "node server.js",
 ```
 
-That's al
+That's all you need to do, and you can have you bot hosting on the custom koa server!
+
+## Restify
+
+### Creating a New Project with Custom Restify Server
+
+If you want to have a clean project with the custom restify, you could start from [this example](https://github.com/Yoctol/bottender/tree/master/examples/custom-server-restify) to develop your project. There are four steps you could follow to create your project:
+
+1. Download the code from [this example](https://github.com/Yoctol/bottender/tree/master/examples/custom-server-restify).
+2. Run `yarn install` command to install dependencies.
+3. Fill the `.env` file with correct value.
+4. Run `yarn dev` to start server.
+
+If you want to have the folder structure we recommend, you could start with [create-bottender-app](getting-started.md#create-a-new-bottender-app) command and migrate it to the custom restify server by following the migration instructions below.
+
+### Migrating an Existing Project to Custom Restify Server
+
+Suppose that you already have a project built from [create-bottender-app](getting-started.md#create-a-new-bottender-app), and you want to develop some additional APIs using restify server. In this case, you need to write a custom restify server and delegate all chatbot's webhook requests to the Bottender app.
+
+To achieve that, you could follow the instructions, as shown below:
+
+1. Run `yarn add restify nodemon` or `npm install restify nodemon` command to install dependencies we need.
+2. Create a `server.js` file in the root directory of the project and copy the following code into it.
+
+```js
+const restify = require('restify');
+const { bottender } = require('bottender');
+
+const app = bottender({
+  dev: process.env.NODE_ENV !== 'production',
+});
+
+const port = Number(process.env.PORT) || 5000;
+
+const handle = app.getRequestHandler();
+
+app.prepare().then(() => {
+  const server = restify.createServer();
+
+  server.use(restify.plugins.queryParser());
+  server.use(restify.plugins.bodyParser());
+
+  server.get('/api', (req, res) => {
+    res.send({ ok: true });
+  });
+
+  server.get('*', (req, res) => {
+    return handle(req, res);
+  });
+  server.post('*', (req, res) => {
+    return handle(req, res);
+  });
+
+  server.listen(port, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${port}`);
+  });
+});
+```
+
+3. Modify `scripts` in the `package.json` to `nodemon server.js` and `node server.js` instead:
+
+```
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+```
+
+That's all you need to do, and you can have you bot hosting on the custom restify server!

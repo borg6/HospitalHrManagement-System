@@ -168,4 +168,59 @@ module.exports = {
       },
       redis: {
         port: 6379,
-        ho
+        host: '127.0.0.1',
+        password: 'auth',
+        db: 0,
+      },
+      mongo: {
+        url: 'mongodb://localhost:27017',
+        collectionName: 'sessions',
+      },
+    },
+  },
+};
+```
+
+Bottender ships with several great drivers out of the box:
+
+- `memory` - sessions are stored in memory with [LRU cache](https://github.com/isaacs/node-lru-cache) and not persistent.
+- `file` - sessions are stored in the files placed in the `.sessions` directory.
+- `redis` - sessions are stored in a [Redis](https://redis.io/) database.
+- `mongo` - sessions are stored in a [MongoDB](https://www.mongodb.com/) database.
+
+### Using Different Session Driver Based on NODE_ENV
+
+We recommend using `memory` as the session driver in development for shorter iteration. By restarting the process, you can reset the session store completely.
+
+Also, you can determine which session driver to use in development or production separately by using an environment variable:
+
+```js
+// bottender.config.js
+
+module.exports = {
+  session: {
+    driver: process.env.NODE_ENV === 'production' ? 'mongo' : 'memory',
+    // ...
+  },
+};
+```
+
+### Setting the Session Expiration Time
+
+You can specify an explicit session expiration time to reset the state. It makes a bot more human-like by forgetting (re-initializing) the state after the conversation has been inactive for a while.
+
+By default, Bottender never expires the stored sessions. To set explicit session expiration time, add the `session.expiresIn` setting in your `bottender.config.js` file:
+
+```js
+// bottender.config.js
+
+module.exports = {
+  session: {
+    driver: 'memory',
+    expiresIn: 15, // 15 minutes
+    // ...
+  },
+};
+```
+
+With the above settings, the users get a new session and [state](the-basics-session.md#session-state) after 15 minutes of user inactive.

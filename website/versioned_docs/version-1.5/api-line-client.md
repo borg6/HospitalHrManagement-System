@@ -866,4 +866,56 @@ For a list of stickers that can be sent with the Messaging API, see the [sticker
 | sticker.stickerId        | `String` | Sticker ID.                                  |
 | options                  | `Object` | Optional options.                            |
 | options.quickReply       | `Object` | Quick reply object to attach to the message. |
-| options
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushSticker(USER_ID, { packageId: '1', stickerId: '1' });
+```
+
+<br />
+
+### Push Imagemap Messages
+
+#### `pushImagemap(userId, altText, imagemap, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#imagemap-message)
+
+Sends imagemap message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82654362-309c7500-9c53-11ea-9252-c12dd84ae003.png" width="250px" />
+
+| Param                               | Type            | Description                                                                                 |
+| ----------------------------------- | --------------- | ------------------------------------------------------------------------------------------- |
+| userId                              | `String`        | ID of the receiver.                                                                         |
+| altText                             | `String`        | Alternative text.                                                                           |
+| imagemap                            | `Object`        | Object contains imagemap's parameters.                                                      |
+| imagemap.baseUrl                    | `String`        | Base URL of image.                                                                          |
+| imagemap.baseSize                   | `Object`        | Base size object.                                                                           |
+| imagemap.baseSize.width             | `Number`        | Width of base image.                                                                        |
+| imagemap.baseSize.height            | `Number`        | Height of base image.                                                                       |
+| imagemap.video                      | `Object`        | Video object.                                                                               |
+| imagemap.video.originalContentUrl   | `String`        | URL of the video file (Max: 1000 characters).                                               |
+| imagemap.video.previewImageUrl      | `String`        | URL of the preview image (Max: 1000 characters).                                            |
+| imagemap.video.area.x               | `Number`        | Horizontal position of the video area relative to the top-left corner of the imagemap area. |
+| imagemap.video.area.y               | `Number`        | Vertical position of the video area relative to the top-left corner of the imagemap area.   |
+| imagemap.video.area.width           | `Number`        | Width of the video area.                                                                    |
+| imagemap.video.area.height          | `Number`        | Height of the video area.                                                                   |
+| imagemap.video.externalLink.linkUri | `String`        | Webpage URL. Called when the label displayed after the video is tapped.                     |
+| imagemap.video.externalLink.label   | `String`        | Label. Displayed after the video is finished.                                               |
+| imagemap.actions                    | `Array<Object>` | Action when tapped.                                                                         |
+| options                             | `Object`        | Optional options.                                                                           |
+| options.quickReply                  | `Object`        | Quick reply object to attach to the message.                                                |
+| options.quickReply.items            | `Array`         | Quick reply items.                                                                          |
+
+Example:
+
+```js
+client.pushImagemap(USER_ID, 'this is an imagemap', {
+  baseUrl: 'https://example.com/bot/images/rm001',
+  baseSize: {
+    width: 1040,
+    height: 1040,
+  },
+  actions: [
+    {
+   

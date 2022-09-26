@@ -1008,4 +1008,91 @@ Sends button template message using ID of the receiver.
 | buttonTemplate.title                | `String`        | Title of buttonTemplate.                                                                      |
 | buttonTemplate.text                 | `String`        | Message text of buttonTemplate.                                                               |
 | buttonTemplate.defaultAction        | `Object`        | Action when image is tapped; set for the entire image, title, and text area.                  |
-| buttonTemplate.actions              | `Array<Object>` | Action when tapped.                               
+| buttonTemplate.actions              | `Array<Object>` | Action when tapped.                                                                           |
+| options                             | `Object`        | Optional options.                                                                             |
+| options.quickReply                  | `Object`        | Quick reply object to attach to the message.                                                  |
+| options.quickReply.items            | `Array`         | Quick reply items.                                                                            |
+
+Example:
+
+```js
+client.pushButtonTemplate(USER_ID, 'this is a template', {
+  thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+  title: 'Menu',
+  text: 'Please select',
+  actions: [
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `pushConfirmTemplate(userId, altText, confirmTemplate, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#confirm)
+
+Sends confirm template message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82654609-9426a280-9c53-11ea-916c-d8a7f76bf119.png" width="250px" />
+
+| Param                    | Type            | Description                                   |
+| ------------------------ | --------------- | --------------------------------------------- |
+| userId                   | `String`        | ID of the receiver.                           |
+| altText                  | `String`        | Alternative text.                             |
+| confirmTemplate          | `Object`        | Object contains confirmTemplate's parameters. |
+| confirmTemplate.text     | `String`        | Message text of confirmTemplate.              |
+| confirmTemplate.actions  | `Array<Object>` | Action when tapped.                           |
+| options                  | `Object`        | Optional options.                             |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.  |
+| options.quickReply.items | `Array`         | Quick reply items.                            |
+
+Example:
+
+```js
+client.pushConfirmTemplate(USER_ID, 'this is a confirm template', {
+  text: 'Are you sure?',
+  actions: [
+    {
+      type: 'message',
+      label: 'Yes',
+      text: 'yes',
+    },
+    {
+      type: 'message',
+      label: 'No',
+      text: 'no',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `pushCarouselTemplate(userId, altText, carouselItems, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#carousel)
+
+Sends carousel template message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82654829-e071e280-9c53-11ea-9948-1142e34e73db.png" width="250px" />
+
+| Param                    | Type            | Description                                                                           |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------- |
+| userId                   | `String`        | ID of the receiver.                                                                   |
+| altText                  | `String`        | Alternative text.                                                                     |
+| carouselItems            | `Array<Object>` | Array of columns which contains object for carousel.                                  |
+| options                  | `Object`        | Object contains options.                                                              |
+| options.imageAspectRatio | `String`        | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square` |
+| options.imageSize        | `String`        | Size of the image. Specify one of the following values: `cover`, `contain`            |
+| options.quickReply       | `Object`        | Quick reply object to a

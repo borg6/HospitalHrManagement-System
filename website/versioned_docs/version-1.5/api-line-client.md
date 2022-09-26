@@ -918,4 +918,94 @@ client.pushImagemap(USER_ID, 'this is an imagemap', {
   },
   actions: [
     {
-   
+      type: 'uri',
+      linkUri: 'https://example.com/',
+      area: {
+        x: 0,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+    {
+      type: 'message',
+      text: 'hello',
+      area: {
+        x: 520,
+        y: 0,
+        width: 520,
+        height: 1040,
+      },
+    },
+  ],
+});
+```
+
+<br />
+
+### Push Template Messages
+
+#### `pushTemplate(userId, altText, template, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#template-messages)
+
+Sends template message using ID of the receiver.
+
+| Param                    | Type     | Description                                  |
+| ------------------------ | -------- | -------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                          |
+| altText                  | `String` | Alternative text.                            |
+| template                 | `Object` | Object with the contents of the template.    |
+| options                  | `Object` | Optional options.                            |
+| options.quickReply       | `Object` | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`  | Quick reply items.                           |
+
+Example:
+
+```js
+client.pushTemplate(USER_ID, 'this is a template', {
+  type: 'buttons',
+  thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+  title: 'Menu',
+  text: 'Please select',
+  actions: [
+    {
+      type: 'postback',
+      label: 'Buy',
+      data: 'action=buy&itemid=123',
+    },
+    {
+      type: 'postback',
+      label: 'Add to cart',
+      data: 'action=add&itemid=123',
+    },
+    {
+      type: 'uri',
+      label: 'View detail',
+      uri: 'http://example.com/page/123',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `pushButtonTemplate(userId, altText, buttonTemplate, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#buttons)
+
+Alias: `pushButtonsTemplate`.
+
+Sends button template message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82654518-735e4d00-9c53-11ea-9299-34eb4e3fb853.png" width="250px" />
+
+| Param                               | Type            | Description                                                                                   |
+| ----------------------------------- | --------------- | --------------------------------------------------------------------------------------------- |
+| userId                              | `String`        | ID of the receiver.                                                                           |
+| altText                             | `String`        | Alternative text.                                                                             |
+| buttonTemplate                      | `Object`        | Object contains buttonTemplate's parameters.                                                  |
+| buttonTemplate.thumbnailImageUrl    | `String`        | Image URL of buttonTemplate.                                                                  |
+| buttonTemplate.imageAspectRatio     | `String`        | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square`         |
+| buttonTemplate.imageSize            | `String`        | Size of the image. Specify one of the following values: `cover`, `contain`                    |
+| buttonTemplate.imageBackgroundColor | `String`        | Background color of image. Specify a RGB color value. The default value is `#FFFFFF` (white). |
+| buttonTemplate.title                | `String`        | Title of buttonTemplate.                                                                      |
+| buttonTemplate.text                 | `String`        | Message text of buttonTemplate.                                                               |
+| buttonTemplate.defaultAction        | `Object`        | Action when image is tapped; set for the entire image, title, and text area.                  |
+| buttonTemplate.actions              | `Array<Object>` | Action when tapped.                               

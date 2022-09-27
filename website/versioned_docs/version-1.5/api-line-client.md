@@ -1095,4 +1095,122 @@ Sends carousel template message using ID of the receiver.
 | options                  | `Object`        | Object contains options.                                                              |
 | options.imageAspectRatio | `String`        | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square` |
 | options.imageSize        | `String`        | Size of the image. Specify one of the following values: `cover`, `contain`            |
-| options.quickReply       | `Object`        | Quick reply object to a
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.                                          |
+| options.quickReply.items | `Array`         | Quick reply items.                                                                    |
+
+Example:
+
+```js
+client.pushCarouselTemplate(USER_ID, 'this is a carousel template', [
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=111',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/111',
+      },
+    ],
+  },
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item2.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=222',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=222',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    ],
+  },
+]);
+```
+
+<br />
+
+#### `pushImageCarouselTemplate(userId, altText, carouselItems, options)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#image-carousel)
+
+Sends image carousel template message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82655190-62620b80-9c54-11ea-981d-cb0ae8e2da9a.png" width="250px" />
+
+| Param                    | Type            | Description                                                |
+| ------------------------ | --------------- | ---------------------------------------------------------- |
+| userId                   | `String`        | ID of the receiver.                                        |
+| altText                  | `String`        | Alternative text.                                          |
+| carouselItems            | `Array<Object>` | Array of columns which contains object for image carousel. |
+| options                  | `Object`        | Optional options.                                          |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.               |
+| options.quickReply.items | `Array`         | Quick reply items.                                         |
+
+Example:
+
+```js
+client.pushImageCarouselTemplate(
+  USER_ID,
+  'this is an image carousel template',
+  [
+    {
+      imageUrl: 'https://example.com/bot/images/item1.jpg',
+      action: {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+    },
+    {
+      imageUrl: 'https://example.com/bot/images/item2.jpg',
+      action: {
+        type: 'message',
+        label: 'Yes',
+        text: 'yes',
+      },
+    },
+    {
+      imageUrl: 'https://example.com/bot/images/item3.jpg',
+      action: {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    },
+  ]
+);
+```
+
+<br />
+
+### Push Flex Messages
+
+#### `pushFlex(userId, altText, contents, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#flex-message)
+
+Sends flex message using ID of the receiver.
+
+<img src="https://user-images.githubusercontent.com/563929/82655544-eae0ac00-9c54-11ea-8171-6f9526405dfa.png" />
+
+| Param                    | Type     | Description                                                                                        |
+| ------------------------ | -------- | -------------------------------------------------------------------------------------------------- |
+| userId                   | `String` | ID of the receiver.                                                            

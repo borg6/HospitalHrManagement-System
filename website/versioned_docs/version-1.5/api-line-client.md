@@ -1213,4 +1213,122 @@ Sends flex message using ID of the receiver.
 
 | Param                    | Type     | Description                                                                                        |
 | ------------------------ | -------- | -------------------------------------------------------------------------------------------------- |
-| userId                   | `String` | ID of the receiver.                                                            
+| userId                   | `String` | ID of the receiver.                                                                                |
+| altText                  | `String` | Alternative text.                                                                                  |
+| contents                 | `Object` | Flex Message [container](https://developers.line.me/en/mreference/essaging-api/#container) object. |
+| options                  | `Object` | Optional options.                                                                                  |
+| options.quickReply       | `Object` | Quick reply object to attach to the message.                                                       |
+| options.quickReply.items | `Array`  | Quick reply items.                                                                                 |
+
+Example:
+
+```js
+client.pushFlex(USER_ID, 'this is a flex', {
+  type: 'bubble',
+  header: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Header text',
+      },
+    ],
+  },
+  hero: {
+    type: 'image',
+    url: 'https://example.com/flex/images/image.jpg',
+  },
+  body: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Body text',
+      },
+    ],
+  },
+  footer: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Footer text',
+      },
+    ],
+  },
+  styles: {
+    comment: 'See the example of a bubble style object',
+  },
+});
+```
+
+<br />
+
+<a id="multicast-api" />
+
+### Multicast API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#send-multicast-messages)
+
+Sends messages to multiple users at any time.
+
+#### `multicast(userIds, messages)`
+
+Sends messages to multiple users.
+
+| Param    | Type            | Description                                                             |
+| -------- | --------------- | ----------------------------------------------------------------------- |
+| userIds  | `Array<String>` | IDs of the receivers.                                                   |
+| messages | `Array<Object>` | Array of objects which contains the contents of the message to be sent. |
+
+Example:
+
+```js
+client.multicast(
+  [USER_ID],
+  [
+    {
+      type: 'text',
+      text: 'Hello!',
+    },
+  ]
+);
+```
+
+<br />
+
+#### `multicastText(userIds, text, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#text-message)
+
+Sends text message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82649893-77d33780-9c4c-11ea-9075-f11848d92850.png" width="250px" />
+
+You can include LINE original emoji in text messages using character codes. For a list of LINE emoji that can be sent in LINE chats, see the [emoji list](https://developers.line.me/media/messaging-api/emoji-list.pdf).
+
+<img src="https://user-images.githubusercontent.com/563929/82650108-cbde1c00-9c4c-11ea-8510-b2909bc93d8d.png" width="250px" />
+
+| Param                    | Type            | Description                                  |
+| ------------------------ | --------------- | -------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                        |
+| text                     | `String`        | Text of the message to be sent.              |
+| options                  | `Object`        | Optional options.                            |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message. |
+| options.quickReply.items | `Array`         | Quick reply items.                           |
+
+Example:
+
+```js
+client.multicastText([USER_ID], 'Hello!');
+```
+
+<br />
+
+#### `multicastImage(userIds, image, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#image-message)
+
+Sends image message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82650545-64749c00-9c4d-11ea-8038-0ac0dd817a02.png" width="250px" />
+<img src="https://user-images.githubusercontent.com/563929/82650588-75251200-9c4d-11ea-955d-30ba9458ffd3.png" width="250px" />
+
+| Para

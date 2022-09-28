@@ -1639,4 +1639,109 @@ Sends confirm template message to multiple users.
 | userIds                  | `Array<String>` | IDs of the receivers.                         |
 | altText                  | `String`        | Alternative text.                             |
 | confirmTemplate          | `Object`        | Object contains confirmTemplate's parameters. |
-| confirmTemplate.text 
+| confirmTemplate.text     | `String`        | Message text of confirmTemplate.              |
+| confirmTemplate.actions  | `Array<Object>` | Action when tapped.                           |
+| options                  | `Object`        | Optional options.                             |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.  |
+| options.quickReply.items | `Array`         | Quick reply items.                            |
+
+Example:
+
+```js
+client.multicastConfirmTemplate([USER_ID], 'this is a confirm template', {
+  text: 'Are you sure?',
+  actions: [
+    {
+      type: 'message',
+      label: 'Yes',
+      text: 'yes',
+    },
+    {
+      type: 'message',
+      label: 'No',
+      text: 'no',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `multicastCarouselTemplate(userIds, altText, carouselItems, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#carousel)
+
+Sends carousel template message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82651957-735c4e00-9c4f-11ea-8147-2fae91afb62e.png" width="250px" />
+
+| Param                    | Type            | Description                                                                           |
+| ------------------------ | --------------- | ------------------------------------------------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                                                                 |
+| altText                  | `String`        | Alternative text.                                                                     |
+| carouselItems            | `Array<Object>` | Array of columns which contains object for carousel.                                  |
+| options                  | `Object`        | Object contains options.                                                              |
+| options.imageAspectRatio | `String`        | Aspect ratio of the image. Specify one of the following values: `rectangle`, `square` |
+| options.imageSize        | `String`        | Size of the image. Specify one of the following values: `cover`, `contain`            |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.                                          |
+| options.quickReply.items | `Array`         | Quick reply items.                                                                    |
+
+Example:
+
+```js
+client.multicastCarouselTemplate([USER_ID], 'this is a carousel template', [
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item1.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=111',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/111',
+      },
+    ],
+  },
+  {
+    thumbnailImageUrl: 'https://example.com/bot/images/item2.jpg',
+    title: 'this is menu',
+    text: 'description',
+    actions: [
+      {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=222',
+      },
+      {
+        type: 'postback',
+        label: 'Add to cart',
+        data: 'action=add&itemid=222',
+      },
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    ],
+  },
+]);
+```
+
+<br />
+
+#### `multicastImageCarouselTemplate(userIds, altText, carouselItems, options)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#image-carousel)
+
+Sends image carousel template message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82652055-971f9400-9c4f-11ea-878a-23dcabb430dc.png" width="250px" />
+
+| Param                    | Type            | Description                                                |
+| ------------------------ | --------------- | ------------------------------

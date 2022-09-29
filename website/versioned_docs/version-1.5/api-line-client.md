@@ -1744,4 +1744,124 @@ Sends image carousel template message to multiple users.
 <img src="https://user-images.githubusercontent.com/563929/82652055-971f9400-9c4f-11ea-878a-23dcabb430dc.png" width="250px" />
 
 | Param                    | Type            | Description                                                |
-| ------------------------ | --------------- | ------------------------------
+| ------------------------ | --------------- | ---------------------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                                      |
+| altText                  | `String`        | Alternative text.                                          |
+| carouselItems            | `Array<Object>` | Array of columns which contains object for image carousel. |
+| options                  | `Object`        | Optional options.                                          |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.               |
+| options.quickReply.items | `Array`         | Quick reply items.                                         |
+
+Example:
+
+```js
+client.multicastImageCarouselTemplate(
+  [USER_ID],
+  'this is an image carousel template',
+  [
+    {
+      imageUrl: 'https://example.com/bot/images/item1.jpg',
+      action: {
+        type: 'postback',
+        label: 'Buy',
+        data: 'action=buy&itemid=111',
+      },
+    },
+    {
+      imageUrl: 'https://example.com/bot/images/item2.jpg',
+      action: {
+        type: 'message',
+        label: 'Yes',
+        text: 'yes',
+      },
+    },
+    {
+      imageUrl: 'https://example.com/bot/images/item3.jpg',
+      action: {
+        type: 'uri',
+        label: 'View detail',
+        uri: 'http://example.com/page/222',
+      },
+    },
+  ]
+);
+```
+
+<br />
+
+### Multicast Flex Messages
+
+#### `multicastFlex(userIds, altText, contents, options)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#flex-message)
+
+Sends flex message to multiple users.
+
+<img src="https://user-images.githubusercontent.com/563929/82652147-b6b6bc80-9c4f-11ea-96dc-3a1b5ca9d582.png" />
+
+| Param                    | Type            | Description                                                                                        |
+| ------------------------ | --------------- | -------------------------------------------------------------------------------------------------- |
+| userIds                  | `Array<String>` | IDs of the receivers.                                                                              |
+| altText                  | `String`        | Alternative text.                                                                                  |
+| contents                 | `Object`        | Flex Message [container](https://developers.line.me/en/mreference/essaging-api/#container) object. |
+| options                  | `Object`        | Optional options.                                                                                  |
+| options.quickReply       | `Object`        | Quick reply object to attach to the message.                                                       |
+| options.quickReply.items | `Array`         | Quick reply items.                                                                                 |
+
+Example:
+
+```js
+client.multicastFlex([USER_ID], 'this is a flex', {
+  type: 'bubble',
+  header: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Header text',
+      },
+    ],
+  },
+  hero: {
+    type: 'image',
+    url: 'https://example.com/flex/images/image.jpg',
+  },
+  body: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Body text',
+      },
+    ],
+  },
+  footer: {
+    type: 'box',
+    layout: 'vertical',
+    contents: [
+      {
+        type: 'text',
+        text: 'Footer text',
+      },
+    ],
+  },
+  styles: {
+    comment: 'See the example of a bubble style object',
+  },
+});
+```
+
+<br />
+
+<a id="quick-replies" />
+
+### Quick Replies - [Official Docs](https://developers.line.me/en/reference/messaging-api/#quick-reply)
+
+Sends message with buttons appear at the bottom of the chat screen.
+
+<img src="https://user-images.githubusercontent.com/563929/82657377-d7831000-9c57-11ea-9b22-593944a4e670.png" width="250px" />
+
+```js
+context.replyText(
+  REPLY_TOKEN,
+  'Select your favorite food cate

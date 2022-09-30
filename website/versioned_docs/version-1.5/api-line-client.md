@@ -2012,4 +2012,179 @@ client.getRoomMemberProfile(ROOM_ID, USER_ID).then((member) => {
 
 Gets the ID of the users of the members of a group that the bot is in. This includes the user IDs of users who have not added the bot as a friend or has blocked the bot.
 <br />
-This feature is only available for LINE@ Approved accounts or offic
+This feature is only available for LINE@ Approved accounts or official accounts.
+
+| Param   | Type     | Description          |
+| ------- | -------- | -------------------- |
+| groupId | `String` | ID of the group.     |
+| start   | `String` | `continuationToken`. |
+
+Example:
+
+```js
+client.getGroupMemberIds(GROUP_ID, CURSOR).then((res) => {
+  console.log(res);
+  // {
+  //   memberIds: [
+  //     'Uxxxxxxxxxxxxxx...',
+  //     'Uxxxxxxxxxxxxxx...',
+  //     'Uxxxxxxxxxxxxxx...'
+  //   ],
+  //   next: 'jxEWCEEP...'
+  // }
+});
+```
+
+<br />
+
+#### `getAllGroupMemberIds(groupId)`
+
+Recursively gets the ID of the users of the members of a group that the bot is in using cursors.
+<br />
+This feature is only available for LINE@ Approved accounts or official accounts.
+
+| Param   | Type     | Description      |
+| ------- | -------- | ---------------- |
+| groupId | `String` | ID of the group. |
+
+Example:
+
+```js
+client.getAllGroupMemberIds(GROUP_ID).then((ids) => {
+  console.log(ids);
+  // [
+  //   'Uxxxxxxxxxxxxxx..1',
+  //   'Uxxxxxxxxxxxxxx..2',
+  //   'Uxxxxxxxxxxxxxx..3',
+  //   'Uxxxxxxxxxxxxxx..4',
+  //   'Uxxxxxxxxxxxxxx..5',
+  //   'Uxxxxxxxxxxxxxx..6',
+  // ]
+});
+```
+
+<br />
+
+#### `getRoomMemberIds(roomId, start)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#get-room-member-user-ids)
+
+Gets the ID of the users of the members of a room that the bot is in. This includes the user IDs of users who have not added the bot as a friend or has blocked the bot.
+<br />
+This feature is only available for LINE@ Approved accounts or official accounts.
+
+| Param  | Type     | Description          |
+| ------ | -------- | -------------------- |
+| roomId | `String` | ID of the room.      |
+| start  | `String` | `continuationToken`. |
+
+Example:
+
+```js
+client.getRoomMemberIds(ROOM_ID, CURSOR).then((res) => {
+  console.log(res);
+  // {
+  //   memberIds: [
+  //     'Uxxxxxxxxxxxxxx...',
+  //     'Uxxxxxxxxxxxxxx...',
+  //     'Uxxxxxxxxxxxxxx...'
+  //   ],
+  //   next: 'jxEWCEEP...'
+  // }
+});
+```
+
+<br />
+
+#### `getAllRoomMemberIds(roomId)`
+
+Recursively gets the ID of the users of the members of a room that the bot is in using cursors.
+<br />
+This feature is only available for LINE@ Approved accounts or official accounts.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| roomId | `String` | ID of the room. |
+
+Example:
+
+```js
+client.getAllRoomMemberIds(ROOM_ID).then((ids) => {
+  console.log(ids);
+  // [
+  //   'Uxxxxxxxxxxxxxx..1',
+  //   'Uxxxxxxxxxxxxxx..2',
+  //   'Uxxxxxxxxxxxxxx..3',
+  //   'Uxxxxxxxxxxxxxx..4',
+  //   'Uxxxxxxxxxxxxxx..5',
+  //   'Uxxxxxxxxxxxxxx..6',
+  // ]
+});
+```
+
+<br />
+
+<a id="leave-api" />
+
+### Leave API - [Official Docs](https://developers.line.me/en/messaging-api/group-chats/#leaving-a-group-or-room)
+
+#### `leaveGroup(groupId)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#leave-group)
+
+Leave a group.
+
+| Param   | Type     | Description      |
+| ------- | -------- | ---------------- |
+| groupId | `String` | ID of the group. |
+
+Example:
+
+```js
+client.leaveGroup(GROUP_ID);
+```
+
+<br />
+
+#### `leaveRoom(roomId)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#leave-room)
+
+Leave a room.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| roomId | `String` | ID of the room. |
+
+Example:
+
+```js
+client.leaveRoom(ROOM_ID);
+```
+
+<br />
+
+<a id="rich-menu-api" />
+
+### Rich Menu API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#rich-menu)
+
+#### `getRichMenuList()` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-rich-menu-list)
+
+Gets a list of all uploaded rich menus.
+
+Example:
+
+```js
+client.getRichMenuList().then((richMenus) => {
+  console.log(richMenus);
+  // [
+  //   {
+  //     richMenuId: 'RICH_MENU_ID',
+  //     size: {
+  //       width: 2500,
+  //       height: 1686,
+  //     },
+  //     selected: false,
+  //     name: 'Nice richmenu',
+  //     chatBarText: 'Tap here',
+  //     areas: [
+  //       {
+  //         bounds: {
+  //           x: 0,
+  //           y: 0,
+  //           width: 2500,
+  /

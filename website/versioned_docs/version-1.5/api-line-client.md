@@ -2187,4 +2187,176 @@ client.getRichMenuList().then((richMenus) => {
   //           x: 0,
   //           y: 0,
   //           width: 2500,
-  /
+  //           height: 1686,
+  //         },
+  //         action: {
+  //           type: 'postback',
+  //           data: 'action=buy&itemid=123',
+  //         },
+  //       },
+  //     ],
+  //   },
+  // ]
+});
+```
+
+<br />
+
+#### `getRichMenu(richMenuId)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-rich-menu)
+
+Gets a rich menu via a rich menu ID.
+
+| Param      | Type     | Description                  |
+| ---------- | -------- | ---------------------------- |
+| richMenuId | `String` | ID of an uploaded rich menu. |
+
+Example:
+
+```js
+client.getRichMenu(RICH_MENU_ID).then((richMenu) => {
+  console.log(richMenu);
+  // {
+  //   richMenuId: 'RICH_MENU_ID',
+  //   size: {
+  //     width: 2500,
+  //     height: 1686,
+  //   },
+  //   selected: false,
+  //   name: 'Nice richmenu',
+  //   chatBarText: 'Tap here',
+  //   areas: [
+  //     {
+  //       bounds: {
+  //         x: 0,
+  //         y: 0,
+  //         width: 2500,
+  //         height: 1686,
+  //       },
+  //       action: {
+  //         type: 'postback',
+  //         data: 'action=buy&itemid=123',
+  //       },
+  //     },
+  //   ],
+  // }
+});
+```
+
+<br />
+
+#### `createRichMenu(richMenu)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#create-rich-menu)
+
+Creates a rich menu.
+
+| Param    | Type       | Description                                                                                    |
+| -------- | ---------- | ---------------------------------------------------------------------------------------------- |
+| richMenu | `RichMenu` | A [rich menu object](https://developers.line.me/en/reference/messaging-api/#rich-menu-object). |
+
+Example:
+
+```js
+client
+  .createRichMenu({
+    size: {
+      width: 2500,
+      height: 1686,
+    },
+    selected: false,
+    name: 'Nice richmenu',
+    chatBarText: 'Tap here',
+    areas: [
+      {
+        bounds: {
+          x: 0,
+          y: 0,
+          width: 2500,
+          height: 1686,
+        },
+        action: {
+          type: 'postback',
+          data: 'action=buy&itemid=123',
+        },
+      },
+    ],
+  })
+  .then((richMenu) => {
+    console.log(richMenu);
+    // {
+    //   richMenuId: "{richMenuId}"
+    // }
+  });
+```
+
+<br />
+
+#### `deleteRichMenu(richMenuId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#delete-rich-menu)
+
+Deletes a rich menu.
+
+| Param      | Type     | Description                  |
+| ---------- | -------- | ---------------------------- |
+| richMenuId | `String` | ID of an uploaded rich menu. |
+
+Example:
+
+```js
+client.deleteRichMenu(RICH_MENU_ID);
+```
+
+<br />
+
+#### `getLinkedRichMenu(userId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#get-rich-menu-id-of-user)
+
+Gets the ID of the rich menu linked to a user.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| userId | `String` | ID of the user. |
+
+Example:
+
+```js
+client.getLinkedRichMenu(USER_ID).then((richMenu) => {
+  console.log(richMenu);
+  // {
+  //   richMenuId: "{richMenuId}"
+  // }
+});
+```
+
+<br />
+
+#### `linkRichMenu(userId, richMenuId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#link-rich-menu-to-user)
+
+Links a rich menu to a user.
+
+| Param      | Type     | Description                  |
+| ---------- | -------- | ---------------------------- |
+| userId     | `String` | ID of the user.              |
+| richMenuId | `String` | ID of an uploaded rich menu. |
+
+Example:
+
+```js
+client.linkRichMenu(USER_ID, RICH_MENU_ID);
+```
+
+<br />
+
+#### `unlinkRichMenu(userId)` - [Official Docs](https://developers.line.me/en/reference/messaging-api/#unlink-rich-menu-from-user)
+
+Unlinks a rich menu from a user.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| userId | `String` | ID of the user. |
+
+Example:
+
+```js
+client.unlinkRichMenu(USER_ID);
+```
+
+<br />
+
+#### `downloadRichMenuImage(richMenuId)` - [Official Docs](https://developers.line.me/en/mref

@@ -1864,4 +1864,152 @@ Sends message with buttons appear at the bottom of the chat screen.
 ```js
 context.replyText(
   REPLY_TOKEN,
-  'Select your favorite food cate
+  'Select your favorite food category or send me your location!',
+  {
+    quickReply: {
+      items: [
+        {
+          type: 'action',
+          imageUrl: 'https://example.com/sushi.png',
+          action: {
+            type: 'message',
+            label: 'Sushi',
+            text: 'Sushi',
+          },
+        },
+        {
+          type: 'action',
+          imageUrl: 'https://example.com/tempura.png',
+          action: {
+            type: 'message',
+            label: 'Tempura',
+            text: 'Tempura',
+          },
+        },
+        {
+          type: 'action',
+          action: {
+            type: 'location',
+            label: 'Send location',
+          },
+        },
+      ],
+    },
+  }
+);
+```
+
+<br />
+
+<a id="content-api" />
+
+### Content API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-content)
+
+#### `getMessageContent(messageId)`
+
+Retrieves image, video, and audio data sent in specified message.
+
+| Param     | Type     | Description |
+| --------- | -------- | ----------- |
+| messageId | `String` | Message ID. |
+
+Example:
+
+```js
+client.getMessageContent(MESSAGE_ID).then((buffer) => {
+  console.log(buffer);
+  // <Buffer 61 61 73 64 ...>
+});
+```
+
+<br />
+
+<a id="profile-api" />
+
+### Profile API - [Official Docs](https://developers.line.me/en/reference/messaging-api/#get-profile)
+
+#### `getUserProfile(userId)`
+
+Gets user profile information.
+
+| Param  | Type     | Description     |
+| ------ | -------- | --------------- |
+| userId | `String` | ID of the user. |
+
+Example:
+
+```js
+client.getUserProfile(USER_ID).then((profile) => {
+  console.log(profile);
+  // {
+  //   displayName: 'LINE taro',
+  //   userId: USER_ID,
+  //   pictureUrl: 'http://obs.line-apps.com/...',
+  //   statusMessage: 'Hello, LINE!',
+  // }
+});
+```
+
+<br />
+
+<a id="grouproom-member-profile-api" />
+
+### Group/Room Member Profile API - [Official Docs](https://developers.line.me/en/messaging-api/group-chats/#getting-a-user-profile-of-a-member-of-a-group-or-room)
+
+#### `getGroupMemberProfile(groupId, userId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#get-group-member-profile)
+
+Gets the user profile of a member of a group that the bot is in. This includes the user IDs of users who has not added the bot as a friend or has blocked the bot.
+
+| Param   | Type     | Description      |
+| ------- | -------- | ---------------- |
+| groupId | `String` | ID of the group. |
+| userId  | `String` | ID of the user.  |
+
+Example:
+
+```js
+client.getGroupMemberProfile(GROUP_ID, USER_ID).then((member) => {
+  console.log(member);
+  // {
+  //   "displayName":"LINE taro",
+  //   "userId":"Uxxxxxxxxxxxxxx...",
+  //   "pictureUrl":"http://obs.line-apps.com/..."
+  // }
+});
+```
+
+<br />
+
+#### `getRoomMemberProfile(roomId, userId)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#get-room-member-profile)
+
+Gets the user profile of a member of a room that the bot is in. This includes the user IDs of users who has not added the bot as a friend or has blocked the bot.
+
+| Param  | Type     | Description      |
+| ------ | -------- | ---------------- |
+| roomId | `String` | ID of the group. |
+| userId | `String` | ID of the user.  |
+
+Example:
+
+```js
+client.getRoomMemberProfile(ROOM_ID, USER_ID).then((member) => {
+  console.log(member);
+  // {
+  //   "displayName":"LINE taro",
+  //   "userId":"Uxxxxxxxxxxxxxx...",
+  //   "pictureUrl":"http://obs.line-apps.com/..."
+  // }
+});
+```
+
+<br />
+
+<a id="grouproom-member-ids-api" />
+
+### Group/Room Member IDs API - [Official Docs](https://developers.line.me/en/messaging-api/group-chats/#getting-user-ids-of-the-members-of-a-group-or-room)
+
+#### `getGroupMemberIds(groupId, start)` - [Official Docs](https://developers.line.me/en/mreference/essaging-api/#get-group-member-user-ids)
+
+Gets the ID of the users of the members of a group that the bot is in. This includes the user IDs of users who have not added the bot as a friend or has blocked the bot.
+<br />
+This feature is only available for LINE@ Approved accounts or offic

@@ -171,4 +171,59 @@ client.sendText(USER_ID, 'Hello!', { tag: 'CONFIRMED_EVENT_UPDATE' });
 
 #### `sendAttachment(userId, attachment [, options])`
 
-Send attachment messages to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/referen
+Send attachment messages to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param            | Type                              | Description                                                                                                                                                                                                                       |
+| ---------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId           | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                 |
+| attachment       | `Object`                          | [attachment](https://developers.facebook.com/docs/messenger-platform/reference/send-api#attachment) object.                                                                                                                       |
+| options          | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+| options.filename | `String`                          | Required when upload from buffer.                                                                                                                                                                                                 |
+
+Example:
+
+```js
+client.sendAttachment(USER_ID, {
+  type: 'image',
+  payload: {
+    url: 'https://example.com/pic.png',
+  },
+});
+```
+
+<br />
+
+#### `sendAudio(userId, audio [, options])`
+
+Send sounds to specified user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param            | Type                                                                         | Description                                                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId           | <code>String &#124; Object</code>                                            | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| audio            | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The audio to be sent.                                                                                                                             |
+| options          | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+| options.filename | `String`                                                                     | Required when upload from buffer.                                                                                                                 |
+
+Example:
+
+- Send audio using a URL string:
+
+```js
+client.sendAudio(USER_ID, 'https://example.com/audio.mp3');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+client.sendAudio(USER_ID, { attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+client.sendAudio(USER_ID, fs.createReadStream('audio.mp3'));
+```
+
+- Use `Buffer` to send

@@ -429,4 +429,97 @@ Send generic message templates to specified user using the [Send API](https://de
 
 | Param    | Type                              | Description                                                                                                                                                                                                                                       |
 | -------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| userId   | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://
+| userId   | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object.                                                                                                 |
+| elements | `Array<Object>`                   | Array of [element](https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic#element). Data for each bubble in message.                                                                                              |
+| options  | `Object`                          | Other optional parameters, such as `imageAspectRatio`, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) and [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+client.sendGenericTemplate(
+  USER_ID,
+  [
+    {
+      title: "Welcome to Peter's Hats",
+      imageUrl: 'https://petersfancybrownhats.com/company_image.png',
+      subtitle: "We've got the right hat for everyone.",
+      defaultAction: {
+        type: 'web_url',
+        url: 'https://peterssendreceiveapp.ngrok.io/view?item=103',
+        messengerExtensions: true,
+        webviewHeightRatio: 'tall',
+        fallbackUrl: 'https://peterssendreceiveapp.ngrok.io/',
+      },
+      buttons: [
+        {
+          type: 'postback',
+          title: 'Start Chatting',
+          payload: 'DEVELOPER_DEFINED_PAYLOAD',
+        },
+      ],
+    },
+  ],
+  { imageAspectRatio: 'square' }
+);
+```
+
+Adding a [tag](https://developers.facebook.com/docs/messenger-platform/message-tags) to a message allows you to send it outside the 24+1 window, for a limited number of use cases, per [Messenger Platform policy](https://developers.facebook.com/docs/messenger-platform/policy-overview).
+
+Example:
+
+```js
+client.sendGenericTemplate(
+  USER_ID,
+  [
+    {
+      // ...
+    },
+  ],
+  { tag: 'CONFIRMED_EVENT_UPDATE' }
+);
+```
+
+Available tags:
+
+- `CONFIRMED_EVENT_UPDATE`
+- `POST_PURCHASE_UPDATE`
+- `ACCOUNT_UPDATE`
+- `HUMAN_AGENT` (Closed BETA)
+
+<br />
+
+#### `sendMediaTemplate(userId, elements [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/template/media)
+
+Send media message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410836-64249ada-27dc-11e8-8dc4-5a155916961a.png" alt="sendMediaTemplate" width="250" />
+
+| Param    | Type                              | Description                                                                                                                                       |
+| -------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId   | <code>String &#124; Object</code> | Page-scoped user ID of the recipient or [recipient](https://developers.facebook.com/docs/messenger-platform/send-api-reference#recipient) object. |
+| elements | `Array<Object>`                   | Array of [element](https://developers.facebook.com/docs/messenger-platform/reference/template/media#payload). Only one element is allowed.        |
+| options  | `Object`                          | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+```js
+client.sendMediaTemplate(USER_ID, [
+  {
+    mediaType: 'image',
+    attachmentId: '1854626884821032',
+    buttons: [
+      {
+        type: 'web_url',
+        url: 'https://en.wikipedia.org/wiki/Rickrolling',
+        title: 'View Website',
+      },
+    ],
+  },
+]);
+```
+
+<br />
+
+#### `sendReceiptTemplate(userId, receipt [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/receipt-template)
+
+Send receipt message templates to specified user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request)

@@ -1201,4 +1201,163 @@ Or using read stream:
 ```js
 const fs = require('fs');
 
-client.uploadVideo(fs.createReadStr
+client.uploadVideo(fs.createReadStream('video.mp4'), { isReusable: true });
+```
+
+Or using buffer:
+
+```js
+client.uploadVideo(buffer, {
+  isReusable: true,
+  filename: 'video.mp4',
+});
+```
+
+<br />
+
+#### `uploadFile(file, options)`
+
+Upload file attachment using URL address, buffer, or stream.
+
+| Param   | Type                                                | Description                |
+| ------- | --------------------------------------------------- | -------------------------- |
+| file    | <code>String &#124; Buffer &#124; ReadStream</code> | The file to be uploaded.   |
+| options | `Object`                                            | Other optional parameters. |
+
+Example:
+
+```js
+client.uploadFile('http://www.example.com/file.pdf', { isReusable: true });
+```
+
+Or using read stream:
+
+```js
+const fs = require('fs');
+
+client.uploadFile(fs.createReadStream('file.pdf'), { isReusable: true });
+```
+
+Or using buffer:
+
+```js
+client.uploadFile(buffer, {
+  isReusable: true,
+  filename: 'file.pdf',
+});
+```
+
+<br />
+
+<a id="message-batching" />
+
+### Message Batching - [Official Docs](https://developers.facebook.com/docs/graph-api/making-multiple-requests)
+
+#### `sendBatch(requests)`
+
+Sends multiple requests in one batch.
+
+| Param    | Type            | Description               |
+| -------- | --------------- | ------------------------- |
+| requests | `Array<Object>` | Subrequests in the batch. |
+
+Example
+
+```js
+const { MessengerBatch } = require('messaging-api-messenger');
+
+client.sendBatch([
+  MessengerBatch.sendText(USER_ID, '1'),
+  MessengerBatch.sendText(USER_ID, '2'),
+  MessengerBatch.sendText(USER_ID, '3'),
+  MessengerBatch.sendText(USER_ID, '4'),
+  MessengerBatch.sendText(USER_ID, '5'),
+]);
+```
+
+There are a bunch of factory methods can be used to create batch messages:
+
+- `MessengerBatch.sendRequest`
+- `MessengerBatch.sendMessage`
+- `MessengerBatch.sendText`
+- `MessengerBatch.sendAttachment`
+- `MessengerBatch.sendAudio`
+- `MessengerBatch.sendImage`
+- `MessengerBatch.sendVideo`
+- `MessengerBatch.sendFile`
+- `MessengerBatch.sendTemplate`
+- `MessengerBatch.sendButtonTemplate`
+- `MessengerBatch.sendGenericTemplate`
+- `MessengerBatch.sendListTemplate`
+- `MessengerBatch.sendOpenGraphTemplate`
+- `MessengerBatch.sendReceiptTemplate`
+- `MessengerBatch.sendMediaTemplate`
+- `MessengerBatch.sendAirlineBoardingPassTemplate`
+- `MessengerBatch.sendAirlineCheckinTemplate`
+- `MessengerBatch.sendAirlineItineraryTemplate`
+- `MessengerBatch.sendAirlineUpdateTemplate`
+- `MessengerBatch.sendSenderAction`
+- `MessengerBatch.typingOn`
+- `MessengerBatch.typingOff`
+- `MessengerBatch.markSeen`
+- `MessengerBatch.getUserProfile`
+- `MessengerBatch.passThreadControl`
+- `MessengerBatch.passThreadControlToPageInbox`
+- `MessengerBatch.takeThreadControl`
+- `MessengerBatch.requestThreadControl`
+- `MessengerBatch.associateLabel`
+- `MessengerBatch.dissociateLabel`
+- `MessengerBatch.getAssociatedLabels`
+
+Those methods exactly have same argument signature with client methods.
+
+<br />
+
+<a id="custom-labels" />
+
+### Custom Labels - [Official Docs](https://developers.facebook.com/docs/messenger-platform/identity/custom-labels)
+
+#### `createLabel(name)`
+
+Creating a Label.
+
+| Param | Type     | Description               |
+| ----- | -------- | ------------------------- |
+| name  | `String` | name of the custom label. |
+
+Example:
+
+```js
+client.createLabel('awesome').then((label) => {
+  console.log(label);
+  // {
+  //   id: 1712444532121303
+  // }
+});
+```
+
+<br />
+
+#### `associateLabel(userId, labelId)`
+
+Associating a Label to a PSID.
+
+| Param   | Type     | Description                           |
+| ------- | -------- | ------------------------------------- |
+| userId  | `String` | Page-scoped user ID of the recipient. |
+| labelId | `String` | ID of the custom label.               |
+
+Example:
+
+```js
+client.associateLabel(USER_ID, LABEL_ID);
+```
+
+<br />
+
+#### `dissociateLabel(userId, labelId)`
+
+Removing a Label From a PSID.
+
+| Param   | Type     | Description                           |
+| ------- | -------- 

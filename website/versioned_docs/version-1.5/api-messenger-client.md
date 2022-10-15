@@ -1360,4 +1360,156 @@ client.associateLabel(USER_ID, LABEL_ID);
 Removing a Label From a PSID.
 
 | Param   | Type     | Description                           |
-| ------- | -------- 
+| ------- | -------- | ------------------------------------- |
+| userId  | `String` | Page-scoped user ID of the recipient. |
+| labelId | `String` | ID of the custom label.               |
+
+Example:
+
+```js
+client.dissociateLabel(USER_ID, LABEL_ID);
+```
+
+<br />
+
+#### `getAssociatedLabels(userId)`
+
+Retrieving Labels Associated with a PSID.
+
+| Param  | Type     | Description                           |
+| ------ | -------- | ------------------------------------- |
+| userId | `String` | Page-scoped user ID of the recipient. |
+
+Example:
+
+```js
+client.getAssociatedLabels(USER_ID).then((result) => {
+  console.log(result);
+  // {
+  //   data: [
+  //     {
+  //       name: 'myLabel',
+  //       id: '1001200005003',
+  //     },
+  //     {
+  //       name: 'myOtherLabel',
+  //       id: '1001200005002',
+  //     },
+  //   ],
+  //   paging: {
+  //     cursors: {
+  //       before:
+  //         'QVFIUmx1WTBpMGpJWXprYzVYaVhabW55dVpycko4U2xURGE5ODNtNFZAPal94a1hTUnNVMUtoMVVoTzlzSDktUkMtQkUzWEFLSXlMS3ZALYUw3TURLelZAPOGVR',
+  //       after:
+  //         'QVFIUmItNkpTbjVzakxFWGRydzdaVUFNNnNPaUl0SmwzVHN5ZAWZAEQ3lZANDAzTXFIM0NHbHdYSkQ5OG1GaEozdjkzRmxpUFhxTDl4ZAlBibnE4LWt1eGlTa3Bn',
+  //     },
+  //   },
+  // }
+});
+```
+
+<br />
+
+#### `getLabelDetails(labelId, options)`
+
+Retrieving Label Details.
+
+| Param          | Type            | Description                     |
+| -------------- | --------------- | ------------------------------- |
+| labelId        | `String`        | ID of the custom label.         |
+| options.fields | `Array<String>` | fields to retrieve with its ID. |
+
+Example:
+
+```js
+client.getLabelDetails(LABEL_ID, { fields: ['name'] }).then((result) => {
+  console.log(result);
+  // {
+  //   id: "1001200005002",
+  //   name: "myLabel",
+  // }
+});
+```
+
+<br />
+
+#### `getLabelList()`
+
+Retrieving a List of All Labels.
+
+Example:
+
+```js
+client.getLabelList().then((result) => {
+  console.log(result);
+  // {
+  //   data: [
+  //     {
+  //       name: 'myLabel',
+  //       id: '1001200005003',
+  //     },
+  //     {
+  //       name: 'myOtherLabel',
+  //       id: '1001200005002',
+  //     },
+  //   ],
+  //   paging: {
+  //     cursors: {
+  //       before:
+  //         'QVFIUmx1WTBpMGpJWXprYzVYaVhabW55dVpycko4U2xURGE5ODNtNFZAPal94a1hTUnNVMUtoMVVoTzlzSDktUkMtQkUzWEFLSXlMS3ZALYUw3TURLelZAPOGVR',
+  //       after:
+  //         'QVFIUmItNkpTbjVzakxFWGRydzdaVUFNNnNPaUl0SmwzVHN5ZAWZAEQ3lZANDAzTXFIM0NHbHdYSkQ5OG1GaEozdjkzRmxpUFhxTDl4ZAlBibnE4LWt1eGlTa3Bn',
+  //     },
+  //   },
+  // }
+});
+```
+
+<br />
+
+#### `deleteLabel(labelId)`
+
+Deleting a Label.
+
+| Param   | Type     | Description             |
+| ------- | -------- | ----------------------- |
+| labelId | `String` | ID of the custom label. |
+
+Example:
+
+```js
+client.deleteLabel(LABEL_ID);
+```
+
+<br />
+
+<a id="user-profile-api" />
+
+### User Profile API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/user-profile)
+
+#### `getUserProfile(userId, options)`
+
+Retrieving a Person's Profile.
+
+| Param          | Type            | Description                                                                                                                                                                      |
+| -------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userId         | `String`        | Page-scoped user ID of the recipient.                                                                                                                                            |
+| options.fields | `Array<String>` | Value must be among `id`, `name`, `first_name`, `last_name`, `profile_pic`, `locale`, `timezone`, `gender`, default with `id`, `name`, `first_name`, `last_name`, `profile_pic`, |
+
+Example:
+
+```js
+client.getUserProfile(USER_ID).then((user) => {
+  console.log(user);
+  // {
+  //   id: '5566'
+  //   firstName: 'Johnathan',
+  //   lastName: 'Jackson',
+  //   profilePic: 'https://example.com/pic.png',
+  // }
+});
+```
+
+<br />
+
+<a id="messenger-profile-api" />

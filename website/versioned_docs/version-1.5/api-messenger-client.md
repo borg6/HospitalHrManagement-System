@@ -2082,4 +2082,127 @@ Takes control of a specific thread from a Secondary Receiver app.
 
 | Param    | Type     | Description                                                                           |
 | -------- | -------- | ------------------------------------------------------------------------------------- |
-| userId   | `String` | The PSID
+| userId   | `String` | The PSID of the message recipient.                                                    |
+| metadata | `String` | Metadata passed back to the secondary app in the `take_thread_control` webhook event. |
+
+Example:
+
+```js
+client.takeThreadControl(USER_ID, 'free formed text for another app');
+```
+
+<br />
+
+#### `requestThreadControl(userId, metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/handover-protocol/request-thread-control/)
+
+Requests control of a specific thread from a Primary Receiver app.
+
+| Param    | Type     | Description                                                                       |
+| -------- | -------- | --------------------------------------------------------------------------------- |
+| userId   | `String` | The PSID of the message recipient.                                                |
+| metadata | `String` | Metadata passed to the primary app in the `request_thread_control` webhook event. |
+
+Example:
+
+```js
+client.requestThreadControl(USER_ID, 'free formed text for primary app');
+```
+
+<br />
+
+#### `getThreadOwner` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/handover-protocol/get-thread-owner)
+
+Get the current thread owner.
+
+| Param  | Type     | Description                        |
+| ------ | -------- | ---------------------------------- |
+| userId | `String` | The PSID of the message recipient. |
+
+Example:
+
+```js
+client.getThreadOwner(USER_ID).then((threadOwner) => {
+  console.log(threadOwner);
+  // {
+  //   appId: '12345678910'
+  // }
+});
+```
+
+<br />
+
+#### `getSecondaryReceivers` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/secondary-receivers)
+
+Retrieves the list of apps that are Secondary Receivers for a page.
+
+Example:
+
+```js
+client.getSecondaryReceivers().then((receivers) => {
+  console.log(receivers);
+  // [
+  //   {
+  //     "id": "12345678910",
+  //     "name": "David's Composer"
+  //   },
+  //   {
+  //     "id": "23456789101",
+  //     "name": "Messenger Rocks"
+  //   }
+  // ]
+});
+```
+
+<br />
+
+<a id="page-messaging-insights-api" />
+
+### Page Messaging Insights API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/insights/page-messaging)
+
+Requirements for insights API:
+
+- Page token must have `read_insights` permission.
+- Insights are only generated for a Facebook Page that has more than `30` people that like it.
+
+#### `getInsights(metrics, options)`
+
+Retrieves the insights of your Facebook Page.
+
+| Param         | Type     | Description                                                                                                                         |
+| ------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| metrics       | `Array`  | [The metrics](https://developers.facebook.com/docs/messenger-platform/reference/messaging-insights-api/#metrics) you want to check. |
+| options       | `Object` | Optional arguments.                                                                                                                 |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for.                                                                   |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.                                                                     |
+
+Example:
+
+```js
+client
+  .getInsights(['page_messages_reported_conversations_unique'])
+  .then((counts) => {
+    console.log(counts);
+    // [
+    //   {
+    //     "name": "page_messages_reported_conversations_unique",
+    //     "period": "day",
+    //     "values": [
+    //       {
+    //         "value": "<VALUE>",
+    //         "endTime": "<UTC_TIMESTAMP>"
+    //       },
+    //       {
+    //         "value": "<VALUE>",
+    //         "endTime": "<UTC_TIMESTAMP>"
+    //       }
+    //     ]
+    //   }
+    // ]
+  });
+```
+
+<br />
+
+#### `getBlockedConversations(options)`
+
+Retrieves the number of conversations with the Page that

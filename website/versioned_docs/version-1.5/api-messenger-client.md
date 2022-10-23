@@ -2313,4 +2313,78 @@ client.getOpenConversations().then((result) => {
 
 Retrieves the number of people who have sent a message to your business, not including people who have blocked or reported your business on Messenger. (This number only includes connections made since October 2016.)
 
-| Param         | Type     | Description                              
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getTotalMessagingConnections().then((result) => {
+  console.log(result);
+  // {
+  //   name: 'page_messages_total_messaging_connections',
+  //   period: 'day',
+  //   values: [
+  //     { value: 1000, endTime: '2018-03-12T07:00:00+0000' },
+  //     { value: 1000, endTime: '2018-03-13T07:00:00+0000' },
+  //   ],
+  //   title: 'Messaging connections',
+  //   description:
+  //     'Daily: The number of people who have sent a message to your business, not including people who have blocked or reported your business on Messenger. (This number only includes connections made since October 2016.)',
+  //   id:
+  //     '1386473101668063/insights/page_messages_total_messaging_connections/day',
+  // }
+});
+```
+
+<br />
+
+#### `getNewConversations(options)`
+
+Retrieves the number of messaging conversations on Facebook Messenger that began with people who had never messaged with your business before.
+
+| Param         | Type     | Description                                                       |
+| ------------- | -------- | ----------------------------------------------------------------- |
+| options       | `Object` | Optional arguments.                                               |
+| options.since | `number` | Optional. UNIX timestamp of the start time to get the metric for. |
+| options.until | `number` | Optional. UNIX timestamp of the end time to get the metric for.   |
+
+Example:
+
+```js
+client.getNewConversations().then((result) => {
+  console.log(result);
+  // {
+  //   name: 'page_messages_new_conversations_unique',
+  //   period: 'day',
+  //   values: [
+  //     { value: 1, endTime: '2018-03-12T07:00:00+0000' },
+  //     { value: 0, endTime: '2018-03-13T07:00:00+0000' },
+  //   ],
+  //   title: 'Daily unique new conversations count',
+  //   description:
+  //     'Daily: The number of messaging conversations on Facebook Messenger that began with people who had never messaged with your business before.',
+  //   id:
+  //     '1386473101668063/insights/page_messages_new_conversations_unique/day',
+  // }
+});
+```
+
+<br />
+
+<a id="built-in-nlp-api" />
+
+### Built-in NLP API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/built-in-nlp)
+
+#### `setNLPConfigs(config)`
+
+Set values of NLP configs.
+
+| Param              | Type      | Description                                                                                                                                                                                                                                                                             |
+| ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| config             | `Object`  | Configuration of NLP.                                                                                                                                                                                                                                                                   |
+| config.nlpEnabled  | `Boolean` | Optional. Either enable NLP or disable NLP for that Page.                                                                                                                                                                                                                               |
+| config.model       | `String`  | Optional. Specifies the NLP model to use. Either one of `{CHINESE, CROATIAN, DAN

@@ -2387,4 +2387,124 @@ Set values of NLP configs.
 | ------------------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | config             | `Object`  | Configuration of NLP.                                                                                                                                                                                                                                                                   |
 | config.nlpEnabled  | `Boolean` | Optional. Either enable NLP or disable NLP for that Page.                                                                                                                                                                                                                               |
-| config.model       | `String`  | Optional. Specifies the NLP model to use. Either one of `{CHINESE, CROATIAN, DAN
+| config.model       | `String`  | Optional. Specifies the NLP model to use. Either one of `{CHINESE, CROATIAN, DANISH, DUTCH, ENGLISH, FRENCH_STANDARD, GERMAN_STANDARD, HEBREW, HUNGARIAN, IRISH, ITALIAN_STANDARD, KOREAN, NORWEGIAN_BOKMAL, POLISH, PORTUGUESE, ROMANIAN, SPANISH, SWEDISH, VIETNAMESE}`, or `CUSTOM`. |
+| config.customToken | `String`  | Optional. Access token from Wit.                                                                                                                                                                                                                                                        |
+| config.verbose     | `Boolean` | Optional. Specifies whether verbose mode if enabled, which returns extra information like the position of the detected entity in the query.                                                                                                                                             |
+| config.nBest       | `Number`  | Optional. The number of entities to return, in descending order of confidence. Minimum 1. Maximum 8. Defaults to 1.                                                                                                                                                                     |
+
+Example:
+
+```js
+client.setNLPConfigs({
+  nlpEnabled: true,
+});
+```
+
+<br />
+
+#### `enableNLP`
+
+Enabling Built-in NLP.
+
+Example:
+
+```js
+client.enableNLP();
+```
+
+<br />
+
+#### `disableNLP`
+
+Disabling Built-in NLP.
+
+Example:
+
+```js
+client.disableNLP();
+```
+
+<br />
+
+<a id="event-logging-api" />
+
+### Event Logging API - [Official Docs](https://developers.facebook.com/docs/app-events/bots-for-messenger#logging-custom-events)
+
+#### `logCustomEvents(activity)`
+
+Log custom events by using the [Application Activities Graph API](https://developers.facebook.com/docs/graph-api/reference/application/activities/) endpoint.
+
+| Param                     | Type            | Description                           |
+| ------------------------- | --------------- | ------------------------------------- |
+| activity                  | `Object`        |
+| activity.appId            | `Number`        | ID of the app.                        |
+| activity.pageId           | `String`        | ID of the page.                       |
+| activity.pageScopedUserId | `String`        | Page-scoped user ID of the recipient. |
+| activity.events           | `Array<Object>` | Custom events.                        |
+
+Example:
+
+```js
+client.logCustomEvents({
+  appId: APP_ID,
+  pageId: PAGE_ID,
+  pageScopedUserId: USER_ID,
+  events: [
+    {
+      _eventName: 'fb_mobile_purchase',
+      _valueToSum: 55.22,
+      _fbCurrency: 'USD',
+    },
+  ],
+});
+```
+
+<a id="id-matching-api" />
+
+### ID Matching API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/identity/id-matching)
+
+#### `getIdsForApps({ userId, appSecret, ...options })`
+
+Given a user ID for an app, retrieve the IDs for other apps owned by the same business
+
+| Param        | Type     | Description                   |
+| ------------ | -------- | ----------------------------- |
+| userId       | `String` | Page-scoped user ID.          |
+| appSecret    | `String` | Secret of the app.            |
+| options.app  | `String` | The app to retrieve the IDs.  |
+| options.page | `String` | The page to retrieve the IDs. |
+
+Example:
+
+```js
+client
+  .getIdsForApps({
+    userId: USER_ID,
+    appSecret: APP_SECRET,
+  })
+  .then((result) => {
+    console.log(result);
+    // {
+    //   data: [
+    //     {
+    //       id: '10152368852405295',
+    //       app: {
+    //         category: 'Business',
+    //         link: 'https://www.facebook.com/games/?app_id=1419232575008550',
+    //         name: "John's Game App",
+    //         id: '1419232575008550',
+    //       },
+    //     },
+    //     {
+    //       id: '645195294',
+    //       app: {
+    //         link: 'https://apps.facebook.com/johnsmovieappns/',
+    //         name: 'JohnsMovieApp',
+    //         namespace: 'johnsmovieappns',
+    //         id: '259773517400382',
+    //       },
+    //     },
+    //   ],
+    //   paging: {
+    //     cursors: {
+    //       before: 'M

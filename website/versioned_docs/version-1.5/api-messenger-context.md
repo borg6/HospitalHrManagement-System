@@ -52,4 +52,60 @@ Available messaging types:
 
 <br />
 
-<a id=
+<a id="message-content-types" />
+
+### Message Content Types - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages#content_types)
+
+#### `sendText(text [, options])`
+
+Send plain text messages to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param   | Type     | Description                                                                                                                                                                                                                       |
+| ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| text    | `String` | Text of the message to be sent.                                                                                                                                                                                                   |
+| options | `Object` | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+context.sendText('Hello!');
+```
+
+With `CONFIRMED_EVENT_UPDATE` tag:
+
+```js
+context.sendText('Hello!', { tag: 'CONFIRMED_EVENT_UPDATE' });
+```
+
+<br />
+
+#### `sendAttachment(attachment [, options])`
+
+Send attachment messages to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param      | Type     | Description                                                                                                                                                                                                                       |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| attachment | `Object` | [attachment](https://developers.facebook.com/docs/messenger-platform/reference/send-api#attachment) object.                                                                                                                       |
+| options    | `Object` | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+context.sendAttachment({
+  type: 'image',
+  payload: {
+    url: 'https://example.com/pic.png',
+  },
+});
+```
+
+<br />
+
+#### `sendAudio(audio [, options])`
+
+Send sounds to the user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param   | Type                                                                         | Description                                                                                                                                       |
+| ------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| audio   | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The audio to be sent.                                                                                                                             |
+| options | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging

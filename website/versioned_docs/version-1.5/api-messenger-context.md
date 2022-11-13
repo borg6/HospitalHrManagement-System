@@ -108,4 +108,102 @@ Send sounds to the user by uploading them or sharing a URL using the [Send API](
 | Param   | Type                                                                         | Description                                                                                                                                       |
 | ------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | audio   | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The audio to be sent.                                                                                                                             |
-| options | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging
+| options | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+- Send audio using URL string:
+
+```js
+context.sendAudio('https://example.com/audio.mp3');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+context.sendAudio({ attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+context.sendAudio(fs.createReadStream('audio.mp3'));
+```
+
+<br />
+
+#### `sendImage(image [, options])`
+
+Send images to the user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request). Supported formats are jpg, png and gif.
+
+| Param   | Type                                                                         | Description                                                                                                                                       |
+| ------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| image   | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The image to be sent.                                                                                                                             |
+| options | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+- Send image using URL string:
+
+```js
+context.sendImage('https://example.com/vr.jpg');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+context.sendImage({ attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+context.sendImage(fs.createReadStream('vr.jpg'));
+```
+
+<br />
+
+#### `sendVideo(video [, options])`
+
+Send videos to the user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param   | Type                                                                         | Description                                                                                                                                       |
+| ------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| video   | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The video to be sent.                                                                                                                             |
+| options | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+- Send video using URL string:
+
+```js
+context.sendVideo('https://example.com/video.mp4');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+context.sendVideo({ attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+context.sendVideo(fs.createReadStream('video.mp4'));
+```
+
+<br />
+
+#### `sendFile(file [, options])`
+
+Send files to the user by uploading them or sharing a URL using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param   | Type                                                                         | Description                                                                                                                                       |
+| ------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| f

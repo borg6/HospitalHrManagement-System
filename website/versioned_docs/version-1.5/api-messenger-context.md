@@ -206,4 +206,81 @@ Send files to the user by uploading them or sharing a URL using the [Send API](h
 
 | Param   | Type                                                                         | Description                                                                                                                                       |
 | ------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| f
+| file    | <code>String &#124; Buffer &#124; ReadStream &#124; AttachmentPayload</code> | The file to be sent.                                                                                                                              |
+| options | `Object`                                                                     | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+- Send file using URL string:
+
+```js
+context.sendFile('https://example.com/receipt.pdf');
+```
+
+- Use `AttachmentPayload` to send cached attachment:
+
+```js
+context.sendFile({ attachmentId: '55688' });
+```
+
+- Use `ReadStream` created from local file:
+
+```js
+const fs = require('fs');
+
+context.sendFile(fs.createReadStream('receipt.pdf'));
+```
+
+<br />
+
+<a id="templates" />
+
+### Templates - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/templates)
+
+#### `sendTemplate(template [, options])`
+
+Send structured message templates to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+| Param    | Type     | Description                                                                                                                                                                                                                       |
+| -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| template | `Object` | Object of the template.                                                                                                                                                                                                           |
+| options  | `Object` | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types) or [tags](https://developers.facebook.com/docs/messenger-platform/message-tags). |
+
+Example:
+
+```js
+context.sendTemplate({
+  templateType: 'button',
+  text: 'title',
+  buttons: [
+    {
+      type: 'postback',
+      title: 'Start Chatting',
+      payload: 'USER_DEFINED_PAYLOAD',
+    },
+  ],
+});
+```
+
+<br />
+
+#### `sendButtonTemplate(title, buttons [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/button-template)
+
+Send button message templates to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410664-0b80b080-27dc-11e8-8854-4408d6f32fdf.png" alt="sendButtonTemplate" width="250" />
+
+| Param   | Type       | Description                                                                                                                                                         |
+| ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title   | `String`   | Text that appears above the buttons.                                                                                                                                |
+| buttons | `Object[]` | Array of [button](https://developers.facebook.com/docs/messenger-platform/send-messages/template/button#button). Set of 1-3 buttons that appear as call-to-actions. |
+| options | `Object`   | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types).                   |
+
+Example:
+
+```js
+context.sendButtonTemplate('What do you want to do next?', [
+  {
+    type: 'web_url',
+    url: 'https://petersapparel.parseapp.com',
+    title: 'Show Websit

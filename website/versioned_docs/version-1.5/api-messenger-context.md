@@ -368,4 +368,109 @@ Send media message templates to the user using the [Send API](https://developers
 | Param    | Type       | Description                                                                                                                                       |
 | -------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | elements | `Object[]` | Array of [element](https://developers.facebook.com/docs/messenger-platform/reference/template/media#payload). Only one element is allowed.        |
-| options  | `Object`   | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types).
+| options  | `Object`   | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+```js
+context.sendMediaTemplate([
+  {
+    mediaType: 'image',
+    attachmentId: '1854626884821032',
+    buttons: [
+      {
+        type: 'web_url',
+        url: 'https://en.wikipedia.org/wiki/Rickrolling',
+        title: 'View Website',
+      },
+    ],
+  },
+]);
+```
+
+<br />
+
+#### `sendReceiptTemplate(receipt [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/receipt-template)
+
+Send receipt message templates to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410909-8b72001e-27dc-11e8-94ae-555cb4ae93c9.png" alt="sendReceiptTemplate" width="250" />
+
+| Param   | Type     | Description                                                                                                                                       |
+| ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| receipt | `Object` | [payload](https://developers.facebook.com/docs/messenger-platform/send-messages/template/receipt#payload) of receipt template.                    |
+| options | `Object` | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+```js
+context.sendReceiptTemplate({
+  recipientName: 'Stephane Crozatier',
+  orderNumber: '12345678902',
+  currency: 'USD',
+  paymentMethod: 'Visa 2345',
+  orderUrl: 'http://petersapparel.parseapp.com/order?order_id=123456',
+  timestamp: '1428444852',
+  elements: [
+    {
+      title: 'Classic White T-Shirt',
+      subtitle: '100% Soft and Luxurious Cotton',
+      quantity: 2,
+      price: 50,
+      currency: 'USD',
+      imageUrl: 'http://petersapparel.parseapp.com/img/whiteshirt.png',
+    },
+    {
+      title: 'Classic Gray T-Shirt',
+      subtitle: '100% Soft and Luxurious Cotton',
+      quantity: 1,
+      price: 25,
+      currency: 'USD',
+      imageUrl: 'http://petersapparel.parseapp.com/img/grayshirt.png',
+    },
+  ],
+  address: {
+    street1: '1 Hacker Way',
+    street2: '',
+    city: 'Menlo Park',
+    postalCode: '94025',
+    state: 'CA',
+    country: 'US',
+  },
+  summary: {
+    subtotal: 75.0,
+    shippingCost: 4.95,
+    totalTax: 6.19,
+    totalCost: 56.14,
+  },
+  adjustments: [
+    {
+      name: 'New Customer Discount',
+      amount: 20,
+    },
+    {
+      name: '$10 Off Coupon',
+      amount: 10,
+    },
+  ],
+});
+```
+
+<br />
+
+#### `sendAirlineBoardingPassTemplate(attributes [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-boardingpass-template)
+
+Send airline boarding pass message templates to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37410966-a5fb1542-27dc-11e8-9d23-e3a090b0cdeb.png" alt="sendAirlineBoardingPassTemplate" width="600" />
+
+| Param      | Type     | Description                                                                                                                                        |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| attributes | `Object` | [payload](https://developers.facebook.com/docs/messenger-platform/send-messages/template/airline-boarding-pass#payload) of boarding pass template. |
+| options    | `Object` | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types).  |
+
+Example:
+
+```js
+context.sendAirlineBoardingPassTemplate({
+  introMessage: 'You 

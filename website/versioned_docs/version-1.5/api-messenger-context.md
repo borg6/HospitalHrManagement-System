@@ -753,4 +753,142 @@ context.sendAirlineItineraryTemplate({
       productInfo: [
         {
           title: 'Lounge',
-          v
+          value: 'Complimentary lounge access',
+        },
+        {
+          title: 'Baggage',
+          value: '1 extra bag 50lbs',
+        },
+      ],
+    },
+  ],
+  priceInfo: [
+    {
+      title: 'Fuel surcharge',
+      amount: '1597',
+      currency: 'USD',
+    },
+  ],
+  basePrice: '12206',
+  tax: '200',
+  totalPrice: '14003',
+  currency: 'USD',
+});
+```
+
+<br />
+
+#### `sendAirlineFlightUpdateTemplate(attributes [, options])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-update-template)
+
+Send airline flight update message templates to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request).
+
+<img src="https://user-images.githubusercontent.com/3382565/37411064-e3005a56-27dc-11e8-8486-4fc548ad7b1a.png" alt="sendAirlineFlightUpdateTemplate" width="250" />
+
+| Param      | Type     | Description                                                                                                                                       |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| attributes | `Object` | [payload](https://developers.facebook.com/docs/messenger-platform/send-api-reference/airline-update-template#payload) of update template.         |
+| options    | `Object` | Other optional parameters. For example, [messaging types](https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types). |
+
+Example:
+
+```js
+context.sendAirlineFlightUpdateTemplate({
+  introMessage: 'Your flight is delayed',
+  updateType: 'delay',
+  locale: 'en_US',
+  pnrNumber: 'CF23G2',
+  updateFlightInfo: {
+    flightNumber: 'KL123',
+    departureAirport: {
+      airportCode: 'SFO',
+      city: 'San Francisco',
+      terminal: 'T4',
+      gate: 'G8',
+    },
+    arrivalAirport: {
+      airportCode: 'AMS',
+      city: 'Amsterdam',
+      terminal: 'T4',
+      gate: 'G8',
+    },
+    flightSchedule: {
+      boardingTime: '2015-12-26T10:30',
+      departureTime: '2015-12-26T11:30',
+      arrivalTime: '2015-12-27T07:30',
+    },
+  },
+});
+```
+
+<br />
+
+<a id="quick-replies" />
+
+### Quick Replies - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/quick-replies)
+
+<img src="https://user-images.githubusercontent.com/3382565/37411344-91c8ad54-27dd-11e8-82fc-fd9adf896301.png" alt="Quick Replies" width="750" />
+
+To send messages with quick replies to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request), pass `quickReplies` option to send message methods, for example, with `sendText`:
+
+```js
+context.sendText('Pick a color:', {
+  quickReplies: [
+    {
+      contentType: 'text',
+      title: 'Red',
+      payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED',
+    },
+  ],
+});
+```
+
+with `sendImage`:
+
+```js
+context.sendImage('https://example.com/vr.jpg', {
+  quickReplies: [
+    {
+      contentType: 'text',
+      title: 'Red',
+      payload: 'DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED',
+    },
+  ],
+});
+```
+
+It works with all of send message methods.
+
+<br />
+
+<a id="sender-actions" />
+
+### Sender Actions - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-api-reference/sender-actions)
+
+<img src="https://user-images.githubusercontent.com/3382565/37411363-9b65ecaa-27dd-11e8-8f51-7aac7fd0bd2f.png" alt="Sender Actions" width="250" />
+
+<br />
+
+#### `sendSenderAction(action)`
+
+Send sender actions to the user using the [Send API](https://developers.facebook.com/docs/messenger-platform/reference/send-api#request), to let users know you are processing their request.
+
+| Param  | Type     | Description         |
+| ------ | -------- | ------------------- |
+| action | `String` | Name of the action. |
+
+Example:
+
+```js
+context.sendSenderAction('typing_on');
+```
+
+<br />
+
+#### `markSeen()`
+
+Mark last message as read for the user.
+
+Example:
+
+```js
+context.markSeen()

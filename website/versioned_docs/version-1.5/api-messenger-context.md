@@ -891,4 +891,170 @@ Mark last message as read for the user.
 Example:
 
 ```js
-context.markSeen()
+context.markSeen();
+```
+
+<br />
+
+#### `typingOn()`
+
+Turn typing indicators on for the user.
+
+Example:
+
+```js
+context.typingOn();
+```
+
+<br />
+
+#### `typingOff()`
+
+Turn typing indicators off for the user.
+
+Example:
+
+```js
+context.typingOff();
+```
+
+<br />
+
+<a id="targeting-broadcast-messages" />
+
+### Targeting Broadcast Messages - [Official Docs](https://developers.facebook.com/docs/messenger-platform/send-messages/broadcast-messages/target-broadcasts)
+
+#### `associateLabel(labelId)`
+
+Associating a Label to the user
+
+| Param   | Type     | Description             |
+| ------- | -------- | ----------------------- |
+| labelId | `String` | ID of the custom label. |
+
+Example:
+
+```js
+context.associateLabel(LABEL_ID);
+```
+
+<br />
+
+#### `dissociateLabel(labelId)`
+
+Removing a Label from the user.
+
+| Param   | Type     | Description             |
+| ------- | -------- | ----------------------- |
+| labelId | `String` | ID of the custom label. |
+
+Example:
+
+```js
+context.dissociateLabel(LABEL_ID);
+```
+
+<br />
+
+#### `getAssociatedLabels()`
+
+Retrieving Labels Associated with the user.
+
+Example:
+
+```js
+context.getAssociatedLabels().then((result) => {
+  console.log(result);
+  // {
+  //   data: [
+  //     {
+  //       name: 'myLabel',
+  //       id: '1001200005003',
+  //     },
+  //     {
+  //       name: 'myOtherLabel',
+  //       id: '1001200005002',
+  //     },
+  //   ],
+  //   paging: {
+  //     cursors: {
+  //       before:
+  //         'QVFIUmx1WTBpMGpJWXprYzVYaVhabW55dVpycko4U2xURGE5ODNtNFZAPal94a1hTUnNVMUtoMVVoTzlzSDktUkMtQkUzWEFLSXlMS3ZALYUw3TURLelZAPOGVR',
+  //       after:
+  //         'QVFIUmItNkpTbjVzakxFWGRydzdaVUFNNnNPaUl0SmwzVHN5ZAWZAEQ3lZANDAzTXFIM0NHbHdYSkQ5OG1GaEozdjkzRmxpUFhxTDl4ZAlBibnE4LWt1eGlTa3Bn',
+  //     },
+  //   },
+  // }
+});
+```
+
+<br />
+
+<a id="user-profile-api" />
+
+### User Profile API - [Official Docs](https://developers.facebook.com/docs/messenger-platform/user-profile)
+
+#### `getUserProfile()`
+
+Retrieving profile of the user.
+
+Example:
+
+```js
+context.getUserProfile().then((user) => {
+  console.log(user);
+  // {
+  //   firstName: 'Johnathan',
+  //   lastName: 'Jackson',
+  //   profilePic: 'https://example.com/pic.png',
+  //   locale: 'en_US',
+  //   timezone: 8,
+  //   gender: 'male',
+  // }
+});
+```
+
+<br />
+
+### Handover Protocol API
+
+#### `passThreadControl(targetAppId [, metadata])` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/pass-thread-control)
+
+Passes control of the thread from your app to another app.
+
+| Param       | Type     | Description                                                                      |
+| ----------- | -------- | -------------------------------------------------------------------------------- |
+| targetAppId | `Number` | The app ID of the Secondary Receiver to pass thread control to.                  |
+| metadata    | `String` | Metadata passed to the receiving app in the `pass_thread_control` webhook event. |
+
+Example:
+
+```js
+context.passThreadControl(APP_ID);
+```
+
+<br />
+
+#### `passThreadControlToPageInbox(metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/handover-protocol/pass-thread-control#page_inbox)
+
+Passes control of the thread from your app to "Page Inbox" app.
+
+| Param    | Type     | Description                                                                      |
+| -------- | -------- | -------------------------------------------------------------------------------- |
+| metadata | `String` | Metadata passed to the receiving app in the `pass_thread_control` webhook event. |
+
+Example:
+
+```js
+context.passThreadControlToPageInbox();
+```
+
+<br />
+
+#### `takeThreadControl(metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/take-thread-control)
+
+Takes control of the thread from a Secondary Receiver app.
+
+| Param    | Type     | Description                                                                           |
+| -------- | -------- | ------------------------------------------------------------------------------------- |
+| metadata | `String` | Metadata passed back to the secondary 

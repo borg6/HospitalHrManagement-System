@@ -1057,4 +1057,28 @@ Takes control of the thread from a Secondary Receiver app.
 
 | Param    | Type     | Description                                                                           |
 | -------- | -------- | ------------------------------------------------------------------------------------- |
-| metadata | `String` | Metadata passed back to the secondary 
+| metadata | `String` | Metadata passed back to the secondary app in the `take_thread_control` webhook event. |
+
+Example:
+
+```js
+context.takeThreadControl();
+```
+
+<br />
+
+#### `requestThreadControl(metadata)` - [Official Docs](https://developers.facebook.com/docs/messenger-platform/handover-protocol/request-thread-control/)
+
+Requests control of the thread from a Primary Receiver app.
+
+| Param    | Type     | Description                                                                       |
+| -------- | -------- | --------------------------------------------------------------------------------- |
+| metadata | `String` | Metadata passed to the primary app in the `request_thread_control` webhook event. |
+
+Example:
+
+```js
+context.requestThreadControl();
+```
+
+<br />

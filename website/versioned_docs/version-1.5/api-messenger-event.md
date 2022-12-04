@@ -530,4 +530,227 @@ Example:
 ```js
 event.delivery;
 // {
-//   mids: ['mid.1458668856218:ed81099e15d3
+//   mids: ['mid.1458668856218:ed81099e15d3f4f233'],
+//   watermark: 1458668856253,
+//   seq: 37,
+// }
+```
+
+#### `isPayload`
+
+Determine if the event is a postback or quick reply which includes payload.
+
+Example:
+
+```js
+event.isPayload; // true
+```
+
+#### `payload`
+
+The payload received from postback or quick reply.
+
+Example:
+
+```js
+event.payload; // 'USER_DEFINED_PAYLOAD'
+```
+
+#### `isPolicyEnforcement`
+
+Determine if the event is a policy enforcement event.
+
+Example:
+
+```js
+event.isPolicyEnforcement; // true
+```
+
+#### `policyEnforcement`
+
+The policy enforcement object from Messenger raw event.
+
+Example:
+
+```js
+event.policyEnforcement;
+// {
+//   action: 'block',
+//   reason:
+//     'The bot violated our Platform Policies (https://developers.facebook.com/policy/#messengerplatform). Common violations include sending out excessive spammy messages or being non-functional.',
+// }
+```
+
+#### `isAppRoles`
+
+Determine if the event is an app roles event.
+
+Example:
+
+```js
+event.isAppRoles; // true
+```
+
+#### `appRoles`
+
+The app roles object from Messenger raw event.
+
+Example:
+
+```js
+event.appRoles;
+// {
+//   '123456789': ['automation'],
+// }
+```
+
+#### `isStandby`
+
+Determine if the event is a standby event.
+
+Example:
+
+```js
+event.isStandby; // true
+```
+
+#### `isPassThreadControl`
+
+Determine if the event is a pass thread control event.
+
+Example:
+
+```js
+event.isPassThreadControl; // true
+```
+
+#### `passThreadControl`
+
+The pass thread control object from Messenger raw event.
+
+Example:
+
+```js
+event.passThreadControl;
+// {
+//   metadata: 'additional content that the caller wants to set',
+//   newOwnerAppId: '123456789',
+// }
+```
+
+#### `isTakeThreadControl`
+
+Determine if the event is a take thread control event.
+
+Example:
+
+```js
+event.isTakeThreadControl; // true
+```
+
+#### `takeThreadControl`
+
+The take thread control object from Messenger raw event.
+
+Example:
+
+```js
+event.takeThreadControl;
+// {
+//   metadata: 'additional content that the caller wants to set',
+//   previousOwnerAppId: '123456789',
+// }
+```
+
+#### `isRequestThreadControl`
+
+Determine if the event is a request thread control event.
+
+Example:
+
+```js
+event.isRequestThreadControl; // true
+```
+
+#### `requestThreadControl`
+
+The take thread control object from Messenger raw event.
+
+Example:
+
+```js
+event.requestThreadControl;
+// {
+//   metadata: 'additional content that the caller wants to set',
+//   requestedOwnerAppId: '123456789',
+// }
+```
+
+#### `isReferral`
+
+Determine if the event is a referral event.
+
+Example:
+
+```js
+event.isReferral; // true
+```
+
+#### `referral`
+
+The referral object from Messenger event.
+
+Example:
+
+```js
+event.referral;
+// {
+//   ref: 'PASS_THROUGH_PARAM',
+//   source: 'SHORTLINK',
+//   type: 'OPEN_THREAD',
+// }
+```
+
+#### `ref`
+
+The ref string from Messenger event.
+
+Example:
+
+```js
+event.ref; // 'PASS_THROUGH_PARAM'
+```
+
+#### `isFromCustomerChatPlugin`
+
+Determine if the event is from customer chat plugin.
+
+Example:
+
+```js
+event.isFromCustomerChatPlugin; // true
+```
+
+#### `isBrandedCamera`
+
+Determine if the event is a branded_camera event.
+
+Example:
+
+```js
+event.isBrandedCamera; // true
+```
+
+#### `brandedCamera`
+
+The brandedCamera object from Messenger event.
+
+Example:
+
+```js
+event.brandedCamera;
+// {
+//   contentIds: ['<CAMERA-EFFECT-ID>', '<CAMERA-EFFECT-ID>'],
+//   event: 'dismiss',
+// }
+```

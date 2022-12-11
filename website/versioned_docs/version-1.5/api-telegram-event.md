@@ -236,4 +236,304 @@ event.sticker;
 
 #### `isVideo`
 
-Deter
+Determine if the event is a message event which includes video.
+
+Example:
+
+```js
+event.isVideo; // true
+```
+
+#### `video`
+
+The video object from Telegram raw event.
+
+Example:
+
+```js
+event.video;
+// {
+//   file_id: '321',
+//   width: 100,
+//   height: 100,
+//   duration: 199,
+// }
+```
+
+#### `isVoice`
+
+Determine if the event is a message event which includes voice.
+
+Example:
+
+```js
+event.isVoice; // true
+```
+
+#### `voice`
+
+The voice object from Telegram raw event.
+
+Example:
+
+```js
+event.voice;
+// {
+//   file_id: '543',
+//   duration: 299,
+// }
+```
+
+#### `isVideoNote`
+
+Determine if the event is a message event which includes video note.
+
+Example:
+
+```js
+event.isVideoNote; // true
+```
+
+#### `videoNote`
+
+The video note object from Telegram raw event.
+
+Example:
+
+```js
+event.videoNote;
+// {
+//   file_id: '654',
+//   length: 100,
+//   duration: 399,
+// }
+```
+
+#### `isContact`
+
+Determine if the event is a message event which includes contact.
+
+Example:
+
+```js
+event.isContact; // true
+```
+
+#### `contact`
+
+The contact object from Telegram raw event.
+
+Example:
+
+```js
+event.contact;
+// {
+//   phone_number: '123456789',
+//   first_name: 'first',
+// }
+```
+
+#### `isLocation`
+
+Determine if the event is a message event which includes location.
+
+Example:
+
+```js
+event.isLocation; // true
+```
+
+#### `location`
+
+The location object from Telegram raw event.
+
+Example:
+
+```js
+event.location;
+// {
+//   longitude: '111.111',
+//   latitude: '99.99',
+// }
+```
+
+#### `isVenue`
+
+Determine if the event is a message event which includes venue.
+
+Example:
+
+```js
+event.isVenue; // true
+```
+
+#### `venue`
+
+The venue object from Telegram raw event.
+
+Example:
+
+```js
+event.venue;
+// {
+//   location: {
+//     longitude: '111.111',
+//     latitude: '99.99',
+//   },
+//   title: 'title',
+//   address: 'addressssss',
+// }
+```
+
+#### `isEditedMessage`
+
+Determine if the event is an edited message event.
+
+Example:
+
+```js
+event.isEditedMessage; // true
+```
+
+#### `editedMessage`
+
+The edited message from Telegram raw event.
+
+Example:
+
+```js
+event.editedMessage;
+// {
+//   message_id: 229,
+//   from: {
+//     id: 427770117,
+//     is_bot: false,
+//     first_name: 'user_first',
+//     last_name: 'user_last',
+//     language_code: 'en',
+//   },
+//   chat: {
+//     id: 427770117,
+//     first_name: 'user_first',
+//     last_name: 'user_last',
+//     language_code: 'en',
+//   },
+//   date: 1515736358,
+//   edit_date: 1515758017,
+//   text: 'hiiiii',
+// }
+```
+
+#### `isChannelPost`
+
+Determine if the event is a channel post event.
+
+Example:
+
+```js
+event.isChannelPost; // true
+```
+
+#### `channelPost`
+
+The channel post from Telegram raw event.
+
+Example:
+
+```js
+event.channelPost;
+// {
+//   message_id: 2,
+//   chat: {
+//     id: -1001305240521,
+//     title: 'channel_12345',
+//     type: 'channel',
+//   },
+//   date: 1515760382,
+//   text: 'post~~~',
+// }
+```
+
+#### `isEditedChannelPost`
+
+Determine if the event is an edited channel post event.
+
+Example:
+
+```js
+event.isEditedChannelPost; // true
+```
+
+#### `editedChannelPost`
+
+The edited channel post from Telegram raw event.
+
+Example:
+
+```js
+event.editedChannelPost;
+// {
+//   message_id: 2,
+//   chat: {
+//     id: -1001305240521,
+//     title: 'channel_12345',
+//     type: 'channel',
+//   },
+//   date: 1515760382,
+//   edit_date: 1515760478,
+//   text: 'post~~~edited',
+// }
+```
+
+#### `isInlineQuery`
+
+Determine if the event is an inline query event.
+
+Example:
+
+```js
+event.isInlineQuery; // true
+```
+
+#### `inlineQuery`
+
+The inline query from Telegram raw event.
+
+Example:
+
+```js
+event.inlineQuery;
+// {
+//   id: '1837258670654537434',
+//   from: {
+//     id: 427770117,
+//     is_bot: false,
+//     first_name: 'user_first',
+//     last_name: 'user_last',
+//     language_code: 'en',
+//   },
+//   query: '123',
+//   offset: '',
+// }
+```
+
+#### `isChosenInlineResult`
+
+Determine if the event is a chosen inline result event.
+
+Example:
+
+```js
+event.isChosenInlineResult; // true
+```
+
+#### `chosenInlineResult`
+
+The chosen inline result from Telegram raw event.
+
+Example:
+
+```js
+event.chosenInlineResult;
+// {
+//   result_id: '28372

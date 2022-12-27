@@ -59,4 +59,101 @@ The above two examples are equivalent. However, we recommend using the first usa
 The following example shows how to reply with plain text.
 
 ```js
-async fu
+async function SendHi(context) {
+  await context.sendText('Hi!');
+}
+```
+
+For more information, please refer to LINE's official doc, [Text Message](https://developers.line.biz/en/reference/messaging-api/#text-message).
+
+### Text with LINE emoji
+
+You can include LINE's original emoji (usually involves LINE Friends) in text messages using character code. You can find the list of LINE emoji in [emoji list](https://developers.line.me/media/messaging-api/emoji-list.pdf).
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680894-82b89200-1cd4-11ea-92e8-53e222bbd12d.png"/></p>
+
+```js
+async function SendHi(context) {
+  await context.sendText(`${String.fromCodePoint(0x100084)} Hi!`);
+}
+```
+
+## Sending Rich Media Messages
+
+**Rich Media Messages** of LINE consist of stickers, images, videos, audios, locations, and imagemaps. Rich Media Messages is useful when your priority is to catch the user's attention, e.g., limited promotion. Plus, it is also handy to create an immersive experience, e.g., telling a story.
+
+### Sticker
+
+By **Stickers**, LINE creates a versatile, communicative language. Stickers make your bot expressive and engaging. To send a sticker, you need to indicate the package ID and sticker ID of the sticker.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680788-38cfac00-1cd4-11ea-81a7-880abdf1ff45.png"/></p>
+
+```js
+await context.sendSticker({
+  packageId: '1',
+  stickerId: '1',
+});
+```
+
+For more information, please refer to LINE's official doc, [Sticker Message](https://developers.line.biz/en/reference/messaging-api/#sticker-message).
+
+> **Note:** You can only send LINE's original Stickers. You can find the sticker's package ID and sticker ID in the [sticker list](https://developers.line.biz/media/messaging-api/sticker_list.pdf).
+
+### Image
+
+To send an **Image**, you need to prepare URLs of the original image and a smaller preview image. Users can see the preview image in the chat. When the user clicked the preview image, s/he can see the original image.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680782-379e7f00-1cd4-11ea-8f41-bd18c194a55b.png"/></p>
+
+If you want to set up a call to action on the image, you may refer to [Imagemaps](#imagemap).
+
+```js
+await context.sendImage({
+  originalContentUrl: 'https://example.com/image.jpg',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+For more information, please refer to LINE's official doc, [Image Message](https://developers.line.biz/en/reference/messaging-api/#image-message).
+
+> **Note:** The URLs must use HTTPS over TLS 1.2 or later.
+
+### Video
+
+To send a **Video**, you need to prepare the URL of the video file and the URL of a preview image. The user can play the video by tapping on the preview image.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680791-38cfac00-1cd4-11ea-8d1f-ea98199ae363.png"/></p>
+
+```js
+await context.sendVideo({
+  originalContentUrl: 'https://example.com/video.mp4',
+  previewImageUrl: 'https://example.com/preview.jpg',
+});
+```
+
+For more information, please refer to LINE's official doc, [Video Message](https://developers.line.biz/en/reference/messaging-api/#video-message).
+
+> **Note:** The URLs must use HTTPS over TLS 1.2 or later.
+
+### Audio
+
+To send an `Audio` file, you need to prepare the URL of the file and the duration of the audio.
+
+<p><img width="300" src="https://user-images.githubusercontent.com/662387/70680776-3705e880-1cd4-11ea-843b-782a95aaa30d.png"/></p>
+
+```js
+await context.sendAudio({
+  originalContentUrl: 'https://example.com/audio.mp3',
+  duration: 240000,
+});
+```
+
+For more information, please refer to LINE's official doc, [Audio Message](https://developers.line.biz/en/reference/messaging-api/#audio-message).
+
+> **Note:** The URLs must use HTTPS over TLS 1.2 or later.
+
+### Location
+
+To send your location information to users, you have to prepare a title, address, and latitude and longitude.
+
+<p><img width="300" src="https://user-images.github

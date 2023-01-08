@@ -594,4 +594,138 @@ const quickReply = {
 };
 ```
 
-For mor
+For more information, please refer to LINE's official doc, [URI Actions](https://developers.line.biz/en/reference/messaging-api/#uri-action).
+
+> **Note:**
+>
+> - The `altUri.desktop` property is supported only when you set URI actions in Flex Messages.
+> - For more information about the LINE URL scheme, see Using the [LINE URL Scheme](https://developers.line.biz/en/docs/line-login/using-line-url-scheme/).
+
+### Datetime Picker Quick Reply
+
+When a control associated with this action is tapped, a postback event is returned via webhook with the date and time selected by the user from the date and time selection dialog. The `Datetime Picker` action does not support time zones.
+
+There are three different modes:
+
+- date: Pick a date
+- time: Pick time
+- datetime: Pick date and time
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'datetimepicker',
+      label: 'Select date',
+      data: 'storeId=12345',
+      mode: 'datetime',
+      initial: '2017-12-25t00:00',
+      max: '2018-01-24t23:59',
+      min: '2017-12-25t00:00',
+    },
+  ],
+};
+```
+
+For more information, please refer to LINE's official doc, [Datatime Picker Actions](https://developers.line.biz/en/reference/messaging-api/#datetime-picker-action).
+
+> **Note:** The datetime picker action is only supported on versions equal to or later than LINE 7.9.0 for iOS and LINE 7.12.0 for Android.
+
+### Camera Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the camera screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'camera',
+        label: 'Camera',
+      },
+    },
+  ],
+};
+```
+
+For more information, please refer to LINE's official doc, [Camera Actions](https://developers.line.biz/en/reference/messaging-api/#camera-action).
+
+### Camera Roll Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the camera roll screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'cameraRoll',
+        label: 'Camera roll',
+      },
+    },
+  ],
+};
+```
+
+For more information, please refer to LINE's official doc, [Camera Roll Actions](https://developers.line.biz/en/reference/messaging-api/#camera-roll-action).
+
+### Location Quick Reply
+
+This action can be configured only with quick reply buttons. When a button associated with this action is tapped, the location screen in LINE is opened.
+
+```js
+const quickReply = {
+  items: [
+    {
+      type: 'action',
+      action: {
+        type: 'location',
+        label: 'Location',
+      },
+    },
+  ],
+};
+```
+
+For more information, please refer to LINE's official doc, [Location Action](https://developers.line.biz/en/reference/messaging-api/#location-action).
+
+## Sending Messages with Icon and Display Name
+
+![](https://user-images.githubusercontent.com/3382565/79414458-44faab80-7fdd-11ea-9b72-d039df1addf3.png)
+
+You can specify the icon and display name by providing the `sender` property in the message options:
+
+```js
+const sender = {
+  name: 'Cony',
+  iconUrl: 'https://line.me/conyprof',
+};
+
+await context.sendText('Hello, I am Cony!!', { sender });
+await context.sendImage(
+  {
+    originalContentUrl: 'https://example.com/image.jpg',
+    previewImageUrl: 'https://example.com/preview.jpg',
+  },
+  { sender }
+);
+```
+
+If you prefer to send messages with LINE original [message objects](https://developers.line.biz/en/reference/messaging-api/#message-objects), you can provide the `sender` property in the message object:
+
+```js
+await context.send([
+  {
+    type: 'text',
+    text: 'Hello, I am Cony!!',
+    sender: {
+      name: 'Cony',
+      iconUrl: 'https://line.me/conyprof',
+    },
+  },
+]);
+```
+
+For more info, refer to LINE's official doc, [Change icon and display name](https://developers.lin

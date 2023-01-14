@@ -728,4 +728,19 @@ await context.send([
 ]);
 ```
 
-For more info, refer to LINE's official doc, [Change icon and display name](https://developers.lin
+For more info, refer to LINE's official doc, [Change icon and display name](https://developers.line.biz/zh-hant/docs/messaging-api/icon-nickname-switch/#summary).
+
+## Rate Limits
+
+Just like many chat channels, LINE has rate limits for each endpoint. If you continue to send requests exceeding the rate limit for an extended period, your bot might stop responding. It is because LINE blocks incoming requests to your bot.
+
+You have to take care Rate Limits if you attempt to build a campaign bot with massive sudden traffic, e.g., super discount for Black Friday.
+
+### Send API
+
+For **Send API**, you have to follow the below Rate Limits:
+
+- 100,000 requests per minute
+- 1,700 requests per second
+
+For more information, please refer to LINE's API doc, [Rate Limits](https://developers.line.biz/en/reference/messaging-api/#rate-limits)

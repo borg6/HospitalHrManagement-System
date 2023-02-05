@@ -96,4 +96,70 @@ function blockTemplate1(user) {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: '*Ler Ros*\n:star::star::star::star: 2082 reviews\n I would really recommend the Yum 
+          text: '*Ler Ros*\n:star::star::star::star: 2082 reviews\n I would really recommend the Yum Koh Moo Yang - Spicy lime dressing and roasted quick marinated pork shoulder, basil leaves, chili & rice powder.',
+        },
+        accessory: {
+          type: 'image',
+          imageUrl:
+            'https://s3-media2.fl.yelpcdn.com/bphoto/DawwNigKJ2ckPeDeDM7jAg/o.jpg',
+          altText: 'alt text for image',
+        },
+      },
+      {
+        type: 'divider',
+      },
+      {
+        type: 'actions',
+        elements: [
+          {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Farmhouse',
+              emoji: true,
+            },
+            value: 'click_me_123',
+          },
+          {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Kin Khao',
+              emoji: true,
+            },
+            value: 'click_me_123',
+          },
+          {
+            type: 'button',
+            text: {
+              type: 'plain_text',
+              text: 'Ler Ros',
+              emoji: true,
+            },
+            value: 'click_me_123',
+          },
+        ],
+      },
+    ],
+  };
+}
+
+module.exports = async function App(context) {
+  const viewModel = {
+    name: 'Bottender',
+  };
+  context.postMessage(blockTemplate1(viewModel));
+};
+```
+
+## Interactivity in Blocks
+
+Interactive blocks (e.g., buttons, drop-down menus, date pickers) are part of block kits. So you have to set up a webhook URL to receive payloads. Traverse to [Slack Developer Console](https://api.slack.com/apps) → \${YourApp} → `Interactive Components` → `Interactivity` . And fill in your webhook URL.
+
+<p><img width="800" src="https://user-images.githubusercontent.com/662387/71472551-753ff380-280e-11ea-98ea-63c15b0e15bc.png"/></p>
+
+> **Note:**
+>
+> - There are two kinds of webhook that need to handle on your Slack app configuration page. The first one is in the `Event Subscriptions` tab, and the second one is in the `Interactive Components` tab.
+> - By default, the webhook URL you need to fill in `Interactive Components` is like `https://example.com/webhooks/slack`. And you can fill in the same webhook URL for `Event Subscriptions` and `Interactive Components`.
+> - If you are not familiar with `Event Subscriptions`, you may refer to another Bottender doc, [Slack Setup](./channel-slack-setup.md). You must complete the settings of `Event Subscriptions` to make your bot work.

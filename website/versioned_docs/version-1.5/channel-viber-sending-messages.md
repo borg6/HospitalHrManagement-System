@@ -181,4 +181,92 @@ await context.sendCarouselContent({
       rows: 1,
       actionType: 'reply',
       actionBody: 'https://www.google.com',
-      text: '<font color=
+      text: '<font color=#8367db>MORE DETAILS</font>',
+      textSize: 'small',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+    },
+    {
+      columns: 6,
+      Rows: 3,
+      ActionType: 'open-url',
+      ActionBody: 'https://www.google.com',
+      Image: 'https://s16.postimg.org/wi8jx20wl/image_RMsmall2.png',
+    },
+    {
+      columns: 6,
+      rows: 2,
+      text: "<font color=#323232><b>Hanes Men's Humor Graphic T-Shirt</b></font><font color=#777777><br/>Hanes</font><font color=#6fc133>$10.99</font>",
+      actionType: 'open-url',
+      actionBody: 'https://www.google.com',
+      textSize: 'medium',
+      textVAlign: 'middle',
+      textHAlign: 'left',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#ffffff>Buy</font>',
+      textSize: 'large',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+      image: 'https://s14.postimg.org/4mmt4rw1t/Button.png',
+    },
+    {
+      columns: 6,
+      rows: 1,
+      actionType: 'reply',
+      actionBody: 'https://www.google.com',
+      text: '<font color=#8367db>MORE DETAILS</font>',
+      textSize: 'small',
+      textVAlign: 'middle',
+      textHAlign: 'middle',
+    },
+  ],
+});
+```
+
+Which in turn will look like this:
+
+![](https://user-images.githubusercontent.com/3382565/31481917-5f1b43b4-aeeb-11e7-8557-e25951d69b53.jpg)
+
+For more information, please refer to Viber's official doc, [Rich Media message / Carousel content message](https://developers.viber.com/docs/api/rest-bot-api/#rich-media-message--carousel-content-message).
+
+## Sending with Keyboard
+
+Use `keyboard` option to send keyboard with the message.
+
+```js
+await context.sendText('Hello', {
+  keyboard: {
+    defaultHeight: true,
+    bgColor: '#FFFFFF',
+    buttons: [
+      {
+        columns: 6,
+        rows: 1,
+        bgColor: '#2db9b9',
+        bgMediaType: 'gif',
+        bgMedia: 'http://www.url.by/test.gif',
+        bgLoop: true,
+        actionType: 'open-url',
+        actionBody: 'www.tut.by',
+        image: 'www.tut.by/img.jpg',
+        text: 'Key text',
+        textVAlign: 'middle',
+        textHAlign: 'center',
+        textOpacity: 60,
+        textSize: 'regular',
+      },
+    ],
+  },
+});
+```
+
+Which in turn will look like this:
+
+![](https://camo.githubusercontent.com/fe2141c452f4cf0ed0f7854f51c589b15873a317/68747470733a2f2f646576656c6f706572732e76696265722e636f6d2f646f63732f696d672f6578616d706c655f6b6579626f6172642e706e67)
+
+For more information, please refer to Viber's official doc, [Keyboards](https://developers.viber.com/docs/api/rest-bot-api/#keyboards).

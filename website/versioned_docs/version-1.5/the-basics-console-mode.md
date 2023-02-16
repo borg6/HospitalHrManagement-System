@@ -45,4 +45,24 @@ Every response you receive from the bot prefixes by the Bot > indicator, for exa
 Bot > Hi!
 ```
 
-Bottender displays response types as the name and arguments of the inv
+Bottender displays response types as the name and arguments of the invoked method, except text message responses:
+
+```
+Bot > sendSticker with args:
+[
+  {
+    "packageId": "11537",
+    "stickerId": "52002744"
+  }
+]
+```
+
+This helpful trick lets you test your bots with many different types of responses in the console.
+
+## Exiting Console Mode
+
+To exit Console Mode, press `ctrl + c` twice or enter the following command:
+
+```
+/exit
+```

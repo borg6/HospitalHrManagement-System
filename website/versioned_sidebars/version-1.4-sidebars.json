@@ -11,4 +11,178 @@
         {
           "type": "doc",
           "id": "version-1.4/migrating-v1"
- 
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "The Basics",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.4/the-basics-console-mode"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/the-basics-actions"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/the-basics-routing"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/the-basics-chain"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/the-basics-session"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/the-basics-errors"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Advanced Guides",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.4/advanced-guides-custom-server"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/advanced-guides-deployment"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/advanced-guides-nlu"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/advanced-guides-multi-channel"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (Messenger)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-messenger-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-messenger-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-messenger-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-messenger-routing"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-messenger-profile"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-messenger-handover-protocol"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-messenger-persona"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-messenger-multi-page"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (WhatsApp)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-whatsapp-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-whatsapp-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-whatsapp-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-whatsapp-routing"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (LINE)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-routing"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-flex"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-rich-menu"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-liff"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-notify"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-errors"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-line-migrating-from-sdk"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (Slack)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-slack-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/channel-slack-handling-events"
+        },
+        {
+          "type": "

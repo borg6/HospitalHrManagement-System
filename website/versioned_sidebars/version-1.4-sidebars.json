@@ -1,0 +1,14 @@
+{
+  "version-1.4/docs": [
+    {
+      "type": "category",
+      "label": "Getting Started",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.4/getting-started"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.4/migrating-v1"
+ 

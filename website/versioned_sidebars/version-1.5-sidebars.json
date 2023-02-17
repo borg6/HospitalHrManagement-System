@@ -149,3 +149,228 @@
         },
         {
           "type": "doc",
+          "id": "version-1.5/channel-line-flex"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-rich-menu"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-liff"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-notify"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-errors"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-migrating-from-sdk"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (Slack)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-slack-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-slack-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-slack-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-slack-routing"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-slack-slash-command"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-slack-block-kit"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (Telegram)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-telegram-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-telegram-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-telegram-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-telegram-routing"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (Viber)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-viber-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-viber-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-viber-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-viber-routing"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "FAQ",
+      "items": []
+    }
+  ],
+  "version-1.5/api": [
+    {
+      "type": "category",
+      "label": "Core",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/api-context"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-event"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Messenger",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/api-messenger-context"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-messenger-event"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-messenger-client"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "LINE",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/api-line-context"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-line-event"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-line-client"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Slack",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/api-slack-context"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-slack-event"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-slack-client"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Telegram",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/api-telegram-context"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-telegram-event"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-telegram-client"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Viber",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/api-viber-context"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-viber-event"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-viber-client"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Console",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/api-console-context"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/api-console-event"
+        }
+      ]
+    }
+  ]
+}

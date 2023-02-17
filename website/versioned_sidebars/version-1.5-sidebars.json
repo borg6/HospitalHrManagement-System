@@ -1,0 +1,151 @@
+
+{
+  "version-1.5/docs": [
+    {
+      "type": "category",
+      "label": "Getting Started",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/getting-started"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/migrating-v1"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "The Basics",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/the-basics-console-mode"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/the-basics-actions"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/the-basics-routing"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/the-basics-chain"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/the-basics-session"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/the-basics-errors"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Advanced Guides",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/advanced-guides-custom-server"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/advanced-guides-deployment"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/advanced-guides-nlu"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/advanced-guides-multi-channel"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (Messenger)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-messenger-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-messenger-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-messenger-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-messenger-routing"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-messenger-profile"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-messenger-handover-protocol"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-messenger-persona"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-messenger-multi-page"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (WhatsApp)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-whatsapp-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-whatsapp-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-whatsapp-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-whatsapp-routing"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides (LINE)",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-setup"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-handling-events"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-sending-messages"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.5/channel-line-routing"
+        },
+        {
+          "type": "doc",
